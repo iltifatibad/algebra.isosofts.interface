@@ -354,7 +354,7 @@ const RisksAssessment = () => {
                           <div className="pl-1">Comment</div>
                         </div>
                       </th>
-                      <th className="px-4 py-3 text-left font-semibold text-blue-800 ">Residual Risk Level</th>
+                      <th className="px-4 py-3 text-left font-semibold text-blue-800 bg-gradient-to-r from-blue-50 to-blue-100">Residual Risk Level</th>
                     </tr>
                   </thead>
                   <tbody>
