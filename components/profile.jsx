@@ -318,43 +318,43 @@ const RisksAssessment = () => {
                 <table className="w-full text-sm table-fixed border-collapse border-spacing-0"> {/* border-collapse eklendi */}
                   <thead className="bg-gradient-to-r from-blue-50 to-blue-100">
                     <tr>
-                      <th className="px-0 py-3 text-left font-semibold text-blue-800 sticky left-0 bg-gradient-to-r from-blue-50 to-blue-100 z-20 w-[40px] box-border"> {/* box-border eklendi */}</th> 
-                      <th className="px-4 py-3 text-left font-semibold text-blue-800 border-r border-blue-200 sticky left-[40px] bg-gradient-to-r from-blue-50 to-blue-100 z-20 w-[40px] box-border">ID</th> {/* left-[40px] eklendi, box-border */}
-                      <th className="px-4 py-3 text-left font-semibold text-blue-800 border-r border-blue-200 w-[120px]">SWOT</th>
-                      <th className="px-4 py-3 text-left font-semibold text-blue-800 border-r border-blue-200 w-[100px]">PESTLE</th>
-                      <th className="px-4 py-3 text-left font-semibold text-blue-800 border-r border-blue-200 w-[112px]">Interested Party</th>
-                      <th className="px-4 py-3 text-left font-semibold text-blue-800 border-r border-blue-200 w-[160px]">Risk / Opportunity</th>
-                      <th className="px-4 py-3 text-left font-semibold text-blue-800 border-r border-blue-200 w-[120px]">Objective</th>
-                      <th className="px-4 py-3 text-left font-semibold text-blue-800 border-r border-blue-200 w-[100px]">KPI</th>
-                      <th className="px-4 py-3 text-left font-semibold text-blue-800 border-r border-blue-200 w-[100px]">Process</th>
-                      <th className="px-4 py-3 text-left font-semibold text-blue-800 border-r border-blue-200 w-[200px]">Existing Risk Mitigation</th>
-                      <th className="px-4 py-3 text-left font-semibold text-blue-800 border-r border-blue-200 w-64">
-                        <div className="text-center">Initial Risk</div>
+                      <th className="px-0 py-3 font-semibold text-blue-800 sticky left-0 bg-gradient-to-r from-blue-50 to-blue-100 z-20 w-[40px] box-border text-center align-middle vertical-align: middle"> {/* box-border eklendi */}</th> 
+                      <th className="px-4 py-3 font-semibold text-blue-800 border-r border-blue-200 sticky left-[40px] bg-gradient-to-r from-blue-50 to-blue-100 z-20 w-[40px] box-border text-center align-middle vertical-align: middle">ID</th> {/* left-[40px] eklendi, box-border */}
+                      <th className="px-4 py-3 font-semibold text-blue-800 border-r border-blue-200 w-[120px] text-center align-middle vertical-align: middle">SWOT</th>
+                      <th className="px-4 py-3 font-semibold text-blue-800 border-r border-blue-200 w-[100px] text-center align-middle vertical-align: middle">PESTLE</th>
+                      <th className="px-4 py-3 font-semibold text-blue-800 border-r border-blue-200 w-[112px] text-center align-middle vertical-align: middle">Interested Party</th>
+                      <th className="px-4 py-3 font-semibold text-blue-800 border-r border-blue-200 w-[160px] text-center align-middle vertical-align: middle">Risk / Opportunity</th>
+                      <th className="px-4 py-3 font-semibold text-blue-800 border-r border-blue-200 w-[120px] text-center align-middle vertical-align: middle">Objective</th>
+                      <th className="px-4 py-3 font-semibold text-blue-800 border-r border-blue-200 w-[100px] text-center align-middle vertical-align: middle">KPI</th>
+                      <th className="px-4 py-3 font-semibold text-blue-800 border-r border-blue-200 w-[100px] text-center align-middle vertical-align: middle">Process</th>
+                      <th className="px-4 py-3 font-semibold text-blue-800 border-r border-blue-200 w-[200px] text-center align-middle vertical-align: middle">Existing Risk Mitigation</th>
+                      <th className="px-4 py-3 font-semibold text-blue-800 border-r border-blue-200 w-64 text-center align-middle vertical-align: middle">
+                        <div className="text-center align-middle vertical-align: middle">Initial Risk</div>
                         <div className="grid grid-cols-3 gap-1 mt-2 text-xs">
-                          <div className="border-r border-blue-300 pr-1">Severity</div>
-                          <div className="border-r border-blue-300 px-1">Likelihood</div>
-                          <div className="pl-1">Risk Level</div>
+                          <div className="border-r border-blue-300 pr-1 text-center align-middle vertical-align: middle">Severity</div>
+                          <div className="border-r border-blue-300 px-1 text-center align-middle vertical-align: middle">Likelihood</div>
+                          <div className="pl-1 text-center align-middle vertical-align: middle">Risk Level</div>
                         </div>
                       </th>
-                      <th className="px-4 py-3 text-left font-semibold text-blue-800 border-r border-blue-200 w-80">
-                        <div className="text-center">Action Plan</div>
+                      <th className="px-4 py-3 text-left font-semibold text-blue-800 border-r border-blue-200 w-80 text-center align-middle vertical-align: middle">
+                        <div className="text-center align-middle vertical-align: middle">Action Plan</div>
                         <div className="grid grid-cols-3 gap-1 mt-2 text-xs">
-                          <div className="border-r border-blue-300 pr-1">Action</div>
-                          <div className="border-r border-blue-300 px-1">Raise Date</div>
-                          <div className="pl-1">Resources</div>
+                          <div className="border-r border-blue-300 pr-1 text-center align-middle vertical-align: middle">Action</div>
+                          <div className="border-r border-blue-300 px-1 text-center align-middle vertical-align: middle">Raise Date</div>
+                          <div className="pl-1 text-center align-middle vertical-align: middle">Resources</div>
                         </div>
                         <div className="grid grid-cols-3 gap-1 mt-1 text-xs">
-                          <div className="border-r border-blue-300 pr-1">Function</div>
-                          <div className="border-r border-blue-300 px-1">Responsible</div>
-                          <div className="pl-1">Deadline</div>
+                          <div className="border-r border-blue-300 pr-1 text-center align-middle vertical-align: middle">Function</div>
+                          <div className="border-r border-blue-300 px-1 text-center align-middle vertical-align: middle">Responsible</div>
+                          <div className="pl-1 text-center align-middle vertical-align: middle">Deadline</div>
                         </div>
                         <div className="grid grid-cols-3 gap-1 mt-1 text-xs">
-                          <div className="border-r border-blue-300 pr-1">Action Status</div>
-                          <div className="border-r border-blue-300 px-1">Verification</div>
-                          <div className="pl-1">Comment</div>
+                          <div className="border-r border-blue-300 pr-1 text-center align-middle vertical-align: middle">Action Status</div>
+                          <div className="border-r border-blue-300 px-1 text-center align-middle vertical-align: middle">Verification</div>
+                          <div className="pl-1 text-center align-middle vertical-align: middle">Comment</div>
                         </div>
                       </th>
-                      <th className="px-4 py-3 text-left font-semibold text-blue-800 ">Residual Risk Level</th>
+                    <th className="px-4 py-3 font-semibold text-blue-800 border-r border-blue-200 w-30 text-center align-middle vertical-align: middle">Residual Risk Level</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -371,39 +371,39 @@ const RisksAssessment = () => {
                         <td className={['px-4 py-3 border-r border-blue-100 sticky left-[40px] z-20 font-semibold text-blue-800 box-border', index % 2 === 0 ? 'bg-white' : 'bg-blue-50/30'].join(' ')}> {/* left-[40px] ve box-border güncellendi */}
                           {row.id}
                         </td>
-                        <td className="px-4 py-3 border-r border-blue-100">{row.swot}</td>
-                        <td className="px-4 py-3 border-r border-blue-100">{row.pestle}</td>
-                        <td className="px-4 py-3 border-r border-blue-100">{row.interestedParty}</td>
-                        <td className="px-4 py-3 border-r border-blue-100">{row.riskOpportunity}</td>
-                        <td className="px-4 py-3 border-r border-blue-100">{row.objective}</td>
-                        <td className="px-4 py-3 border-r border-blue-100">{row.kpi}</td>
-                        <td className="px-4 py-3 border-r border-blue-100">{row.process}</td>
-                        <td className="px-4 py-3 border-r border-blue-100">{row.existingRisk}</td>
-                        <td className="px-4 py-3 border-r border-blue-100">
-                          <div className="grid grid-cols-3 gap-2 text-xs">
-                            <div className="text-center">{row.initialRisk.severity}</div>
-                            <div className="text-center">{row.initialRisk.likelihood}</div>
-                            <div className="text-center">{row.initialRisk.riskLevel}</div>
+                        <td className="px-4 py-3 border-r border-blue-100 text-center align-middle vertical-align: middle">{row.swot}</td>
+                        <td className="px-4 py-3 border-r border-blue-100 text-center align-middle vertical-align: middle">{row.pestle}</td>
+                        <td className="px-4 py-3 border-r border-blue-100 text-center align-middle vertical-align: middle">{row.interestedParty}</td>
+                        <td className="px-4 py-3 border-r border-blue-100 text-center align-middle vertical-align: middle">{row.riskOpportunity}</td>
+                        <td className="px-4 py-3 border-r border-blue-100 text-center align-middle vertical-align: middle">{row.objective}</td>
+                        <td className="px-4 py-3 border-r border-blue-100 text-center align-middle vertical-align: middle">{row.kpi}</td>
+                        <td className="px-4 py-3 border-r border-blue-100 text-center align-middle vertical-align: middle">{row.process}</td>
+                        <td className="px-4 py-3 border-r border-blue-100 text-center align-middle vertical-align: middle">{row.existingRisk}</td>
+                        <td className="px-4 py-3 border-r border-blue-100 text-center align-middle vertical-align: middle">
+                          <div className="grid grid-cols-3 gap-2 text-xs text-center align-middle vertical-align: middle">
+                            <div className="text-center align-middle vertical-align: middle">{row.initialRisk.severity}</div>
+                            <div className="text-center align-middle vertical-align: middle">{row.initialRisk.likelihood}</div>
+                            <div className="text-center align-middle vertical-align: middle">{row.initialRisk.riskLevel}</div>
                           </div>
                         </td>
-                        <td className="px-4 py-3 border-r border-blue-100">
-                          <div className="grid grid-cols-3 gap-2 text-xs mb-1">
+                        <td className="px-4 py-3 border-r border-blue-100 text-center align-middle vertical-align: middle">
+                          <div className="grid grid-cols-3 gap-2 text-xs mb-1 text-center align-middle vertical-align: middle">
                             <div>{row.actionPlan.action}</div>
                             <div>{row.actionPlan.raiseDate}</div>
                             <div>{row.actionPlan.resources}</div>
                           </div>
-                          <div className="grid grid-cols-3 gap-2 text-xs mb-1">
+                          <div className="grid grid-cols-3 gap-2 text-xs mb-1 text-center align-middle vertical-align: middle">
                             <div>{row.actionPlan.function}</div>
                             <div>{row.actionPlan.responsible}</div>
                             <div>{row.actionPlan.deadline}</div>
                           </div>
-                          <div className="grid grid-cols-3 gap-2 text-xs">
+                          <div className="grid grid-cols-3 gap-2 text-xs text-center align-middle vertical-align: middle">
                             <div>{row.actionPlan.actionStatus}</div>
                             <div>{row.actionPlan.verification}</div>
                             <div>{row.actionPlan.comment}</div>
                           </div>
                         </td>
-                        <td className="px-4 py-3">{row.residualRisk}</td>
+                        <td className="px-4 py-3 border-r border-blue-100 text-center align-middle vertical-align: middle">{row.residualRisk}</td>
                       </tr>
                     ))}
                   </tbody>
