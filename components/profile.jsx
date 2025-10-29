@@ -67,6 +67,7 @@ const RisksAssessment = () => {
   });
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [isBulkDelete, setIsBulkDelete] = useState(false); // Bulk delete için yeni state
   const [deletingId, setDeletingId] = useState(null);
   const [selectedRows, setSelectedRows] = useState(new Set()); // Checkbox state'i ekle
 
@@ -162,14 +163,41 @@ const RisksAssessment = () => {
     closeModal();
   };
 
-  const confirmDelete = (id) => {
+  // Bulk delete için confirm
+  const confirmBulkDelete = () => {
+    setIsBulkDelete(true);
+    setShowDeleteModal(true);
+  };
+
+  // Single delete için confirm
+  const confirmSingleDelete = (id) => {
+    setIsBulkDelete(false);
     setDeletingId(id);
     setShowDeleteModal(true);
   };
 
-  const deleteRisk = () => {
+  // Bulk delete handler
+  const bulkDelete = () => {
+    setTableData(prev => prev.filter(row => !selectedRows.has(row.id)));
+    setSelectedRows(new Set());
+    setShowDeleteModal(false);
+    setIsBulkDelete(false);
+  };
+
+  // Single delete handler
+  const singleDelete = () => {
     setTableData(prev => prev.filter(row => row.id !== deletingId));
     setShowDeleteModal(false);
+    setIsBulkDelete(false);
+  };
+
+  // Delete modal'da çağırma
+  const handleDeleteConfirm = () => {
+    if (isBulkDelete) {
+      bulkDelete();
+    } else {
+      singleDelete();
+    }
   };
 
   const toggleArchive = (id) => {
@@ -179,12 +207,6 @@ const RisksAssessment = () => {
   // Bulk actions
   const bulkArchive = () => {
     setTableData(prev => prev.map(row => selectedRows.has(row.id) ? { ...row, archived: !row.archived } : row));
-    setSelectedRows(new Set());
-  };
-
-  const bulkDelete = () => {
-    setTableData(prev => prev.filter(row => !selectedRows.has(row.id)));
-    setShowDeleteModal(false);
     setSelectedRows(new Set());
   };
 
@@ -279,7 +301,7 @@ const RisksAssessment = () => {
                       <i className={showArchived ? 'fas fa-undo' : 'fas fa-archive'}></i>
                     </button>
                     <button
-                      onClick={() => confirmDelete(Array.from(selectedRows)[0] || 0)} // Bulk için showDeleteModal'ı uyarla
+                      onClick={selectedCount > 0 ? confirmBulkDelete : () => {}} // Bulk delete için güncellendi
                       disabled={selectedCount === 0}
                       className={[
                         '!rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-red-500 to-red-600 text-white px-2 py-1 hover:from-red-600 hover:to-red-700 transition-all duration-300 text-xs shadow-sm',
@@ -293,11 +315,11 @@ const RisksAssessment = () => {
                 </div>
               </div>
               <div className="overflow-x-auto relative min-w-full">
-                <table className="w-full text-sm table-fixed">
+                <table className="w-full text-sm table-fixed border-collapse border-spacing-0"> {/* border-collapse eklendi */}
                   <thead className="bg-gradient-to-r from-blue-50 to-blue-100">
                     <tr>
-                      <th className="px-4 py-3 text-left font-semibold text-blue-800 border-r border-blue-200 sticky left-0 bg-gradient-to-r from-blue-50 to-blue-100 z-20 w-[40px]"></th> {/* Checkbox th */}
-                      <th className="px-4 py-3 text-left font-semibold text-blue-800 border-r border-blue-200 sticky left-10 bg-gradient-to-r from-blue-50 to-blue-100 z-20 w-[40px]">ID</th> {/* ID sticky güncelle - ofset düzeltildi */}
+                      <th className="px-0 py-3 text-left font-semibold text-blue-800 sticky left-0 bg-gradient-to-r from-blue-50 to-blue-100 z-20 w-[40px] box-border"> {/* box-border eklendi */}</th> 
+                      <th className="px-4 py-3 text-left font-semibold text-blue-800 border-r border-blue-200 sticky left-[40px] bg-gradient-to-r from-blue-50 to-blue-100 z-20 w-[40px] box-border">ID</th> {/* left-[40px] eklendi, box-border */}
                       <th className="px-4 py-3 text-left font-semibold text-blue-800 border-r border-blue-200 w-[120px]">SWOT</th>
                       <th className="px-4 py-3 text-left font-semibold text-blue-800 border-r border-blue-200 w-[100px]">PESTLE</th>
                       <th className="px-4 py-3 text-left font-semibold text-blue-800 border-r border-blue-200 w-[112px]">Interested Party</th>
@@ -332,13 +354,13 @@ const RisksAssessment = () => {
                           <div className="pl-1">Comment</div>
                         </div>
                       </th>
-                      <th className="px-4 py-3 text-left font-semibold text-blue-800">Residual Risk Level</th>
+                      <th className="px-4 py-3 text-left font-semibold text-blue-800 ">Residual Risk Level</th>
                     </tr>
                   </thead>
                   <tbody>
                     {filteredTableData.map((row, index) => (
                       <tr key={row.id} className={[index % 2 === 0 ? 'bg-white' : 'bg-blue-50/30', row.archived ? 'opacity-60' : ''].join(' ')}>
-                        <td className="px-4 py-3 border-r border-blue-100 sticky left-0 z-10 bg-white">
+                        <td className="px-4 py-3 border-blue-100 sticky left-0 z-10 bg-white box-border"> {/* box-border eklendi */}
                           <input
                             type="checkbox"
                             checked={selectedRows.has(row.id)}
@@ -346,7 +368,7 @@ const RisksAssessment = () => {
                             className="rounded sticky border-gray-300 text-blue-600 focus:ring-blue-500 "
                           />
                         </td>
-                        <td className={['px-4 py-3 border-r border-blue-100 sticky left-10 z-20 font-semibold text-blue-800', index % 2 === 0 ? 'bg-white' : 'bg-blue-50/30'].join(' ')}>
+                        <td className={['px-4 py-3 border-r border-blue-100 sticky left-[40px] z-20 font-semibold text-blue-800 box-border', index % 2 === 0 ? 'bg-white' : 'bg-blue-50/30'].join(' ')}> {/* left-[40px] ve box-border güncellendi */}
                           {row.id}
                         </td>
                         <td className="px-4 py-3 border-r border-blue-100">{row.swot}</td>
@@ -618,7 +640,12 @@ const RisksAssessment = () => {
           <div className="bg-white !rounded-button shadow-xl max-w-md w-full mx-4">
             <div className="p-6">
               <h3 className="text-lg font-semibold text-gray-800 mb-4">Confirm Delete</h3>
-              <p className="text-gray-600 mb-6">Are you sure you want to delete this risk item? This action cannot be undone.</p>
+              <p className="text-gray-600 mb-6">
+                {isBulkDelete 
+                  ? `Are you sure you want to delete ${selectedCount} selected risk item(s)? This action cannot be undone.` 
+                  : 'Are you sure you want to delete this risk item? This action cannot be undone.'
+                }
+              </p>
               <div className="flex justify-end space-x-4">
                 <button
                   onClick={() => setShowDeleteModal(false)}
@@ -627,7 +654,7 @@ const RisksAssessment = () => {
                   Cancel
                 </button>
                 <button
-                  onClick={deleteRisk}
+                  onClick={handleDeleteConfirm}
                   className="!rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2 hover:from-red-600 hover:to-red-700 transition-all duration-300"
                 >
                   Delete
