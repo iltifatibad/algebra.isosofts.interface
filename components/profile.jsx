@@ -483,54 +483,92 @@ const RisksAssessment = () => {
                     </tr>
                   </thead>
                   <tbody>
+                    {/* 1. Element (Main Row - rowspan=2 for main and Initial Risk, 2 sub-rows for Action Plan) */}
+                    {/* Sub-row 1: Main + Initial + First Action Plan */}
                     <tr>
-                      <td className="border border-blue-500 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px">
+                      <td
+                        className="border border-blue-500 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px"
+                        rowSpan={3}
+                      >
                         1
                       </td>{" "}
-                      {/* # sütunu */}
-                      <td className="border border-blue-500 px-2 py-1 w-20">
+                      {/* # sütunu - rowspan=2: Ana sütunlar alt-alta Action Plan sub-rows için span eder */}
+                      <td
+                        className="border border-blue-500 px-2 py-1 w-20"
+                        rowSpan={3}
+                      >
                         Strength
                       </td>{" "}
-                      {/* SWOT */}
-                      <td className="border border-blue-500 px-2 py-1 w-20">
+                      {/* SWOT - rowspan=2 */}
+                      <td
+                        className="border border-blue-500 px-2 py-1 w-20"
+                        rowSpan={3}
+                      >
                         Political
                       </td>{" "}
-                      {/* PESTLE */}
-                      <td className="border border-blue-500 px-2 py-1 w-32">
+                      {/* PESTLE - rowspan=2 */}
+                      <td
+                        className="border border-blue-500 px-2 py-1 w-32"
+                        rowSpan={3}
+                      >
                         Stakeholder
                       </td>{" "}
-                      {/* Interested Party */}
-                      <td className="border border-blue-500 px-2 py-1 w-32">
+                      {/* Interested Party - rowspan=2 */}
+                      <td
+                        className="border border-blue-500 px-2 py-1 w-32"
+                        rowSpan={3}
+                      >
                         Risk
                       </td>{" "}
-                      {/* Risk/Opportunity */}
-                      <td className="border border-blue-500 px-2 py-1 w-28">
+                      {/* Risk/Opportunity - rowspan=2 */}
+                      <td
+                        className="border border-blue-500 px-2 py-1 w-28"
+                        rowSpan={3}
+                      >
                         Mitigate
                       </td>{" "}
-                      {/* Objective */}
-                      <td className="border border-blue-500 px-2 py-1 w-20">
+                      {/* Objective - rowspan=2 */}
+                      <td
+                        className="border border-blue-500 px-2 py-1 w-20"
+                        rowSpan={3}
+                      >
                         KPI1
                       </td>{" "}
-                      {/* KPI */}
-                      <td className="border border-blue-500 px-2 py-1 w-24">
+                      {/* KPI - rowspan=2 */}
+                      <td
+                        className="border border-blue-500 px-2 py-1 w-24"
+                        rowSpan={3}
+                      >
                         Process1
                       </td>{" "}
-                      {/* Process */}
-                      <td className="border border-blue-500 px-2 py-1 w-48">
+                      {/* Process - rowspan=2 */}
+                      <td
+                        className="border border-blue-500 px-2 py-1 w-48"
+                        rowSpan={3}
+                      >
                         Mitigation Action
                       </td>{" "}
-                      {/* Existing Actions */}
-                      {/* Initial Risk (3 td) */}
-                      <td className="border border-blue-500 px-2 py-1 w-20">
+                      {/* Existing Actions - rowspan=2 */}
+                      {/* Initial Risk (3 td - rowspan=2) */}
+                      <td
+                        className="border border-blue-500 px-2 py-1 w-20"
+                        rowSpan={3}
+                      >
                         High
                       </td>
-                      <td className="border border-blue-500 px-2 py-1 w-24">
+                      <td
+                        className="border border-blue-500 px-2 py-1 w-24"
+                        rowSpan={3}
+                      >
                         Likely
                       </td>
-                      <td className="border border-blue-500 px-2 py-1 w-20">
+                      <td
+                        className="border border-blue-500 px-2 py-1 w-20"
+                        rowSpan={3}
+                      >
                         Medium
                       </td>
-                      {/* Action Plan (11 td) */}
+                      {/* Action Plan 1 (11 td - İlk Farklı Action Plan) */}
                       <td className="border border-blue-500 px-2 py-1 w-32">
                         Implement Policy
                       </td>
@@ -563,27 +601,199 @@ const RisksAssessment = () => {
                       </td>
                       <td className="border border-blue-500 px-2 py-1 w-40">
                         No issues
-                      </td>{" "}
-                      <td className="border border-blue-500 px-2 py-1 w-24">
-                        In Progress
+                      </td>
+                      {/* Residual Risk/Opportunity Level (3 td - rowspan=2, aynı değer için span eder) */}
+                      <td
+                        className="border border-blue-500 px-2 py-1 w-24"
+                        rowSpan={3}
+                      >
+                        Low
+                      </td>
+                      <td
+                        className="border border-blue-500 px-2 py-1 w-24"
+                        rowSpan={3}
+                      >
+                        Unlikely
+                      </td>
+                      <td
+                        className="border border-blue-500 px-2 py-1 w-20"
+                        rowSpan={3}
+                      >
+                        Low
+                      </td>
+                    </tr>
+                    {/* Sub-row 2: Second Action Plan (ana sütunlar ve Initial/Residual span ile kaplı) */}
+                    <tr>
+                      {/* Action Plan 2 (11 td - İkinci Farklı Action Plan) */}
+                      <td className="border border-blue-500 px-2 py-1 w-32">
+                        Train Staff
                       </td>
                       <td className="border border-blue-500 px-2 py-1 w-32">
-                        2025-11-15
+                        2025-11-01
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-24">
+                        Team
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-28">
+                        HR
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-28">
+                        Director
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-24">
+                        2025-12-01
                       </td>
                       <td className="border border-blue-500 px-2 py-1 w-36">
-                        Verified
+                        Pending
                       </td>
-                      {/* Comment */}
+                      <td className="border border-blue-500 px-2 py-1 w-24">
+                        Planned
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-32">
+                        2025-11-20
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-36">
+                        Pending
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-40">
+                        On track
+                      </td>
+                      {/* Residual zaten span ile kaplı, td yok */}
                     </tr>
 
-                    {/* Daha fazla satır ekle: Her satır aynı yapıda 23 td olsun */}
+                     <tr>
+                      {/* Action Plan 2 (11 td - İkinci Farklı Action Plan) */}
+                      <td className="border border-blue-500 px-2 py-1 w-32">
+                        Train Staff
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-32">
+                        2025-11-01
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-24">
+                        Team
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-28">
+                        HR
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-28">
+                        Director
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-24">
+                        2025-12-01
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-36">
+                        Pending
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-24">
+                        Planned
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-32">
+                        2025-11-20
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-36">
+                        Pending
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-40">
+                        On track
+                      </td>
+                      {/* Residual zaten span ile kaplı, td yok */}
+                    </tr>
+
+                    
+                    {/* İkinci Ana Element (Row 2 - Normal tek satır) */}
                     <tr>
-                      {/* İkinci satır verilerini buraya kopyala, değerleri değiştir */}
                       <td className="border border-blue-500 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px">
                         2
+                      </td>{" "}
+                      {/* # sütunu */}
+                      <td className="border border-blue-500 px-2 py-1 w-20">
+                        Weakness
+                      </td>{" "}
+                      {/* SWOT */}
+                      <td className="border border-blue-500 px-2 py-1 w-20">
+                        Economic
+                      </td>{" "}
+                      {/* PESTLE */}
+                      <td className="border border-blue-500 px-2 py-1 w-32">
+                        Customer
+                      </td>{" "}
+                      {/* Interested Party */}
+                      <td className="border border-blue-500 px-2 py-1 w-32">
+                        Opportunity
+                      </td>{" "}
+                      {/* Risk/Opportunity */}
+                      <td className="border border-blue-500 px-2 py-1 w-28">
+                        Exploit
+                      </td>{" "}
+                      {/* Objective */}
+                      <td className="border border-blue-500 px-2 py-1 w-20">
+                        KPI2
+                      </td>{" "}
+                      {/* KPI */}
+                      <td className="border border-blue-500 px-2 py-1 w-24">
+                        Process2
+                      </td>{" "}
+                      {/* Process */}
+                      <td className="border border-blue-500 px-2 py-1 w-48">
+                        Exploitation Action
+                      </td>{" "}
+                      {/* Existing Actions */}
+                      {/* Initial Risk (3 td) */}
+                      <td className="border border-blue-500 px-2 py-1 w-20">
+                        Medium
                       </td>
-                      {/* ... devamı, 22 td daha */}
+                      <td className="border border-blue-500 px-2 py-1 w-24">
+                        Possible
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-20">
+                        Low
+                      </td>
+                      {/* Action Plan (11 td - Tek Action Plan örneği) */}
+                      <td className="border border-blue-500 px-2 py-1 w-32">
+                        Review Budget
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-32">
+                        2025-11-05
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-24">
+                        Funds
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-28">
+                        Accounting
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-28">
+                        CFO
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-24">
+                        2025-11-30
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-36">
+                        Approved
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-24">
+                        Completed
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-32">
+                        2025-11-10
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-36">
+                        Approved
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-40">
+                        Budget adjusted
+                      </td>
+                      {/* Residual Risk/Opportunity Level (3 td) */}
+                      <td className="border border-blue-500 px-2 py-1 w-24">
+                        Low
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-24">
+                        Unlikely
+                      </td>
+                      <td className="border border-blue-500 px-2 py-1 w-20">
+                        Low
+                      </td>
                     </tr>
+                    {/* Daha fazla satır ekleyebilirsiniz */}
                   </tbody>
                 </table>
               </div>
