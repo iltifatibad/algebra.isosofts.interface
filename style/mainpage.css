@@ -7,13 +7,13 @@
 }
 
 .nav-link::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 0;
   height: 2px;
   bottom: -4px;
   left: 50%;
-  background: linear-gradient(to right, #3B82F6, #1E40AF);
+  background: linear-gradient(to right, #3b82f6, #1e40af);
   transition: all 0.3s ease;
   transform: translateX(-50%);
 }
@@ -61,10 +61,10 @@
 }
 
 .overflow-x-auto::-webkit-scrollbar-thumb {
-  background: linear-gradient(to right, #3B82F6, #1E40AF);
+  background: linear-gradient(to right, #3b82f6, #1e40af);
   border-radius: 4px;
 }
 
 .overflow-x-auto::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to right, #2563EB, #1D4ED8);
+  background: linear-gradient(to right, #2563eb, #1d4ed8);
 }

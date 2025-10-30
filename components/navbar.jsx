@@ -2,7 +2,7 @@
 // Bu, Isosofts projesindeki navigation bar component'i. Tailwind CSS ve Font Awesome gerektirir.
 // Kullanım: <NavigationBar showProfile={showProfile} setShowProfile={setShowProfile} />
 
-import React from 'react';
+import React from "react";
 
 const NavigationBar = ({ showProfile, setShowProfile }) => {
   return (
@@ -14,16 +14,31 @@ const NavigationBar = ({ showProfile, setShowProfile }) => {
               Isosofts
             </div>
             <div className="hidden md:flex space-x-6">
-              <a href="#" className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer">Home</a>
-              <a 
-                href="https://readdy.ai/home/d3978a81-c561-4f54-9be8-e504f8386c69/27623cd4-447e-4005-9dce-bbdbf0e1cb83" 
-                data-readdy="true" 
+              <a
+                href="#"
+                className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
+              >
+                Home
+              </a>
+              <a
+                href="https://readdy.ai/home/d3978a81-c561-4f54-9be8-e504f8386c69/27623cd4-447e-4005-9dce-bbdbf0e1cb83"
+                data-readdy="true"
                 className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
               >
                 Services
               </a>
-              <a href="#" className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer">About</a>
-              <a href="#" className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer">Contact</a>
+              <a
+                href="#"
+                className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
+              >
+                About
+              </a>
+              <a
+                href="#"
+                className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
+              >
+                Contact
+              </a>
             </div>
           </div>
           <button
