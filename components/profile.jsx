@@ -14,16 +14,22 @@ const RisksAssessment = () => {
   const [modalMode, setModalMode] = useState("add");
   const [editingRow, setEditingRow] = useState(null);
   const [formData, setFormData] = useState({
-    swot: "",
-    pestle: "",
-    interestedParty: "",
-    riskOpportunity: "",
-    objective: "",
-    kpi: "",
-    process: "",
-    existingRisk: "",
-    initialRisk: { severity: "", likelihood: "", riskLevel: "" },
-    actionPlan: {
+  id: 0, // Yeni kayıt için varsayılan (sonra güncellenir)
+  swot: "",
+  pestle: "",
+  interestedParty: "",
+  riskOpportunity: "",
+  objective: "",
+  kpi: "",
+  process: "",
+  existingRisk: "",
+  initialRisk: { 
+    severity: "", 
+    likelihood: "", 
+    riskLevel: "" 
+  },
+  actionPlan: [ // Boş dizi yerine, bir boş action objesi ile başlatıldı
+    {
       action: "",
       raiseDate: "",
       resources: "",
@@ -33,10 +39,11 @@ const RisksAssessment = () => {
       actionStatus: "",
       verification: "",
       comment: "",
-    },
-    residualRisk: "",
-  });
-
+    }
+  ],
+  residualRisk: "",
+  archived: false, // Varsayılan olarak false
+});
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isBulkDelete, setIsBulkDelete] = useState(false); // Bulk delete için yeni state
   const [deletingId, setDeletingId] = useState(null);
@@ -127,12 +134,50 @@ const RisksAssessment = () => {
 
   const saveRisk = () => {
     if (modalMode === "add") {
-      const newId = Math.max(...tableData.map((r) => r.id), 0) + 1;
-      setTableData((prev) => [
-        ...prev,
-        { ...formData, id: newId, archived: false },
-      ]);
-    } else {
+      const newId = Math.max(...formData.map((r) => r.id), 0) + 1;
+  const newRecord = {
+    ...formData,
+    id: newId,
+    archived: false,
+    // Eğer formData'da yoksa varsayılan değerler ekleyin (JSON örneğine göre)
+    initialRisk: formData.initialRisk || {
+      severity: "Medium", // Varsayılan
+      likelihood: "Medium",
+      riskLevel: "Medium"
+    },
+    actionPlan: formData.actionPlan || [], // Boş dizi veya formdan gelen
+    residualRisk: formData.residualRisk || "Low" // Varsayılan
+  };
+  
+  setTableData((prev) => [
+    ...prev,
+    newRecord,
+  ]);
+
+  // bgrisk.json dosyasını oku, yeni kaydı ekle ve güncelle
+  fetch('/jsondatas/bgrisk.json')
+    .then((response) => response.json())
+    .then((data) => {
+      data.push(newRecord);
+      return fetch('/jsondatas/bgrisk.json', {
+        method: 'PUT', // veya POST, backend'inize göre ayarlayın
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+    })
+    .then((response) => {
+      if (!response.ok) {
+        console.error('JSON dosyasına kaydetme başarısız:', response.statusText);
+      } else {
+        console.log('Yeni kayıt başarıyla kaydedildi.');
+      }
+    })
+    .catch((error) => {
+      console.error('JSON dosyasına erişim hatası:', error);
+    });
+ } else {
       setTableData((prev) =>
         prev.map((row) =>
           row.id === editingRow.id ? { ...formData, id: row.id } : row,

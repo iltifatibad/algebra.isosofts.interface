@@ -1,0 +1,130 @@
+[
+  {
+    "id": 1,
+    "swot": "Strengths",
+    "pestle": "Political",
+    "interestedParty": "Stakeholder A",
+    "riskOpportunity": "Market Risk",
+    "objective": "Increase Revenue",
+    "kpi": "10% Growth",
+    "process": "Sales Process",
+    "existingRisk": "Current Mitigation",
+    "initialRisk": {
+      "severity": "High",
+      "likelihood": "Medium",
+      "riskLevel": "High"
+    },
+    "actionPlan": [
+      {
+        "action": "Implement Plan",
+        "raiseDate": "2025-01-01",
+        "resources": "Team A",
+        "function": "Marketing",
+        "responsible": "John Doe",
+        "deadline": "2025-06-01",
+        "actionStatus": "In Progress",
+        "verification": "Verified",
+        "comment": "On track"
+      },
+      {
+        "action": "I Hate Front-End",
+        "raiseDate": "2025-01-01",
+        "resources": "Team A",
+        "function": "Marketing",
+        "responsible": "John Doe",
+        "deadline": "2025-06-01",
+        "actionStatus": "In Progress",
+        "verification": "Verified",
+        "comment": "On track"
+      },
+      {
+        "action": "I Hate Front-End",
+        "raiseDate": "2025-01-01",
+        "resources": "Team A",
+        "function": "Marketing",
+        "responsible": "John Doe",
+        "deadline": "2025-06-01",
+        "actionStatus": "In Progress",
+        "verification": "Verified",
+        "comment": "On track"
+      },
+      {
+        "action": "I Hate Front-End",
+        "raiseDate": "2025-01-01",
+        "resources": "Team A",
+        "function": "Marketing",
+        "responsible": "John Doe",
+        "deadline": "2025-06-01",
+        "actionStatus": "In Progress",
+        "verification": "Verified",
+        "comment": "On track"
+      }
+    ],
+    "residualRisk": "Low",
+    "archived": false
+  },
+  {
+    "id": 2,
+    "swot": "Strengths",
+    "pestle": "Political",
+    "interestedParty": "Stakeholder A",
+    "riskOpportunity": "Market Risk",
+    "objective": "Increase Revenue",
+    "kpi": "10% Growth",
+    "process": "Sales Process",
+    "existingRisk": "Current Mitigation",
+    "initialRisk": {
+      "severity": "High",
+      "likelihood": "Medium",
+      "riskLevel": "High"
+    },
+    "actionPlan": [
+      {
+        "action": "Implement Plan",
+        "raiseDate": "2025-01-01",
+        "resources": "Team A",
+        "function": "Marketing",
+        "responsible": "John Doe",
+        "deadline": "2025-06-01",
+        "actionStatus": "In Progress",
+        "verification": "Verified",
+        "comment": "On track"
+      },
+      {
+        "action": "I Hate Front-End",
+        "raiseDate": "2025-01-01",
+        "resources": "Team A",
+        "function": "Marketing",
+        "responsible": "John Doe",
+        "deadline": "2025-06-01",
+        "actionStatus": "In Progress",
+        "verification": "Verified",
+        "comment": "On track"
+      },
+      {
+        "action": "I Hate Front-End",
+        "raiseDate": "2025-01-01",
+        "resources": "Team A",
+        "function": "Marketing",
+        "responsible": "John Doe",
+        "deadline": "2025-06-01",
+        "actionStatus": "In Progress",
+        "verification": "Verified",
+        "comment": "On track"
+      },
+      {
+        "action": "I Hate Front-End",
+        "raiseDate": "2025-01-01",
+        "resources": "Team A",
+        "function": "Marketing",
+        "responsible": "John Doe",
+        "deadline": "2025-06-01",
+        "actionStatus": "In Progress",
+        "verification": "Verified",
+        "comment": "On track"
+      }
+    ],
+    "residualRisk": "Low",
+    "archived": false
+  }
+]

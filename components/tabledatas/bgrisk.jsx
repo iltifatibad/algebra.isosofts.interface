@@ -20,144 +20,36 @@ const MyTableBody = () => {
       return newSet;
     });
   };
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   
-  const [tableData, setTableData] = useState([
-    {
-      id: 1,
-      swot: "Strengths",
-      pestle: "Political",
-      interestedParty: "Stakeholder A",
-      riskOpportunity: "Market Risk",
-      objective: "Increase Revenue",
-      kpi: "10% Growth",
-      process: "Sales Process",
-      existingRisk: "Current Mitigation",
-      initialRisk: {
-        severity: "High",
-        likelihood: "Medium",
-        riskLevel: "High",
-      },
-      actionPlan: [
-        {
-          action: "Implement Plan",
-          raiseDate: "2025-01-01",
-          resources: "Team A",
-          function: "Marketing",
-          responsible: "John Doe",
-          deadline: "2025-06-01",
-          actionStatus: "In Progress",
-          verification: "Verified",
-          comment: "On track",
-        },
-        {
-          action: "I Hate Front-End",
-          raiseDate: "2025-01-01",
-          resources: "Team A",
-          function: "Marketing",
-          responsible: "John Doe",
-          deadline: "2025-06-01",
-          actionStatus: "In Progress",
-          verification: "Verified",
-          comment: "On track",
-        },
-        {
-          action: "I Hate Front-End",
-          raiseDate: "2025-01-01",
-          resources: "Team A",
-          function: "Marketing",
-          responsible: "John Doe",
-          deadline: "2025-06-01",
-          actionStatus: "In Progress",
-          verification: "Verified",
-          comment: "On track",
-        },
-               {
-          action: "I Hate Front-End",
-          raiseDate: "2025-01-01",
-          resources: "Team A",
-          function: "Marketing",
-          responsible: "John Doe",
-          deadline: "2025-06-01",
-          actionStatus: "In Progress",
-          verification: "Verified",
-          comment: "On track",
-        },
+  const [tableData, setTableData] = useState([]);
+  useEffect(() => {
+    fetch('../../public/jsondatas/bgrisk.json') // Public klasöründen çek: '/bgrisk.json'
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('bgrisk.json yüklenemedi');
+        }
+        return response.json();
+      })
+      .then(fetchedData => {
+        setTableData(fetchedData); // Array olarak al (JSON array'i)
+        setLoading(false);
+        console.log(fetchedData);
+      })
+      .catch(err => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
 
-      ],
-      residualRisk: "Low",
-      archived: false,
-    },
-
-    {
-      id: 2,
-      swot: "Strengths",
-      pestle: "Political",
-      interestedParty: "Stakeholder A",
-      riskOpportunity: "Market Risk",
-      objective: "Increase Revenue",
-      kpi: "10% Growth",
-      process: "Sales Process",
-      existingRisk: "Current Mitigation",
-      initialRisk: {
-        severity: "High",
-        likelihood: "Medium",
-        riskLevel: "High",
-      },
-      actionPlan: [
-        {
-          action: "Implement Plan",
-          raiseDate: "2025-01-01",
-          resources: "Team A",
-          function: "Marketing",
-          responsible: "John Doe",
-          deadline: "2025-06-01",
-          actionStatus: "In Progress",
-          verification: "Verified",
-          comment: "On track",
-        },
-        {
-          action: "I Hate Front-End",
-          raiseDate: "2025-01-01",
-          resources: "Team A",
-          function: "Marketing",
-          responsible: "John Doe",
-          deadline: "2025-06-01",
-          actionStatus: "In Progress",
-          verification: "Verified",
-          comment: "On track",
-        },
-        {
-          action: "I Hate Front-End",
-          raiseDate: "2025-01-01",
-          resources: "Team A",
-          function: "Marketing",
-          responsible: "John Doe",
-          deadline: "2025-06-01",
-          actionStatus: "In Progress",
-          verification: "Verified",
-          comment: "On track",
-        },
-               {
-          action: "I Hate Front-End",
-          raiseDate: "2025-01-01",
-          resources: "Team A",
-          function: "Marketing",
-          responsible: "John Doe",
-          deadline: "2025-06-01",
-          actionStatus: "In Progress",
-          verification: "Verified",
-          comment: "On track",
-        },
-
-      ],
-      residualRisk: "Low",
-      archived: false,
-    },
-
-  ]);
-
-  console.log(tableData[0].actionPlan.length);
-  const filteredTableData = tableData.filter(
+  if (tableData.length > 0) {
+    console.log('Action Plan Length:', tableData[0].actionPlan.length);
+  }
+  if (loading) return ;
+  if (error) return ;
+   const filteredTableData = tableData.filter(
     (row) => showArchived || !row.archived,
   );
 
