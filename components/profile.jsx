@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import BgRiskBody from "./tabledatas/bgrisk.jsx"
+import BgRiskBody from "./tabledatas/bgrisk.jsx";
 const RisksAssessment = () => {
   // Sample data - gerçek projede API'den veya props'tan gelebilir
   const [risks, setRisks] = useState([
@@ -8,49 +8,49 @@ const RisksAssessment = () => {
   ]);
 
   const [selectedRisk, setSelectedRisk] = useState("bg-reg");
- 
+
   const [showArchived, setShowArchived] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalMode, setModalMode] = useState("add");
   const [editingRow, setEditingRow] = useState(null);
   const [formData, setFormData] = useState({
-  id: 0, // Yeni kayıt için varsayılan (sonra güncellenir)
-  swot: "",
-  pestle: "",
-  interestedParty: "",
-  riskOpportunity: "",
-  objective: "",
-  kpi: "",
-  process: "",
-  existingRisk: "",
-  initialRisk: { 
-    severity: "", 
-    likelihood: "", 
-    riskLevel: "" 
-  },
-  actionPlan: [ // Boş dizi yerine, bir boş action objesi ile başlatıldı
-    {
-      action: "",
-      raiseDate: "",
-      resources: "",
-      function: "",
-      responsible: "",
-      deadline: "",
-      actionStatus: "",
-      verification: "",
-      comment: "",
-    }
-  ],
-  residualRisk: "",
-  archived: false, // Varsayılan olarak false
-});
+    id: 0, // Yeni kayıt için varsayılan (sonra güncellenir)
+    swot: "",
+    pestle: "",
+    interestedParty: "",
+    riskOpportunity: "",
+    objective: "",
+    kpi: "",
+    process: "",
+    existingRisk: "",
+    initialRisk: {
+      severity: "",
+      likelihood: "",
+      riskLevel: "",
+    },
+    actionPlan: [
+      // Boş dizi yerine, bir boş action objesi ile başlatıldı
+      {
+        action: "",
+        raiseDate: "",
+        resources: "",
+        function: "",
+        responsible: "",
+        deadline: "",
+        actionStatus: "",
+        verification: "",
+        comment: "",
+      },
+    ],
+    residualRisk: "",
+    archived: false, // Varsayılan olarak false
+  });
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isBulkDelete, setIsBulkDelete] = useState(false); // Bulk delete için yeni state
   const [deletingId, setDeletingId] = useState(null);
   const [selectedRows, setSelectedRows] = useState(new Set()); // Checkbox state'i ekle
 
   // Filtered data based on archived
-  
 
   // Checkbox handler
   const handleCheckboxChange = (id) => {
@@ -135,49 +135,49 @@ const RisksAssessment = () => {
   const saveRisk = () => {
     if (modalMode === "add") {
       const newId = Math.max(...formData.map((r) => r.id), 0) + 1;
-  const newRecord = {
-    ...formData,
-    id: newId,
-    archived: false,
-    // Eğer formData'da yoksa varsayılan değerler ekleyin (JSON örneğine göre)
-    initialRisk: formData.initialRisk || {
-      severity: "Medium", // Varsayılan
-      likelihood: "Medium",
-      riskLevel: "Medium"
-    },
-    actionPlan: formData.actionPlan || [], // Boş dizi veya formdan gelen
-    residualRisk: formData.residualRisk || "Low" // Varsayılan
-  };
-  
-  setTableData((prev) => [
-    ...prev,
-    newRecord,
-  ]);
-
-  // bgrisk.json dosyasını oku, yeni kaydı ekle ve güncelle
-  fetch('/jsondatas/bgrisk.json')
-    .then((response) => response.json())
-    .then((data) => {
-      data.push(newRecord);
-      return fetch('/jsondatas/bgrisk.json', {
-        method: 'PUT', // veya POST, backend'inize göre ayarlayın
-        headers: {
-          'Content-Type': 'application/json',
+      const newRecord = {
+        ...formData,
+        id: newId,
+        archived: false,
+        // Eğer formData'da yoksa varsayılan değerler ekleyin (JSON örneğine göre)
+        initialRisk: formData.initialRisk || {
+          severity: "Medium", // Varsayılan
+          likelihood: "Medium",
+          riskLevel: "Medium",
         },
-        body: JSON.stringify(data),
-      });
-    })
-    .then((response) => {
-      if (!response.ok) {
-        console.error('JSON dosyasına kaydetme başarısız:', response.statusText);
-      } else {
-        console.log('Yeni kayıt başarıyla kaydedildi.');
-      }
-    })
-    .catch((error) => {
-      console.error('JSON dosyasına erişim hatası:', error);
-    });
- } else {
+        actionPlan: formData.actionPlan || [], // Boş dizi veya formdan gelen
+        residualRisk: formData.residualRisk || "Low", // Varsayılan
+      };
+
+      setTableData((prev) => [...prev, newRecord]);
+
+      // bgrisk.json dosyasını oku, yeni kaydı ekle ve güncelle
+      fetch("/jsondatas/bgrisk.json")
+        .then((response) => response.json())
+        .then((data) => {
+          data.push(newRecord);
+          return fetch("/jsondatas/bgrisk.json", {
+            method: "PUT", // veya POST, backend'inize göre ayarlayın
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+        })
+        .then((response) => {
+          if (!response.ok) {
+            console.error(
+              "JSON dosyasına kaydetme başarısız:",
+              response.statusText,
+            );
+          } else {
+            console.log("Yeni kayıt başarıyla kaydedildi.");
+          }
+        })
+        .catch((error) => {
+          console.error("JSON dosyasına erişim hatası:", error);
+        });
+    } else {
       setTableData((prev) =>
         prev.map((row) =>
           row.id === editingRow.id ? { ...formData, id: row.id } : row,
@@ -357,146 +357,146 @@ const RisksAssessment = () => {
                   </div>
                 </div>
               </div>
-              <div className="overflow-x-auto overflow-y-auto relative min-w-0">
-                <table className="w-full text-sm table-auto border-collapse border-spacing-0 border border-blue-500 min-w-[2000px]">
-                  <thead className="bg-gradient-to-r from-blue-100 via-blue-150 to-blue-200">
-                    {/* Level 1: Ana sütunlar rowSpan=2 ile 2 satırı kaplar, Initial ve Action üst başlıkları yan yana */}
-                    <tr>
+              <div className="overflow-x-auto max-h-[75vh] overflow-y-auto">
+                {" "}
+                {/* Adjust max-h as needed, e.g., 60vh for ~3-4 rows visibility */}
+                <table className="w-full text-sm table-auto border-separate border-spacing-0 border border-blue-50 min-w-[2000px]">
+                  <thead>
+                    {/* First header row - fixed height for sticky positioning */}
+                    <tr className="h-12">
+                      {" "}
+                      {/* h-12 = 48px */}
                       <th
-                        className=" min-w-15 border border-blue-500 sticky left-[-1px] top-0 z-10 bg-white -ml-px"
+                        className="min-w-15 border border-blue-500 sticky left-[-1px] top-0 z-21 bg-white -ml-px"
                         rowSpan={2}
                       >
                         #
                       </th>
                       <th
-                        className=" min-w-15 border border-blue-500"
+                        className="min-w-15 border border-blue-500 sticky top-0 z-20 bg-blue-100"
                         rowSpan={2}
                       >
                         SWOT
                       </th>
                       <th
-                        className=" min-w-15 border border-blue-500"
+                        className="min-w-15 border border-blue-500 sticky top-0 z-20 bg-blue-100"
                         rowSpan={2}
                       >
                         PESTLE
                       </th>
                       <th
-                        className=" min-w-15 border border-blue-500"
+                        className="min-w-15 border border-blue-500 sticky top-0 z-20 bg-blue-100"
                         rowSpan={2}
                       >
                         Interested Party
                       </th>
                       <th
-                        className=" min-w-15 border border-blue-500"
+                        className="min-w-15 border border-blue-500 sticky top-0 z-20 bg-blue-100"
                         rowSpan={2}
                       >
                         Risk/Oppurtunity
                       </th>
                       <th
-                        className=" min-w-15 border border-blue-500"
+                        className="min-w-15 border border-blue-500 sticky top-0 z-20 bg-blue-100"
                         rowSpan={2}
                       >
                         Objective
                       </th>
                       <th
-                        className=" min-w-15 border border-blue-500"
+                        className="min-w-15 border border-blue-500 sticky top-0 z-20 bg-blue-100"
                         rowSpan={2}
                       >
                         KPI
                       </th>
                       <th
-                        className=" min-w-15 border border-blue-500"
+                        className="min-w-15 border border-blue-500 sticky top-0 z-20 bg-blue-100"
                         rowSpan={2}
                       >
                         Process
                       </th>
                       <th
-                        className=" min-w-50 border border-blue-500"
+                        className="min-w-50 border border-blue-500 sticky top-0 z-20 bg-blue-100"
                         rowSpan={2}
                       >
                         Existing Risk Mitigation/Exploting Opportunity's Actions
                       </th>
                       <th
-                        className=" min-w-15 border border-blue-500"
+                        className="min-w-15 border border-blue-500 sticky top-0 z-20 bg-blue-100"
                         colSpan={3}
                       >
                         Initial Risk
-                      </th>{" "}
-                      {/* Sol grup: Initial Risk */}
+                      </th>
                       <th
-                        className=" min-w-15 border border-blue-500"
+                        className="min-w-15 border border-blue-500 sticky top-0 z-20 bg-blue-100"
                         colSpan={11}
                       >
                         Action Plan
-                      </th>{" "}
+                      </th>
                       <th
-                        className=" min-w-15 border border-blue-500"
+                        className="min-w-15 border border-blue-500 sticky top-0 z-20 bg-blue-100"
                         colSpan={3}
                       >
                         Residual Risk/Opportunity Level
                       </th>
-                      {/* Sağ grup: Initial'in yanında Action Plan */}
                     </tr>
-                    {/* Level 2: Ana sütunlar rowSpan ile kaplı, Initial ve Action alt başlıkları yan yana (her grup 3'er th) */}
-                    <tr>
-                      <th className=" min-w-15 border border-blue-500">
+                    {/* Second header row - fixed height, sticky at top-12 (48px) */}
+                    <tr className="h-12">
+                      <th className="min-w-15 border border-blue-500 sticky top-12 z-20 bg-blue-200">
                         Severity
                       </th>
-                      <th className=" min-w-15 border border-blue-500">
+                      <th className="min-w-15 border border-blue-500 sticky top-12 z-20 bg-blue-200">
                         Likelyhood
                       </th>
-                      <th className=" min-w-15 border border-blue-500">Risk</th>
-                      {/* Initial alt th'leri bitti, şimdi Action alt th'leri (Initial'in sağında) */}
-                      <th className=" min-w-15 border border-blue-500">
+                      <th className="min-w-15 border border-blue-500 sticky top-12 z-20 bg-blue-200">
+                        Risk
+                      </th>
+                      <th className="min-w-15 border border-blue-500 sticky top-12 z-20 bg-blue-200">
                         Action
                       </th>
-                      <th className=" min-w-15 border border-blue-500">
+                      <th className="min-w-15 border border-blue-500 sticky top-12 z-20 bg-blue-200">
                         Action Raise Date
                       </th>
-                      <th className=" min-w-15 border border-blue-500">
+                      <th className="min-w-15 border border-blue-500 sticky top-12 z-20 bg-blue-200">
                         Resources
                       </th>
-                      <th className=" min-w-15 border border-blue-500">
+                      <th className="min-w-15 border border-blue-500 sticky top-12 z-20 bg-blue-200">
                         Relactive Function
                       </th>
-                      <th className=" min-w-15 border border-blue-500">
+                      <th className="min-w-15 border border-blue-500 sticky top-12 z-20 bg-blue-200">
                         Responsible
                       </th>
-                      <th className=" min-w-15 border border-blue-500">
+                      <th className="min-w-15 border border-blue-500 sticky top-12 z-20 bg-blue-200">
                         Deadline
                       </th>
-                      <th className=" min-w-15 border border-blue-500">
+                      <th className="min-w-15 border border-blue-500 sticky top-12 z-20 bg-blue-200">
                         Action Confirmation
                       </th>
-                      <th className=" min-w-15 border border-blue-500">
+                      <th className="min-w-15 border border-blue-500 sticky top-12 z-20 bg-blue-200">
                         Action Status
                       </th>
-                      <th className=" min-w-15 border border-blue-500">
+                      <th className="min-w-15 border border-blue-500 sticky top-12 z-20 bg-blue-200">
                         Compilation Date
                       </th>
-                      <th className=" min-w-15 border border-blue-500">
+                      <th className="min-w-15 border border-blue-500 sticky top-12 z-20 bg-blue-200">
                         Status Of Verification
                       </th>
-                      <th className=" min-w-15 border border-blue-500">
+                      <th className="min-w-15 border border-blue-500 sticky top-12 z-20 bg-blue-200">
                         Comment
                       </th>
-                      {/* Level 3*/}
-                      <th className=" min-w-15 border border-blue-500">
+                      <th className="min-w-15 border border-blue-500 sticky top-12 z-20 bg-blue-200">
                         Severity
                       </th>
-                      <th className=" min-w-15 border border-blue-500">
+                      <th className="min-w-15 border border-blue-500 sticky top-12 z-20 bg-blue-200">
                         Likelyhood
                       </th>
-                      <th className=" min-w-15 border border-blue-500">
+                      <th className="min-w-15 border border-blue-500 sticky top-12 z-20 bg-blue-200">
                         Risk Opportunity Level
                       </th>
                     </tr>
                   </thead>
 
-                  {/* Table Bodysi Tabledatas folderinnen tbody tagi arasinda pramoy gelir */}
-                  <BgRiskBody />                    
-    
-                 
+                  {/* Table Body */}
+                  <BgRiskBody />
                 </table>
               </div>
             </div>

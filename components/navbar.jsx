@@ -41,13 +41,14 @@ const NavigationBar = ({ showProfile, setShowProfile }) => {
               </a>
             </div>
           </div>
-        <a href="/profile">
-          <button
-            onClick={() => setShowProfile(!showProfile)}
-            className="rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 hover:from-blue-600 hover:to-blue-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-          >
-            <i className="fas fa-user mr-2"></i>Profile
-          </button></a>
+          <a href="/profile">
+            <button
+              onClick={() => setShowProfile(!showProfile)}
+              className="rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 hover:from-blue-600 hover:to-blue-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+            >
+              <i className="fas fa-user mr-2"></i>Profile
+            </button>
+          </a>
         </div>
       </div>
     </nav>

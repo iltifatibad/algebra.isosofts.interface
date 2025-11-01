@@ -5,10 +5,8 @@ import { useState, useEffect } from "react";
 const MyTableBody = () => {
   const [showArchived, setShowArchived] = useState(false);
 
-
-
   const [selectedRows, setSelectedRows] = useState(new Set()); // Checkbox state'i ekle
-  
+
   const handleCheckboxChange = (id) => {
     setSelectedRows((prev) => {
       const newSet = new Set(prev);
@@ -23,38 +21,35 @@ const MyTableBody = () => {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   const [tableData, setTableData] = useState([]);
   useEffect(() => {
-    fetch('../../public/jsondatas/bgrisk.json') // Public klasöründen çek: '/bgrisk.json'
-      .then(response => {
+    fetch("../../public/jsondatas/bgrisk.json") // Public klasöründen çek: '/bgrisk.json'
+      .then((response) => {
         if (!response.ok) {
-          throw new Error('bgrisk.json yüklenemedi');
+          throw new Error("bgrisk.json yüklenemedi");
         }
         return response.json();
       })
-      .then(fetchedData => {
+      .then((fetchedData) => {
         setTableData(fetchedData); // Array olarak al (JSON array'i)
         setLoading(false);
         console.log(fetchedData);
       })
-      .catch(err => {
+      .catch((err) => {
         setError(err.message);
         setLoading(false);
       });
   }, []);
 
   if (tableData.length > 0) {
-    console.log('Action Plan Length:', tableData[0].actionPlan.length);
+    console.log("Action Plan Length:", tableData[0].actionPlan.length);
   }
-  if (loading) return ;
-  if (error) return ;
-   const filteredTableData = tableData.filter(
+  if (loading) return;
+  if (error) return;
+  const filteredTableData = tableData.filter(
     (row) => showArchived || !row.archived,
   );
-
-
-  
 
   return (
     <tbody>
@@ -180,7 +175,7 @@ const MyTableBody = () => {
                 {actions[0]?.actionStatus || "Pending"}{" "}
                 {/* Örnekte farklı field'lar var, uyarla */}
               </td>
-                <td className="border border-blue-500 px-2 py-1 w-24">
+              <td className="border border-blue-500 px-2 py-1 w-24">
                 {actions[0]?.completionDate || "Pending"}{" "}
                 {/* Örnekte farklı field'lar var, uyarla */}
               </td>
