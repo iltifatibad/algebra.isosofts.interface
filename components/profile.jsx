@@ -3,12 +3,32 @@ import BgRiskBody from "./tabledatas/bgrisk.jsx";
 const RisksAssessment = () => {
   // Sample data - gerçek projede API'den veya props'tan gelebilir
   const [risks, setRisks] = useState([
-    { id: "bg-reg", name: "BG Reg" },
+    { id: "kpi", name: "Key Performance Indicators" },
+    { id: "bg-reg", name: "Business Risks" },
+    { id: "hs-reg", name: "Health & Safety Risks" },
+    { id: "leg-reg", name: "Legislation" },
+    { id: "env-reg", name: "Environmental Aspects & Impact" },
+    { id: "eq-reg", name: "Equipment & Inventory" },
+    { id: "tr-reg", name: "Training" },
+    { id: "doc-reg", name: "Document" },
+    { id: "ven-reg", name: "Vendor" },
+    { id: "cus-reg", name: "Customer" },
+    { id: "fb-reg", name: "Feedback" },
+    { id: "ear-reg", name: "Employee Appraisal Register" },
+    { id: "moc-reg", name: "Management Of Changes" },
+    { id: "fl-reg", name: "Findings Log" },
+    { id: "ao-reg", name: "Assurance & Oversight" },
+    { id: "mr-reg", name: "Management Review Meeting" },
+
     // Diğer risk kategorileri eklenebilir
   ]);
 
-  const [selectedRisk, setSelectedRisk] = useState("bg-reg");
+  const [logs, setLogs] = useState([
+    { id: "a-l", name: "Action Log"},
+  ])
 
+  const [selectedRisk, setSelectedRisk] = useState("bg-reg");
+  const [isOpenReg, setIsOpenReg] = useState(false);
   const [showArchived, setShowArchived] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalMode, setModalMode] = useState("add");
@@ -257,32 +277,45 @@ const RisksAssessment = () => {
       <div className="flex h-full">
         {/* Left Sidebar */}
         <div className="w-64 bg-white shadow-lg border-r border-blue-100 fixed left-0 top-20 h-full overflow-y-auto z-10">
-          <div className="p-6 border-b border-blue-100">
-            <h2 className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-              Risks
-            </h2>
-          </div>
-          <nav className="p-4">
-            <ul className="space-y-2">
-              {risks.map((risk) => (
-                <li key={risk.id}>
-                  <button
-                    onClick={() => setSelectedRisk(risk.id)}
-                    className={[
-                      "w-full text-left px-4 py-3 !rounded-button transition-all duration-300 cursor-pointer whitespace-nowrap",
-                      selectedRisk === risk.id
-                        ? "bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow-lg"
-                        : "text-gray-700 hover:bg-blue-50 hover:text-blue-600",
-                    ].join(" ")}
-                  >
-                    {risk.name}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-        {/* Main Content Area */}
+          <div 
+        className="p-6 border-b border-blue-100 cursor-pointer select-none"  // Tıklanabilir hale getirdim
+        onClick={() => setIsOpenReg(!isOpenReg)}  // Tıkla aç/kapat
+      >
+        <h2 className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent flex items-center justify-between">
+          <span>Risks</span>  {/* Başlık metni */}
+          {/* Açma/Kapama İkonu */}
+          <svg 
+            className={`w-5 h-5 transition-transform duration-300 ${isOpenReg ? 'rotate-180' : ''}`} 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </h2>
+      </div>
+
+      {/* Liste Bölümü - Conditional Render */}
+      <nav className={`transition-all duration-300 ease-in-out ${isOpenReg ? 'max-h-[83vh] p-4 overflow-auto' : 'max-h-0 p-0 overflow-hidden'}`}>
+        <ul className={`space-y-2 ${isOpenReg ? 'block' : 'hidden'}`}>
+          {risks.map((risk) => (
+            <li key={risk.id}>
+              <button
+                onClick={() => setSelectedRisk(risk.id)}
+                className={[
+                  "w-full text-left px-4 py-3 !rounded-button transition-all duration-300 cursor-pointer",  // whitespace-nowrap kaldırıldı (önceki sorun için)
+                  selectedRisk === risk.id
+                    ? "bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow-lg"
+                    : "text-gray-700 hover:bg-blue-50 hover:text-blue-600",
+                ].join(" ")}
+              >
+                {risk.name}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>     {/* Main Content Area */}
         <div className="flex-1 ml-64 p-8 bg-gradient-to-br from-blue-50/50 to-white h-full overflow-y-auto">
           {selectedRisk === "bg-reg" ? (
             <div className="bg-white !rounded-button shadow-lg overflow-hidden">
