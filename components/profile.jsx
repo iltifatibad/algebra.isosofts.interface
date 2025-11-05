@@ -25,6 +25,7 @@ const RisksAssessment = () => {
 
   const [logs, setLogs] = useState([{ id: "a-l", name: "Action Log" }]);
 
+  const [selectedOption, setSelectedOption] = useState("e-chart");
   const [selectedRisk, setSelectedRisk] = useState("");
   const [isOpenReg, setIsOpenReg] = useState(false);
   const [showArchived, setShowArchived] = useState(false);
@@ -32,7 +33,7 @@ const RisksAssessment = () => {
   const [modalMode, setModalMode] = useState("add");
   const [editingRow, setEditingRow] = useState(null);
   const [formData, setFormData] = useState({
-    id: 0, 
+    id: 0,
     swot: "",
     pestle: "",
     interestedParty: "",
@@ -41,8 +42,8 @@ const RisksAssessment = () => {
     kpi: "",
     process: "",
     existingRisk: "",
-    initialRiskSeverity:"", 
-    initialRiskLikelihood:"",
+    initialRiskSeverity: "",
+    initialRiskLikelihood: "",
     actionPlan: [
       {
         action: "",
@@ -51,20 +52,35 @@ const RisksAssessment = () => {
         function: "",
         responsible: "",
         deadline: "",
-        actionConfirmation:"",
+        actionConfirmation: "",
         actionStatus: "",
-        compilationData:"",
+        compilationData: "",
         verification: "",
         comment: "",
       },
     ],
-    residualRiskSeverity:"",
-    residualRiskLikelihood:"",
+    residualRiskSeverity: "",
+    residualRiskLikelihood: "",
   });
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isBulkDelete, setIsBulkDelete] = useState(false); // Bulk delete için yeni state
   const [deletingId, setDeletingId] = useState(null);
   const [selectedRows, setSelectedRows] = useState(new Set()); // Checkbox state'i ekle
+  const [dropdownData, setDropdownData] = useState({});
+  async function getDefaultDropdownList() {
+    const url = "http://localhost:8000/api/tablecomponent/dropdownlistitem/";
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+      const result = await response.json();
+      setDropdownData(result);
+      console.log(result);
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
 
   // Filtered data based on archived
 
@@ -89,7 +105,8 @@ const RisksAssessment = () => {
   // Handlers
   const toggleArchiveView = () => setShowArchived(!showArchived);
 
-  const openAddModal = () => {
+  const openAddModal = async () => {
+    const dropdownData = await getDefaultDropdownList();
     setModalMode("add");
     setEditingRow(null);
     setFormData({
@@ -101,22 +118,23 @@ const RisksAssessment = () => {
       kpi: "",
       process: "",
       existingRisk: "",
-      initialRiskSeverity:"",
-      initialRiskLikelihood:"",
+      initialRiskSeverity: "",
+      initialRiskLikelihood: "",
       actionPlan: [
-      {
-        action: "",
-        raiseDate: "",
-        resources: "",
-        function: "",
-        responsible: "",
-        deadline: "",
-        actionStatus: "",
-        verification: "",
-        comment: "",
-     }],
+        {
+          action: "",
+          raiseDate: "",
+          resources: "",
+          function: "",
+          responsible: "",
+          deadline: "",
+          actionStatus: "",
+          verification: "",
+          comment: "",
+        },
+      ],
       residualRiskSeverity: "",
-      residualRiskLikelihood:"",
+      residualRiskLikelihood: "",
     });
     setShowModal(true);
   };
@@ -157,7 +175,7 @@ const RisksAssessment = () => {
       const newRecord = {
         ...formData,
         id: newId,
-          initialRisk: formData.initialRisk || {
+        initialRisk: formData.initialRisk || {
           severity: "Medium", // Varsayılan
           likelihood: "Medium",
           riskLevel: "Medium",
@@ -204,9 +222,6 @@ const RisksAssessment = () => {
     }
     closeModal();
   };
-
-
-  
 
   // Bulk delete için confirm
   const confirmBulkDelete = () => {
@@ -326,11 +341,11 @@ const RisksAssessment = () => {
         </div>{" "}
         {/* Main Content Area */}
         <div className="flex-1 ml-64 p-8 bg-gradient-to-br from-blue-50/50 to-white h-full overflow-y-auto">
-          {selectedRisk === "bg-reg" ? (
+          {selectedRisk === "bg-reg" && selectedOption === "e-chart" ? (
             <div className="bg-white !rounded-button shadow-lg overflow-hidden">
               <div className="p-6 border-b border-blue-100 flex justify-between items-center">
                 <h3 className="text-2xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                  BG Reg Risk Assessment
+                  E-Chart
                 </h3>
                 <div className="flex space-x-3 items-center">
                   <button
@@ -351,6 +366,122 @@ const RisksAssessment = () => {
                     <i className="fas fa-archive mr-2"></i>
                     {showArchived ? "Hide Archived" : "Show Archived"}
                   </button>
+                  <button
+                    onClick={() => {
+                      setSelectedOption("datas"); // selectedOption'ı "datas" yap
+                    }}
+                    className={[
+                      "!rounded-button whitespace-nowrap cursor-pointer px-4 py-2 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
+                      selectedOption
+                        ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700"
+                        : "bg-gradient-to-r from-gray-500 to-gray-600 text-white hover:from-gray-600 hover:to-gray-700",
+                    ].join(" ")}
+                  >
+                    <i className="fas fa-archive mr-2"></i>
+                    {selectedOption ? "Data" : "E-Chart"}
+                  </button>
+
+                  {/* Actions butonları header'a taşındı */}
+                  <div className="flex space-x-2 ml-4">
+                    <button
+                      onClick={editSingle}
+                      disabled={selectedCount !== 1}
+                      className={[
+                        "!rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-blue-500 to-blue-600 text-white px-2 py-1 hover:from-blue-600 hover:to-blue-700 transition-all duration-300 text-xs shadow-sm",
+                        selectedCount !== 1
+                          ? "opacity-50 cursor-not-allowed"
+                          : "",
+                      ].join(" ")}
+                      title="Edit (Single Selection Only)"
+                    >
+                      <i className="fas fa-edit"></i>
+                    </button>
+                    <button
+                      onClick={bulkArchive}
+                      disabled={selectedCount === 0}
+                      className={[
+                        "!rounded-button whitespace-nowrap cursor-pointer px-2 py-1 transition-all duration-300 text-xs shadow-sm",
+                        selectedCount === 0
+                          ? "opacity-50 cursor-not-allowed"
+                          : "bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700",
+                      ].join(" ")}
+                      title="Archive/Restore Selected"
+                    >
+                      <i
+                        className={
+                          showArchived ? "fas fa-undo" : "fas fa-archive"
+                        }
+                      ></i>
+                    </button>
+                    <button
+                      onClick={selectedCount > 0 ? confirmBulkDelete : () => {}} // Bulk delete için güncellendi
+                      disabled={selectedCount === 0}
+                      className={[
+                        "!rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-red-500 to-red-600 text-white px-2 py-1 hover:from-red-600 hover:to-red-700 transition-all duration-300 text-xs shadow-sm",
+                        selectedCount === 0
+                          ? "opacity-50 cursor-not-allowed"
+                          : "",
+                      ].join(" ")}
+                      title="Delete Selected"
+                    >
+                      <i className="fas fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div className="overflow-x-auto max-h-[75vh] overflow-y-auto">
+                {/* e-chart için özel içerik: Örneğin bir chart component'i buraya koy (ECharts, Recharts vs.) */}
+                <div className="p-6">
+                  <h4 className="text-lg font-medium mb-4">E-Chart View</h4>
+                  {/* Placeholder: Gerçek chart component'ini buraya ekle, örneğin <EChart data={riskData} /> */}
+                  <div className="h-96 bg-gray-50 rounded-lg flex items-center justify-center">
+                    <p className="text-gray-500">
+                      E-Chart Placeholder (Risk verileri için grafik)
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : selectedRisk === "bg-reg" && selectedOption === "datas" ? (
+            <div className="bg-white !rounded-button shadow-lg overflow-hidden">
+              <div className="p-6 border-b border-blue-100 flex justify-between items-center">
+                <h3 className="text-2xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                  Datas
+                </h3>
+                <div className="flex space-x-3 items-center">
+                  <button
+                    onClick={openAddModal}
+                    className="!rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm"
+                  >
+                    <i className="fas fa-plus mr-2"></i>Add Risk
+                  </button>
+                  <button
+                    onClick={toggleArchiveView}
+                    className={[
+                      "!rounded-button whitespace-nowrap cursor-pointer px-4 py-2 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
+                      showArchived
+                        ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700"
+                        : "bg-gradient-to-r from-gray-500 to-gray-600 text-white hover:from-gray-600 hover:to-gray-700",
+                    ].join(" ")}
+                  >
+                    <i className="fas fa-archive mr-2"></i>
+                    {showArchived ? "Hide Archived" : "Show Archived"}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setSelectedOption("e-chart"); // selectedOption'ı "datas" yap
+                    }}
+                    className={[
+                      "!rounded-button whitespace-nowrap cursor-pointer px-4 py-2 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
+                      selectedOption
+                        ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700"
+                        : "bg-gradient-to-r from-gray-500 to-gray-600 text-white hover:from-gray-600 hover:to-gray-700",
+                    ].join(" ")}
+                  >
+                    <i className="fas fa-archive mr-2"></i>
+                    {selectedOption ? "E-Chart" : "Data"}
+                  </button>
+
                   {/* Actions butonları header'a taşındı */}
                   <div className="flex space-x-2 ml-4">
                     <button
@@ -535,7 +666,6 @@ const RisksAssessment = () => {
                       </th>
                     </tr>
                   </thead>
-
                   {/* Table Body */}
                   <BgRiskBody />
                 </table>
@@ -571,38 +701,55 @@ const RisksAssessment = () => {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       SWOT
                     </label>
-                    <input
+                    <select
                       value={formData.swot}
-                      onChange={(e) => handleFormChange("swot", e.target.value)}
-                      type="text"
-                      className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                    />
+                      onChange={(e) =>
+                        setFormData({ ...formData, swot: e.target.value })
+                      }
+                    >
+                      {dropdownData?.swot?.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.value}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       PESTLE
                     </label>
-                    <input
+                    <select
                       value={formData.pestle}
                       onChange={(e) =>
-                        handleFormChange("pestle", e.target.value)
+                        setFormData({ ...formData, pestle: e.target.value })
                       }
-                      type="text"
-                      className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                    />
+                    >
+                      {dropdownData?.pestle?.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.value}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Interested Party
                     </label>
-                    <input
+                    <select
                       value={formData.interestedParty}
                       onChange={(e) =>
-                        handleFormChange("interestedParty", e.target.value)
+                        setFormData({
+                          ...formData,
+                          interestedParty: e.target.value,
+                        })
                       }
-                      type="text"
-                      className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                    />
+                    >
+                      {dropdownData?.interestedParty?.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.value}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -645,14 +792,18 @@ const RisksAssessment = () => {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Process
                     </label>
-                    <input
+                    <select
                       value={formData.process}
                       onChange={(e) =>
-                        handleFormChange("process", e.target.value)
+                        setFormData({ ...formData, process: e.target.value })
                       }
-                      type="text"
-                      className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                    />
+                    >
+                      {dropdownData?.process?.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.value}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -698,7 +849,7 @@ const RisksAssessment = () => {
                         placeholder="Likelihood"
                         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                       />
-                     </div>
+                    </div>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -872,7 +1023,7 @@ const RisksAssessment = () => {
                       placeholder="Likelihood"
                       className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                     />
-                  {/*
+                    {/*
                     <input
                       value={formData.residualRisk.riskLevel}
                       onChange={(e) =>
