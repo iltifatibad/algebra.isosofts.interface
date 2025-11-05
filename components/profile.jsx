@@ -23,9 +23,7 @@ const RisksAssessment = () => {
     // Diğer risk kategorileri eklenebilir
   ]);
 
-  const [logs, setLogs] = useState([
-    { id: "a-l", name: "Action Log"},
-  ])
+  const [logs, setLogs] = useState([{ id: "a-l", name: "Action Log" }]);
 
   const [selectedRisk, setSelectedRisk] = useState("");
   const [isOpenReg, setIsOpenReg] = useState(false);
@@ -34,7 +32,7 @@ const RisksAssessment = () => {
   const [modalMode, setModalMode] = useState("add");
   const [editingRow, setEditingRow] = useState(null);
   const [formData, setFormData] = useState({
-    id: 0, // Yeni kayıt için varsayılan (sonra güncellenir)
+    id: 0, 
     swot: "",
     pestle: "",
     interestedParty: "",
@@ -43,13 +41,9 @@ const RisksAssessment = () => {
     kpi: "",
     process: "",
     existingRisk: "",
-    initialRisk: {
-      severity: "",
-      likelihood: "",
-      riskLevel: "",
-    },
+    initialRiskSeverity:"", 
+    initialRiskLikelihood:"",
     actionPlan: [
-      // Boş dizi yerine, bir boş action objesi ile başlatıldı
       {
         action: "",
         raiseDate: "",
@@ -57,13 +51,15 @@ const RisksAssessment = () => {
         function: "",
         responsible: "",
         deadline: "",
+        actionConfirmation:"",
         actionStatus: "",
+        compilationData:"",
         verification: "",
         comment: "",
       },
     ],
-    residualRisk: "",
-    archived: false, // Varsayılan olarak false
+    residualRiskSeverity:"",
+    residualRiskLikelihood:"",
   });
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isBulkDelete, setIsBulkDelete] = useState(false); // Bulk delete için yeni state
@@ -105,8 +101,10 @@ const RisksAssessment = () => {
       kpi: "",
       process: "",
       existingRisk: "",
-      initialRisk: { severity: "", likelihood: "", riskLevel: "" },
-      actionPlan: {
+      initialRiskSeverity:"",
+      initialRiskLikelihood:"",
+      actionPlan: [
+      {
         action: "",
         raiseDate: "",
         resources: "",
@@ -116,8 +114,9 @@ const RisksAssessment = () => {
         actionStatus: "",
         verification: "",
         comment: "",
-      },
-      residualRisk: "",
+     }],
+      residualRiskSeverity: "",
+      residualRiskLikelihood:"",
     });
     setShowModal(true);
   };
@@ -154,13 +153,11 @@ const RisksAssessment = () => {
 
   const saveRisk = () => {
     if (modalMode === "add") {
-      const newId = Math.max(...formData.map((r) => r.id), 0) + 1;
+      const newId = 1;
       const newRecord = {
         ...formData,
         id: newId,
-        archived: false,
-        // Eğer formData'da yoksa varsayılan değerler ekleyin (JSON örneğine göre)
-        initialRisk: formData.initialRisk || {
+          initialRisk: formData.initialRisk || {
           severity: "Medium", // Varsayılan
           likelihood: "Medium",
           riskLevel: "Medium",
@@ -169,7 +166,7 @@ const RisksAssessment = () => {
         residualRisk: formData.residualRisk || "Low", // Varsayılan
       };
 
-      setTableData((prev) => [...prev, newRecord]);
+      setFormData((prev) => [...prev, newRecord]);
 
       // bgrisk.json dosyasını oku, yeni kaydı ekle ve güncelle
       fetch("/jsondatas/bgrisk.json")
@@ -192,6 +189,7 @@ const RisksAssessment = () => {
             );
           } else {
             console.log("Yeni kayıt başarıyla kaydedildi.");
+            console.log(newRecord);
           }
         })
         .catch((error) => {
@@ -206,6 +204,9 @@ const RisksAssessment = () => {
     }
     closeModal();
   };
+
+
+  
 
   // Bulk delete için confirm
   const confirmBulkDelete = () => {
@@ -277,45 +278,53 @@ const RisksAssessment = () => {
       <div className="flex h-full">
         {/* Left Sidebar */}
         <div className="w-64 bg-white shadow-lg border-r border-blue-100 fixed left-0 top-20 h-full overflow-y-auto z-10">
-          <div 
-        className="p-6 border-b border-blue-100 cursor-pointer select-none"  // Tıklanabilir hale getirdim
-        onClick={() => setIsOpenReg(!isOpenReg)}  // Tıkla aç/kapat
-      >
-        <h2 className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent flex items-center justify-between">
-          <span>Risks</span>  {/* Başlık metni */}
-          {/* Açma/Kapama İkonu */}
-          <svg 
-            className={`w-5 h-5 transition-transform duration-300 ${isOpenReg ? 'rotate-180' : ''}`} 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
+          <div
+            className="p-6 border-b border-blue-100 cursor-pointer select-none" // Tıklanabilir hale getirdim
+            onClick={() => setIsOpenReg(!isOpenReg)} // Tıkla aç/kapat
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
-        </h2>
-      </div>
-
-      {/* Liste Bölümü - Conditional Render */}
-      <nav className={`transition-all duration-300 ease-in-out ${isOpenReg ? 'max-h-[83vh] p-4 overflow-auto' : 'max-h-0 p-0 overflow-hidden'}`}>
-        <ul className={`space-y-2 ${isOpenReg ? 'block' : 'hidden'}`}>
-          {risks.map((risk) => (
-            <li key={risk.id}>
-              <button
-                onClick={() => setSelectedRisk(risk.id)}
-                className={[
-                  "w-full text-left px-4 py-3 !rounded-button transition-all duration-300 cursor-pointer",  // whitespace-nowrap kaldırıldı (önceki sorun için)
-                  selectedRisk === risk.id
-                    ? "bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow-lg"
-                    : "text-gray-700 hover:bg-blue-50 hover:text-blue-600",
-                ].join(" ")}
+            <h2 className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent flex items-center justify-between">
+              <span>Risks</span> {/* Başlık metni */}
+              {/* Açma/Kapama İkonu */}
+              <svg
+                className={`w-5 h-5 transition-transform duration-300 ${isOpenReg ? "rotate-180" : ""}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
-                {risk.name}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </div>     {/* Main Content Area */}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </h2>
+          </div>
+
+          {/* Liste Bölümü - Conditional Render */}
+          <nav
+            className={`transition-all duration-300 ease-in-out ${isOpenReg ? "max-h-[83vh] p-4 overflow-auto" : "max-h-0 p-0 overflow-hidden"}`}
+          >
+            <ul className={`space-y-2 ${isOpenReg ? "block" : "hidden"}`}>
+              {risks.map((risk) => (
+                <li key={risk.id}>
+                  <button
+                    onClick={() => setSelectedRisk(risk.id)}
+                    className={[
+                      "w-full text-left px-4 py-3 !rounded-button transition-all duration-300 cursor-pointer", // whitespace-nowrap kaldırıldı (önceki sorun için)
+                      selectedRisk === risk.id
+                        ? "bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow-lg"
+                        : "text-gray-700 hover:bg-blue-50 hover:text-blue-600",
+                    ].join(" ")}
+                  >
+                    {risk.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>{" "}
+        {/* Main Content Area */}
         <div className="flex-1 ml-64 p-8 bg-gradient-to-br from-blue-50/50 to-white h-full overflow-y-auto">
           {selectedRisk === "bg-reg" ? (
             <div className="bg-white !rounded-button shadow-lg overflow-hidden">
@@ -392,7 +401,6 @@ const RisksAssessment = () => {
               </div>
               <div className="overflow-x-auto max-h-[75vh] overflow-y-auto">
                 {" "}
-                {/* Adjust max-h as needed, e.g., 60vh for ~3-4 rows visibility */}
                 <table className="w-full text-sm table-auto border-separate border-spacing-0 border border-blue-50 min-w-[2000px]">
                   <thead>
                     {/* First header row - fixed height for sticky positioning */}
@@ -549,7 +557,7 @@ const RisksAssessment = () => {
       </div>
       {/* Add/Edit Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-white !rounded-button shadow-xl max-w-4xl w-full mx-4 max-h-screen overflow-y-auto">
             <div className="p-6 border-b border-blue-100">
               <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
@@ -667,10 +675,10 @@ const RisksAssessment = () => {
                     </label>
                     <div className="grid grid-cols-3 gap-2">
                       <input
-                        value={formData.initialRisk.severity}
+                        value={formData.initialRiskSeverity}
                         onChange={(e) =>
                           handleFormChange(
-                            "initialRisk.severity",
+                            "initialRiskSeverity",
                             e.target.value,
                           )
                         }
@@ -679,10 +687,10 @@ const RisksAssessment = () => {
                         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                       />
                       <input
-                        value={formData.initialRisk.likelihood}
+                        value={formData.initialRiskLikelihood}
                         onChange={(e) =>
                           handleFormChange(
-                            "initialRisk.likelihood",
+                            "initialRiskLikelihood",
                             e.target.value,
                           )
                         }
@@ -690,19 +698,7 @@ const RisksAssessment = () => {
                         placeholder="Likelihood"
                         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                       />
-                      <input
-                        value={formData.initialRisk.riskLevel}
-                        onChange={(e) =>
-                          handleFormChange(
-                            "initialRisk.riskLevel",
-                            e.target.value,
-                          )
-                        }
-                        type="text"
-                        placeholder="Risk Level"
-                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                      />
-                    </div>
+                     </div>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -730,7 +726,7 @@ const RisksAssessment = () => {
                               e.target.value,
                             )
                           }
-                          type="date"
+                          type="text"
                           placeholder="Raise Date"
                           className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                         />
@@ -757,7 +753,7 @@ const RisksAssessment = () => {
                             )
                           }
                           type="text"
-                          placeholder="Function"
+                          placeholder="Relative Function"
                           className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                         />
                         <input
@@ -780,12 +776,24 @@ const RisksAssessment = () => {
                               e.target.value,
                             )
                           }
-                          type="date"
+                          type="text"
                           placeholder="Deadline"
                           className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                         />
                       </div>
                       <div className="grid grid-cols-3 gap-2">
+                        <input
+                          value={formData.actionPlan.actionConfirmation}
+                          onChange={(e) =>
+                            handleFormChange(
+                              "actionPlan.actionConfirmation",
+                              e.target.value,
+                            )
+                          }
+                          type="text"
+                          placeholder="Action Confirmation"
+                          className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                        />
                         <input
                           value={formData.actionPlan.actionStatus}
                           onChange={(e) =>
@@ -799,6 +807,20 @@ const RisksAssessment = () => {
                           className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                         />
                         <input
+                          value={formData.actionPlan.compilationDate}
+                          onChange={(e) =>
+                            handleFormChange(
+                              "actionPlan.compilationDate",
+                              e.target.value,
+                            )
+                          }
+                          type="text"
+                          placeholder="Compilation Date"
+                          className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                        />
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <input
                           value={formData.actionPlan.verification}
                           onChange={(e) =>
                             handleFormChange(
@@ -807,7 +829,7 @@ const RisksAssessment = () => {
                             )
                           }
                           type="text"
-                          placeholder="Verification"
+                          placeholder="Status Of Verification"
                           className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                         />
                         <input
@@ -825,18 +847,44 @@ const RisksAssessment = () => {
                       </div>
                     </div>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Residual Risk Level
-                    </label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Residual Risk / Opportunity Level
+                  </label>
+                  <div className="grid grid-cols-3 gap-2">
                     <input
-                      value={formData.residualRisk}
+                      value={formData.residualRiskSeverity}
                       onChange={(e) =>
-                        handleFormChange("residualRisk", e.target.value)
+                        handleFormChange("residualRiskSeverity", e.target.value)
                       }
                       type="text"
+                      placeholder="Severity"
                       className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                     />
+                    <input
+                      value={formData.residualRiskLikelihood}
+                      onChange={(e) =>
+                        handleFormChange(
+                          "residualRiskLikelihood",
+                          e.target.value,
+                        )
+                      }
+                      type="text"
+                      placeholder="Likelihood"
+                      className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+                  {/*
+                    <input
+                      value={formData.residualRisk.riskLevel}
+                      onChange={(e) =>
+                        handleFormChange(
+                          "residualRisk.riskLevel",
+                          e.target.value,
+                        )
+                      }
+                      type="text"
+                      placeholder="Risk Level"
+                      className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                    /> */}
                   </div>
                 </div>
               </div>
