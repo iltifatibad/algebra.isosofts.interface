@@ -41,7 +41,7 @@ const RisksAssessment = () => {
     objective: "",
     kpi: "",
     process: "",
-    existingRisk: "",
+    ermeoa: "",
     initialRiskSeverity: "",
     initialRiskLikelihood: "",
     actionPlan: [
@@ -117,24 +117,11 @@ const RisksAssessment = () => {
       objective: "",
       kpi: "",
       process: "",
-      existingRisk: "",
-      initialRiskSeverity: "",
-      initialRiskLikelihood: "",
-      // actionPlan: [
-      //   {
-      //     action: "",
-      //     raiseDate: "",
-      //     resources: "",
-      //     function: "",
-      //     responsible: "",
-      //     deadline: "",
-      //     actionStatus: "",
-      //     verification: "",
-      //     comment: "",
-      //   },
-      // ],
-      residualRiskSeverity: "",
-      residualRiskLikelihood: "",
+      ermeoa: "",
+      initialRiskSeverity: 0,
+      initialRiskLikelyhood: 0,
+      residualRiskSeverity: 0,
+      residualRiskLikelyhood: 0,
     });
     setShowModal(true);
   };
@@ -177,51 +164,40 @@ const RisksAssessment = () => {
   const closeModal = () => setShowModal(false);
 
   const saveRisk = () => {
-    if (modalMode === "add") {
-      const newId = 1;
-      const newRecord = {
-        ...formData,
-      };
+  if (modalMode === "add") {
+    // Sadece backend beklediği alanları al (diğerlerini sil)
+    const payload = {
+      swot: formData.swot,
+      pestle: formData.pestle,
+      interestedParty: formData.interestedParty,
+      riskOpportunity: formData.riskOpportunity,
+      objective: formData.objective,
+      kpi: formData.kpi,
+      process: formData.process,
+      ermeoa: formData.ermeoa,
+      initialRiskSeverity: formData.initialRiskSeverity,  // Number
+      initialRiskLikelyhood: formData.initialRiskLikelyhood,  // Number, spelling uyumlu
+      residualRiskSeverity: formData.residualRiskSeverity,
+      residualRiskLikelyhood: formData.residualRiskLikelyhood,
+    };
+    console.log('Gönderilen body:', payload);  // Debug: Tam beklenen format mı?
 
-      setFormData((prev) => ({ ...prev, ...newRecord }));
-
-      // bgrisk.json dosyasını oku, yeni kaydı ekle ve güncelle
-      fetch("/jsondatas/bgrisk.json")
-        .then((response) => response.json())
-        .then((data) => {
-          data.push(newRecord);
-          return fetch("/jsondatas/bgrisk.json", {
-            method: "PUT", // veya POST, backend'inize göre ayarlayın
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-          });
-        })
-        .then((response) => {
-          if (!response.ok) {
-            console.error(
-              "JSON dosyasına kaydetme başarısız:",
-              response.statusText,
-            );
-          } else {
-            console.log("Yeni kayıt başarıyla kaydedildi.");
-            console.log(newRecord);
-          }
-        })
-        .catch((error) => {
-          console.error("JSON dosyasına erişim hatası:", error);
-        });
-    } else {
-      setTableData((prev) =>
-        prev.map((row) =>
-          row.id === editingRow.id ? { ...formData, id: row.id } : row,
-        ),
-      );
-    }
-    closeModal();
-  };
-
+    fetch("http://localhost:8000/api/register/br/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),  // Direkt obje – array yapma!
+    })
+    .then((response) => {
+      if (!response.ok) {
+        console.error("Kaydetme başarısız:", response.statusText);
+      } else {
+        console.log("Kayıt başarıyla kaydedildi.");
+      }
+    })
+    .catch((error) => console.error("Hata:", error));
+  }
+  closeModal();
+};
   // Bulk delete için confirm
   const confirmBulkDelete = () => {
     setIsBulkDelete(true);
@@ -826,9 +802,9 @@ const RisksAssessment = () => {
                       Existing Risk Mitigation
                     </label>
                     <input
-                      value={formData.existingRisk}
+                      value={formData.ermeoa}
                       onChange={(e) =>
-                        handleFormChange("existingRisk", e.target.value)
+                        handleFormChange("ermeoa", e.target.value)
                       }
                       type="text"
                       className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
@@ -848,9 +824,10 @@ const RisksAssessment = () => {
                             "Select onChange tetiklendi! Yeni value:",
                             e.target.value,
                           ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                          const newValue = parseInt(e.target.value, 10) || 0;
                           handleFormChange(
                             "initialRiskSeverity",
-                            e.target.value,
+                            newValue,
                           ); // String path + value – obje değil!
                         }}
                       >
@@ -862,15 +839,16 @@ const RisksAssessment = () => {
                         <option>5</option>
                       </select>
                       <select
-                        value={formData.initialRiskLikelihood}
+                        value={formData.initialRiskLikelyhood}
                         onChange={(e) => {
                           console.log(
                             "Select onChange tetiklendi! Yeni value:",
                             e.target.value,
                           ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                          const newValue = parseInt(e.target.value, 10) || 0;
                           handleFormChange(
-                            "initialRiskLikelihood",
-                            e.target.value,
+                            "initialRiskLikelyhood",
+                            newValue,
                           ); // String path + value – obje değil!
                         }}
                       >
@@ -1041,9 +1019,10 @@ const RisksAssessment = () => {
                           "Select onChange tetiklendi! Yeni value:",
                           e.target.value,
                         ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                        const newValue = parseInt(e.target.value, 10) || 0;
                         handleFormChange(
                           "residualRiskSeverity",
-                          e.target.value,
+                          newValue,
                         ); // String path + value – obje değil!
                       }}
                     >
@@ -1055,15 +1034,16 @@ const RisksAssessment = () => {
                       <option>5</option>
                     </select>
                     <select
-                      value={formData.residualRiskLikelihood}
+                      value={formData.residualRiskLikelyhood}
                       onChange={(e) => {
                         console.log(
                           "Select onChange tetiklendi! Yeni value:",
                           e.target.value,
                         ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                        const newValue = parseInt(e.target.value, 10) || 0;
                         handleFormChange(
-                          "residualRiskLikelihood",
-                          e.target.value,
+                          "residualRiskLikelyhood",
+                          newValue,
                         ); // String path + value – obje değil!
                       }}
                     >
