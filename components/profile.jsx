@@ -120,19 +120,19 @@ const RisksAssessment = () => {
       existingRisk: "",
       initialRiskSeverity: "",
       initialRiskLikelihood: "",
-      actionPlan: [
-        {
-          action: "",
-          raiseDate: "",
-          resources: "",
-          function: "",
-          responsible: "",
-          deadline: "",
-          actionStatus: "",
-          verification: "",
-          comment: "",
-        },
-      ],
+      // actionPlan: [
+      //   {
+      //     action: "",
+      //     raiseDate: "",
+      //     resources: "",
+      //     function: "",
+      //     responsible: "",
+      //     deadline: "",
+      //     actionStatus: "",
+      //     verification: "",
+      //     comment: "",
+      //   },
+      // ],
       residualRiskSeverity: "",
       residualRiskLikelihood: "",
     });
@@ -150,23 +150,30 @@ const RisksAssessment = () => {
     setShowModal(true);
   };
 
-  const handleFormChange = (path, value) => {
-    const updateNested = (obj, pathArr, val) => {
-      const newObj = { ...obj };
-      let current = newObj;
-      for (let i = 0; i < pathArr.length - 1; i++) {
-        const key = pathArr[i];
-        current[key] = { ...current[key] };
-        current = current[key];
-      }
-      current[pathArr[pathArr.length - 1]] = val;
-      return newObj;
-    };
-
-    const pathArr = path.split(".");
-    setFormData((prev) => updateNested(prev, pathArr, value));
+  const handleFormChange = (arg1, arg2) => {
+    if (typeof arg1 === "string") {
+      // Input/select path-value modu (mevcut mantık, ama güvenli hale getir)
+      const updateNested = (obj, pathArr, val) => {
+        const newObj = { ...(obj || {}) }; // prev undefined ise boş obje
+        let current = newObj;
+        for (let i = 0; i < pathArr.length - 1; i++) {
+          const key = pathArr[i];
+          if (!current[key]) current[key] = {}; // Boş obje oluştur
+          current[key] = { ...current[key] };
+          current = current[key];
+        }
+        current[pathArr[pathArr.length - 1]] = val;
+        return newObj;
+      };
+      const pathArr = arg1.split(".");
+      setFormData((prev) => updateNested(prev, pathArr, arg2));
+    } else if (arg1 && typeof arg1 === "object") {
+      // Select obje modu (eğer { ...formData, swot: value } geçiriyorsan)
+      setFormData((prev) => ({ ...(prev || {}), ...arg1 }));
+    } else {
+      console.warn("handleFormChange: Beklenen string path veya obje");
+    }
   };
-
   const closeModal = () => setShowModal(false);
 
   const saveRisk = () => {
@@ -174,17 +181,9 @@ const RisksAssessment = () => {
       const newId = 1;
       const newRecord = {
         ...formData,
-        id: newId,
-        initialRisk: formData.initialRisk || {
-          severity: "Medium", // Varsayılan
-          likelihood: "Medium",
-          riskLevel: "Medium",
-        },
-        actionPlan: formData.actionPlan || [], // Boş dizi veya formdan gelen
-        residualRisk: formData.residualRisk || "Low", // Varsayılan
       };
 
-      setFormData((prev) => [...prev, newRecord]);
+      setFormData((prev) => ({ ...prev, ...newRecord }));
 
       // bgrisk.json dosyasını oku, yeni kaydı ekle ve güncelle
       fetch("/jsondatas/bgrisk.json")
@@ -702,28 +701,38 @@ const RisksAssessment = () => {
                       SWOT
                     </label>
                     <select
-                      value={formData.swot}
-                      onChange={(e) =>
-                        setFormData({ ...formData, swot: e.target.value })
-                      }
+                      value={formData.swot || ""} // Null-safe
+                      onChange={(e) => {
+                        console.log(
+                          "Select onChange tetiklendi! Yeni value:",
+                          e.target.value,
+                        ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                        handleFormChange("swot", e.target.value); // String path + value – obje değil!
+                      }}
                     >
+                      <option value="">Seçiniz</option>
                       {dropdownData?.swot?.map((item) => (
                         <option key={item.id} value={item.id}>
                           {item.value}
                         </option>
                       ))}
-                    </select>
+                    </select>{" "}
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       PESTLE
                     </label>
                     <select
-                      value={formData.pestle}
-                      onChange={(e) =>
-                        setFormData({ ...formData, pestle: e.target.value })
-                      }
+                      value={formData.pestle || ""} // Null-safe
+                      onChange={(e) => {
+                        console.log(
+                          "Select onChange tetiklendi! Yeni value:",
+                          e.target.value,
+                        ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                        handleFormChange("pestle", e.target.value); // String path + value – obje değil!
+                      }}
                     >
+                      <option value="">Seçiniz</option>
                       {dropdownData?.pestle?.map((item) => (
                         <option key={item.id} value={item.id}>
                           {item.value}
@@ -737,13 +746,15 @@ const RisksAssessment = () => {
                     </label>
                     <select
                       value={formData.interestedParty}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          interestedParty: e.target.value,
-                        })
-                      }
+                      onChange={(e) => {
+                        console.log(
+                          "Select onChange tetiklendi! Yeni value:",
+                          e.target.value,
+                        ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                        handleFormChange("interestedParty", e.target.value); // String path + value – obje değil!
+                      }}
                     >
+                      <option value="">Seçiniz</option>
                       {dropdownData?.interestedParty?.map((item) => (
                         <option key={item.id} value={item.id}>
                           {item.value}
@@ -794,10 +805,15 @@ const RisksAssessment = () => {
                     </label>
                     <select
                       value={formData.process}
-                      onChange={(e) =>
-                        setFormData({ ...formData, process: e.target.value })
-                      }
+                      onChange={(e) => {
+                        console.log(
+                          "Select onChange tetiklendi! Yeni value:",
+                          e.target.value,
+                        ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                        handleFormChange("process", e.target.value); // String path + value – obje değil!
+                      }}
                     >
+                      <option value="">Seçiniz</option>
                       {dropdownData?.process?.map((item) => (
                         <option key={item.id} value={item.id}>
                           {item.value}
@@ -825,217 +841,239 @@ const RisksAssessment = () => {
                       Initial Risk
                     </label>
                     <div className="grid grid-cols-3 gap-2">
-                      <input
+                      <select
                         value={formData.initialRiskSeverity}
-                        onChange={(e) =>
+                        onChange={(e) => {
+                          console.log(
+                            "Select onChange tetiklendi! Yeni value:",
+                            e.target.value,
+                          ); // Debug: Bu çıkmıyorsa onChange patlıyor
                           handleFormChange(
                             "initialRiskSeverity",
                             e.target.value,
-                          )
-                        }
-                        type="text"
-                        placeholder="Severity"
-                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                      />
-                      <input
+                          ); // String path + value – obje değil!
+                        }}
+                      >
+                        <option value="">Seçiniz</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                      <select
                         value={formData.initialRiskLikelihood}
-                        onChange={(e) =>
+                        onChange={(e) => {
+                          console.log(
+                            "Select onChange tetiklendi! Yeni value:",
+                            e.target.value,
+                          ); // Debug: Bu çıkmıyorsa onChange patlıyor
                           handleFormChange(
                             "initialRiskLikelihood",
                             e.target.value,
-                          )
-                        }
-                        type="text"
-                        placeholder="Likelihood"
-                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                      />
+                          ); // String path + value – obje değil!
+                        }}
+                      >
+                        <option value="">Seçiniz</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
                     </div>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Action Plan
-                    </label>
-                    <div className="space-y-3">
-                      <div className="grid grid-cols-3 gap-2">
-                        <input
-                          value={formData.actionPlan.action}
-                          onChange={(e) =>
-                            handleFormChange(
-                              "actionPlan.action",
-                              e.target.value,
-                            )
-                          }
-                          type="text"
-                          placeholder="Action"
-                          className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        />
-                        <input
-                          value={formData.actionPlan.raiseDate}
-                          onChange={(e) =>
-                            handleFormChange(
-                              "actionPlan.raiseDate",
-                              e.target.value,
-                            )
-                          }
-                          type="text"
-                          placeholder="Raise Date"
-                          className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        />
-                        <input
-                          value={formData.actionPlan.resources}
-                          onChange={(e) =>
-                            handleFormChange(
-                              "actionPlan.resources",
-                              e.target.value,
-                            )
-                          }
-                          type="text"
-                          placeholder="Resources"
-                          className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        />
-                      </div>
-                      <div className="grid grid-cols-3 gap-2">
-                        <input
-                          value={formData.actionPlan.function}
-                          onChange={(e) =>
-                            handleFormChange(
-                              "actionPlan.function",
-                              e.target.value,
-                            )
-                          }
-                          type="text"
-                          placeholder="Relative Function"
-                          className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        />
-                        <input
-                          value={formData.actionPlan.responsible}
-                          onChange={(e) =>
-                            handleFormChange(
-                              "actionPlan.responsible",
-                              e.target.value,
-                            )
-                          }
-                          type="text"
-                          placeholder="Responsible"
-                          className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        />
-                        <input
-                          value={formData.actionPlan.deadline}
-                          onChange={(e) =>
-                            handleFormChange(
-                              "actionPlan.deadline",
-                              e.target.value,
-                            )
-                          }
-                          type="text"
-                          placeholder="Deadline"
-                          className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        />
-                      </div>
-                      <div className="grid grid-cols-3 gap-2">
-                        <input
-                          value={formData.actionPlan.actionConfirmation}
-                          onChange={(e) =>
-                            handleFormChange(
-                              "actionPlan.actionConfirmation",
-                              e.target.value,
-                            )
-                          }
-                          type="text"
-                          placeholder="Action Confirmation"
-                          className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        />
-                        <input
-                          value={formData.actionPlan.actionStatus}
-                          onChange={(e) =>
-                            handleFormChange(
-                              "actionPlan.actionStatus",
-                              e.target.value,
-                            )
-                          }
-                          type="text"
-                          placeholder="Action Status"
-                          className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        />
-                        <input
-                          value={formData.actionPlan.compilationDate}
-                          onChange={(e) =>
-                            handleFormChange(
-                              "actionPlan.compilationDate",
-                              e.target.value,
-                            )
-                          }
-                          type="text"
-                          placeholder="Compilation Date"
-                          className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        />
-                      </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <input
-                          value={formData.actionPlan.verification}
-                          onChange={(e) =>
-                            handleFormChange(
-                              "actionPlan.verification",
-                              e.target.value,
-                            )
-                          }
-                          type="text"
-                          placeholder="Status Of Verification"
-                          className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        />
-                        <input
-                          value={formData.actionPlan.comment}
-                          onChange={(e) =>
-                            handleFormChange(
-                              "actionPlan.comment",
-                              e.target.value,
-                            )
-                          }
-                          type="text"
-                          placeholder="Comment"
-                          className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        />
-                      </div>
-                    </div>
-                  </div>
+                  {/* // <div>
+                  //   <label className="block text-sm font-medium text-gray-700 mb-2">
+                  //     Action Plan
+                  //   </label>
+                  //   <div className="space-y-3">
+                  //     <div className="grid grid-cols-3 gap-2">
+                  //       <input
+                  //         value={formData.actionPlan.action}
+                  //         onChange={(e) =>
+                  //           handleFormChange(
+                  //             "actionPlan.action",
+                  //             e.target.value,
+                  //           )
+                  //         }
+                  //         type="text"
+                  //         placeholder="Action"
+                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                  //       />
+                  //       <input
+                  //         value={formData.actionPlan.raiseDate}
+                  //         onChange={(e) =>
+                  //           handleFormChange(
+                  //             "actionPlan.raiseDate",
+                  //             e.target.value,
+                  //           )
+                  //         }
+                  //         type="text"
+                  //         placeholder="Raise Date"
+                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                  //       />
+                  //       <input
+                  //         value={formData.actionPlan.resources}
+                  //         onChange={(e) =>
+                  //           handleFormChange(
+                  //             "actionPlan.resources",
+                  //             e.target.value,
+                  //           )
+                  //         }
+                  //         type="text"
+                  //         placeholder="Resources"
+                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                  //       />
+                  //     </div>
+                  //     <div className="grid grid-cols-3 gap-2">
+                  //       <input
+                  //         value={formData.actionPlan.function}
+                  //         onChange={(e) =>
+                  //           handleFormChange(
+                  //             "actionPlan.function",
+                  //             e.target.value,
+                  //           )
+                  //         }
+                  //         type="text"
+                  //         placeholder="Relative Function"
+                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                  //       />
+                  //       <input
+                  //         value={formData.actionPlan.responsible}
+                  //         onChange={(e) =>
+                  //           handleFormChange(
+                  //             "actionPlan.responsible",
+                  //             e.target.value,
+                  //           )
+                  //         }
+                  //         type="text"
+                  //         placeholder="Responsible"
+                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                  //       />
+                  //       <input
+                  //         value={formData.actionPlan.deadline}
+                  //         onChange={(e) =>
+                  //           handleFormChange(
+                  //             "actionPlan.deadline",
+                  //             e.target.value,
+                  //           )
+                  //         }
+                  //         type="text"
+                  //         placeholder="Deadline"
+                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                  //       />
+                  //     </div>
+                  //     <div className="grid grid-cols-3 gap-2">
+                  //       <input
+                  //         value={formData.actionPlan.actionConfirmation}
+                  //         onChange={(e) =>
+                  //           handleFormChange(
+                  //             "actionPlan.actionConfirmation",
+                  //             e.target.value,
+                  //           )
+                  //         }
+                  //         type="text"
+                  //         placeholder="Action Confirmation"
+                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                  //       />
+                  //       <input
+                  //         value={formData.actionPlan.actionStatus}
+                  //         onChange={(e) =>
+                  //           handleFormChange(
+                  //             "actionPlan.actionStatus",
+                  //             e.target.value,
+                  //           )
+                  //         }
+                  //         type="text"
+                  //         placeholder="Action Status"
+                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                  //       />
+                  //       <input
+                  //         value={formData.actionPlan.compilationDate}
+                  //         onChange={(e) =>
+                  //           handleFormChange(
+                  //             "actionPlan.compilationDate",
+                  //             e.target.value,
+                  //           )
+                  //         }
+                  //         type="text"
+                  //         placeholder="Compilation Date"
+                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                  //       />
+                  //     </div>
+                  //     <div className="grid grid-cols-2 gap-2">
+                  //       <input
+                  //         value={formData.actionPlan.verification}
+                  //         onChange={(e) =>
+                  //           handleFormChange(
+                  //             "actionPlan.verification",
+                  //             e.target.value,
+                  //           )
+                  //         }
+                  //         type="text"
+                  //         placeholder="Status Of Verification"
+                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                  //       />
+                  //       <input
+                  //         value={formData.actionPlan.comment}
+                  //         onChange={(e) =>
+                  //           handleFormChange(
+                  //             "actionPlan.comment",
+                  //             e.target.value,
+                  //           )
+                  //         }
+                  //         type="text"
+                  //         placeholder="Comment"
+                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                  //       />
+                  //     </div>
+                  //   </div>
+                  // </div> */}
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Residual Risk / Opportunity Level
                   </label>
                   <div className="grid grid-cols-3 gap-2">
-                    <input
+                    <select
                       value={formData.residualRiskSeverity}
-                      onChange={(e) =>
-                        handleFormChange("residualRiskSeverity", e.target.value)
-                      }
-                      type="text"
-                      placeholder="Severity"
-                      className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                    />
-                    <input
+                      onChange={(e) => {
+                        console.log(
+                          "Select onChange tetiklendi! Yeni value:",
+                          e.target.value,
+                        ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                        handleFormChange(
+                          "residualRiskSeverity",
+                          e.target.value,
+                        ); // String path + value – obje değil!
+                      }}
+                    >
+                      <option value="">Seçiniz</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                    <select
                       value={formData.residualRiskLikelihood}
-                      onChange={(e) =>
+                      onChange={(e) => {
+                        console.log(
+                          "Select onChange tetiklendi! Yeni value:",
+                          e.target.value,
+                        ); // Debug: Bu çıkmıyorsa onChange patlıyor
                         handleFormChange(
                           "residualRiskLikelihood",
                           e.target.value,
-                        )
-                      }
-                      type="text"
-                      placeholder="Likelihood"
-                      className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                    />
-                    {/*
-                    <input
-                      value={formData.residualRisk.riskLevel}
-                      onChange={(e) =>
-                        handleFormChange(
-                          "residualRisk.riskLevel",
-                          e.target.value,
-                        )
-                      }
-                      type="text"
-                      placeholder="Risk Level"
-                      className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                    /> */}
+                        ); // String path + value – obje değil!
+                      }}
+                    >
+                      <option value="">Seçiniz</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
                   </div>
                 </div>
               </div>
