@@ -1,45 +1,41 @@
 import React, { useState, useEffect } from "react";
 import BgRiskBody from "./tabledatas/bgrisk.jsx";
 
-export const hCheckboxChange = (setSelectedRows, setSelectedTable) => (id, table) => {
-  // id'ye uygun objeyi bul
-  const selectedItem = table.find((item) => item.id === id);
+export const hCheckboxChange =
+  (setSelectedRows, setSelectedTable) => (id, table) => {
+    // id'ye uygun objeyi bul
+    const selectedItem = table.find((item) => item.id === id);
 
-  // Seçili tabloları güncelle
-  setSelectedTable((prev) => {
-    const exists = prev.find((item) => item.id === id);
-    let newTables;
-    if (exists) {
-      // zaten varsa çıkar
-      newTables = prev.filter((item) => item.id !== id);
-    } else {
-      // yoksa ekle
-      newTables = [...prev, selectedItem];
-    }
-    
-    console.log("Seçili tablolar (selectedTables):", newTables);
-    return newTables;
-  });
+    // Seçili tabloları güncelle
+    setSelectedTable((prev) => {
+      const exists = prev.find((item) => item.id === id);
+      let newTables;
+      if (exists) {
+        // zaten varsa çıkar
+        newTables = prev.filter((item) => item.id !== id);
+      } else {
+        // yoksa ekle
+        newTables = [...prev, selectedItem];
+      }
 
-  // Seçili satırları update et
-  setSelectedRows((prev) => {
-    const newSet = new Set(prev);
-    if (newSet.has(id)) {
-      newSet.delete(id);
-    } else {
-      newSet.add(id);
-    }
-    console.log("Seçili satırlar (selectedRows):", Array.from(newSet));
-    return newSet;
-  });
-};
+      console.log("Seçili tablolar (selectedTables):", newTables);
+      return newTables;
+    });
 
-
-
-
+    // Seçili satırları update et
+    setSelectedRows((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      console.log("Seçili satırlar (selectedRows):", Array.from(newSet));
+      return newSet;
+    });
+  };
 
 const RisksAssessment = () => {
-  
   // Sample data - gerçek projede API'den veya props'tan gelebilir
   const [risks, setRisks] = useState([
     { id: "kpi", name: "Key Performance Indicators" },
@@ -106,7 +102,10 @@ const RisksAssessment = () => {
   const [deletingId, setDeletingId] = useState(null);
   const [selectedRows, setSelectedRows] = useState(new Set()); // Checkbox state'i ekle
   const [dropdownData, setDropdownData] = useState({});
-  const handleCheckboxChange = hCheckboxChange(setSelectedRows, setSelectedTable);
+  const handleCheckboxChange = hCheckboxChange(
+    setSelectedRows,
+    setSelectedTable,
+  );
   async function getDefaultDropdownList() {
     const url = "http://localhost:8000/api/tablecomponent/dropdownlistitem/";
     try {
@@ -123,8 +122,6 @@ const RisksAssessment = () => {
   }
 
   // Filtered data based on archived
-
-  
 
   // Seçili row sayısı
   const selectedCount = selectedRows.size;
@@ -158,22 +155,22 @@ const RisksAssessment = () => {
     const dropdownData = await getDefaultDropdownList();
     setModalMode("edit");
     setEditingRow(row);
-    
+
     setShowModal(true);
     setFormData({
-  swot: row.swot.value,
-  pestle: row.pestle.value,
-  interestedParty: row.interestedParty.value,
-  process: row.process.value,
-  riskOpportunity: row.riskOpportunity,
-  objective: row.objective,
-  kpi: row.kpi,
-  ermeoa: row.ermeoa,
-  initialRiskSeverity: row.initialRiskSeverity,
-  initialRiskLikelyhood: row.initialRiskLikelyhood,
-  residualRiskSeverity: row.residualRiskSeverity,
-  residualRiskLikelyhood: row.residualRiskLikelyhood
-});
+      swot: row.swot.id,
+      pestle: row.pestle.id,
+      interestedParty: row.interestedParty.id,
+      process: row.process.id,
+      riskOpportunity: row.riskOpportunity,
+      objective: row.objective,
+      kpi: row.kpi,
+      ermeoa: row.ermeoa,
+      initialRiskSeverity: row.initialRiskSeverity,
+      initialRiskLikelyhood: row.initialRiskLikelyhood,
+      residualRiskSeverity: row.residualRiskSeverity,
+      residualRiskLikelyhood: row.residualRiskLikelyhood,
+    });
   };
 
   const handleFormChange = (arg1, arg2) => {
@@ -203,40 +200,40 @@ const RisksAssessment = () => {
   const closeModal = () => setShowModal(false);
 
   const saveRisk = () => {
-  if (modalMode === "add") {
-    // Sadece backend beklediği alanları al (diğerlerini sil)
-    const payload = {
-      swot: formData.swot,
-      pestle: formData.pestle,
-      interestedParty: formData.interestedParty,
-      riskOpportunity: formData.riskOpportunity,
-      objective: formData.objective,
-      kpi: formData.kpi,
-      process: formData.process,
-      ermeoa: formData.ermeoa,
-      initialRiskSeverity: formData.initialRiskSeverity,  // Number
-      initialRiskLikelyhood: formData.initialRiskLikelyhood,  // Number, spelling uyumlu
-      residualRiskSeverity: formData.residualRiskSeverity,
-      residualRiskLikelyhood: formData.residualRiskLikelyhood,
-    };
-    console.log('Gönderilen body:', payload);  // Debug: Tam beklenen format mı?
+    if (modalMode === "add") {
+      // Sadece backend beklediği alanları al (diğerlerini sil)
+      const payload = {
+        swot: formData.swot,
+        pestle: formData.pestle,
+        interestedParty: formData.interestedParty,
+        riskOpportunity: formData.riskOpportunity,
+        objective: formData.objective,
+        kpi: formData.kpi,
+        process: formData.process,
+        ermeoa: formData.ermeoa,
+        initialRiskSeverity: formData.initialRiskSeverity, // Number
+        initialRiskLikelyhood: formData.initialRiskLikelyhood, // Number, spelling uyumlu
+        residualRiskSeverity: formData.residualRiskSeverity,
+        residualRiskLikelyhood: formData.residualRiskLikelyhood,
+      };
+      console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
 
-    fetch("http://localhost:8000/api/register/br/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),  // Direkt obje – array yapma!
-    })
-    .then((response) => {
-      if (!response.ok) {
-        console.error("Kaydetme başarısız:", response.statusText);
-      } else {
-        console.log("Kayıt başarıyla kaydedildi.");
-      }
-    })
-    .catch((error) => console.error("Hata:", error));
-  }
-  closeModal();
-};
+      fetch("http://localhost:8000/api/register/br/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload), // Direkt obje – array yapma!
+      })
+        .then((response) => {
+          if (!response.ok) {
+            console.error("Kaydetme başarısız:", response.statusText);
+          } else {
+            console.log("Kayıt başarıyla kaydedildi.");
+          }
+        })
+        .catch((error) => console.error("Hata:", error));
+    }
+    closeModal();
+  };
   // Bulk delete için confirm
   const confirmBulkDelete = () => {
     setIsBulkDelete(true);
@@ -681,8 +678,10 @@ const RisksAssessment = () => {
                     </tr>
                   </thead>
                   {/* Table Body */}
-                  <BgRiskBody selectedRows={selectedRows}
-        onCheckboxChange={handleCheckboxChange} />
+                  <BgRiskBody
+                    selectedRows={selectedRows}
+                    onCheckboxChange={handleCheckboxChange}
+                  />
                 </table>
               </div>
             </div>
@@ -865,10 +864,7 @@ const RisksAssessment = () => {
                             e.target.value,
                           ); // Debug: Bu çıkmıyorsa onChange patlıyor
                           const newValue = parseInt(e.target.value, 10) || 0;
-                          handleFormChange(
-                            "initialRiskSeverity",
-                            newValue,
-                          ); // String path + value – obje değil!
+                          handleFormChange("initialRiskSeverity", newValue); // String path + value – obje değil!
                         }}
                       >
                         <option value="">Seçiniz</option>
@@ -886,10 +882,7 @@ const RisksAssessment = () => {
                             e.target.value,
                           ); // Debug: Bu çıkmıyorsa onChange patlıyor
                           const newValue = parseInt(e.target.value, 10) || 0;
-                          handleFormChange(
-                            "initialRiskLikelyhood",
-                            newValue,
-                          ); // String path + value – obje değil!
+                          handleFormChange("initialRiskLikelyhood", newValue); // String path + value – obje değil!
                         }}
                       >
                         <option value="">Seçiniz</option>
@@ -1060,10 +1053,7 @@ const RisksAssessment = () => {
                           e.target.value,
                         ); // Debug: Bu çıkmıyorsa onChange patlıyor
                         const newValue = parseInt(e.target.value, 10) || 0;
-                        handleFormChange(
-                          "residualRiskSeverity",
-                          newValue,
-                        ); // String path + value – obje değil!
+                        handleFormChange("residualRiskSeverity", newValue); // String path + value – obje değil!
                       }}
                     >
                       <option value="">Seçiniz</option>
@@ -1081,10 +1071,7 @@ const RisksAssessment = () => {
                           e.target.value,
                         ); // Debug: Bu çıkmıyorsa onChange patlıyor
                         const newValue = parseInt(e.target.value, 10) || 0;
-                        handleFormChange(
-                          "residualRiskLikelyhood",
-                          newValue,
-                        ); // String path + value – obje değil!
+                        handleFormChange("residualRiskLikelyhood", newValue); // String path + value – obje değil!
                       }}
                     >
                       <option value="">Seçiniz</option>

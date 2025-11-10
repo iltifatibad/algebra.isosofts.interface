@@ -1,13 +1,10 @@
 // MyTableBody.jsx (ayrı bir dosya olarak kaydedin)
 import React from "react";
 import { useState, useEffect } from "react";
-import {hCheckboxChange} from "../profile.jsx";
-const MyTableBody = ({selectedRows, onCheckboxChange}) => {
+import { hCheckboxChange } from "../profile.jsx";
+const MyTableBody = ({ selectedRows, onCheckboxChange }) => {
   const [showArchived, setShowArchived] = useState(false);
 
-  
-
-  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -58,7 +55,11 @@ const MyTableBody = ({selectedRows, onCheckboxChange}) => {
                 rowSpan={numActions}
               >
                 {row.no}
-                <input checked={selectedRows.has(row.id)} onChange={() => onCheckboxChange(row.id, tableData)} type="checkbox" />
+                <input
+                  checked={selectedRows.has(row.id)}
+                  onChange={() => onCheckboxChange(row.id, tableData)}
+                  type="checkbox"
+                />
               </td>
               {/* SWOT - rowspan */}
               <td
@@ -122,7 +123,7 @@ const MyTableBody = ({selectedRows, onCheckboxChange}) => {
                 className="border border-blue-500 px-2 py-1 w-20"
                 rowSpan={numActions}
               >
-                {row.initialRiskSeverity|| ""}
+                {row.initialRiskSeverity || ""}
               </td>
               {/* Initial Risk: Likelihood - rowspan */}
               <td
@@ -193,7 +194,7 @@ const MyTableBody = ({selectedRows, onCheckboxChange}) => {
                 className="border border-blue-500 px-2 py-1 w-20"
                 rowSpan={numActions}
               >
-                 Low {/* Varsa ekle */}
+                Low {/* Varsa ekle */}
               </td>
             </tr>
             {/* Ek action plan'lar için sub-rows (ilkten sonrasını map'le) */}

@@ -54,8 +54,6 @@
         "statusOfVerification": "Done",
         "comment": "Action Confirmation Pending"
       }
-      
-
     ],
     "residualRisk": "Low",
     "archived": false
@@ -115,8 +113,6 @@
         "statusOfVerification": "Done",
         "comment": "Action Confirmation Pending"
       }
-
-
     ],
     "residualRisk": "Low",
     "archived": false
@@ -176,12 +172,8 @@
         "statusOfVerification": "Done",
         "comment": "Action Confirmation Pending"
       }
-
-
     ],
     "residualRisk": "Low",
     "archived": false
   }
-
-
 ]
