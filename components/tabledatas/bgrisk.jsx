@@ -10,7 +10,7 @@ const MyTableBody = ({ selectedRows, onCheckboxChange }) => {
 
   const [tableData, setTableData] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:8000/api/register/br/") // Public klasöründen çek: '/bgrisk.json'
+    fetch("http://localhost:8000/api/register/br/")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed To Get Datas From Database");

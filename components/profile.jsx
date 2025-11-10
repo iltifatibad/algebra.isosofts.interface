@@ -231,6 +231,37 @@ const RisksAssessment = () => {
           }
         })
         .catch((error) => console.error("Hata:", error));
+    } else {
+      const payload = {
+        swot: formData.swot,
+        pestle: formData.pestle,
+        interestedParty: formData.interestedParty,
+        riskOpportunity: formData.riskOpportunity,
+        objective: formData.objective,
+        kpi: formData.kpi,
+        process: formData.process,
+        ermeoa: formData.ermeoa,
+        initialRiskSeverity: formData.initialRiskSeverity, // Number
+        initialRiskLikelyhood: formData.initialRiskLikelyhood, // Number, spelling uyumlu
+        residualRiskSeverity: formData.residualRiskSeverity,
+        residualRiskLikelyhood: formData.residualRiskLikelyhood,
+      };
+       console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
+      const url = "http://localhost:8000/api/register/br/" + selectedTable[0].id  + "/";
+      fetch(url, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload), // Direkt obje – array yapma!
+      })
+        .then((response) => {
+          if (!response.ok) {
+            console.error("Kaydetme başarısız:", response.statusText);
+          } else {
+            console.log("Kayıt başarıyla kaydedildi.");
+          }
+        })
+        .catch((error) => console.error("Hata:", error));
+
     }
     closeModal();
   };
