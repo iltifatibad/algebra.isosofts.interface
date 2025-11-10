@@ -58,7 +58,7 @@ const MyTableBody = ({selectedRows, onCheckboxChange}) => {
                 rowSpan={numActions}
               >
                 {row.no}
-                <input checked={selectedRows.has(row.id)} onChange={() => onCheckboxChange(row.id)} type="checkbox" />
+                <input checked={selectedRows.has(row.id)} onChange={() => onCheckboxChange(row.id, tableData)} type="checkbox" />
               </td>
               {/* SWOT - rowspan */}
               <td

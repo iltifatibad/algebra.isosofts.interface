@@ -1,18 +1,40 @@
 import React, { useState, useEffect } from "react";
 import BgRiskBody from "./tabledatas/bgrisk.jsx";
 
-export const hCheckboxChange = (setSelectedRows) => (id) => {
+export const hCheckboxChange = (setSelectedRows, setSelectedTable) => (id, table) => {
+  // id'ye uygun objeyi bul
+  const selectedItem = table.find((item) => item.id === id);
+
+  // Seçili tabloları güncelle
+  setSelectedTable((prev) => {
+    const exists = prev.find((item) => item.id === id);
+    let newTables;
+    if (exists) {
+      // zaten varsa çıkar
+      newTables = prev.filter((item) => item.id !== id);
+    } else {
+      // yoksa ekle
+      newTables = [...prev, selectedItem];
+    }
+    
+    console.log("Seçili tablolar (selectedTables):", newTables);
+    return newTables;
+  });
+
+  // Seçili satırları update et
   setSelectedRows((prev) => {
     const newSet = new Set(prev);
     if (newSet.has(id)) {
       newSet.delete(id);
     } else {
       newSet.add(id);
-      console.log(newSet);
     }
+    console.log("Seçili satırlar (selectedRows):", Array.from(newSet));
     return newSet;
   });
 };
+
+
 
 
 
@@ -41,7 +63,7 @@ const RisksAssessment = () => {
   ]);
 
   const [logs, setLogs] = useState([{ id: "a-l", name: "Action Log" }]);
-
+  const [selectedTable, setSelectedTable] = useState([]);
   const [selectedOption, setSelectedOption] = useState("e-chart");
   const [selectedRisk, setSelectedRisk] = useState("");
   const [isOpenReg, setIsOpenReg] = useState(false);
@@ -84,7 +106,7 @@ const RisksAssessment = () => {
   const [deletingId, setDeletingId] = useState(null);
   const [selectedRows, setSelectedRows] = useState(new Set()); // Checkbox state'i ekle
   const [dropdownData, setDropdownData] = useState({});
-  const handleCheckboxChange = hCheckboxChange(setSelectedRows);
+  const handleCheckboxChange = hCheckboxChange(setSelectedRows, setSelectedTable);
   async function getDefaultDropdownList() {
     const url = "http://localhost:8000/api/tablecomponent/dropdownlistitem/";
     try {
@@ -102,23 +124,11 @@ const RisksAssessment = () => {
 
   // Filtered data based on archived
 
-  // Checkbox handler
- {/* const handleCheckboxChange = (id) => {
-    setSelectedRows((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(id)) {
-        newSet.delete(id);
-      } else {
-        newSet.add(id);
-      }
-      return newSet;
-    });
-  };*/}
+  
 
   // Seçili row sayısı
   const selectedCount = selectedRows.size;
-  const getSelectedRow = () =>
-    filteredTableData.find((row) => selectedRows.has(row.id)) || null;
+  const getSelectedRow = () => selectedTable[0];
 
   // Handlers
   const toggleArchiveView = () => setShowArchived(!showArchived);
@@ -144,15 +154,26 @@ const RisksAssessment = () => {
     setShowModal(true);
   };
 
-  const openEditModal = (row) => {
+  const openEditModal = async (row) => {
+    const dropdownData = await getDefaultDropdownList();
     setModalMode("edit");
     setEditingRow(row);
-    setFormData({
-      ...row,
-      initialRisk: { ...row.initialRisk },
-      actionPlan: { ...row.actionPlan },
-    });
+    
     setShowModal(true);
+    setFormData({
+  swot: row.swot.value,
+  pestle: row.pestle.value,
+  interestedParty: row.interestedParty.value,
+  process: row.process.value,
+  riskOpportunity: row.riskOpportunity,
+  objective: row.objective,
+  kpi: row.kpi,
+  ermeoa: row.ermeoa,
+  initialRiskSeverity: row.initialRiskSeverity,
+  initialRiskLikelyhood: row.initialRiskLikelyhood,
+  residualRiskSeverity: row.residualRiskSeverity,
+  residualRiskLikelyhood: row.residualRiskLikelyhood
+});
   };
 
   const handleFormChange = (arg1, arg2) => {
