@@ -295,11 +295,20 @@ const RisksAssessment = () => {
 
   // Delete modal'da çağırma
   const handleDeleteConfirm = () => {
-    if (isBulkDelete) {
-      bulkDelete();
-    } else {
-      singleDelete();
-    }
+    fetch("http://localhost:8000/api/register/br/all/delete",{
+      method: "PUT",
+      headers: { "Content-Type" : "application/json"},
+      body: JSON.stringify({
+        "ids": [...selectedRows]
+      })
+    }).then((response) => {
+      if (!response.ok) {
+        console.log(" Failed Deleting Registers ")
+      } else {
+        console.log(" Deleting Success")
+        setShowDeleteModal(false);
+      }
+    }).catch((error) => console.log(" Error While Deleting: ", error));
   };
 
   const archiveData = (id) => {
@@ -308,7 +317,7 @@ const RisksAssessment = () => {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-      "ids": [id]
+      "ids": [...selectedRows]
     })
     }).then((response) => {
       if (!response.ok) {
@@ -323,9 +332,10 @@ const RisksAssessment = () => {
 fetch("http://localhost:8000/api/register/br/all/archive", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({"ids" : [id]})
+      body: JSON.stringify({"ids" : [...selectedRows]})
     }).then((response) => {
       if (!response.ok) {
+        console.log(selectedRows);
         console.log(" Archiving Failed ")
       } else {
         console.log(" Archiving Success ")
@@ -1169,8 +1179,8 @@ fetch("http://localhost:8000/api/register/br/all/archive", {
               </h3>
               <p className="text-gray-600 mb-6">
                 {isBulkDelete
-                  ? `Are you sure you want to delete ${selectedCount} selected risk item(s)? This action cannot be undone.`
-                  : "Are you sure you want to delete this risk item? This action cannot be undone."}
+                  ? `Are you sure you want to delete ${selectedCount} selected risk item(s)? This action can be undo..`
+                  : "Are you sure you want to delete this risk item? This action can be undo..."}
               </p>
               <div className="flex justify-end space-x-4">
                 <button
