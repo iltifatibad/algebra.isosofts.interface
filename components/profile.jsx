@@ -306,7 +306,9 @@ const RisksAssessment = () => {
 
   // Delete modal'da çağırma
   const handleDeleteConfirm = () => {
-    fetch("http://localhost:8000/api/register/br/all/delete", {
+    if (!showDeleted) {
+      
+ fetch("http://localhost:8000/api/register/br/all/delete", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -322,7 +324,26 @@ const RisksAssessment = () => {
         }
       })
       .catch((error) => console.log(" Error While Deleting: ", error));
-  };
+    } else {
+      
+ fetch("http://localhost:8000/api/register/br/all/undelete", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ids: [...selectedRows],
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          console.log(" Failed Deleting Registers ");
+        } else {
+          console.log(" Deleting Success");
+          setShowDeleteModal(false);
+        }
+      })
+      .catch((error) => console.log(" Error While Deleting: ", error));
+    }
+     };
 
   const archiveData = (id) => {
     if (showArchived) {
@@ -529,7 +550,8 @@ const RisksAssessment = () => {
                       ].join(" ")}
                       title="Delete Selected"
                     >
-                      <i className="fas fa-trash"></i>
+                      <i className={
+                        showDeleted ? "fas fa-trash-restore" : "fas fa-trash"}></i>
                     </button>
                   </div>
                 </div>
@@ -644,7 +666,9 @@ const RisksAssessment = () => {
                       ].join(" ")}
                       title="Delete Selected"
                     >
-                      <i className="fas fa-trash"></i>
+                       <i className={
+                        showDeleted ? "fas fa-trash-restore" : "fas fa-trash"}></i>
+
                     </button>
                   </div>
                 </div>
