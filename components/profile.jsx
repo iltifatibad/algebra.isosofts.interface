@@ -61,10 +61,11 @@ const RisksAssessment = () => {
   const [logs, setLogs] = useState([{ id: "a-l", name: "Action Log" }]);
   const [selectedTable, setSelectedTable] = useState([]);
   const [selectedOption, setSelectedOption] = useState("e-chart");
-  const [selectedRisk, setSelectedRisk] = useState("");
+  const [selectedRisk, setSelectedRisk] = useState("bg-reg");
   const [isOpenReg, setIsOpenReg] = useState(false);
   const [showArchived, setShowArchived] = useState(false);
   const [showDeleted, setShowDeleted] = useState(false);
+  const [showAction, setShowAction] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalMode, setModalMode] = useState("add");
   const [editingRow, setEditingRow] = useState(null);
@@ -131,16 +132,28 @@ const RisksAssessment = () => {
   // Handlers
   const toggleArchiveView = () => {
     setShowArchived(!showArchived);
-    if (showDeleted) {
-      setShowDeleted(!showDeleted);
+    if (showDeleted || showAction) {
+      setShowDeleted(false);
+      setShowAction(false);
     }
   };
   const toggleDeleteView = () => {
     setShowDeleted(!showDeleted);
-    if (showArchived) {
-      setShowArchived(!showArchived);
+    if (showArchived || showAction) {
+      setShowArchived(false);
+      setShowAction(false);
     }
   };
+
+  const toggleActionView = () => {
+    setShowAction(!showAction);
+    if (showArchived || showDeleted) {
+      setShowArchived(false);
+      setShowDeleted(false);
+    }
+  };
+
+  
   const openAddModal = async () => {
     const dropdownData = await getDefaultDropdownList();
     setModalMode("add");
@@ -491,6 +504,19 @@ const RisksAssessment = () => {
                     <i className="fas fa-archive mr-2"></i>
                     {showDeleted ? "Hide Deleted" : "Show Deleted"}
                   </button>
+                <button
+                    onClick={toggleActionView}
+                    className={[
+                      "!rounded-button whitespace-nowrap cursor-pointer px-4 py-2 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
+                      showAction
+                        ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700"
+                        : "bg-gradient-to-r from-gray-500 to-gray-600 text-white hover:from-gray-600 hover:to-gray-700",
+                    ].join(" ")}
+                  >
+                    <i className="fas fa-archive mr-2"></i>
+                    {showAction ? "Hide Action" : "Show Action"}
+                  </button>
+
 
                   <button
                     onClick={() => {
@@ -606,6 +632,19 @@ const RisksAssessment = () => {
                     <i className="fas fa-archive mr-2"></i>
                     {showDeleted ? "Hide Deleted" : "Show Deleted"}
                   </button>
+                <button
+                    onClick={toggleActionView}
+                    className={[
+                      "!rounded-button whitespace-nowrap cursor-pointer px-4 py-2 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
+                      showAction
+                        ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700"
+                        : "bg-gradient-to-r from-gray-500 to-gray-600 text-white hover:from-gray-600 hover:to-gray-700",
+                    ].join(" ")}
+                  >
+                    <i className="fas fa-archive mr-2"></i>
+                    {showAction ? "Hide Action" : "Show Action"}
+                  </button>
+
 
                   <button
                     onClick={() => {
