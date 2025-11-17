@@ -100,6 +100,39 @@ const RisksAssessment = () => {
     residualRiskSeverity: "",
     residualRiskLikelihood: "",
   });
+
+  const [formDataAction, setFormDataAction] = useState({
+    actionPlan: [
+      {
+        title:"",
+        raiseDate:"",
+        resources:"",
+        currency:"",
+        relativeFunction:"",
+        responsible:"",
+        deadline:"",
+        confirmation:"",
+        status:"",
+        completionData:"",
+        verificationStatus:"",
+        comment:"",
+        january:"",
+        february:"",
+        march:"",
+        april:"",
+        may:"",
+        june:"",
+        july:"",
+        august:"",
+        september:"",
+        october:"",
+        november:"",
+        december:"",
+      },
+    ],
+ });
+
+  
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isBulkDelete, setIsBulkDelete] = useState(false); // Bulk delete için yeni state
   const [deletingId, setDeletingId] = useState(null);
@@ -134,6 +167,9 @@ const RisksAssessment = () => {
   const toggleArchiveView = () => {
     setShowArchived(!showArchived);
     if (showDeleted || showAction) {
+      if (!activeHeader) {
+        setActiveHeader(!activeHeader);
+      }
       setShowDeleted(false);
       setShowAction(false);
     }
@@ -141,6 +177,9 @@ const RisksAssessment = () => {
   const toggleDeleteView = () => {
     setShowDeleted(!showDeleted);
     if (showArchived || showAction) {
+      if (!activeHeader) {
+        setActiveHeader(!activeHeader);
+      }
       setShowArchived(false);
       setShowAction(false);
     }
@@ -156,7 +195,6 @@ const RisksAssessment = () => {
   };
 
   const openAddModal = async () => {
-    
     setModalMode("add");
     setEditingRow(null);
     const dropdownData = await getDefaultDropdownList();
@@ -177,7 +215,7 @@ const RisksAssessment = () => {
     });
     setShowModal(true);}
    else {
-    setFormData({
+    setFormDataAction({
       title:"",
       raiseDate:"",
       resources:"",
@@ -201,8 +239,9 @@ const RisksAssessment = () => {
       september:"",
       october:"",
       november:"",
-      decemer:"",
-    })
+      december:"",
+    });
+    setShowModal(true);
   }
   };
 
@@ -232,7 +271,9 @@ const RisksAssessment = () => {
   };
 
   const handleFormChange = (arg1, arg2) => {
-    if (typeof arg1 === "string") {
+    if(showAction){
+      
+if (typeof arg1 === "string") {
       // Input/select path-value modu (mevcut mantık, ama güvenli hale getir)
       const updateNested = (obj, pathArr, val) => {
         const newObj = { ...(obj || {}) }; // prev undefined ise boş obje
@@ -253,7 +294,31 @@ const RisksAssessment = () => {
       setFormData((prev) => ({ ...(prev || {}), ...arg1 }));
     } else {
       console.warn("handleFormChange: Beklenen string path veya obje");
-    }
+    }    } else {
+    
+if (typeof arg1 === "string") {
+      // Input/select path-value modu (mevcut mantık, ama güvenli hale getir)
+      const updateNested = (obj, pathArr, val) => {
+        const newObj = { ...(obj || {}) }; // prev undefined ise boş obje
+        let current = newObj;
+        for (let i = 0; i < pathArr.length - 1; i++) {
+          const key = pathArr[i];
+          if (!current[key]) current[key] = {}; // Boş obje oluştur
+          current[key] = { ...current[key] };
+          current = current[key];
+        }
+        current[pathArr[pathArr.length - 1]] = val;
+        return newObj;
+      };
+      const pathArr = arg1.split(".");
+      setFormDataAction((prev) => updateNested(prev, pathArr, arg2));
+    } else if (arg1 && typeof arg1 === "object") {
+      // Select obje modu (eğer { ...formData, swot: value } geçiriyorsan)
+      setFormDataAction((prev) => ({ ...(prev || {}), ...arg1 }));
+    } else {
+      console.warn("handleFormChange: Beklenen string path veya obje");
+    }  }
+    
   };
   const closeModal = () => setShowModal(false);
 
@@ -510,7 +575,7 @@ const RisksAssessment = () => {
                     onClick={openAddModal}
                     className="!rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm"
                   >
-                    <i className="fas fa-plus mr-2"></i>Add Risk
+                    <i className="fas fa-plus mr-2"></i>{!showAction ? "Add Risk" : "Add Action"}
                   </button>
                   <button
                     onClick={toggleArchiveView}
@@ -640,7 +705,7 @@ const RisksAssessment = () => {
                     onClick={openAddModal}
                     className="!rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm"
                   >
-                    <i className="fas fa-plus mr-2"></i>Add Risk
+                    <i className="fas fa-plus mr-2"></i>{!showAction? "Add Risk" : "Add Action"}
                   </button>
                   <button
                     onClick={toggleArchiveView}
@@ -972,153 +1037,6 @@ const RisksAssessment = () => {
                       </select>
                     </div>
                   </div>
-                  {/* // <div>
-                  //   <label className="block text-sm font-medium text-gray-700 mb-2">
-                  //     Action Plan
-                  //   </label>
-                  //   <div className="space-y-3">
-                  //     <div className="grid grid-cols-3 gap-2">
-                  //       <input
-                  //         value={formData.actionPlan.action}
-                  //         onChange={(e) =>
-                  //           handleFormChange(
-                  //             "actionPlan.action",
-                  //             e.target.value,
-                  //           )
-                  //         }
-                  //         type="text"
-                  //         placeholder="Action"
-                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                  //       />
-                  //       <input
-                  //         value={formData.actionPlan.raiseDate}
-                  //         onChange={(e) =>
-                  //           handleFormChange(
-                  //             "actionPlan.raiseDate",
-                  //             e.target.value,
-                  //           )
-                  //         }
-                  //         type="text"
-                  //         placeholder="Raise Date"
-                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                  //       />
-                  //       <input
-                  //         value={formData.actionPlan.resources}
-                  //         onChange={(e) =>
-                  //           handleFormChange(
-                  //             "actionPlan.resources",
-                  //             e.target.value,
-                  //           )
-                  //         }
-                  //         type="text"
-                  //         placeholder="Resources"
-                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                  //       />
-                  //     </div>
-                  //     <div className="grid grid-cols-3 gap-2">
-                  //       <input
-                  //         value={formData.actionPlan.function}
-                  //         onChange={(e) =>
-                  //           handleFormChange(
-                  //             "actionPlan.function",
-                  //             e.target.value,
-                  //           )
-                  //         }
-                  //         type="text"
-                  //         placeholder="Relative Function"
-                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                  //       />
-                  //       <input
-                  //         value={formData.actionPlan.responsible}
-                  //         onChange={(e) =>
-                  //           handleFormChange(
-                  //             "actionPlan.responsible",
-                  //             e.target.value,
-                  //           )
-                  //         }
-                  //         type="text"
-                  //         placeholder="Responsible"
-                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                  //       />
-                  //       <input
-                  //         value={formData.actionPlan.deadline}
-                  //         onChange={(e) =>
-                  //           handleFormChange(
-                  //             "actionPlan.deadline",
-                  //             e.target.value,
-                  //           )
-                  //         }
-                  //         type="text"
-                  //         placeholder="Deadline"
-                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                  //       />
-                  //     </div>
-                  //     <div className="grid grid-cols-3 gap-2">
-                  //       <input
-                  //         value={formData.actionPlan.actionConfirmation}
-                  //         onChange={(e) =>
-                  //           handleFormChange(
-                  //             "actionPlan.actionConfirmation",
-                  //             e.target.value,
-                  //           )
-                  //         }
-                  //         type="text"
-                  //         placeholder="Action Confirmation"
-                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                  //       />
-                  //       <input
-                  //         value={formData.actionPlan.actionStatus}
-                  //         onChange={(e) =>
-                  //           handleFormChange(
-                  //             "actionPlan.actionStatus",
-                  //             e.target.value,
-                  //           )
-                  //         }
-                  //         type="text"
-                  //         placeholder="Action Status"
-                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                  //       />
-                  //       <input
-                  //         value={formData.actionPlan.compilationDate}
-                  //         onChange={(e) =>
-                  //           handleFormChange(
-                  //             "actionPlan.compilationDate",
-                  //             e.target.value,
-                  //           )
-                  //         }
-                  //         type="text"
-                  //         placeholder="Compilation Date"
-                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                  //       />
-                  //     </div>
-                  //     <div className="grid grid-cols-2 gap-2">
-                  //       <input
-                  //         value={formData.actionPlan.verification}
-                  //         onChange={(e) =>
-                  //           handleFormChange(
-                  //             "actionPlan.verification",
-                  //             e.target.value,
-                  //           )
-                  //         }
-                  //         type="text"
-                  //         placeholder="Status Of Verification"
-                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                  //       />
-                  //       <input
-                  //         value={formData.actionPlan.comment}
-                  //         onChange={(e) =>
-                  //           handleFormChange(
-                  //             "actionPlan.comment",
-                  //             e.target.value,
-                  //           )
-                  //         }
-                  //         type="text"
-                  //         placeholder="Comment"
-                  //         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                  //       />
-                  //     </div>
-                  //   </div>
-                  // </div> */}
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Residual Risk / Opportunity Level
                   </label>
@@ -1180,13 +1098,12 @@ const RisksAssessment = () => {
           </div>
         </div>
       ) :
-        
-(
+      (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-white !rounded-button shadow-xl max-w-4xl w-full mx-4 max-h-screen overflow-y-auto">
             <div className="p-6 border-b border-blue-100">
               <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                {modalMode === "add" ? "Add New Risk" : "Edit Risk"}
+                {modalMode === "add" ?  "Add New Action " : "Edit Action"}
               </h3>
             </div>
             <div className="p-6">
@@ -1200,19 +1117,18 @@ const RisksAssessment = () => {
                      <div className="space-y-3">
                        <div className="grid grid-cols-3 gap-2">
                          <input
-                           value={formData.actionPlan.action}
-                           onChange={(e) =>
-                             handleFormChange(
-                               "actionPlan.action",
-                               e.target.value,
-                             )
-                           }
-                           type="text"
-                           placeholder="Action"
-                           className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                         />
-                         <input
-                           value={formData.actionPlan.raiseDate}
+                              value={formDataAction?.actionPlan?.[0]?.title || ''}  // [0] ekle, fallback ''
+                              onChange={(e) =>
+                                handleFormChange(
+                                  "actionPlan[0].title",  // Path'i düzelt: index ve field
+                                  e.target.value,
+                                )
+                              }
+                              type="text"
+                              placeholder="Action"
+                              className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                            />                         <input
+                           value={formDataAction.actionPlan.raiseDate}
                            onChange={(e) =>
                              handleFormChange(
                                "actionPlan.raiseDate",
@@ -1224,7 +1140,7 @@ const RisksAssessment = () => {
                            className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                          />
                          <input
-                           value={formData.actionPlan.resources}
+                           value={formDataAction.actionPlan.resources}
                            onChange={(e) =>
                              handleFormChange(
                                "actionPlan.resources",
@@ -1238,7 +1154,7 @@ const RisksAssessment = () => {
                        </div>
                        <div className="grid grid-cols-3 gap-2">
                          <input
-                           value={formData.actionPlan.function}
+                           value={formDataAction.actionPlan.relativeFunction}
                            onChange={(e) =>
                              handleFormChange(
                                "actionPlan.function",
@@ -1250,7 +1166,7 @@ const RisksAssessment = () => {
                           className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                          />
                          <input
-                           value={formData.actionPlan.responsible}
+                           value={formDataAction.actionPlan.responsible}
                            onChange={(e) =>
                              handleFormChange(
                                "actionPlan.responsible",
@@ -1262,7 +1178,7 @@ const RisksAssessment = () => {
                            className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                          />
                          <input
-                          value={formData.actionPlan.deadline}
+                          value={formDataAction.actionPlan.deadline}
                            onChange={(e) =>
                              handleFormChange(
                                "actionPlan.deadline",
@@ -1276,7 +1192,7 @@ const RisksAssessment = () => {
                        </div>
                        <div className="grid grid-cols-3 gap-2">
                          <input
-                           value={formData.actionPlan.actionConfirmation}
+                           value={formDataAction.actionPlan.actionConfirmation}
                            onChange={(e) =>
                             handleFormChange(
                                "actionPlan.actionConfirmation",
@@ -1288,7 +1204,7 @@ const RisksAssessment = () => {
                            className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                          />
                          <input
-                           value={formData.actionPlan.actionStatus}
+                           value={formDataAction.actionPlan.status}
                            onChange={(e) =>
                              handleFormChange(
                                "actionPlan.actionStatus",
@@ -1300,7 +1216,7 @@ const RisksAssessment = () => {
                            className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                          />
                          <input
-                           value={formData.actionPlan.compilationDate}
+                           value={formDataAction.actionPlan.compilationData}
                            onChange={(e) =>
                              handleFormChange(
                                "actionPlan.compilationDate",
@@ -1314,7 +1230,7 @@ const RisksAssessment = () => {
                        </div>
                        <div className="grid grid-cols-2 gap-2">
                          <input
-                           value={formData.actionPlan.verification}
+                           value={formDataAction.actionPlan.verificationStatus}
                            onChange={(e) =>
                              handleFormChange(
                                "actionPlan.verification",
@@ -1326,7 +1242,7 @@ const RisksAssessment = () => {
                            className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                          />
                          <input
-                           value={formData.actionPlan.comment}
+                           value={formDataAction.actionPlan.comment}
                            onChange={(e) =>
                              handleFormChange(
                                "actionPlan.comment",
@@ -1356,7 +1272,7 @@ const RisksAssessment = () => {
                 onClick={saveRisk}
                 className="!rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 hover:from-blue-600 hover:to-blue-800 transition-all duration-300"
               >
-                {modalMode === "add" ? "Add Risk" : "Update Risk"}
+                {modalMode === "add" ? "Add Action" : "Update Action"}
               </button>
             </div>
           </div>
