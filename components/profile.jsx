@@ -299,7 +299,7 @@ setFormData({
     {
       title: row.title,
   raiseDate: row.raiseDate,
-  resources: String(row.resources ?? ""),
+  resources: row.resources,
   currency: "", // ✨ aynen kalacak
   relativeFunction: row.relativeFunction?.id || "",
   responsible: row.responsible?.id || "",
@@ -485,7 +485,7 @@ setFormData({
     {
       title: actionData.actionPlan[0].title,
   raiseDate: actionData.actionPlan[0].raiseDate,
-  resources: String(actionData.actionPlan[0].resources ?? ""),
+  resources: actionData.actionPlan[0].resources,
   currency: "", // ✨ aynen kalacak
   relativeFunction: actionData.relativeFunction?.id || "",
   responsible: actionData.responsible?.id || "",

@@ -690,10 +690,11 @@ const MyTableBody = ({
           </tr>
         ) : (
           tableData.map((row) => {
-            const numActions = row.actionPlan ? row.actionPlan.length : 1;
-            const actions = Array.isArray(row.actionPlan)
-              ? row.actionPlan
-              : [row.actionPlan];
+
+            const numActions = row.actions ? row.actions.length : 1;
+            const actions = Array.isArray(row.actions)
+              ? row.actions
+              : [row.actions];
 
             return (
               <React.Fragment key={row.id}>
@@ -789,7 +790,7 @@ const MyTableBody = ({
 
                   {/* İlk Action Plan */}
                   <td className="border border-blue-500 px-2 py-1 w-32">
-                    {actions[0]?.action || ""}
+                    {actions[0]?.title || ""}
                   </td>
                   <td className="border border-blue-500 px-2 py-1 w-32">
                     {actions[0]?.raiseDate || ""}
@@ -798,25 +799,25 @@ const MyTableBody = ({
                     {actions[0]?.resources || ""}
                   </td>
                   <td className="border border-blue-500 px-2 py-1 w-28">
-                    {actions[0]?.function || ""}
+                    {actions[0]?.relativeFunction.value || ""}
                   </td>
                   <td className="border border-blue-500 px-2 py-1 w-28">
-                    {actions[0]?.responsible || ""}
+                    {actions[0]?.responsible.value || ""}
                   </td>
                   <td className="border border-blue-500 px-2 py-1 w-24">
                     {actions[0]?.deadline || ""}
                   </td>
                   <td className="border border-blue-500 px-2 py-1 w-36">
-                    {actions[0]?.actionConfirmation || ""}
+                    {actions[0]?.confirmation.value || ""}
                   </td>
                   <td className="border border-blue-500 px-2 py-1 w-24">
-                    {actions[0]?.actionStatus || ""}
+                    {actions[0]?.status.value || ""}
                   </td>
                   <td className="border border-blue-500 px-2 py-1 w-24">
                     {actions[0]?.completionDate || ""}
                   </td>
                   <td className="border border-blue-500 px-2 py-1 w-32">
-                    {actions[0]?.statusOfVerification || ""}
+                    {actions[0]?.verificationStatus.value || ""}
                   </td>
                   <td className="border border-blue-500 px-2 py-1 w-40">
                     {actions[0]?.comment || ""}
@@ -847,39 +848,39 @@ const MyTableBody = ({
                 {/* Ek Action Planlar */}
                 {actions.slice(1).map((action, actionIndex) => (
                   <tr key={`${row.id}-action-${actionIndex}`}>
-                    <td className="border border-blue-500 px-2 py-1 w-32">
-                      {action?.action || ""}
-                    </td>
-                    <td className="border border-blue-500 px-2 py-1 w-32">
-                      {action?.raiseDate || ""}
-                    </td>
-                    <td className="border border-blue-500 px-2 py-1 w-24">
-                      {action?.resources || ""}
-                    </td>
-                    <td className="border border-blue-500 px-2 py-1 w-28">
-                      {action?.function || ""}
-                    </td>
-                    <td className="border border-blue-500 px-2 py-1 w-28">
-                      {action?.responsible || ""}
-                    </td>
-                    <td className="border border-blue-500 px-2 py-1 w-24">
-                      {action?.deadline || ""}
-                    </td>
-                    <td className="border border-blue-500 px-2 py-1 w-36">
-                      {action?.actionStatus || ""}
-                    </td>
-                    <td className="border border-blue-500 px-2 py-1 w-24">
-                      {action?.verification || ""}
-                    </td>
-                    <td className="border border-blue-500 px-2 py-1 w-32">
-                      {action?.comment || ""}
-                    </td>
-                    <td className="border border-blue-500 px-2 py-1 w-36">
-                      {action?.verification || ""}
-                    </td>
-                    <td className="border border-blue-500 px-2 py-1 w-40">
-                      {action?.comment || ""}
-                    </td>
+                   <td className="border border-blue-500 px-2 py-1 w-32">
+                    {action?.title || ""}
+                  </td>
+                  <td className="border border-blue-500 px-2 py-1 w-32">
+                    {action?.raiseDate || ""}
+                  </td>
+                  <td className="border border-blue-500 px-2 py-1 w-24">
+                    {action?.resources || ""}
+                  </td>
+                  <td className="border border-blue-500 px-2 py-1 w-28">
+                    {action?.relativeFunction.value || ""}
+                  </td>
+                  <td className="border border-blue-500 px-2 py-1 w-28">
+                    {action?.responsible.value || ""}
+                  </td>
+                  <td className="border border-blue-500 px-2 py-1 w-24">
+                    {action?.deadline || ""}
+                  </td>
+                  <td className="border border-blue-500 px-2 py-1 w-36">
+                    {action?.confirmation.value || ""}
+                  </td>
+                  <td className="border border-blue-500 px-2 py-1 w-24">
+                    {action?.status.value || ""}
+                  </td>
+                  <td className="border border-blue-500 px-2 py-1 w-24">
+                    {action?.completionDate || ""}
+                  </td>
+                  <td className="border border-blue-500 px-2 py-1 w-32">
+                    {action?.verificationStatus.value || ""}
+                  </td>
+                  <td className="border border-blue-500 px-2 py-1 w-40">
+                    {action?.comment || ""}
+                  </td>
                   </tr>
                 ))}
               </React.Fragment>
