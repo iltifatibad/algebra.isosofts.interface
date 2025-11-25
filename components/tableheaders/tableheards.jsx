@@ -66,19 +66,7 @@ const BgHeaders = ({ activeHeader }) => {
           >
             Initial Risk
           </th>
-          <th
-            className="min-w-15 border-r border-blue-500 sticky top-0 z-20 bg-blue-100"
-            colSpan={11}
-          >
-            Action Plan
-          </th>
-        <th
-            className="min-w-15 border-r border-blue-500 sticky top-0 z-20 bg-blue-100"
-            colSpan={12}
-          >
-            Monitoring
-          </th>
-
+               
           <th
             className="min-w-15 border-r border-blue-500 sticky top-0 z-20 bg-blue-100"
             colSpan={3}
@@ -88,99 +76,7 @@ const BgHeaders = ({ activeHeader }) => {
         </tr>
 
         {/* Second header row - fixed height, sticky at top-12 (48px) */}
-        <tr className="h-12">
-          <th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            Severity
-          </th>
-          <th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            Likelyhood
-          </th>
-          <th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            Risk
-          </th>
-
-          <th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            Action
-          </th>
-          <th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            Action Raise Date
-          </th>
-          <th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            Resources
-          </th>
-          <th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            Relactive Function
-          </th>
-          <th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            Responsible
-          </th>
-          <th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            Deadline
-          </th>
-          <th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            Action Confirmation
-          </th>
-          <th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            Action Status
-          </th>
-          <th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            Compilation Date
-          </th>
-          <th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            Status Of Verification
-          </th>
-          <th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            Comment
-          </th>
         
-        <th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            January
-          </th>
-<th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            Febraury
-          </th>
-<th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            March
-          </th>
-<th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            April
-          </th>
-<th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            May
-          </th>
-<th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            June
-          </th>
-<th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            July
-          </th>
-<th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            August
-          </th>
-<th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            September
-          </th>
-<th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            October
-          </th>
-<th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            November
-          </th>
-<th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            December
-          </th>
-
-
-          <th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            Severity
-          </th>
-          <th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            Likelyhood
-          </th>
-          <th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
-            Risk Opportunity Level
-          </th>
-        </tr>
       </thead>
     );
   } else {

@@ -195,7 +195,7 @@ const MyTableBody = ({
                 <tr className="hover:bg-gray-50">
                   <td
                     className="border border-gray-200 px-2 py-1 w-16 sticky left-0 top-0 z-10 bg-white"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <div className="flex items-center gap-1">
                       <span className="font-semibold">{row.no}</span>
@@ -211,7 +211,7 @@ const MyTableBody = ({
                   {/* SWOT */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <SoftBadge
                       value={row.swot?.value}
@@ -222,7 +222,7 @@ const MyTableBody = ({
                   {/* PESTLE */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <SoftBadge
                       value={row.pestle?.value}
@@ -233,7 +233,7 @@ const MyTableBody = ({
                   {/* Interested Party */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <SoftBadge
                       value={row.interestedParty?.value}
@@ -244,19 +244,19 @@ const MyTableBody = ({
                   {/* Text Fields */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     {row.riskOpportunity}
                   </td>
                   <td
                     className="border border-gray-200 px-2 py-1 w-28"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     {row.objective}
                   </td>
                   <td
                     className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     {row.kpi}
                   </td>
@@ -264,7 +264,7 @@ const MyTableBody = ({
                   {/* Process */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <SoftBadge
                       value={row.process?.value}
@@ -275,7 +275,7 @@ const MyTableBody = ({
                   {/* Ermeoa */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-48"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     {row.ermeoa?.value || `${row.objective} Action`}
                   </td>
@@ -283,7 +283,7 @@ const MyTableBody = ({
                   {/* Initial Risk */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <SoftBadge
                       value={row.initialRiskSeverity}
@@ -292,7 +292,7 @@ const MyTableBody = ({
                   </td>
                   <td
                     className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <SoftBadge
                       value={row.initialRiskLikelyhood}
@@ -303,7 +303,7 @@ const MyTableBody = ({
                   {/* Risk Level */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <SoftBadge
                       value="Medium"
@@ -312,31 +312,12 @@ const MyTableBody = ({
                   </td>
 
                   {/* İlk Action */}
-                  {[
-                    "action",
-                    "raiseDate",
-                    "resources",
-                    "function",
-                    "responsible",
-                    "deadline",
-                    "actionConfirmation",
-                    "actionStatus",
-                    "completionDate",
-                    "statusOfVerification",
-                    "comment",
-                  ].map((field, idx) => (
-                    <td key={idx} className="border border-gray-200 px-2 py-1">
-                      <SoftBadge
-                        value={actions[0]?.[field]}
-                        color="bg-gray-100 text-gray-700 border border-gray-200"
-                      />
-                    </td>
-                  ))}
+                  
 
                   {/* Residual Risk */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <SoftBadge
                       value={row.residualRiskSeverity}
@@ -345,7 +326,7 @@ const MyTableBody = ({
                   </td>
                   <td
                     className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <SoftBadge
                       value={row.residualRiskLikelyhood}
@@ -354,7 +335,7 @@ const MyTableBody = ({
                   </td>
                   <td
                     className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <SoftBadge
                       value="Low"
@@ -364,36 +345,7 @@ const MyTableBody = ({
                 </tr>
 
                 {/* Ek Actions */}
-                {actions.slice(1).map((action, i) => (
-                  <tr
-                    key={`${row.id}-action-${i}`}
-                    className="hover:bg-gray-50"
-                  >
-                    {[
-                      "action",
-                      "raiseDate",
-                      "resources",
-                      "function",
-                      "responsible",
-                      "deadline",
-                      "actionConfirmation",
-                      "actionStatus",
-                      "completionDate",
-                      "statusOfVerification",
-                      "comment",
-                    ].map((field, idx) => (
-                      <td
-                        key={idx}
-                        className="border border-gray-200 px-2 py-1"
-                      >
-                        <SoftBadge
-                          value={action?.[field]}
-                          color="bg-gray-100 text-gray-700 border border-gray-200"
-                        />
-                      </td>
-                    ))}
-                  </tr>
-                ))}
+                
               </React.Fragment>
             );
           })
@@ -438,7 +390,7 @@ const MyTableBody = ({
                 <tr className="hover:bg-gray-50">
                   <td
                     className="border border-gray-200 px-2 py-1 w-16 sticky left-0 top-0 z-10 bg-white"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <div className="flex items-center gap-1">
                       <span className="font-semibold">{row.no}</span>
@@ -454,7 +406,7 @@ const MyTableBody = ({
                   {/* SWOT */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <SoftBadge
                       value={row.swot?.value}
@@ -465,7 +417,7 @@ const MyTableBody = ({
                   {/* PESTLE */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <SoftBadge
                       value={row.pestle?.value}
@@ -476,7 +428,7 @@ const MyTableBody = ({
                   {/* Interested Party */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <SoftBadge
                       value={row.interestedParty?.value}
@@ -487,19 +439,19 @@ const MyTableBody = ({
                   {/* Text Fields */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     {row.riskOpportunity}
                   </td>
                   <td
                     className="border border-gray-200 px-2 py-1 w-28"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     {row.objective}
                   </td>
                   <td
                     className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     {row.kpi}
                   </td>
@@ -507,7 +459,7 @@ const MyTableBody = ({
                   {/* Process */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <SoftBadge
                       value={row.process?.value}
@@ -518,7 +470,7 @@ const MyTableBody = ({
                   {/* Ermeoa */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-48"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     {row.ermeoa?.value || `${row.objective} Action`}
                   </td>
@@ -526,7 +478,7 @@ const MyTableBody = ({
                   {/* Initial Risk */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <SoftBadge
                       value={row.initialRiskSeverity}
@@ -535,7 +487,7 @@ const MyTableBody = ({
                   </td>
                   <td
                     className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <SoftBadge
                       value={row.initialRiskLikelyhood}
@@ -546,7 +498,7 @@ const MyTableBody = ({
                   {/* Risk Level */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <SoftBadge
                       value="Medium"
@@ -555,31 +507,12 @@ const MyTableBody = ({
                   </td>
 
                   {/* İlk Action */}
-                  {[
-                    "action",
-                    "raiseDate",
-                    "resources",
-                    "function",
-                    "responsible",
-                    "deadline",
-                    "actionConfirmation",
-                    "actionStatus",
-                    "completionDate",
-                    "statusOfVerification",
-                    "comment",
-                  ].map((field, idx) => (
-                    <td key={idx} className="border border-gray-200 px-2 py-1">
-                      <SoftBadge
-                        value={actions[0]?.[field]}
-                        color="bg-gray-100 text-gray-700 border border-gray-200"
-                      />
-                    </td>
-                  ))}
+                  
 
                   {/* Residual Risk */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <SoftBadge
                       value={row.residualRiskSeverity}
@@ -588,7 +521,7 @@ const MyTableBody = ({
                   </td>
                   <td
                     className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <SoftBadge
                       value={row.residualRiskLikelyhood}
@@ -597,7 +530,7 @@ const MyTableBody = ({
                   </td>
                   <td
                     className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <SoftBadge
                       value="Low"
@@ -607,36 +540,7 @@ const MyTableBody = ({
                 </tr>
 
                 {/* Ek Actions */}
-                {actions.slice(1).map((action, i) => (
-                  <tr
-                    key={`${row.id}-action-${i}`}
-                    className="hover:bg-gray-50"
-                  >
-                    {[
-                      "action",
-                      "raiseDate",
-                      "resources",
-                      "function",
-                      "responsible",
-                      "deadline",
-                      "actionConfirmation",
-                      "actionStatus",
-                      "completionDate",
-                      "statusOfVerification",
-                      "comment",
-                    ].map((field, idx) => (
-                      <td
-                        key={idx}
-                        className="border border-gray-200 px-2 py-1"
-                      >
-                        <SoftBadge
-                          value={action?.[field]}
-                          color="bg-gray-100 text-gray-700 border border-gray-200"
-                        />
-                      </td>
-                    ))}
-                  </tr>
-                ))}
+                
               </React.Fragment>
             );
           })
@@ -785,7 +689,7 @@ const MyTableBody = ({
                   {/* ID + Checkbox */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-16 sticky left-[-1px] top-0 z-10 bg-white"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <div className="flex items-center gap-2">
                       <span className="font-semibold text-gray-700">
@@ -803,7 +707,7 @@ const MyTableBody = ({
                   {/* SWOT */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     {row.swot?.value && (
                       <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 border border-rose-200 rounded-full shadow-sm">
@@ -815,7 +719,7 @@ const MyTableBody = ({
                   {/* PESTLE */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     {row.pestle?.value && (
                       <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
@@ -827,7 +731,7 @@ const MyTableBody = ({
                   {/* Interested Party */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     {row.interestedParty?.value && (
                       <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
@@ -839,21 +743,21 @@ const MyTableBody = ({
                   {/* Text Fields */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     {row.riskOpportunity}
                   </td>
 
                   <td
                     className="border border-gray-200 px-3 py-2 w-28"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     {row.objective}
                   </td>
 
                   <td
                     className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     {row.kpi}
                   </td>
@@ -861,7 +765,7 @@ const MyTableBody = ({
                   {/* Process */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-24"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     {row.process?.value && (
                       <span className="inline-block px-3 py-1 bg-cyan-100 text-cyan-700 border border-cyan-200 rounded-full shadow-sm">
@@ -873,7 +777,7 @@ const MyTableBody = ({
                   {/* Ermeoa */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-48"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     {row.ermeoa?.value || `${row.objective} Action`}
                   </td>
@@ -881,7 +785,7 @@ const MyTableBody = ({
                   {/* Initial Risk Severity */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     {row.initialRiskSeverity && (
                       <span className="inline-block px-3 py-1 bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-full shadow-sm">
@@ -893,7 +797,7 @@ const MyTableBody = ({
                   {/* Likelyhood */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-24"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     {row.initialRiskLikelyhood && (
                       <span className="inline-block px-3 py-1 bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-full shadow-sm">
@@ -905,50 +809,17 @@ const MyTableBody = ({
                   {/* Risk Level */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <span className="inline-block px-3 py-1 bg-yellow-100 text-yellow-700 border border-yellow-200 rounded-full shadow-sm">
                       Medium
                     </span>
                   </td>
-
-                  {/* First Action */}
-                  {[
-                    "title",
-                    "raiseDate",
-                    "resources",
-                    "relativeFunction.value",
-                    "responsible.value",
-                    "deadline",
-                    "confirmation.value",
-                    "status.value",
-                    "completionDate",
-                    "verificationStatus.value",
-                    "comment",
-                  ].map((field, idx) => {
-                    const value = field.includes(".")
-                      ? field.split(".").reduce((o, i) => o?.[i], actions[0])
-                      : actions[0]?.[field];
-
-                    return (
-                      <td
-                        key={idx}
-                        className="border border-gray-200 px-3 py-2"
-                      >
-                        {value && (
-                          <span className="inline-block px-3 py-1 bg-gray-100 text-gray-700 border border-gray-200 rounded-full shadow-sm">
-                            {value}
-                          </span>
-                        )}
-                      </td>
-                    );
-                  })}
-
   
                   {/* Residual Severity */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-24"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     {row.residualRiskSeverity && (
                       <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 border border-rose-200 rounded-full shadow-sm">
@@ -960,7 +831,7 @@ const MyTableBody = ({
                   {/* Residual Likelyhood */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-24"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     {row.residualRiskLikelyhood && (
                       <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 border border-rose-200 rounded-full shadow-sm">
@@ -972,7 +843,7 @@ const MyTableBody = ({
                   {/* Final Risk Level */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={numActions}
+                    rowSpan={1}
                   >
                     <span className="inline-block px-3 py-1 bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-full shadow-sm">
                       Low
@@ -980,35 +851,7 @@ const MyTableBody = ({
                   </td>
                 </tr>
 
-                {/* Ek Actions */}
-                {actions.slice(1).map((action, i) => (
-                  <tr key={i} className="hover:bg-gray-50">
-                    {Object.values({
-                      title: action?.title,
-                      raiseDate: action?.raiseDate,
-                      resources: action?.resources,
-                      rel: action?.relativeFunction?.value,
-                      resp: action?.responsible?.value,
-                      deadline: action?.deadline,
-                      conf: action?.confirmation?.value,
-                      status: action?.status?.value,
-                      comp: action?.completionDate,
-                      ver: action?.verificationStatus?.value,
-                      comment: action?.comment,
-                    }).map((val, idx) => (
-                      <td
-                        key={idx}
-                        className="border border-gray-200 px-3 py-2"
-                      >
-                        {val && (
-                          <span className="inline-block px-3 py-1 bg-gray-100 text-gray-700 border border-gray-200 rounded-full shadow-sm">
-                            {val}
-                          </span>
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
+                             
 
                
                 
