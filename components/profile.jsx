@@ -211,29 +211,14 @@ const RisksAssessment = () => {
     }
   };
   const toggleDeleteView = () => {
-    if (activeHeader) {
-      setShowDeleted(!showDeleted);
-      if (!activeHeader && showDeletedAction === false) {
-        setActiveHeader(!activeHeader);
+    console.log("ACTIVE HEADERRRRR : ", activeHeader);
+  if (activeHeader) {
+    setShowDeleted(prev => !prev);
+  } else {
+    setShowDeletedAction(prev => !prev);
+
       }
-    } else {
-      if (showDeletedAction === false) {
-        setShowDeleted(!showDeleted);
-        setShowDeletedAction((prev) => {
-          const newValue = !prev;
-          console.log("Yeni değer:", newValue);
-          return newValue;
-        });
-      } else {
-        setShowDeleted(!showDeleted);
-        setShowDeletedAction((prev) => {
-          const newValue = !prev;
-          console.log("Yeni değer:", newValue);
-          return newValue;
-        });
-      }
-    }
-  };
+};
 
   const toggleActionView = () => {
     setShowAction(!showAction);
@@ -922,9 +907,9 @@ const RisksAssessment = () => {
                       ? showDeleted
                         ? "Hide Deleted"
                         : "Show Deleted"
-                      : !showDeleted
-                        ? "Show Deleted Action"
-                        : "Hide Deleted Action"}
+                      : showDeletedAction
+                        ? "Hide Deleted Action"
+                        : "Show Deleted Action"}
                   </button>
                   <button
                     onClick={toggleActionView}
@@ -1025,6 +1010,7 @@ const RisksAssessment = () => {
                     selectedRowsForActions={selectedRowsForActions}
                     showArchived={showArchived}
                     showDeleted={showDeleted}
+                    showDeletedAction={showDeletedAction}
                     onCheckboxChange={handleCheckboxChange}
                     onCheckboxChangeForActions={handleCheckboxChangeForActions}
                     activeHeader={activeHeader}

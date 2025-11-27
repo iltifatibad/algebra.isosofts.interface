@@ -9,12 +9,14 @@ const MyTableBody = ({
   onCheckboxChange,
   onCheckboxChangeForActions,
   showDeleted,
+  showDeletedAction,
   activeHeader,
   selectedTable,
 }) => {
   console.log("ACTIVE HEADERRRRR : ", activeHeader);
   const [archivedData, setArchivedData] = useState([]);
   const [deletedData, setDeletedData] = useState([]);
+  const [deletedActionData, setDeletedActionData] = useState([]);
   const [actionData, setActionData] = useState([]);
   const [editData, setEditData] = useState([]);
   const getArchivedData = async () => {
@@ -70,6 +72,42 @@ const MyTableBody = ({
       setDeletedData([]); // Normal moda geçince temizle (opsiyonel)
     }
   }, [showDeleted]); // Dependency: showArchived değişince
+
+
+const getDeletedActionData = async () => {
+    setLoading(true); // Loading başla
+    const selectedRowsArray = [...selectedRowsForActions];
+    try {
+      const firstRowId = selectedRowsArray[0]; 
+      const url = `http://localhost:8000/api/register/component/action/all?registerId=${firstRowId}&status=deleted`;
+      const response = await fetch(
+        url,
+      );
+      if (!response.ok) {
+        throw new Error("Failed To Get Datas From Deleted DataBase");
+      }
+      const fetchedData = await response.json();
+      setDeletedActionData(fetchedData || []); // Veri set et, fallback []
+      console.log("Arşiv Action verileri:", fetchedData);
+    } catch (err) {
+      console.error("Error While Fetching Deleted Datas:", err);
+      setDeletedActionData([]); // Hata durumunda boş array set et (null değil!)
+    } finally {
+      setLoading(false); // Loading bitir
+    }
+  };
+  useEffect(() => {
+    if (showDeletedAction) {
+      getDeletedActionData(); // Async çağrı
+    } else {
+      setDeletedActionData([]); // Normal moda geçince temizle (opsiyonel)
+    }
+  }, [showDeletedAction]); // Dependency: showArchived değişince
+
+
+
+
+  
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -554,7 +592,7 @@ const MyTableBody = ({
         )}
       </tbody>
     );
-  } else if (!activeHeader) {
+  } else if (!activeHeader && showDeletedAction === false) {
     return (
       <tbody>
         {loading ? (
@@ -671,6 +709,141 @@ const MyTableBody = ({
                       <SoftBadge
                         value={
                           actionData?.[index]?.[month.toLowerCase()]?.value ||
+                          ""
+                        }
+                      />
+                    </td>
+                  ))}
+                </tr>
+              </React.Fragment>
+            );
+          })
+        ) : (
+          <tr>
+            <td colSpan={25} className="text-center py-4">
+              No Data
+            </td>
+          </tr>
+        )}
+      </tbody>
+    );
+  } else if (!activeHeader && showDeletedAction === true) {
+    return (
+      <tbody>
+        {loading ? (
+          <tr>
+            <td colSpan={25} className="text-center py-4">
+              Deleted verileri yükleniyor...
+            </td>
+          </tr>
+        ) : selectedTable && deletedActionData && selectedTable.length > 0 ? (
+          deletedActionData.map((row, index) => {
+            const numActions = row.actionPlan ? row.actionPlan.length : 1;
+            console.log("WORKINGGGGG !!!")
+            // Soft badge
+            const SoftBadge = ({ value }) =>
+              value ? (
+                <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
+                  {value}
+                </span>
+              ) : null;
+
+            return (
+              <React.Fragment key={row.id}>
+                <tr
+                  className={`border-b h-16 min-h-16 align-middle border-gray-200 ${
+                    index % 2 === 0
+                      ? "bg-white hover:bg-gray-200"
+                      : "bg-green-100 hover:bg-green-200"
+                  }`}
+                >
+                  {/* # column */}
+                  <td
+                    className="border-b border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px"
+                    rowSpan={numActions}
+                  >
+                    {selectedTable[0].no}
+                    <input
+                      checked={selectedRowsForActions.has(deletedActionData[index].id)}
+                      onChange={() =>
+                        onCheckboxChangeForActions(
+                        deletedActionData[index].id,
+                        deletedActionData,
+                        )
+                      }
+                      type="checkbox"
+                      className="ml-2"
+                    />
+                  </td>
+                  {/* FIRST ACTION PLAN FIELDS */}
+                  <td className="border-b border-gray-200 px-2 py-1 w-32">
+                    <SoftBadge value={deletedActionData?.[index]?.title} />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-32">
+                    <SoftBadge value={deletedActionData?.[index]?.raiseDate} />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-24">
+                    <SoftBadge
+                      value={deletedActionData?.[index]?.resources?.toString() || ""}
+                    />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-28">
+                    <SoftBadge
+                      value={deletedActionData?.[index]?.relativeFunction?.value}
+                    />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-28">
+                    <SoftBadge
+                      value={deletedActionData?.[index]?.responsible?.value}
+                    />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-24">
+                    <SoftBadge value={deletedActionData?.[index]?.deadline} />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-36">
+                    <SoftBadge
+                      value={deletedActionData?.[index]?.confirmation?.value}
+                    />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-24">
+                    <SoftBadge
+                      value={deletedActionData?.[index]?.status?.value?.toString()}
+                    />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-24">
+                    <SoftBadge value={deletedActionData?.[index]?.completionDate} />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-32">
+                    <SoftBadge
+                      value={deletedActionData?.[index]?.verificationStatus?.value}
+                    />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-40">
+                    <SoftBadge value={deletedActionData?.[index]?.comment} />
+                  </td>
+                  {/* MONITORING MONTH COLUMNS */}
+                  {[
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December",
+                  ].map((month) => (
+                    <td
+                      key={`$deletedActionData?.[index]?.id}-${month}`}
+                      className="border-b border-gray-200 px-2 py-1 w-24"
+                    >
+                      {/* Assuming monitoring data is stored indeletedActionData[index].monitoring[month] or similar; adjust as needed */}
+                      <SoftBadge
+                        value={
+                        deletedActionData?.[index]?.[month.toLowerCase()]?.value ||
                           ""
                         }
                       />
