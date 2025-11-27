@@ -566,7 +566,8 @@ const RisksAssessment = () => {
 
   // Delete modal'da çağırma
   const handleDeleteConfirm = () => {
-    if (!showDeleted) {
+    if (activeHeader) {
+        if (!showDeleted) {
       fetch("http://localhost:8000/api/register/br/all/delete", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -600,6 +601,44 @@ const RisksAssessment = () => {
           }
         })
         .catch((error) => console.log(" Error While Deleting: ", error));
+    }
+    } else {
+        if (!showDeletedAction) {
+          console.log("AAABBB: ", selectedRowsForActions);
+      fetch("http://localhost:8000/api/register/component/action/all/delete", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ids: [...selectedRowsForActions],
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            console.log(" Failed Deleting Registers ");
+          } else {
+            console.log(" Deleting Success");
+            setShowDeleteModal(false);
+          }
+        })
+        .catch((error) => console.log(" Error While Deleting: ", error));
+    } else {
+      fetch("http://localhost:8000/api/register/component/action/all/undelete", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ids: [...selectedRowsForActions],
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            console.log(" Failed Deleting Registers ");
+          } else {
+            console.log(" Deleting Success");
+            setShowDeleteModal(false);
+          }
+        })
+        .catch((error) => console.log(" Error While Deleting: ", error));
+    }
     }
   };
 
