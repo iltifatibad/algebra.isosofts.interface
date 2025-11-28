@@ -73,16 +73,13 @@ const MyTableBody = ({
     }
   }, [showDeleted]); // Dependency: showArchived değişince
 
-
-const getDeletedActionData = async () => {
+  const getDeletedActionData = async () => {
     setLoading(true); // Loading başla
     const selectedRowsArray = [...selectedRows];
     try {
-      const firstRowId = selectedRowsArray[0]; 
+      const firstRowId = selectedRowsArray[0];
       const url = `http://localhost:8000/api/register/component/action/all?registerId=${firstRowId}&status=deleted`;
-      const response = await fetch(
-        url,
-      );
+      const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Failed To Get Datas From Deleted DataBase");
       }
@@ -103,11 +100,6 @@ const getDeletedActionData = async () => {
       setDeletedActionData([]); // Normal moda geçince temizle (opsiyonel)
     }
   }, [showDeletedAction]); // Dependency: showArchived değişince
-
-
-
-
-  
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -739,7 +731,7 @@ const getDeletedActionData = async () => {
         ) : selectedTable && deletedActionData && selectedTable.length > 0 ? (
           deletedActionData.map((row, index) => {
             const numActions = row.actionPlan ? row.actionPlan.length : 1;
-            console.log("WORKINGGGGG !!!")
+            console.log("WORKINGGGGG !!!");
             // Soft badge
             const SoftBadge = ({ value }) =>
               value ? (
@@ -764,11 +756,13 @@ const getDeletedActionData = async () => {
                   >
                     {selectedTable[0].no}
                     <input
-                      checked={selectedRowsForActions.has(deletedActionData[index].id)}
+                      checked={selectedRowsForActions.has(
+                        deletedActionData[index].id,
+                      )}
                       onChange={() =>
                         onCheckboxChangeForActions(
-                        deletedActionData[index].id,
-                        deletedActionData,
+                          deletedActionData[index].id,
+                          deletedActionData,
                         )
                       }
                       type="checkbox"
@@ -784,12 +778,16 @@ const getDeletedActionData = async () => {
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-24">
                     <SoftBadge
-                      value={deletedActionData?.[index]?.resources?.toString() || ""}
+                      value={
+                        deletedActionData?.[index]?.resources?.toString() || ""
+                      }
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-28">
                     <SoftBadge
-                      value={deletedActionData?.[index]?.relativeFunction?.value}
+                      value={
+                        deletedActionData?.[index]?.relativeFunction?.value
+                      }
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-28">
@@ -807,15 +805,21 @@ const getDeletedActionData = async () => {
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-24">
                     <SoftBadge
-                      value={deletedActionData?.[index]?.status?.value?.toString()}
+                      value={deletedActionData?.[
+                        index
+                      ]?.status?.value?.toString()}
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-24">
-                    <SoftBadge value={deletedActionData?.[index]?.completionDate} />
+                    <SoftBadge
+                      value={deletedActionData?.[index]?.completionDate}
+                    />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-32">
                     <SoftBadge
-                      value={deletedActionData?.[index]?.verificationStatus?.value}
+                      value={
+                        deletedActionData?.[index]?.verificationStatus?.value
+                      }
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-40">
@@ -843,8 +847,8 @@ const getDeletedActionData = async () => {
                       {/* Assuming monitoring data is stored indeletedActionData[index].monitoring[month] or similar; adjust as needed */}
                       <SoftBadge
                         value={
-                        deletedActionData?.[index]?.[month.toLowerCase()]?.value ||
-                          ""
+                          deletedActionData?.[index]?.[month.toLowerCase()]
+                            ?.value || ""
                         }
                       />
                     </td>

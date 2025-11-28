@@ -77,7 +77,7 @@ const RisksAssessment = () => {
     ],
   };
 
-   const riskHeatmapOption = {
+  const riskHeatmapOption = {
     tooltip: { position: "top" },
     grid: { height: "60%", top: "10%" },
     xAxis: {
@@ -103,11 +103,31 @@ const RisksAssessment = () => {
         name: "Risk Score",
         type: "heatmap",
         data: [
-          [0, 0, 1], [1, 0, 4], [2, 0, 9], [3, 0, 16], [4, 0, 20],
-          [0, 1, 2], [1, 1, 6], [2, 1, 12], [3, 1, 18], [4, 1, 22],
-          [0, 2, 3], [1, 2, 8], [2, 2, 15], [3, 2, 19], [4, 2, 23],
-          [0, 3, 4], [1, 3, 10], [2, 3, 17], [3, 3, 21], [4, 3, 24],
-          [0, 4, 5], [1, 4, 11], [2, 4, 14], [3, 4, 18], [4, 4, 25],
+          [0, 0, 1],
+          [1, 0, 4],
+          [2, 0, 9],
+          [3, 0, 16],
+          [4, 0, 20],
+          [0, 1, 2],
+          [1, 1, 6],
+          [2, 1, 12],
+          [3, 1, 18],
+          [4, 1, 22],
+          [0, 2, 3],
+          [1, 2, 8],
+          [2, 2, 15],
+          [3, 2, 19],
+          [4, 2, 23],
+          [0, 3, 4],
+          [1, 3, 10],
+          [2, 3, 17],
+          [3, 3, 21],
+          [4, 3, 24],
+          [0, 4, 5],
+          [1, 4, 11],
+          [2, 4, 14],
+          [3, 4, 18],
+          [4, 4, 25],
         ],
         label: { show: true },
       },
@@ -298,13 +318,12 @@ const RisksAssessment = () => {
   };
   const toggleDeleteView = () => {
     console.log("ACTIVE HEADERRRRR : ", activeHeader);
-  if (activeHeader) {
-    setShowDeleted(prev => !prev);
-  } else {
-    setShowDeletedAction(prev => !prev);
-
-      }
-};
+    if (activeHeader) {
+      setShowDeleted((prev) => !prev);
+    } else {
+      setShowDeletedAction((prev) => !prev);
+    }
+  };
 
   const toggleActionView = () => {
     setShowAction(!showAction);
@@ -581,10 +600,10 @@ const RisksAssessment = () => {
               responsible: actionData.responsible?.id || "",
               deadline: actionData.deadline,
               confirmation: actionData.actionPlan[0].confirmation?.id || "",
-              status: actionData.actionPlan[0].status?.id ,
+              status: actionData.actionPlan[0].status?.id,
               completionDate: actionData.completionDate,
               verificationStatus: actionData.verificationStatus?.id,
-              comment: actionData.comment ,
+              comment: actionData.comment,
               january: "",
               february: "",
               march: "",
@@ -653,79 +672,85 @@ const RisksAssessment = () => {
   // Delete modal'da çağırma
   const handleDeleteConfirm = () => {
     if (activeHeader) {
-        if (!showDeleted) {
-      fetch("http://localhost:8000/api/register/br/all/delete", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ids: [...selectedRows],
-        }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            console.log(" Failed Deleting Registers ");
-          } else {
-            console.log(" Deleting Success");
-            setShowDeleteModal(false);
-          }
+      if (!showDeleted) {
+        fetch("http://localhost:8000/api/register/br/all/delete", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ids: [...selectedRows],
+          }),
         })
-        .catch((error) => console.log(" Error While Deleting: ", error));
+          .then((response) => {
+            if (!response.ok) {
+              console.log(" Failed Deleting Registers ");
+            } else {
+              console.log(" Deleting Success");
+              setShowDeleteModal(false);
+            }
+          })
+          .catch((error) => console.log(" Error While Deleting: ", error));
+      } else {
+        fetch("http://localhost:8000/api/register/br/all/undelete", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ids: [...selectedRows],
+          }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              console.log(" Failed Deleting Registers ");
+            } else {
+              console.log(" Deleting Success");
+              setShowDeleteModal(false);
+            }
+          })
+          .catch((error) => console.log(" Error While Deleting: ", error));
+      }
     } else {
-      fetch("http://localhost:8000/api/register/br/all/undelete", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ids: [...selectedRows],
-        }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            console.log(" Failed Deleting Registers ");
-          } else {
-            console.log(" Deleting Success");
-            setShowDeleteModal(false);
-          }
-        })
-        .catch((error) => console.log(" Error While Deleting: ", error));
-    }
-    } else {
-        if (!showDeletedAction) {
-          console.log("AAABBB: ", selectedRowsForActions);
-      fetch("http://localhost:8000/api/register/component/action/all/delete", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ids: [...selectedRowsForActions],
-        }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            console.log(" Failed Deleting Registers ");
-          } else {
-            console.log(" Deleting Success");
-            setShowDeleteModal(false);
-          }
-        })
-        .catch((error) => console.log(" Error While Deleting: ", error));
-    } else {
-      console.log("CCC: ", selectedRowsForActions);
-      fetch("http://localhost:8000/api/register/component/action/all/undelete", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ids: [...selectedRowsForActions],
-        }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            console.log(" Failed Deleting Registers ");
-          } else {
-            console.log(" Deleting Success");
-            setShowDeleteModal(false);
-          }
-        })
-        .catch((error) => console.log(" Error While Deleting: ", error));
-    }
+      if (!showDeletedAction) {
+        console.log("AAABBB: ", selectedRowsForActions);
+        fetch(
+          "http://localhost:8000/api/register/component/action/all/delete",
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              ids: [...selectedRowsForActions],
+            }),
+          },
+        )
+          .then((response) => {
+            if (!response.ok) {
+              console.log(" Failed Deleting Registers ");
+            } else {
+              console.log(" Deleting Success");
+              setShowDeleteModal(false);
+            }
+          })
+          .catch((error) => console.log(" Error While Deleting: ", error));
+      } else {
+        console.log("CCC: ", selectedRowsForActions);
+        fetch(
+          "http://localhost:8000/api/register/component/action/all/undelete",
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              ids: [...selectedRowsForActions],
+            }),
+          },
+        )
+          .then((response) => {
+            if (!response.ok) {
+              console.log(" Failed Deleting Registers ");
+            } else {
+              console.log(" Deleting Success");
+              setShowDeleteModal(false);
+            }
+          })
+          .catch((error) => console.log(" Error While Deleting: ", error));
+      }
     }
   };
 
@@ -981,89 +1006,99 @@ const RisksAssessment = () => {
                 </div>
               </div>
               <div className="overflow-x-auto max-h-[75vh] overflow-y-auto">
-  <div className="p-6">
-    <h4 className="text-lg font-medium mb-4">E-Chart View</h4>
+                <div className="p-6">
+                  <h4 className="text-lg font-medium mb-4">E-Chart View</h4>
 
-    {/* düzgün chart grid */}
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* düzgün chart grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* KPI Gauge */}
+                    <div className="bg-white rounded-lg shadow p-4">
+                      <h4 className="text-lg font-semibold mb-4 text-gray-700">
+                        KPI Performance (ISO 9001)
+                      </h4>
+                      <ReactECharts
+                        style={{ height: "300px", width: "100%" }}
+                        option={{
+                          tooltip: {
+                            trigger: "axis",
+                          },
+                          legend: {
+                            data: ["KPI", "Target"],
+                            top: 10,
+                          },
+                          grid: {
+                            left: "5%",
+                            right: "5%",
+                            bottom: "8%",
+                            containLabel: true,
+                          },
+                          xAxis: {
+                            type: "category",
+                            data: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+                            axisLabel: { rotate: 30 },
+                          },
+                          yAxis: {
+                            type: "value",
+                            min: 0,
+                            max: 100,
+                          },
+                          series: [
+                            {
+                              name: "KPI",
+                              type: "line",
+                              smooth: true,
+                              symbol: "circle",
+                              lineStyle: { width: 3 },
+                              data: [72, 75, 78, 82, 87, 85],
+                            },
+                            {
+                              name: "Target",
+                              type: "line",
+                              smooth: false,
+                              symbol: "none",
+                              lineStyle: {
+                                width: 2,
+                                type: "dashed",
+                                color: "#ff4d4d",
+                              },
+                              data: [80, 80, 80, 80, 80, 80],
+                            },
+                          ],
+                        }}
+                      />{" "}
+                    </div>
 
-      {/* KPI Gauge */}
-      <div className="bg-white rounded-lg shadow p-4">
-         <h4 className="text-lg font-semibold mb-4 text-gray-700">KPI Performance (ISO 9001)</h4>
+                    {/* Risk Heatmap */}
+                    <div className="bg-white rounded-lg shadow p-4">
+                      <h4 className="text-md font-medium mb-2">Risk Heatmap</h4>
+                      <ReactECharts
+                        option={riskHeatmapOption}
+                        style={{ height: "350px" }}
+                      />
+                    </div>
 
-  <ReactECharts
-    style={{ height: "300px", width: "100%" }}
-    option={{
-      tooltip: {
-        trigger: "axis",
-      },
-      legend: {
-        data: ["KPI", "Target"],
-        top: 10,
-      },
-      grid: {
-        left: "5%",
-        right: "5%",
-        bottom: "8%",
-        containLabel: true,
-      },
-      xAxis: {
-        type: "category",
-        data: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-        axisLabel: { rotate: 30 },
-      },
-      yAxis: {
-        type: "value",
-        min: 0,
-        max: 100,
-      },
-      series: [
-        {
-          name: "KPI",
-          type: "line",
-          smooth: true,
-          symbol: "circle",
-          lineStyle: { width: 3 },
-          data: [72, 75, 78, 82, 87, 85],
-        },
-        {
-          name: "Target",
-          type: "line",
-          smooth: false,
-          symbol: "none",
-          lineStyle: {
-            width: 2,
-            type: "dashed",
-            color: "#ff4d4d",
-          },
-          data: [80, 80, 80, 80, 80, 80],
-        },
-      ],
-    }}
-  />      </div>
+                    {/* KPI Trend */}
+                    <div className="bg-white rounded-lg shadow p-4">
+                      <h4 className="text-md font-medium mb-2">KPI Trend</h4>
+                      <ReactECharts
+                        option={kpiTrendOption}
+                        style={{ height: "300px" }}
+                      />
+                    </div>
 
-      {/* Risk Heatmap */}
-      <div className="bg-white rounded-lg shadow p-4">
-        <h4 className="text-md font-medium mb-2">Risk Heatmap</h4>
-        <ReactECharts option={riskHeatmapOption} style={{ height: "350px" }} />
-      </div>
-
-      {/* KPI Trend */}
-      <div className="bg-white rounded-lg shadow p-4">
-        <h4 className="text-md font-medium mb-2">KPI Trend</h4>
-        <ReactECharts option={kpiTrendOption} style={{ height: "300px" }} />
-      </div>
-
-      {/* Risk Categories */}
-      <div className="bg-white rounded-lg shadow p-4">
-        <h4 className="text-md font-medium mb-2">Risk Categories</h4>
-        <ReactECharts option={riskPieOption} style={{ height: "350px" }} />
-      </div>
-
-    </div>
-  </div>
-</div>
-
+                    {/* Risk Categories */}
+                    <div className="bg-white rounded-lg shadow p-4">
+                      <h4 className="text-md font-medium mb-2">
+                        Risk Categories
+                      </h4>
+                      <ReactECharts
+                        option={riskPieOption}
+                        style={{ height: "350px" }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           ) : selectedRisk === "bg-reg" && selectedOption === "datas" ? (
             <div className="bg-white !rounded-button shadow-lg overflow-hidden">
@@ -1192,7 +1227,13 @@ const RisksAssessment = () => {
                     >
                       <i
                         className={
-                          activeHeader ? (showDeleted ? "fas fa-trash-restore" : "fas fa-trash") : (showDeletedAction ? "fas fa-trash-restore" : "fas fa-trash")
+                          activeHeader
+                            ? showDeleted
+                              ? "fas fa-trash-restore"
+                              : "fas fa-trash"
+                            : showDeletedAction
+                              ? "fas fa-trash-restore"
+                              : "fas fa-trash"
                         }
                       ></i>
                     </button>
@@ -1780,10 +1821,10 @@ const RisksAssessment = () => {
                               </div>
                             </div>
                           </div>
-                        <label className="block text-sm font-medium text-gray-700 mt-2 mb-2">
+                          <label className="block text-sm font-medium text-gray-700 mt-2 mb-2">
                             Action Status
                           </label>
-                             <div className="space-y-6">
+                          <div className="space-y-6">
                             {/* Row 1 */}
                             <div className="grid grid-cols-3 gap-4">
                               {/* Action */}
@@ -1805,15 +1846,12 @@ const RisksAssessment = () => {
                                   placeholder="Action"
                                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
                                 >
-                                       <option value="">Seçiniz</option>
-                                  {dropdownData?.status?.map(
-                                    (item) => (
-                                      <option key={item.id} value={item.id}>
-                                        {item.value}
-                                      </option>
-                                    ),
-                                  )}
-
+                                  <option value="">Seçiniz</option>
+                                  {dropdownData?.status?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                      {item.value}
+                                    </option>
+                                  ))}
                                 </select>
                               </div>
 
@@ -1835,15 +1873,12 @@ const RisksAssessment = () => {
                                   type="date"
                                   className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
                                 >
-                                           <option value="">Seçiniz</option>
-                                  {dropdownData?.status?.map(
-                                    (item) => (
-                                      <option key={item.id} value={item.id}>
-                                        {item.value}
-                                      </option>
-                                    ),
-                                  )}
-
+                                  <option value="">Seçiniz</option>
+                                  {dropdownData?.status?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                      {item.value}
+                                    </option>
+                                  ))}
                                 </select>
                               </div>
 
@@ -1866,15 +1901,12 @@ const RisksAssessment = () => {
                                   placeholder="Resources"
                                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
                                 >
-                                     <option value="">Seçiniz</option>
-                                  {dropdownData?.status?.map(
-                                    (item) => (
-                                      <option key={item.id} value={item.id}>
-                                        {item.value}
-                                      </option>
-                                    ),
-                                  )}
-
+                                  <option value="">Seçiniz</option>
+                                  {dropdownData?.status?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                      {item.value}
+                                    </option>
+                                  ))}
                                 </select>
                               </div>
                             </div>
@@ -1900,13 +1932,11 @@ const RisksAssessment = () => {
                                   className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
                                 >
                                   <option value="">Seçiniz</option>
-                                  {dropdownData?.status?.map(
-                                    (item) => (
-                                      <option key={item.id} value={item.id}>
-                                        {item.value}
-                                      </option>
-                                    ),
-                                  )}
+                                  {dropdownData?.status?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                      {item.value}
+                                    </option>
+                                  ))}
                                 </select>
                               </div>
 
@@ -1916,10 +1946,7 @@ const RisksAssessment = () => {
                                   May
                                 </label>
                                 <select
-                                  value={
-                                    actionData.actionPlan?.[0]?.may ||
-                                    ""
-                                  }
+                                  value={actionData.actionPlan?.[0]?.may || ""}
                                   onChange={(e) =>
                                     handleFormChange(
                                       "actionPlan[0].may",
@@ -1943,9 +1970,7 @@ const RisksAssessment = () => {
                                   June
                                 </label>
                                 <select
-                                  value={
-                                    actionData.actionPlan?.[0]?.june || ""
-                                  }
+                                  value={actionData.actionPlan?.[0]?.june || ""}
                                   onChange={(e) =>
                                     handleFormChange(
                                       "actionPlan[0].june",
@@ -1955,15 +1980,12 @@ const RisksAssessment = () => {
                                   type="date"
                                   className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
                                 >
-                                     <option value="">Seçiniz</option>
-                                  {dropdownData?.status?.map(
-                                    (item) => (
-                                      <option key={item.id} value={item.id}>
-                                        {item.value}
-                                      </option>
-                                    ),
-                                  )}
-
+                                  <option value="">Seçiniz</option>
+                                  {dropdownData?.status?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                      {item.value}
+                                    </option>
+                                  ))}
                                 </select>
                               </div>
                             </div>
@@ -1976,10 +1998,7 @@ const RisksAssessment = () => {
                                   July
                                 </label>
                                 <select
-                                  value={
-                                    actionData.actionPlan?.[0]?.july ||
-                                    ""
-                                  }
+                                  value={actionData.actionPlan?.[0]?.july || ""}
                                   onChange={(e) =>
                                     handleFormChange(
                                       "actionPlan[0].status",
@@ -2042,15 +2061,12 @@ const RisksAssessment = () => {
                                   type="date"
                                   className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
                                 >
-                                       <option value="">Seçiniz</option>
-                                  {dropdownData?.status?.map(
-                                    (item) => (
-                                      <option key={item.id} value={item.id}>
-                                        {item.value}
-                                      </option>
-                                    ),
-                                  )}
-
+                                  <option value="">Seçiniz</option>
+                                  {dropdownData?.status?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                      {item.value}
+                                    </option>
+                                  ))}
                                 </select>
                               </div>
                             </div>
@@ -2064,8 +2080,7 @@ const RisksAssessment = () => {
                                 </label>
                                 <select
                                   value={
-                                    actionData.actionPlan?.[0]
-                                      ?.october || ""
+                                    actionData.actionPlan?.[0]?.october || ""
                                   }
                                   onChange={(e) =>
                                     handleFormChange(
@@ -2103,17 +2118,15 @@ const RisksAssessment = () => {
                                   placeholder="Comment"
                                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
                                 >
-                                 <option value="">Seçiniz</option>
-                                  {dropdownData?.status?.map(
-                                    (item) => (
-                                      <option key={item.id} value={item.id}>
-                                        {item.value}
-                                      </option>
-                                    ),
-                                  )}
+                                  <option value="">Seçiniz</option>
+                                  {dropdownData?.status?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                      {item.value}
+                                    </option>
+                                  ))}
                                 </select>
                               </div>
-                            <div>
+                              <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
                                   December
                                 </label>
@@ -2131,15 +2144,12 @@ const RisksAssessment = () => {
                                   placeholder="Comment"
                                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
                                 >
-                                 <option value="">Seçiniz</option>
-                                  {dropdownData?.status?.map(
-                                    (item) => (
-                                      <option key={item.id} value={item.id}>
-                                        {item.value}
-                                      </option>
-                                    ),
-                                  )}
-
+                                  <option value="">Seçiniz</option>
+                                  {dropdownData?.status?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                      {item.value}
+                                    </option>
+                                  ))}
                                 </select>
                               </div>
                             </div>
