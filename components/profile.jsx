@@ -312,18 +312,18 @@ const RisksAssessment = () => {
             completionDate: row.completionDate || "",
             verificationStatus: row.verificationStatus?.id || "",
             comment: row.comment || "",
-            january: "",
-            february: "",
-            march: "",
-            april: "",
-            may: "",
-            june: "",
-            july: "",
-            august: "",
-            september: "",
-            october: "",
-            november: "",
-            december: "",
+            january: row.january.id || "",
+            february: row.february.id || "",
+            march: row.march.id || "",
+            april: row.april.id || "",
+            may: row.may.id || "",
+            june: row.june.id || "",
+            july: row.july.id || "",
+            august: row.august.id || "",
+            september: row.september.id || "",
+            october: row.october.id || "",
+            november: row.november.id || "",
+            december: row.december.id || "",
           },
         ],
       });
@@ -488,17 +488,17 @@ const RisksAssessment = () => {
           actionPlan: [
             {
               title: actionData.actionPlan[0].title,
-              raiseDate: actionData.actionPlan[0].raiseDate,
+              raiseDate: actionData.raiseDate,
               resources: actionData.actionPlan[0].resources,
               currency: "", // ✨ aynen kalacak
               relativeFunction: actionData.relativeFunction?.id || "",
               responsible: actionData.responsible?.id || "",
               deadline: actionData.deadline,
-              confirmation: actionData.confirmation?.id || "",
-              status: actionData.status?.id || "",
-              completionDate: actionData.completionDate || "",
-              verificationStatus: actionData.verificationStatus?.id || "",
-              comment: actionData.comment || "",
+              confirmation: actionData.actionPlan[0].confirmation?.id || "",
+              status: actionData.actionPlan[0].status?.id ,
+              completionDate: actionData.completionDate,
+              verificationStatus: actionData.verificationStatus?.id,
+              comment: actionData.comment ,
               january: "",
               february: "",
               march: "",
@@ -622,6 +622,7 @@ const RisksAssessment = () => {
         })
         .catch((error) => console.log(" Error While Deleting: ", error));
     } else {
+      console.log("CCC: ", selectedRowsForActions);
       fetch("http://localhost:8000/api/register/component/action/all/undelete", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -1033,7 +1034,7 @@ const RisksAssessment = () => {
                     >
                       <i
                         className={
-                          showDeleted ? "fas fa-trash-restore" : "fas fa-trash"
+                          activeHeader ? (showDeleted ? "fas fa-trash-restore" : "fas fa-trash") : (showDeletedAction ? "fas fa-trash-restore" : "fas fa-trash")
                         }
                       ></i>
                     </button>
@@ -1618,6 +1619,370 @@ const RisksAssessment = () => {
                                   placeholder="Comment"
                                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
                                 />
+                              </div>
+                            </div>
+                          </div>
+                        <label className="block text-sm font-medium text-gray-700 mt-2 mb-2">
+                            Action Status
+                          </label>
+                             <div className="space-y-6">
+                            {/* Row 1 */}
+                            <div className="grid grid-cols-3 gap-4">
+                              {/* Action */}
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  January
+                                </label>
+                                <select
+                                  value={
+                                    actionData?.actionPlan?.[0]?.january || ""
+                                  }
+                                  onChange={(e) =>
+                                    handleFormChange(
+                                      "actionPlan[0].january",
+                                      e.target.value,
+                                    )
+                                  }
+                                  type="text"
+                                  placeholder="Action"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                                >
+                                       <option value="">Seçiniz</option>
+                                  {dropdownData?.status?.map(
+                                    (item) => (
+                                      <option key={item.id} value={item.id}>
+                                        {item.value}
+                                      </option>
+                                    ),
+                                  )}
+
+                                </select>
+                              </div>
+
+                              {/* Raise Date with Label */}
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  February
+                                </label>
+                                <select
+                                  value={
+                                    actionData?.actionPlan?.[0]?.february || ""
+                                  }
+                                  onChange={(e) =>
+                                    handleFormChange(
+                                      "actionPlan[0].february",
+                                      e.target.value,
+                                    )
+                                  }
+                                  type="date"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                                >
+                                           <option value="">Seçiniz</option>
+                                  {dropdownData?.status?.map(
+                                    (item) => (
+                                      <option key={item.id} value={item.id}>
+                                        {item.value}
+                                      </option>
+                                    ),
+                                  )}
+
+                                </select>
+                              </div>
+
+                              {/* Resources */}
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  March
+                                </label>
+                                <select
+                                  value={
+                                    actionData.actionPlan?.[0]?.march || ""
+                                  }
+                                  onChange={(e) =>
+                                    handleFormChange(
+                                      "actionPlan[0].march",
+                                      e.target.value,
+                                    )
+                                  }
+                                  type="text"
+                                  placeholder="Resources"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                                >
+                                     <option value="">Seçiniz</option>
+                                  {dropdownData?.status?.map(
+                                    (item) => (
+                                      <option key={item.id} value={item.id}>
+                                        {item.value}
+                                      </option>
+                                    ),
+                                  )}
+
+                                </select>
+                              </div>
+                            </div>
+
+                            {/* Row 2 */}
+                            <div className="grid grid-cols-3 gap-4">
+                              {/* Relative Function */}
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  April
+                                </label>
+                                <select
+                                  value={
+                                    actionData.actionPlan?.[0]
+                                      ?.relativeFunction || ""
+                                  }
+                                  onChange={(e) =>
+                                    handleFormChange(
+                                      "actionPlan[0].april",
+                                      e.target.value,
+                                    )
+                                  }
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                                >
+                                  <option value="">Seçiniz</option>
+                                  {dropdownData?.status?.map(
+                                    (item) => (
+                                      <option key={item.id} value={item.id}>
+                                        {item.value}
+                                      </option>
+                                    ),
+                                  )}
+                                </select>
+                              </div>
+
+                              {/* Responsible */}
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  May
+                                </label>
+                                <select
+                                  value={
+                                    actionData.actionPlan?.[0]?.may ||
+                                    ""
+                                  }
+                                  onChange={(e) =>
+                                    handleFormChange(
+                                      "actionPlan[0].may",
+                                      e.target.value,
+                                    )
+                                  }
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                                >
+                                  <option value="">Seçiniz</option>
+                                  {dropdownData?.status?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                      {item.value}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+
+                              {/* Deadline (Calendar) */}
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  June
+                                </label>
+                                <select
+                                  value={
+                                    actionData.actionPlan?.[0]?.june || ""
+                                  }
+                                  onChange={(e) =>
+                                    handleFormChange(
+                                      "actionPlan[0].june",
+                                      e.target.value,
+                                    )
+                                  }
+                                  type="date"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                                >
+                                     <option value="">Seçiniz</option>
+                                  {dropdownData?.status?.map(
+                                    (item) => (
+                                      <option key={item.id} value={item.id}>
+                                        {item.value}
+                                      </option>
+                                    ),
+                                  )}
+
+                                </select>
+                              </div>
+                            </div>
+
+                            {/* Row 3 */}
+                            <div className="grid grid-cols-3 gap-4">
+                              {/* Action Confirmation */}
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  July
+                                </label>
+                                <select
+                                  value={
+                                    actionData.actionPlan?.[0]?.july ||
+                                    ""
+                                  }
+                                  onChange={(e) =>
+                                    handleFormChange(
+                                      "actionPlan[0].status",
+                                      e.target.value,
+                                    )
+                                  }
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                                >
+                                  <option value="">Seçiniz</option>
+                                  {dropdownData?.confirmation?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                      {item.value}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+
+                              {/* Action Status */}
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  August
+                                </label>
+                                <select
+                                  value={
+                                    actionData.actionPlan?.[0]?.august || ""
+                                  }
+                                  onChange={(e) =>
+                                    handleFormChange(
+                                      "actionPlan[0].status",
+                                      e.target.value,
+                                    )
+                                  }
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                                >
+                                  <option value="">Seçiniz</option>
+                                  {dropdownData?.status?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                      {item.value}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+
+                              {/* Completion Date (Calendar) */}
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  September
+                                </label>
+                                <select
+                                  value={
+                                    actionData.actionPlan?.[0]
+                                      ?.completionDate || ""
+                                  }
+                                  onChange={(e) =>
+                                    handleFormChange(
+                                      "actionPlan[0].september",
+                                      e.target.value,
+                                    )
+                                  }
+                                  type="date"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                                >
+                                       <option value="">Seçiniz</option>
+                                  {dropdownData?.status?.map(
+                                    (item) => (
+                                      <option key={item.id} value={item.id}>
+                                        {item.value}
+                                      </option>
+                                    ),
+                                  )}
+
+                                </select>
+                              </div>
+                            </div>
+
+                            {/* Row 4 */}
+                            <div className="grid grid-cols-2 gap-4">
+                              {/* Verification Status */}
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  October
+                                </label>
+                                <select
+                                  value={
+                                    actionData.actionPlan?.[0]
+                                      ?.october || ""
+                                  }
+                                  onChange={(e) =>
+                                    handleFormChange(
+                                      "actionPlan[0].october",
+                                      e.target.value,
+                                    )
+                                  }
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                                >
+                                  <option value="">Seçiniz</option>
+                                  {dropdownData?.status?.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                      {item.value}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+
+                              {/* Comment */}
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  November
+                                </label>
+                                <select
+                                  value={
+                                    actionData.actionPlan?.[0]?.november || ""
+                                  }
+                                  onChange={(e) =>
+                                    handleFormChange(
+                                      "actionPlan[0].november",
+                                      e.target.value,
+                                    )
+                                  }
+                                  type="text"
+                                  placeholder="Comment"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                                >
+                                 <option value="">Seçiniz</option>
+                                  {dropdownData?.status?.map(
+                                    (item) => (
+                                      <option key={item.id} value={item.id}>
+                                        {item.value}
+                                      </option>
+                                    ),
+                                  )}
+                                </select>
+                              </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  December
+                                </label>
+                                <select
+                                  value={
+                                    actionData.actionPlan?.[0]?.december || ""
+                                  }
+                                  onChange={(e) =>
+                                    handleFormChange(
+                                      "actionPlan[0].december",
+                                      e.target.value,
+                                    )
+                                  }
+                                  type="text"
+                                  placeholder="Comment"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
+                                >
+                                 <option value="">Seçiniz</option>
+                                  {dropdownData?.status?.map(
+                                    (item) => (
+                                      <option key={item.id} value={item.id}>
+                                        {item.value}
+                                      </option>
+                                    ),
+                                  )}
+
+                                </select>
                               </div>
                             </div>
                           </div>
