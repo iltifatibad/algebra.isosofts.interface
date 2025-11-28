@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import BgRiskBody from "./tabledatas/bgrisk.jsx";
 import BgHeaders from "./tableheaders/tableheards.jsx";
+import ReactECharts from "echarts-for-react";
 export const hCheckboxChange =
   (setSelectedRows, setSelectedTable) => (id, table) => {
     // id'ye uygun objeyi bul
@@ -63,6 +64,91 @@ export const hCheckboxChangeForActions =
   };
 
 const RisksAssessment = () => {
+  const kpiGaugeOption = {
+    tooltip: { formatter: "{a}<br/>{c}%" },
+    series: [
+      {
+        name: "KPI Score",
+        type: "gauge",
+        progress: { show: true },
+        detail: { valueAnimation: true, formatter: "{value}%" },
+        data: [{ value: 72, name: "KPI" }],
+      },
+    ],
+  };
+
+   const riskHeatmapOption = {
+    tooltip: { position: "top" },
+    grid: { height: "60%", top: "10%" },
+    xAxis: {
+      type: "category",
+      data: ["1", "2", "3", "4", "5"],
+      name: "Impact",
+    },
+    yAxis: {
+      type: "category",
+      data: ["1", "2", "3", "4", "5"],
+      name: "Likelihood",
+    },
+    visualMap: {
+      min: 1,
+      max: 25,
+      calculable: true,
+      orient: "horizontal",
+      left: "center",
+      bottom: "5%",
+    },
+    series: [
+      {
+        name: "Risk Score",
+        type: "heatmap",
+        data: [
+          [0, 0, 1], [1, 0, 4], [2, 0, 9], [3, 0, 16], [4, 0, 20],
+          [0, 1, 2], [1, 1, 6], [2, 1, 12], [3, 1, 18], [4, 1, 22],
+          [0, 2, 3], [1, 2, 8], [2, 2, 15], [3, 2, 19], [4, 2, 23],
+          [0, 3, 4], [1, 3, 10], [2, 3, 17], [3, 3, 21], [4, 3, 24],
+          [0, 4, 5], [1, 4, 11], [2, 4, 14], [3, 4, 18], [4, 4, 25],
+        ],
+        label: { show: true },
+      },
+    ],
+  };
+
+  const kpiTrendOption = {
+    tooltip: { trigger: "axis" },
+    xAxis: {
+      type: "category",
+      data: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    },
+    yAxis: { type: "value" },
+    series: [
+      {
+        data: [50, 55, 62, 67, 70, 72],
+        type: "line",
+        smooth: true,
+        areaStyle: {},
+      },
+    ],
+  };
+
+  const riskPieOption = {
+    tooltip: { trigger: "item" },
+    legend: { top: "bottom" },
+    series: [
+      {
+        name: "Risk Categories",
+        type: "pie",
+        radius: ["40%", "70%"],
+        data: [
+          { value: 12, name: "Operational" },
+          { value: 8, name: "Financial" },
+          { value: 5, name: "Compliance" },
+          { value: 4, name: "Strategic" },
+        ],
+      },
+    ],
+  };
+
   // Sample data - gerçek projede API'den veya props'tan gelebilir
   const [risks, setRisks] = useState([
     { id: "kpi", name: "Key Performance Indicators" },
@@ -895,17 +981,89 @@ const RisksAssessment = () => {
                 </div>
               </div>
               <div className="overflow-x-auto max-h-[75vh] overflow-y-auto">
-                {/* e-chart için özel içerik: Örneğin bir chart component'i buraya koy (ECharts, Recharts vs.) */}
-                <div className="p-6">
-                  <h4 className="text-lg font-medium mb-4">E-Chart View</h4>
-                  {/* Placeholder: Gerçek chart component'ini buraya ekle, örneğin <EChart data={riskData} /> */}
-                  <div className="h-96 bg-gray-50 rounded-lg flex items-center justify-center">
-                    <p className="text-gray-500">
-                      E-Chart Placeholder (Risk verileri için grafik)
-                    </p>
-                  </div>
-                </div>
-              </div>
+  <div className="p-6">
+    <h4 className="text-lg font-medium mb-4">E-Chart View</h4>
+
+    {/* düzgün chart grid */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      {/* KPI Gauge */}
+      <div className="bg-white rounded-lg shadow p-4">
+         <h4 className="text-lg font-semibold mb-4 text-gray-700">KPI Performance (ISO 9001)</h4>
+
+  <ReactECharts
+    style={{ height: "300px", width: "100%" }}
+    option={{
+      tooltip: {
+        trigger: "axis",
+      },
+      legend: {
+        data: ["KPI", "Target"],
+        top: 10,
+      },
+      grid: {
+        left: "5%",
+        right: "5%",
+        bottom: "8%",
+        containLabel: true,
+      },
+      xAxis: {
+        type: "category",
+        data: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+        axisLabel: { rotate: 30 },
+      },
+      yAxis: {
+        type: "value",
+        min: 0,
+        max: 100,
+      },
+      series: [
+        {
+          name: "KPI",
+          type: "line",
+          smooth: true,
+          symbol: "circle",
+          lineStyle: { width: 3 },
+          data: [72, 75, 78, 82, 87, 85],
+        },
+        {
+          name: "Target",
+          type: "line",
+          smooth: false,
+          symbol: "none",
+          lineStyle: {
+            width: 2,
+            type: "dashed",
+            color: "#ff4d4d",
+          },
+          data: [80, 80, 80, 80, 80, 80],
+        },
+      ],
+    }}
+  />      </div>
+
+      {/* Risk Heatmap */}
+      <div className="bg-white rounded-lg shadow p-4">
+        <h4 className="text-md font-medium mb-2">Risk Heatmap</h4>
+        <ReactECharts option={riskHeatmapOption} style={{ height: "350px" }} />
+      </div>
+
+      {/* KPI Trend */}
+      <div className="bg-white rounded-lg shadow p-4">
+        <h4 className="text-md font-medium mb-2">KPI Trend</h4>
+        <ReactECharts option={kpiTrendOption} style={{ height: "300px" }} />
+      </div>
+
+      {/* Risk Categories */}
+      <div className="bg-white rounded-lg shadow p-4">
+        <h4 className="text-md font-medium mb-2">Risk Categories</h4>
+        <ReactECharts option={riskPieOption} style={{ height: "350px" }} />
+      </div>
+
+    </div>
+  </div>
+</div>
+
             </div>
           ) : selectedRisk === "bg-reg" && selectedOption === "datas" ? (
             <div className="bg-white !rounded-button shadow-lg overflow-hidden">
@@ -1898,7 +2056,7 @@ const RisksAssessment = () => {
                             </div>
 
                             {/* Row 4 */}
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-3 gap-4">
                               {/* Verification Status */}
                               <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
