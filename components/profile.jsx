@@ -537,8 +537,18 @@ const RisksAssessment = () => {
           verificationStatus:
             actionData.actionPlan[0]?.verificationStatus || "",
           comment: actionData.actionPlan[0]?.comment || "",
-          january: "m1WXo10BJh118LYf66ECRJtP6xf9R0",
-          february: "6IP329ScE59k1dd8m32GV4f3g6lZ2H",
+          january: actionData.actionPlan[0]?.january || "",
+          february: actionData.actionPlan[0]?.february || "",
+          march: actionData.actionPlan[0]?.march || "",
+          april: actionData.actionPlan[0]?.april || "",
+          may: actionData.actionPlan[0]?.may || "",
+          june: actionData.actionPlan[0]?.june || "",
+          july: actionData.actionPlan[0]?.july || "",
+          august: actionData.actionPlan[0]?.august || "",
+          september: actionData.actionPlan[0]?.september || "",
+          october: actionData.actionPlan[0]?.october || "",
+          november: actionData.actionPlan[0]?.november || "",
+          december: actionData.actionPlan[0]?.december || "",
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
 
@@ -1809,7 +1819,7 @@ const RisksAssessment = () => {
                                 <select
                                   value={
                                     actionData.actionPlan?.[0]
-                                      ?.relativeFunction || ""
+                                      ?.april || ""
                                   }
                                   onChange={(e) =>
                                     handleFormChange(
@@ -1889,14 +1899,14 @@ const RisksAssessment = () => {
                                   value={actionData.actionPlan?.[0]?.july || ""}
                                   onChange={(e) =>
                                     handleFormChange(
-                                      "actionPlan[0].status",
+                                      "actionPlan[0].july",
                                       e.target.value,
                                     )
                                   }
                                   className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
                                 >
                                   <option value="">Seçiniz</option>
-                                  {dropdownData?.confirmation?.map((item) => (
+                                  {dropdownData?.status?.map((item) => (
                                     <option key={item.id} value={item.id}>
                                       {item.value}
                                     </option>
@@ -1915,7 +1925,7 @@ const RisksAssessment = () => {
                                   }
                                   onChange={(e) =>
                                     handleFormChange(
-                                      "actionPlan[0].status",
+                                      "actionPlan[0].august",
                                       e.target.value,
                                     )
                                   }
@@ -1938,7 +1948,7 @@ const RisksAssessment = () => {
                                 <select
                                   value={
                                     actionData.actionPlan?.[0]
-                                      ?.completionDate || ""
+                                      ?.september || ""
                                   }
                                   onChange={(e) =>
                                     handleFormChange(
