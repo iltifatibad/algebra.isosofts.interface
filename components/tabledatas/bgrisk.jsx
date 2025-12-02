@@ -12,6 +12,8 @@ const MyTableBody = ({
   showDeletedAction,
   activeHeader,
   selectedTable,
+  refresh,
+  setRefresh
 }) => {
   console.log("ACTIVE HEADERRRRR : ", activeHeader);
   const [archivedData, setArchivedData] = useState([]);
@@ -38,6 +40,18 @@ const MyTableBody = ({
       setLoading(false); // Loading bitir
     }
   };
+
+  useEffect(() => {
+  if (refresh) {
+    const timer = setTimeout(() => {
+      getAll();
+      setRefresh(false);
+    }, 500);
+
+    return () => clearTimeout(timer); // cleanup
+  }
+}, [refresh]);
+  
   useEffect(() => {
     if (showArchived) {
       getArchivedData(); // Async çağrı

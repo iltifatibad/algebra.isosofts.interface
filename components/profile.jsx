@@ -190,7 +190,7 @@ const RisksAssessment = () => {
 
     // Diğer risk kategorileri eklenebilir
   ]);
-
+  const [refresh, setRefresh] = useState(false);
   const [logs, setLogs] = useState([{ id: "a-l", name: "Action Log" }]);
   const [selectedTable, setSelectedTable] = useState([]);
   const [activeHeader, setActiveHeader] = useState(true);
@@ -521,6 +521,7 @@ const RisksAssessment = () => {
             }
           })
           .catch((error) => console.error("Hata:", error));
+        setRefresh(true);
       } else {
         const payload = {
           registerId: Array.from(selectedRows)[0],
@@ -554,6 +555,7 @@ const RisksAssessment = () => {
             }
           })
           .catch((error) => console.error("Hata:", error));
+          setRefresh(true);
       }
       // Sadece backend beklediği alanları al (diğerlerini sil)
     } else {
@@ -588,6 +590,7 @@ const RisksAssessment = () => {
             }
           })
           .catch((error) => console.error("Hata:", error));
+          setRefresh(true)
       } else {
         setActionData({
           actionPlan: [
@@ -637,6 +640,7 @@ const RisksAssessment = () => {
             }
           })
           .catch((error) => console.error("Hata:", error));
+          setRefresh(true);
       }
     }
     closeModal();
@@ -686,6 +690,7 @@ const RisksAssessment = () => {
             } else {
               console.log(" Deleting Success");
               setShowDeleteModal(false);
+              setRefresh(true);
             }
           })
           .catch((error) => console.log(" Error While Deleting: ", error));
@@ -706,6 +711,7 @@ const RisksAssessment = () => {
             }
           })
           .catch((error) => console.log(" Error While Deleting: ", error));
+          setRefresh(true);
       }
     } else {
       if (!showDeletedAction) {
@@ -729,6 +735,7 @@ const RisksAssessment = () => {
             }
           })
           .catch((error) => console.log(" Error While Deleting: ", error));
+          setRefresh(true);
       } else {
         console.log("CCC: ", selectedRowsForActions);
         fetch(
@@ -750,6 +757,7 @@ const RisksAssessment = () => {
             }
           })
           .catch((error) => console.log(" Error While Deleting: ", error));
+          setRefresh(true);
       }
     }
   };
@@ -771,6 +779,7 @@ const RisksAssessment = () => {
           }
         })
         .catch((error) => console.log(" Error While UnArchiving : ", error));
+        setRefresh(true);
     } else {
       fetch("http://localhost:8000/api/register/br/all/archive", {
         method: "PUT",
@@ -786,6 +795,7 @@ const RisksAssessment = () => {
           }
         })
         .catch((error) => console.log(" Error While Archiving : ", error));
+        setRefresh(true);
     }
   };
 
@@ -1130,6 +1140,8 @@ const RisksAssessment = () => {
                     onCheckboxChangeForActions={handleCheckboxChangeForActions}
                     activeHeader={activeHeader}
                     selectedTable={selectedTable}
+                    refresh={refresh}
+                    setRefresh={setRefresh}
                   />
                 </table>
               </div>
