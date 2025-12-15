@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import BgRiskBody from "./tabledatas/bgrisk.jsx";
 import BgHeaders from "./tableheaders/tableheards.jsx";
+
+import HsHeaders from "./tableheaders/hsrheaders.jsx";
+import HsrBody from "./tabledatas/hsr.jsx";
+
+
 import ReactECharts from "echarts-for-react";
 
 export const hCheckboxChange =
@@ -195,7 +200,7 @@ const RisksAssessment = () => {
   const [selectedTable, setSelectedTable] = useState([]);
   const [activeHeader, setActiveHeader] = useState(true);
   const [selectedOption, setSelectedOption] = useState("e-chart");
-  const [selectedRisk, setSelectedRisk] = useState("bg-reg");
+  const [selectedRisk, setSelectedRisk] = useState("");
   const [isOpenReg, setIsOpenReg] = useState(false);
   const [showArchived, setShowArchived] = useState(false);
   const [showDeleted, setShowDeleted] = useState(false);
@@ -214,6 +219,34 @@ const RisksAssessment = () => {
     kpi: "",
     process: "",
     ermeoa: "",
+    initialRiskSeverity: "",
+    initialRiskLikelihood: "",
+    actionPlan: [
+      {
+        action: "",
+        raiseDate: "",
+        resources: "",
+        function: "",
+        responsible: "",
+        deadline: "",
+        actionConfirmation: "",
+        actionStatus: "",
+        compilationData: "",
+        verification: "",
+        comment: "",
+      },
+    ],
+    residualRiskSeverity: "",
+    residualRiskLikelihood: "",
+  });
+
+    const [formDataHs, setFormDataHs] = useState({
+    id: 0,
+    process: "",
+    hazard: "",
+    risk: "",
+    affectedPositions: "",
+    ERMA: "",
     initialRiskSeverity: "",
     initialRiskLikelihood: "",
     actionPlan: [
@@ -339,6 +372,7 @@ const RisksAssessment = () => {
     setEditingRow(null);
     const dropdownData = await getDefaultDropdownList();
     if (activeHeader) {
+      if (selectedRisk == "bg-reg"){
       setFormData({
         swot: "",
         pestle: "",
@@ -354,6 +388,21 @@ const RisksAssessment = () => {
         residualRiskLikelyhood: 0,
       });
       setShowModal(true);
+      } else if (selectedRisk == "hs-reg") {
+        setFormDataHs({
+        process: "",
+        hazard: "",
+        risk: "",
+        affectedPositions: "",
+        ERMA: "",
+        initialRiskSeverity: 0,
+        initialRiskLikelyhood: 0,
+        residualRiskSeverity: 0,
+        residualRiskLikelyhood: 0,
+      });
+      setShowModal(true);
+      }
+
     } else {
       setActionData({
         title: "",
@@ -387,20 +436,35 @@ const RisksAssessment = () => {
 
   const openEditModal = async (row) => {
     if (activeHeader) {
-      setFormData({
-        swot: row.swot.id,
-        pestle: row.pestle.id,
-        interestedParty: row.interestedParty.id,
-        process: row.process.id,
-        riskOpportunity: row.riskOpportunity,
-        objective: row.objective,
-        kpi: row.kpi,
-        ermeoa: row.ermeoa,
-        initialRiskSeverity: row.initialRiskSeverity,
-        initialRiskLikelyhood: row.initialRiskLikelyhood,
-        residualRiskSeverity: row.residualRiskSeverity,
-        residualRiskLikelyhood: row.residualRiskLikelyhood,
-      });
+      if (selectedRisk == "bg-reg"){
+          setFormData({
+          swot: row.swot.id,
+          pestle: row.pestle.id,
+          interestedParty: row.interestedParty.id,
+          process: row.process.id,
+          riskOpportunity: row.riskOpportunity,
+          objective: row.objective,
+          kpi: row.kpi,
+          ermeoa: row.ermeoa,
+          initialRiskSeverity: row.initialRiskSeverity,
+          initialRiskLikelyhood: row.initialRiskLikelyhood,
+          residualRiskSeverity: row.residualRiskSeverity,
+          residualRiskLikelyhood: row.residualRiskLikelyhood,
+        });
+      } else if(selectedRisk == "hs-reg"){
+          setFormDataHs({
+              process: row.hazard.id,
+              hazard: "",
+              risk: "",
+              affectedPositions: "",
+              ERMA: "",
+              initialRiskSeverity: 0,
+              initialRiskLikelyhood: 0,
+              residualRiskSeverity: 0,
+              residualRiskLikelyhood: 0,
+            });
+      }
+
     } else {
       setActionData({
         actionPlan: [
@@ -475,7 +539,16 @@ const RisksAssessment = () => {
       return newObj;
     };
 
-    const setter = showAction ? setActionData : setFormData;
+    let setter;
+    if (showAction) {
+      setter = setActionData;
+    } else if (selectedRisk === "bg-reg") {
+      setter = setFormData;
+    } else if (selectedRisk === "hs-reg") {
+      setter = setFormDataHs;
+    } else {
+      setter = setFormData; // default fallback
+    }
 
     if (typeof arg1 === "string") {
       const pathArr = parsePath(arg1);
@@ -492,7 +565,8 @@ const RisksAssessment = () => {
   const saveRisk = () => {
     if (modalMode === "add") {
       if (!showAction) {
-        const payload = {
+        if (selectedRisk == "bg-reg"){
+                   const payload = {
           swot: formData.swot,
           pestle: formData.pestle,
           interestedParty: formData.interestedParty,
@@ -507,7 +581,7 @@ const RisksAssessment = () => {
           residualRiskLikelyhood: formData.residualRiskLikelyhood,
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-
+        
         fetch("http://localhost:8000/api/register/br/one", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -522,6 +596,36 @@ const RisksAssessment = () => {
           })
           .catch((error) => console.error("Hata:", error));
         setRefresh(true);
+        } else if (selectedRisk == "hs-reg"){
+          const payload = {
+          process: formDataHs.process,
+          hazard: formDataHs.hazard,
+          risk: formDataHs.risk,
+          affectedPositions: formDataHs.affectedPositions,
+          erma: formDataHs.ERMA,
+          initialRiskSeverity: formDataHs.initialRiskSeverity, // Number
+          initialRiskLikelyhood: formDataHs.initialRiskLikelyhood, // Number, spelling uyumlu
+          residualRiskSeverity: formDataHs.residualRiskSeverity,
+          residualRiskLikelyhood: formDataHs.residualRiskLikelyhood,
+        };
+        console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
+        
+        fetch("http://localhost:8000/api/register/hsr/one", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload), // Direkt obje – array yapma!
+        })
+          .then((response) => {
+            if (!response.ok) {
+              console.error("Kaydetme başarısız:", response.statusText);
+            } else {
+              console.log("Kayıt başarıyla kaydedildi.");
+            }
+          })
+          .catch((error) => console.error("Hata:", error));
+        setRefresh(true);
+        }
+ 
       } else {
         const payload = {
           registerId: Array.from(selectedRows)[0],
@@ -535,7 +639,7 @@ const RisksAssessment = () => {
           status: actionData.actionPlan[0]?.status || "",
           completionDate: actionData.actionPlan[0]?.completionDate || "",
           verificationStatus:
-            actionData.actionPlan[0]?.verificationStatus || "",
+          actionData.actionPlan[0]?.verificationStatus || "",
           comment: actionData.actionPlan[0]?.comment || "",
           january: actionData.actionPlan[0]?.january || "",
           february: actionData.actionPlan[0]?.february || "",
@@ -872,7 +976,10 @@ const RisksAssessment = () => {
               {risks.map((risk) => (
                 <li key={risk.id}>
                   <button
-                    onClick={() => setSelectedRisk(risk.id)}
+                    onClick={() => {
+                      setSelectedRisk(risk.id);
+                      console.log("SELECTED RISK (henüz state güncellenmeden):", risk.id);
+                    }}
                     className={[
                       "w-full text-left px-4 py-3 !rounded-button transition-all duration-300 cursor-pointer", // whitespace-nowrap kaldırıldı (önceki sorun için)
                       selectedRisk === risk.id
@@ -890,6 +997,122 @@ const RisksAssessment = () => {
         {/* Main Content Area */}
         <div className="flex-1 ml-64 p-8 bg-gradient-to-br from-blue-50/50 to-white h-full overflow-y-auto">
           {selectedRisk === "bg-reg" && selectedOption === "e-chart" ? (
+            <div className="bg-white !rounded-button shadow-lg overflow-hidden">
+              <div className="p-6 border-b border-blue-100 flex justify-between items-center">
+                <h3 className="text-2xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                  E-Chart
+                </h3>
+                <div className="flex space-x-3 items-center">
+                  <button
+                    onClick={() => {
+                      setSelectedOption("datas"); // selectedOption'ı "datas" yap
+                    }}
+                    className={[
+                      "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
+                      selectedOption ? "" : "",
+                    ].join(" ")}
+                  >
+                    <i className="fas fa-archive mr-2 text-blue-600 hover:text-blue-700"></i>
+                    {selectedOption ? "Data" : "E-Chart"}
+                  </button>{" "}
+                </div>
+              </div>
+              <div className="overflow-x-auto max-h-[75vh] overflow-y-auto">
+                <div className="p-6">
+                  <h4 className="text-lg font-medium mb-4">E-Chart View</h4>
+
+                  {/* düzgün chart grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* KPI Gauge */}
+                    <div className="bg-white rounded-lg shadow p-4">
+                      <h4 className="text-lg font-semibold mb-4 text-gray-700">
+                        KPI Performance (ISO 9001)
+                      </h4>
+                      <ReactECharts
+                        style={{ height: "300px", width: "100%" }}
+                        option={{
+                          tooltip: {
+                            trigger: "axis",
+                          },
+                          legend: {
+                            data: ["KPI", "Target"],
+                            top: 10,
+                          },
+                          grid: {
+                            left: "5%",
+                            right: "5%",
+                            bottom: "8%",
+                            containLabel: true,
+                          },
+                          xAxis: {
+                            type: "category",
+                            data: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+                            axisLabel: { rotate: 30 },
+                          },
+                          yAxis: {
+                            type: "value",
+                            min: 0,
+                            max: 100,
+                          },
+                          series: [
+                            {
+                              name: "KPI",
+                              type: "line",
+                              smooth: true,
+                              symbol: "circle",
+                              lineStyle: { width: 3 },
+                              data: [72, 75, 78, 82, 87, 85],
+                            },
+                            {
+                              name: "Target",
+                              type: "line",
+                              smooth: false,
+                              symbol: "none",
+                              lineStyle: {
+                                width: 2,
+                                type: "dashed",
+                                color: "#ff4d4d",
+                              },
+                              data: [80, 80, 80, 80, 80, 80],
+                            },
+                          ],
+                        }}
+                      />{" "}
+                    </div>
+
+                    {/* Risk Heatmap */}
+                    <div className="bg-white rounded-lg shadow p-4">
+                      <h4 className="text-md font-medium mb-2">Risk Heatmap</h4>
+                      <ReactECharts
+                        option={riskHeatmapOption}
+                        style={{ height: "350px" }}
+                      />
+                    </div>
+
+                    {/* KPI Trend */}
+                    <div className="bg-white rounded-lg shadow p-4">
+                      <h4 className="text-md font-medium mb-2">KPI Trend</h4>
+                      <ReactECharts
+                        option={kpiTrendOption}
+                        style={{ height: "300px" }}
+                      />
+                    </div>
+
+                    {/* Risk Categories */}
+                    <div className="bg-white rounded-lg shadow p-4">
+                      <h4 className="text-md font-medium mb-2">
+                        Risk Categories
+                      </h4>
+                      <ReactECharts
+                        option={riskPieOption}
+                        style={{ height: "350px" }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : selectedRisk === "hs-reg" && selectedOption === "e-chart" ? (
             <div className="bg-white !rounded-button shadow-lg overflow-hidden">
               <div className="p-6 border-b border-blue-100 flex justify-between items-center">
                 <h3 className="text-2xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
@@ -1137,24 +1360,175 @@ const RisksAssessment = () => {
               </div>
 
               {/* Tablo */}
-              <div className="overflow-x-auto max-h-[75vh] overflow-y-auto">
-                <table>
-                  <BgHeaders activeHeader={activeHeader} />
-                  <BgRiskBody
-                    selectedRows={selectedRows}
-                    selectedRowsForActions={selectedRowsForActions}
-                    showArchived={showArchived}
-                    showDeleted={showDeleted}
-                    showDeletedAction={showDeletedAction}
-                    onCheckboxChange={handleCheckboxChange}
-                    onCheckboxChangeForActions={handleCheckboxChangeForActions}
-                    activeHeader={activeHeader}
-                    selectedTable={selectedTable}
-                    refresh={refresh}
-                    setRefresh={setRefresh}
-                  />
-                </table>
+                  <div className="overflow-x-auto max-h-[75vh] overflow-y-auto">
+                    <table>
+                      <BgHeaders activeHeader={activeHeader} />
+                      <BgRiskBody
+                        selectedRows={selectedRows}
+                        selectedRowsForActions={selectedRowsForActions}
+                        showArchived={showArchived}
+                        showDeleted={showDeleted}
+                        showDeletedAction={showDeletedAction}
+                        onCheckboxChange={handleCheckboxChange}
+                        onCheckboxChangeForActions={handleCheckboxChangeForActions}
+                        activeHeader={activeHeader}
+                        selectedTable={selectedTable}
+                        refresh={refresh}
+                        setRefresh={setRefresh}
+                      />
+                    </table>
+                  </div>
+            </div>
+          ) : selectedRisk === "hs-reg" && selectedOption === "datas" ? (
+            <div className="bg-white !rounded-button shadow-lg overflow-hidden">
+              {/* Header */}
+              <div className="p-6 border-b border-blue-100 flex items-center">
+                {/* Başlık ve sol butonlar */}
+                <div className="flex items-center space-x-3">
+                  <h3 className="text-2xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                    Datas
+                  </h3>
+
+                  <button
+                    onClick={openAddModal}
+                    className="!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm"
+                  >
+                    <i className="fas fa-plus mr-2 text-blue-600 hover:text-blue-700"></i>
+                    {!showAction ? "Add Risk" : "Add Action"}
+                  </button>
+                  <button
+                    onClick={toggleArchiveView}
+                    className={[
+                      "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
+                      showArchived ? "" : "",
+                    ].join(" ")}
+                  >
+                    <i className="fas fa-archive mr-2 text-blue-600 hover:text-blue-700"></i>
+                    {showArchived ? "Hide Archived" : "Show Archived"}
+                  </button>
+                  <button
+                    onClick={toggleDeleteView}
+                    className={[
+                      "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
+                      showDeleted ? "" : "",
+                    ].join(" ")}
+                  >
+                    <i className="fas fa-archive mr-2 text-blue-600 hover:text-blue-700"></i>
+                    {activeHeader
+                      ? showDeleted
+                        ? "Hide Deleted"
+                        : "Show Deleted"
+                      : showDeletedAction
+                        ? "Hide Deleted Action"
+                        : "Show Deleted Action"}
+                  </button>
+                  <button
+                    onClick={toggleActionView}
+                    disabled={selectedCount !== 1}
+                    className={[
+                      "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
+                      !(selectedCount >= 1)
+                        ? "opacity-50 cursor-not-allowed"
+                        : "",
+                      showAction ? "" : "",
+                    ].join(" ")}
+                  >
+                    <i className="fas fa-archive mr-2 text-blue-600 hover:text-blue-700"></i>
+                    {showAction ? "Hide Action" : "Show Action"}
+                  </button>
+                  {/* Actions butonları */}
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={editSingle}
+                      disabled={!(selectedCount >= 1 && !showDeleted)}
+                      className={[
+                        "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
+                        !(selectedCount >= 1 && !showDeleted)
+                          ? "opacity-50 cursor-not-allowed"
+                          : "",
+                      ].join(" ")}
+                      title="Edit (Single Selection Only)"
+                    >
+                      <i className="fas fa-edit text-blue-600 hover:text-blue-700"></i>
+                    </button>
+                    <button
+                      onClick={archive}
+                      disabled={
+                        !(selectedCount >= 1 && !showDeleted) || !activeHeader
+                      }
+                      className={[
+                        "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
+                        !(selectedCount >= 1 && !showDeleted)
+                          ? "opacity-50 cursor-not-allowed"
+                          : "",
+                        !activeHeader ? "opacity-50 cursor-not-allowed" : "",
+                      ].join(" ")}
+                      title="Archive/Restore Selected"
+                    >
+                      <i
+                        className={`fas ${showArchived ? "fa-undo" : "fa-archive"} text-blue-600 hover:text-blue-700`}
+                      ></i>
+                    </button>
+                    <button
+                      onClick={selectedCount > 0 ? confirmBulkDelete : () => {}}
+                      disabled={selectedCount === 0}
+                      className={[
+                        "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
+                        selectedCount === 0
+                          ? "opacity-50 cursor-not-allowed"
+                          : "",
+                      ].join(" ")}
+                      title="Delete Selected"
+                    >
+                      <i
+                        className={`fas ${
+                          activeHeader
+                            ? showDeleted
+                              ? "fa-trash-restore"
+                              : "fa-trash"
+                            : showDeletedAction
+                              ? "fa-trash-restore"
+                              : "fa-trash"
+                        } text-blue-600 hover:text-blue-700`}
+                      ></i>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Sağdaki E-Chart butonu */}
+                <div className="ml-auto">
+                  <button
+                    onClick={() => setSelectedOption("e-chart")}
+                    className={[
+                      "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
+                      selectedOption ? "" : "",
+                    ].join(" ")}
+                  >
+                    <i className="fas fa-archive mr-2 text-blue-600 hover:text-blue-700"></i>
+                    {selectedOption ? "E-Chart" : "Data"}
+                  </button>{" "}
+                </div>
               </div>
+
+              {/* Tablo */}
+                  <div className="overflow-x-auto max-h-[75vh] overflow-y-auto">
+                    <table>
+                      <HsHeaders activeHeader={activeHeader} />
+                      <HsrBody
+                        selectedRows={selectedRows}
+                        selectedRowsForActions={selectedRowsForActions}
+                        showArchived={showArchived}
+                        showDeleted={showDeleted}
+                        showDeletedAction={showDeletedAction}
+                        onCheckboxChange={handleCheckboxChange}
+                        onCheckboxChangeForActions={handleCheckboxChangeForActions}
+                        activeHeader={activeHeader}
+                        selectedTable={selectedTable}
+                        refresh={refresh}
+                        setRefresh={setRefresh}
+                      />
+                    </table>
+                  </div>
             </div>
           ) : (
             <div className="bg-white !rounded-button shadow-lg p-8 text-center">
@@ -1181,6 +1555,7 @@ const RisksAssessment = () => {
                 </h3>
               </div>
               <div className="p-6">
+                {selectedRisk == "bg-reg" ? (
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-4">
                     <div>
@@ -1411,6 +1786,204 @@ const RisksAssessment = () => {
                     </div>
                   </div>
                 </div>
+                ) : selectedRisk == "hs-reg" ? (
+                    <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Process
+                      </label>
+                      <select
+                        value={formDataHs.process || ""} // Null-safe
+                        onChange={(e) => {
+                          console.log(
+                            "Select onChange tetiklendi! Yeni value:",
+                            e.target.value,
+                          ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                          handleFormChange("process", e.target.value); // String path + value – obje değil!
+                        }}
+                      >
+                        <option value="">Seçiniz</option>
+                        {dropdownData?.process?.map((item) => (
+                          <option key={item.id} value={item.id}>
+                            {item.value}
+                          </option>
+                        ))}
+                      </select>{" "}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Hazard
+                      </label>
+                      <select
+                        value={formDataHs.hazard || ""} // Null-safe
+                        onChange={(e) => {
+                          console.log(
+                            "Select onChange tetiklendi! Yeni value:",
+                            e.target.value,
+                          ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                          handleFormChange("hazard", e.target.value); // String path + value – obje değil!
+                        }}
+                      >
+                        <option value="">Seçiniz</option>
+                        {dropdownData?.hazard?.map((item) => (
+                          <option key={item.id} value={item.id}>
+                            {item.value}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Risk
+                      </label>
+                      <select
+                        value={formDataHs.risk}
+                        onChange={(e) => {
+                          console.log(
+                            "Select onChange tetiklendi! Yeni value:",
+                            e.target.value,
+                          ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                          handleFormChange("risk", e.target.value); // String path + value – obje değil!
+                        }}
+                      >
+                        <option value="">Seçiniz</option>
+                        {dropdownData?.risk?.map((item) => (
+                          <option key={item.id} value={item.id}>
+                            {item.value}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Affected Positions
+                      </label>
+                      <select
+                        value={formDataHs.affectedPositions}
+                        onChange={(e) => {
+                          console.log(
+                            "Select onChange tetiklendi! Yeni value:",
+                            e.target.value,
+                          ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                          handleFormChange("affectedPositions", e.target.value); // String path + value – obje değil!
+                        }}
+                      >
+                        <option value="">Seçiniz</option>
+                        {dropdownData?.affectedPosition?.map((item) => (
+                          <option key={item.id} value={item.id}>
+                            {item.value}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        ERMA
+                      </label>
+                      <input
+                        value={formDataHs.ERMA}
+                        onChange={(e) =>
+                          handleFormChange("ERMA", e.target.value)
+                        }
+                        type="text"
+                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Initial Risk
+                      </label>
+                      <div className="grid grid-cols-3 gap-2">
+                        <select
+                          value={formDataHs.initialRiskSeverity}
+                          onChange={(e) => {
+                            console.log(
+                              "Select onChange tetiklendi! Yeni value:",
+                              e.target.value,
+                            ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                            const newValue = parseInt(e.target.value, 10) || 0;
+                            handleFormChange("initialRiskSeverity", newValue); // String path + value – obje değil!
+                          }}
+                        >
+                          <option value="">Seçiniz</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                        </select>
+                        <select
+                          value={formDataHs.initialRiskLikelyhood}
+                          onChange={(e) => {
+                            console.log(
+                              "Select onChange tetiklendi! Yeni value:",
+                              e.target.value,
+                            ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                            const newValue = parseInt(e.target.value, 10) || 0;
+                            handleFormChange("initialRiskLikelyhood", newValue); // String path + value – obje değil!
+                          }}
+                        >
+                          <option value="">Seçiniz</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                        </select>
+                      </div>
+                    </div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Residual Risk / Opportunity Level
+                    </label>
+                    <div className="grid grid-cols-3 gap-2">
+                      <select
+                        value={formDataHs.residualRiskSeverity}
+                        onChange={(e) => {
+                          console.log(
+                            "Select onChange tetiklendi! Yeni value:",
+                            e.target.value,
+                          ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                          const newValue = parseInt(e.target.value, 10) || 0;
+                          handleFormChange("residualRiskSeverity", newValue); // String path + value – obje değil!
+                        }}
+                      >
+                        <option value="">Seçiniz</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                      <select
+                        value={formDataHs.residualRiskLikelyhood}
+                        onChange={(e) => {
+                          console.log(
+                            "Select onChange tetiklendi! Yeni value:",
+                            e.target.value,
+                          ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                          const newValue = parseInt(e.target.value, 10) || 0;
+                          handleFormChange("residualRiskLikelyhood", newValue); // String path + value – obje değil!
+                        }}
+                      >
+                        <option value="">Seçiniz</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                ) : (
+                  <h1>Error</h1>
+                )
+                
+                }
+     
               </div>
               <div className="p-6 border-t border-blue-100 flex justify-end space-x-4">
                 <button
