@@ -6,6 +6,7 @@ import App from "./App.jsx";
 import Mai from "../components/mainpage.jsx";
 import Nav from "../components/navbar.jsx";
 import Profile from "../components/profile.jsx";
+import RiskRouter from "../components/riskrouter.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -13,7 +14,7 @@ createRoot(document.getElementById("root")).render(
       <Nav />
       <Routes>
         <Route path="/" element={<Mai />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<RiskRouter />} />
         <Route path="/app" element={<App />} />
       </Routes>
     </BrowserRouter>

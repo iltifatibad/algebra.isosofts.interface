@@ -25,7 +25,7 @@ const HsrBody = ({
     setLoading(true); // Loading başla
     try {
       const response = await fetch(
-        "http://localhost:8000/api/register/br/all?status=archived",
+        "http://localhost:8000/api/register/hsr/all?status=archived",
       );
       if (!response.ok) {
         throw new Error("Failed To Get Datas From Archived DataBase");
@@ -82,7 +82,7 @@ const HsrBody = ({
     setLoading(true); // Loading başla
     try {
       const response = await fetch(
-        "http://localhost:8000/api/register/br/all?status=deleted",
+        "http://localhost:8000/api/register/hsr/all?status=deleted",
       );
       if (!response.ok) {
         throw new Error("Failed To Get Datas From Deleted DataBase");

@@ -7,6 +7,8 @@ import HsrBody from "./tabledatas/hsr.jsx";
 
 
 import ReactECharts from "echarts-for-react";
+import RisksAssessment from "./profile.jsx";
+import HsrProfile from "./hsrprofile.jsx";
 
 export const hCheckboxChange =
   (setSelectedRows, setSelectedTable) => (id, table) => {
@@ -994,6 +996,12 @@ const RiskRouter = () => {
             </ul>
           </nav>
         </div>{" "}
+        {selectedRisk === "bg-reg" ? (
+              <RisksAssessment />
+        ) : selectedRisk === "hs-reg" ? (
+              <HsrProfile />
+        ) : null}
+
       </div>
     </div>
   );
