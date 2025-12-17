@@ -1001,7 +1001,6 @@ const RiskRouter = () => {
         ) : selectedRisk === "hs-reg" ? (
               <HsrProfile />
         ) : null}
-
       </div>
     </div>
   );

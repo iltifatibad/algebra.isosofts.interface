@@ -8,38 +8,57 @@ import HsrBody from "./tabledatas/hsr.jsx";
 
 import ReactECharts from "echarts-for-react";
 
-export const hCheckboxChange =
-  (setSelectedRows, setSelectedTable) => (id, table) => {
-    // id'ye uygun objeyi bul
-    const selectedItem = table.find((item) => item.id === id);
-    
-    setSelectedTable((prev) => {
-      const exists = prev.find((item) => item.id === id);
-      let newTables;
-      if (exists) {
-        // zaten varsa çıkar
-        newTables = prev.filter((item) => item.id !== id);
+export const hCheckboxChange = (setSelectedRows, setSelectedTable) => (id, table, checked) => {
+  // table array mi kontrol et (güvenlik için)
+  if (!Array.isArray(table)) {
+    console.error("Hata: 'table' bir array olmalı!", table);
+    return; // Erken çık
+  }
+
+  // id'ye uygun objeyi bul
+  console.log("AEEE POX BURDADI", table);
+  const selectedItem = table.find((item) => item.id === id);
+  if (!selectedItem) {
+    console.warn("ID bulunamadı:", id);
+    return; // Obje yoksa çık
+  }
+
+  setSelectedTable((prev) => {
+    const exists = prev.find((item) => item.id === id);
+    let newTables;
+    if (exists) {
+      // zaten varsa çıkar
+      newTables = prev.filter((item) => item.id !== id);
+    } else {
+      // yoksa ekle
+      newTables = [...prev, selectedItem];
+    }
+    console.log("Seçili tablolar (selectedTables):", newTables);
+    return newTables;
+  });
+
+  // Seçili satırları update et (checked ile senkronize et)
+  setSelectedRows((prev) => {
+    const newSet = new Set(prev);
+    if (checked !== undefined) {
+      // Checked state'i kullan (true/false)
+      if (checked) {
+        newSet.add(id);
       } else {
-        // yoksa ekle
-        newTables = [...prev, selectedItem];
+        newSet.delete(id);
       }
-
-      console.log("Seçili tablolar (selectedTables):", newTables);
-      return newTables;
-    });
-
-    // Seçili satırları update et
-    setSelectedRows((prev) => {
-      const newSet = new Set(prev);
+    } else {
+      // Eski logic: Toggle
       if (newSet.has(id)) {
         newSet.delete(id);
       } else {
         newSet.add(id);
       }
-      console.log("Seçili satırlar (selectedRows):", Array.from(newSet));
-      return newSet;
-    });
-  };
+    }
+    console.log("Seçili satırlar (selectedRows):", Array.from(newSet));
+    return newSet;
+  });
+};
 
 export const hCheckboxChangeForActions =
   (setSelectedRows, setSelectedTable) => (id, table) => {
@@ -199,7 +218,7 @@ const HsrProfile = () => {
   const [logs, setLogs] = useState([{ id: "a-l", name: "Action Log" }]);
   const [selectedTable, setSelectedTable] = useState([]);
   const [activeHeader, setActiveHeader] = useState(true);
-  const [selectedOption, setSelectedOption] = useState("e-chart");
+  const [selectedOption, setSelectedOption] = useState("datas");
   const [selectedRisk, setSelectedRisk] = useState("");
   const [isOpenReg, setIsOpenReg] = useState(false);
   const [showArchived, setShowArchived] = useState(false);
@@ -323,6 +342,7 @@ const HsrProfile = () => {
     if (activeHeader) {
       setShowDeleted((prev) => !prev);
     } else {
+      console.log("DELETED TOGGLE VIEW STATE ", showDeletedAction);
       setShowDeletedAction((prev) => !prev);
     }
   };
@@ -480,7 +500,7 @@ const HsrProfile = () => {
     let setter;
     if (showAction) {
       setter = setActionData;
-    } else if (selectedRisk === "bg-reg") {
+    } else if (selectedRisk === "hsr-reg") {
       setter = setFormData;
     } else {
       setter = setFormData; // default fallback
@@ -537,9 +557,9 @@ const HsrProfile = () => {
           registerId: Array.from(selectedRows)[0],
           title: actionData.actionPlan[0]?.title || "",
           raiseDate: actionData.actionPlan[0]?.raiseDate || "",
-          currency: actionData.actionPlan[0]?.currency || "",
+          currency: actionData.actionPlan[0]?.currency || "A",
           relativeFunction: actionData.actionPlan[0]?.relativeFunction || "",
-          responsible: actionData.actionPlan[0]?.responsible || "",
+          responsible: actionData.actionPlan[0]?.responsible || "B",
           deadline: actionData.actionPlan[0]?.deadline || "",
           confirmation: actionData.actionPlan[0]?.confirmation || "",
           status: actionData.actionPlan[0]?.status || "",
@@ -562,20 +582,27 @@ const HsrProfile = () => {
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
 
-        fetch("http://localhost:8000/api/register/component/action/one", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload), // Direkt obje – array yapma!
-        })
-          .then((response) => {
-            if (!response.ok) {
-              console.error("Kaydetme başarısız:", response.statusText);
-            } else {
-              console.log("Kayıt başarıyla kaydedildi.");
-            }
-          })
-          .catch((error) => console.error("Hata:", error));
-        setRefresh(true);
+        const url = "http://localhost:8000/api/register/component/action/one";  // Slash'sız, değişmez
+console.log("Gönderilen URL (JS'ten):", url);  // Tam string
+
+fetch(url, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(payload),
+})
+  .then((response) => {
+    console.log("Sunucudan dönen URL:", response.url);  // Gerçek ulaşılan URL (slash var mı?)
+    console.log("Status:", response.status, "Status Text:", response.statusText);
+    if (!response.ok) {
+      console.error("Kaydetme başarısız:", response.status, response.statusText);
+      return response.text().then(text => console.error("Yanıt body:", text));  // 404 body'yi logla (Gin default HTML)
+    } else {
+      console.log("Kayıt başarıyla kaydedildi.");
+      return response.json();  // Başarılıysa parse et
+    }
+  })
+  .catch((error) => console.error("Hata:", error));
+setRefresh(true);
       }
       // Sadece backend beklediği alanları al (diğerlerini sil)
     } else {
@@ -1015,7 +1042,7 @@ const HsrProfile = () => {
                     disabled={selectedCount !== 1}
                     className={[
                       "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
-                      !(selectedCount >= 1)
+                      !(selectedCount >= 1 && selectedCount < 2)
                         ? "opacity-50 cursor-not-allowed"
                         : "",
                       showAction ? "" : "",
@@ -1028,10 +1055,10 @@ const HsrProfile = () => {
                   <div className="flex space-x-2">
                     <button
                       onClick={editSingle}
-                      disabled={!(selectedCount >= 1 && !showDeleted)}
+                      disabled={!(selectedCount >= 1 && !showDeleted && selectedCount < 2)}
                       className={[
                         "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
-                        !(selectedCount >= 1 && !showDeleted)
+                        !(selectedCount >= 1 && !showDeleted && selectedCount < 2)
                           ? "opacity-50 cursor-not-allowed"
                           : "",
                       ].join(" ")}
@@ -1084,7 +1111,7 @@ const HsrProfile = () => {
                 </div>
 
                 {/* Sağdaki E-Chart butonu */}
-                <div className="ml-auto">
+                {/* <div className="ml-auto">
                   <button
                     onClick={() => setSelectedOption("e-chart")}
                     className={[
@@ -1095,7 +1122,7 @@ const HsrProfile = () => {
                     <i className="fas fa-archive mr-2 text-blue-600 hover:text-blue-700"></i>
                     {selectedOption ? "E-Chart" : "Data"}
                   </button>{" "}
-                </div>
+                </div> */}
               </div>
 
               {/* Tablo */}

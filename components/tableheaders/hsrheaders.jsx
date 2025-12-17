@@ -62,6 +62,7 @@ const HsHeaders = ({ activeHeader }) => {
     );
   } else {
     return (
+      
       <thead>
         {/* First header row */}
         <tr className="w-full h-12">

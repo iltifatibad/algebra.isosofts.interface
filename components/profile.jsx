@@ -199,7 +199,7 @@ const RisksAssessment = () => {
   const [logs, setLogs] = useState([{ id: "a-l", name: "Action Log" }]);
   const [selectedTable, setSelectedTable] = useState([]);
   const [activeHeader, setActiveHeader] = useState(true);
-  const [selectedOption, setSelectedOption] = useState("e-chart");
+  const [selectedOption, setSelectedOption] = useState("datas");
   const [selectedRisk, setSelectedRisk] = useState("");
   const [isOpenReg, setIsOpenReg] = useState(false);
   const [showArchived, setShowArchived] = useState(false);
@@ -1115,7 +1115,7 @@ const RisksAssessment = () => {
                 </div>
 
                 {/* Sağdaki E-Chart butonu */}
-                <div className="ml-auto">
+                {/* <div className="ml-auto">
                   <button
                     onClick={() => setSelectedOption("e-chart")}
                     className={[
@@ -1126,7 +1126,7 @@ const RisksAssessment = () => {
                     <i className="fas fa-archive mr-2 text-blue-600 hover:text-blue-700"></i>
                     {selectedOption ? "E-Chart" : "Data"}
                   </button>{" "}
-                </div>
+                </div> */}
               </div>
 
               {/* Tablo */}
