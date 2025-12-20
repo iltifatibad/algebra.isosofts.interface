@@ -1,0 +1,395 @@
+[33mcommit 7aca7dbd46d9f963475764ea65c75c532a4ad6e7[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Sat Dec 20 10:03:53 2025 +0000
+
+     Edit Bug Fixed For Edit Table
+
+[33mcommit 6c0d98fc68b76255bece98fea7bb9485303f6a24[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Wed Dec 17 10:48:12 2025 +0000
+
+     Actions Dynamic Rendering
+
+[33mcommit 523114d92f2b35652583b465c1b2875397294f21[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Mon Dec 15 20:53:17 2025 +0000
+
+     Amazing Change
+
+[33mcommit a90f619115e9923f20f1abc0d821817d7dfbba38[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Mon Dec 15 19:57:31 2025 +0000
+
+    Risk Router Test
+
+[33mcommit 0646533c04acfb69606e7318324ce5e1e9c5ffb1[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Thu Dec 4 13:31:09 2025 +0000
+
+     Sniffnet Test
+
+[33mcommit 3062e0b0d44f28c5975f5d4f34d748b95169af5b[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Wed Dec 3 11:42:28 2025 +0000
+
+    A
+
+[33mcommit 254ef2fc5a253961afea992bb9bbbf308862e22f[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Wed Dec 3 11:35:23 2025 +0000
+
+     Button Colors
+
+[33mcommit 0327bf4778da835eb97f12fe38f47fe188258997[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Wed Dec 3 11:07:12 2025 +0000
+
+     Some Bug Fixes
+
+[33mcommit 39f07ed2b18c24c3fb0706071e9c65ff82917f8f[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Tue Dec 2 14:52:31 2025 +0000
+
+     Some Little Bug Fix
+
+[33mcommit fd0f8ac0302aad450076173f7ac0fb712b8bab5f[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Tue Dec 2 14:17:50 2025 +0000
+
+     Set ReFresh True After Each Actions
+
+[33mcommit d8e6afe51d7695ec51d599ff1b66f0979661950a[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Sat Nov 29 22:26:55 2025 +0000
+
+     Buttons ReDesign
+
+[33mcommit 67613a91afdc57fac1b14e5752f048d619803215[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Fri Nov 28 01:28:29 2025 +0000
+
+     E-CHART
+
+[33mcommit 697deb2a872e53e0553ca28ace52430d51206a9c[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Fri Nov 28 01:26:29 2025 +0000
+
+     E-Charts
+
+[33mcommit 11f7637e05e2597bf0b74eeab2ac9878d3d3a733[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Fri Nov 28 00:59:47 2025 +0000
+
+     Monitoring
+
+[33mcommit db2b7c15a43a62e9af0f1eb151bb17860f464051[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Thu Nov 27 22:17:12 2025 +0000
+
+     Add Table And Delete Table Done
+
+[33mcommit 8626497d572f2788c085f2251c6850a0d1b24c3b[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Thu Nov 27 22:13:56 2025 +0000
+
+     Delete Action
+
+[33mcommit 13fd481044ca501801177446ca4b39b328c01d04[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Thu Nov 27 20:28:33 2025 +0000
+
+     Show Deleted Action Done
+
+[33mcommit be9891fa04a309f7ce07cfafcfbae1146c798555[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Wed Nov 26 13:06:50 2025 +0000
+
+     Show Deleted Action Button :
+
+[33mcommit 8a0cc5abfaa09e70f41feb267955878bfd91b5da[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Tue Nov 25 22:33:51 2025 +0000
+
+     Month
+
+[33mcommit 7418faf302f5dbabfda934f0db1944fcb9416a1a[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Tue Nov 25 21:47:33 2025 +0000
+
+     Deleting Actions From Main Page
+
+[33mcommit ad336af1805bad7b866fa9f6affecfa16391629d[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Mon Nov 24 22:55:21 2025 +0000
+
+     Month 1/2
+
+[33mcommit f7f1112fcf2bd6dafb0139be77529b1616eaa614[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Mon Nov 24 14:40:36 2025 +0000
+
+    Design V1
+
+[33mcommit 57b679674968febd791b1e1bce13ad5ac53c18e1[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Mon Nov 24 08:12:18 2025 +0000
+
+     Final V1
+
+[33mcommit cc15e079239e616162e2e241a1af8631fc649089[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Sun Nov 23 12:56:09 2025 +0000
+
+     API Final
+
+[33mcommit fa630bbcdc530e054aea6ff7bfed678a85e082ab[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Sun Nov 23 11:17:50 2025 +0000
+
+     Edit Action
+
+[33mcommit cf6992dd7538df3e6d83f6cc4c4a288a0e460793[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Thu Nov 20 23:14:57 2025 +0000
+
+     Actions V2
+
+[33mcommit 1dc3110f1443015e513d16a3bd35e8a1d6ce4881[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Thu Nov 20 18:06:11 2025 +0000
+
+     Actions V1
+
+[33mcommit 9c0f12d99b8331d432e8b0d53cb563c03ce93188[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Tue Nov 18 14:46:16 2025 +0000
+
+     Input Bug Fix
+
+[33mcommit 205b8eeee214fd5a598112a2577757e416864f82[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Mon Nov 17 21:29:26 2025 +0000
+
+     Some Changes About Add Action
+
+[33mcommit 8356d41189dec0b62547baf7713ff48bd25bed39[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Mon Nov 17 18:44:53 2025 +0000
+
+     Add Action Modal
+
+[33mcommit ca350580d00324de55fd5d86f02443295067ee15[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Sat Nov 15 01:01:48 2025 +0000
+
+     ACTIVE HEADER
+
+[33mcommit 99d854dd9eaa24427916f64b9ab133cd94206994[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Fri Nov 14 23:18:31 2025 +0000
+
+     Show Action Button
+
+[33mcommit 48a6e0e90173766182f11190937e9c3e6cb3907a[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Thu Nov 13 23:49:24 2025 +0000
+
+     Except Actions Section
+
+[33mcommit 7db11b5e30ba1d0ffaefe479f334f42f50caed73[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Thu Nov 13 22:26:49 2025 +0000
+
+     Show Deleted Menu Is Created
+
+[33mcommit b7625e0b50ca4c10a68e790816686222e189edc7[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Wed Nov 12 22:27:44 2025 +0000
+
+     SOME LITTLE CHANGES
+
+[33mcommit c40a1fc52ae34667c72f9eafaa541c7a6cee9c73[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Wed Nov 12 16:57:51 2025 +0000
+
+     Delete
+
+[33mcommit ad6b9d063f6b080930277220fde4fcc38f31b46c[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Wed Nov 12 09:31:26 2025 +0000
+
+     Archive / UnArchive
+
+[33mcommit e7bac880cf1f462b291c21615798d0ee002756fa[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Wed Nov 12 08:50:29 2025 +0000
+
+     UnArchive Bug Fixed
+
+[33mcommit c9f079c127e5cd179d75882156f77d9077d05998[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Tue Nov 11 15:55:56 2025 +0000
+
+     Archive / ShowArchive
+
+[33mcommit d3c40eca6a2c464c415f4719276e541f1f20ee3b[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Mon Nov 10 18:16:24 2025 +0000
+
+    A
+
+[33mcommit a38ad18cb59a4d65748bcd573bcc0f6aa3b6b976[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Mon Nov 10 10:25:29 2025 +0000
+
+     Edit Modal Bug Fixed
+
+[33mcommit fcaa510e45c330dae9356ac13cd1a1613dd9e719[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Mon Nov 10 10:10:52 2025 +0000
+
+     Edit Modal SWOT, PESTLE And Etc. Bug
+
+[33mcommit 920ad5fa6829ba957646744eb9d2edd7caa6c487[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Sat Nov 8 18:23:23 2025 +0000
+
+     CheckBox
+
+[33mcommit 210ddd0e77d7a72dc1faa6fe3e5a84983ece7942[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Sat Nov 8 15:01:28 2025 +0000
+
+    Get Table API
+
+[33mcommit cf1832ce6b7fb0ec22134c7490532b7b71727e16[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Sat Nov 8 09:48:27 2025 +0000
+
+     Get All API
+
+[33mcommit 688118a44d60c80830dd8a8b00f9c4405cf8ea87[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Thu Nov 6 23:44:05 2025 +0000
+
+     Add Risk Complete
+
+[33mcommit 5e2d5ab8a2010674ecb1a6dbe63187f2cd676e56[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Thu Nov 6 20:02:21 2025 +0000
+
+     Add Risk Part 1.
+
+[33mcommit e8639674cfffb745bc706734b6e16b8b12c8be4d[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Wed Nov 5 22:04:47 2025 +0000
+
+     Dynamic DropDownListItems
+
+[33mcommit bf8380c18b2f4a9a3d3e8a2642812d294acb9d2a[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Wed Nov 5 17:13:11 2025 +0000
+
+     Add New Risk Done Only Need Connect To API
+
+[33mcommit 517719ea1419b6a43b346ffe52d3d4012098e333[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Sun Nov 2 17:27:04 2025 +0000
+
+     A
+
+[33mcommit c16d8b6c27660b8829b6b7ada914b8cd5ee113d0[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Sat Nov 1 22:04:35 2025 +0000
+
+     Some Minor Changes Like SideBar DropDown List
+
+[33mcommit 7a1e95d39b632a48902211610ea8d11267cc6198[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Sat Nov 1 16:14:16 2025 +0000
+
+     Table Final Version
+
+[33mcommit bde2474db49d27b9aaf5f4c71f30d1ac65269a64[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Sat Nov 1 15:51:01 2025 +0000
+
+     BackUp
+
+[33mcommit 7b41fe8846c07197c69593d42125569573daa482[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Fri Oct 31 18:35:44 2025 +0000
+
+     A
+
+[33mcommit be2d32dd2340df5c76b47a27f55b6172d2949829[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Fri Oct 31 09:40:07 2025 +0000
+
+     Inserting 2 And More Actions In Table. And Dynamic Tables Done
+
+[33mcommit 0cfcb1d7c82e1d562813ac8f2ac4b6811ab4335d[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Thu Oct 30 20:40:43 2025 +0000
+
+     Next :
+
+[33mcommit 0e3dc647be0b24893853eb0af011e1349d952666[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Thu Oct 30 18:55:35 2025 +0000
+
+     More Actions
+
+[33mcommit 2043b142f20828f579b948b823484235b22cdc07[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Thu Oct 30 18:38:27 2025 +0000
+
+     New Table
+
+[33mcommit 46b4f653701bca345afd1a72f6e41357bacb919f[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Thu Oct 30 09:14:43 2025 +0000
+
+     Some Changes
+
+[33mcommit 8333fba8ad059622985d95621802fec849198c7e[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Wed Oct 29 21:18:22 2025 +0000
+
+     A
+
+[33mcommit 93e3c5e06999d3bc368ab4a7461d2e3cb8e487d2[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Wed Oct 29 20:36:52 2025 +0000
+
+     A
+
+[33mcommit b12196672aedeaccbb93865fbf8308eac6aa6076[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Wed Oct 29 16:41:59 2025 +0000
+
+    A
+
+[33mcommit 1e720737fe938d4a7731e47c5dd2f99328b270c6[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Wed Oct 29 16:23:39 2025 +0000
+
+     Some Bug Fix
+
+[33mcommit 14c17a9377bcd448f2eaf713d6ae3f0046d2c0a9[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Wed Oct 29 15:38:30 2025 +0000
+
+     Some Bug Fix
+
+[33mcommit 9cca7fb2a0c060773669ad040f0dfdad2152462f[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Wed Oct 29 14:21:12 2025 +0000
+
+     Components
+
+[33mcommit f4477bd3b73b0db6ce1cfa1209445bb0ba8ba33b[m
+Author: iltifatibad <iltifatibad@gmail.com>
+Date:   Tue Oct 28 22:18:35 2025 +0000
+
+     Front - End

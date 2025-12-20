@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, act } from "react";
 import BgRiskBody from "./tabledatas/bgrisk.jsx";
 import BgHeaders from "./tableheaders/tableheards.jsx";
 
@@ -39,9 +39,9 @@ export const hCheckboxChange =
   };
 
 export const hCheckboxChangeForActions =
-  (setSelectedRows, setSelectedTable) => (id, table) => {
+  (setSelectedRowsForActions, setSelectedTableForActions) => (id, table) => {
     const selectedItem = table.find((item) => item.id === id);
-    setSelectedTable((prev) => {
+    setSelectedTableForActions((prev) => {
       const exists = prev.find((item) => item.id === id);
       let newTables;
       if (exists) {
@@ -52,7 +52,7 @@ export const hCheckboxChangeForActions =
       console.log(" Selected Tables For Actions ", newTables);
       return newTables;
     });
-    setSelectedRows((prev) => {
+    setSelectedRowsForActions((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(id)) {
         newSet.delete(id);
@@ -426,26 +426,26 @@ const RisksAssessment = () => {
             raiseDate: row.raiseDate,
             resources: row.resources,
             currency: "", 
-            relativeFunction: row.relativeFunction?.id || "",
-            responsible: row.responsible?.id || "",
+            relativeFunction: row.relativeFunction?.id || row.relativeFunction || "",
+            responsible: row.responsible?.id || String(row.responsible) || "",
             deadline: row.deadline,
-            confirmation: row.confirmation?.id || "",
-            status: row.status?.id || "",
+            confirmation: row.confirmation?.id || row.confirmation || "",
+            status: row.status?.id || parseInt(row.status) || "",
             completionDate: row.completionDate || "",
-            verificationStatus: row.verificationStatus?.id || "",
+            verificationStatus: row.verificationStatus?.id || parseInt(row.verificationStatus) || "",
             comment: row.comment || "",
-            january: row.january.id || "",
-            february: row.february.id || "",
-            march: row.march.id || "",
-            april: row.april.id || "",
-            may: row.may.id || "",
-            june: row.june.id || "",
-            july: row.july.id || "",
-            august: row.august.id || "",
-            september: row.september.id || "",
-            october: row.october.id || "",
-            november: row.november.id || "",
-            december: row.december.id || "",
+            january: row.january.id || parseInt(row.january) ||"",
+            february: row.february.id || parseInt(row.february) || "",
+            march: row.march.id || parseInt(row.march) || "",
+            april: row.april.id || parseInt(row.april) || "",
+            may: row.may.id || parseInt(row.may) || "",
+            june: row.june.id || parseInt(row.june) || "",
+            july: row.july.id || parseInt(row.july) || "",
+            august: row.august.id || parseInt(row.august) || "",
+            september: row.september.id || parseInt(row.september) || "",
+            october: row.october.id || parseInt(row.october) || "",
+            november: row.november.id || parseInt(row.november) || "",
+            december: row.december.id || parseInt(row.december) || "",
           },
         ],
       });
@@ -623,19 +623,20 @@ const RisksAssessment = () => {
             } else {
               setSelectedTable([payload]);
               setFormData([payload]);
-    console.log("Kayıt başarıyla kaydedildi. Yeni state:", [payload]);
-            }
-          })
+            console.log("Kayıt başarıyla kaydedildi. Yeni state:", [payload]);
+                    }
+                  })
           .catch((error) => console.error("Hata:", error));
         setRefresh(true);
       } else {
         setActionData({
           actionPlan: [
             {
+              id: [...selectedRowsForActions][0],
               title: actionData.actionPlan[0].title,
               raiseDate: actionData.raiseDate,
               resources: actionData.actionPlan[0].resources,
-              currency: "", // ✨ aynen kalacak
+              currency: "",
               relativeFunction: actionData.relativeFunction?.id || "",
               responsible: actionData.responsible?.id || "",
               deadline: actionData.deadline,
@@ -661,9 +662,10 @@ const RisksAssessment = () => {
         });
         const payload = { ...actionData.actionPlan[0] };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
+
         const url =
           "http://localhost:8000/api/register/component/action/one/" +
-          selectedTableForActions[0].id;
+          [...selectedRowsForActions][0];
         fetch(url, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -673,6 +675,13 @@ const RisksAssessment = () => {
             if (!response.ok) {
               console.error("Kaydetme başarısız:", response.statusText);
             } else {
+              console.log("SELECTED actionData ", actionData);
+              console.log("SELECTED PAYLOAD ", payload);
+              setActionData([payload]);
+              setSelectedTableForActions([payload]);
+              console.log("SELECTED actionData ", actionData);
+
+
               console.log("Kayıt başarıyla kaydedildi.");
             }
           })

@@ -1,46 +1,67 @@
- const [formDataHs, setFormDataHs] = useState({
-    id: 0,
-    process: "",
-    hazard: "",
-    risk: "",
-    affectedPositions: "",
-    ERMA: "",
-    initialRiskSeverity: "",
-    initialRiskLikelihood: "",
+const [selectedRowsForActions, setSelectedRowsForActions] = useState(
+    new Set(),
+  );
+
+
+  setActionData({
+        actionPlan: [
+          {
+            title: row.title,
+            raiseDate: row.raiseDate,
+            resources: row.resources,
+            currency: "", 
+            relativeFunction: row.relativeFunction?.id || "",
+            responsible: row.responsible?.id || "",
+            deadline: row.deadline,
+            confirmation: row.confirmation?.id || "",
+            status: row.status?.id || "",
+            completionDate: row.completionDate || "",
+            verificationStatus: row.verificationStatus?.id || "",
+            comment: row.comment || "",
+            january: row.january.id || "",
+            february: row.february.id || "",
+            march: row.march.id || "",
+            april: row.april.id || "",
+            may: row.may.id || "",
+            june: row.june.id || "",
+            july: row.july.id || "",
+            august: row.august.id || "",
+            september: row.september.id || "",
+            october: row.october.id || "",
+            november: row.november.id || "",
+            december: row.december.id || "",
+          },
+        ],
+      });
+
+
+  const [actionData, setActionData] = useState({
     actionPlan: [
       {
-        action: "",
+        title: "",
         raiseDate: "",
         resources: "",
-        function: "",
+        currency: "",
+        relativeFunction: "",
         responsible: "",
         deadline: "",
-        actionConfirmation: "",
-        actionStatus: "",
-        compilationData: "",
-        verification: "",
+        confirmation: "",
+        status: "",
+        completionDate: "",
+        verificationStatus: "",
         comment: "",
+        january: "",
+        february: "",
+        march: "",
+        april: "",
+        may: "",
+        june: "",
+        july: "",
+        august: "",
+        september: "",
+        october: "",
+        november: "",
+        december: "",
       },
     ],
-    residualRiskSeverity: "",
-    residualRiskLikelihood: "",
   });
-
-
-          const payload = {
-          swot: formData.swot,
-          pestle: formData.pestle,
-          interestedParty: formData.interestedParty,
-          riskOpportunity: formData.riskOpportunity,
-          objective: formData.objective,
-          kpi: formData.kpi,
-          process: formData.process,
-          ermeoa: formData.ermeoa,
-          initialRiskSeverity: formData.initialRiskSeverity, // Number
-          initialRiskLikelyhood: formData.initialRiskLikelyhood, // Number, spelling uyumlu
-          residualRiskSeverity: formData.residualRiskSeverity,
-          residualRiskLikelyhood: formData.residualRiskLikelyhood,
-        };
-
-
-selectedTable Is An Object
