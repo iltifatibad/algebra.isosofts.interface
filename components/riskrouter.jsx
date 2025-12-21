@@ -4,6 +4,9 @@ import RisksAssessment from "./profile.jsx";
 import HsProfile from "./hsprofile.jsx";
 import LegProfile from "./legprofile.jsx";
 import EnvProfile from "./envprofile.jsx";
+import EiProfile from "./eiprofile.jsx";
+import TrProfile from "./trprofile.jsx";
+import DocProfile from "./docprofile.jsx";
 
 const RiskRouter = () => {
 
@@ -99,6 +102,12 @@ const RiskRouter = () => {
           <LegProfile />
         ) : selectedRisk === "env-reg" ? (
           <EnvProfile />
+        ) : selectedRisk === "eq-reg" ? (
+          <EiProfile />
+        ) : selectedRisk === "tr-reg" ? (
+          <TrProfile />
+        ) : selectedRisk === "doc-reg" ? (
+          <DocProfile />
         ) : null}
       </div>
     </div>
