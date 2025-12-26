@@ -380,7 +380,7 @@ const DocBody = ({
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
                   >
-                    {row.actual?.value}
+                    {row.actual}
                   </td>
                 </tr>
 
@@ -539,7 +539,7 @@ const DocBody = ({
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
                   >
-                    {row.actual?.value}
+                    {row.actual}
                   </td>
                 </tr>
 
@@ -975,7 +975,7 @@ const DocBody = ({
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
                   >
-                    {row.actual?.value}
+                    {row.actual}
                   </td>
                 </tr>
               </React.Fragment>

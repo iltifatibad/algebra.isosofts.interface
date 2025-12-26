@@ -412,7 +412,7 @@ const LegProfile = () => {
         legislation: row.legislation,
         section: row.section,
         requirement: row.requirement,
-        affectedPosition: String(row.affectedPosition),
+        affectedPosition: row.affectedPositions.id || String(row.affectedPosition),
         riskOfViolation: row.riskOfViolation,
         initialRiskSeverity: row.initialRiskSeverity,
         initialRiskLikelyhood: row.initialRiskLikelyhood,

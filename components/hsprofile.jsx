@@ -408,7 +408,7 @@ const HsProfile = () => {
         process: row.process.id || String(row.process),
         hazard: row.hazard.id || String(row.hazard),
         risk: row.risk.id || String(row.risk),
-        affectedPosition: String(row.affectedPosition),
+        affectedPosition: row.affectedPositions.id || String(row.affectedPosition),
         erma: row.erma,
         initialRiskSeverity: row.initialRiskSeverity,
         initialRiskLikelyhood: row.initialRiskLikelyhood,

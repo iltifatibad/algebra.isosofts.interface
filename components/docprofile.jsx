@@ -413,15 +413,15 @@ const DocProfile = () => {
         origin: row.origin.id || String(row.origin),
         number: row.number,
         depntFunctionName:
-          row.origin.depntFunctionName || String(row.depntFunctionName),
-        type: row.type.id || String(row.type),
+        row.depntFunctionName || String(row.depntFunctionName),
+        type: row.type || String(row.type),
         serialNumber: row.serialNumber,
         revNumber: row.revNumber,
         issuer: row.issuer,
         approver: row.approver,
         issueDate: row.issueDate,
         nextReviewDate: row.nextReviewDate,
-        actual: row.actual,
+        actual: row.actual.id || String(row.actual),
       });
     } else {
       setActionData({
@@ -531,15 +531,15 @@ const DocProfile = () => {
           name: formData.name,
           origin: formData.origin,
           number: formData.number,
-          type: parseInt(formData.type),
-          depntFunctionName: parseInt(formData.depntFunctionName),
+          type: formData.type.id,
+          depntFunctionName: formData.depntFunctionName.id,
           serialNumber: formData.serialNumber,
           revNumber: formData.revNumber,
           issuer: formData.issuer,
           approver: formData.approver,
           issueDate: formData.issueDate,
           nextReviewDate: formData.nextReviewDate,
-          actual: formData.actual,
+          actual: parseInt(formData.actual),
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
 
@@ -607,18 +607,19 @@ const DocProfile = () => {
     } else {
       if (!showAction) {
         const payload = {
+          id: selectedTable[0].id,
           name: formData.name,
           origin: formData.origin,
           number: formData.number,
-          type: formData.type,
-          depntFunctionName: formData.depntFunctionName,
+          type: formData.type.id || String(formData.type),
+          depntFunctionName: formData.depntFunctionName.id || String(formData.depntFunctionName),
           serialNumber: formData.serialNumber,
           revNumber: formData.revNumber,
           issuer: formData.issuer,
           approver: formData.approver,
           issueDate: formData.issueDate,
           nextReviewDate: formData.nextReviewDate,
-          actual: formData.actual,
+          actual: parseInt(formData.actual),
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
         const url =
@@ -632,8 +633,24 @@ const DocProfile = () => {
             if (!response.ok) {
               console.error("Kaydetme başarısız:", response.statusText);
             } else {
-              setSelectedTable([payload]);
-              setFormData([payload]);
+              setSelectedTable(prev => [
+            {
+              ...prev[0],
+              ...payload,
+
+              type: formData.type,
+              depntFunctionName: formData.depntFunctionName,
+            },
+          ]);
+
+          setFormData(prev => ({
+            ...prev,
+            ...payload,
+
+            type: formData.type,
+            depntFunctionName: formData.depntFunctionName,
+          }));
+
               console.log("Kayıt başarıyla kaydedildi. Yeni state:", [payload]);
             }
           })
