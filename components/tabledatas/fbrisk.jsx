@@ -27,7 +27,7 @@ const FbBody = ({
     setLoading(true); // Loading başla
     try {
       const response = await fetch(
-        "http://localhost:8000/api/register/doc/all?status=archived",
+        "http://localhost:8000/api/register/fb/all?status=archived",
       );
       if (!response.ok) {
         throw new Error("Failed To Get Datas From Archived DataBase");
@@ -95,7 +95,7 @@ const FbBody = ({
     setLoading(true); // Loading başla
     try {
       const response = await fetch(
-        "http://localhost:8000/api/register/doc/all?status=deleted",
+        "http://localhost:8000/api/register/fb/all?status=deleted",
       );
       if (!response.ok) {
         throw new Error("Failed To Get Datas From Deleted DataBase");
@@ -152,7 +152,7 @@ const FbBody = ({
   const [tableData, setTableData] = useState([]);
   const getAll = async () => {
     setLoading(true);
-    fetch("http://localhost:8000/api/register/doc/all")
+    fetch("http://localhost:8000/api/register/fb/all")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed To Get Datas From Database");
@@ -964,7 +964,7 @@ const FbBody = ({
                     </div>
                   </td>
 
-                  <td
+                  {/* <td
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
                   >
@@ -973,7 +973,7 @@ const FbBody = ({
                         {row.name}
                       </span>
                     )}
-                  </td>
+                  </td> */}
 
                   {/* Job Number */}
                   <td
@@ -981,7 +981,7 @@ const FbBody = ({
                     rowSpan={1}
                   >
                     <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                      {row.origin?.value}
+                      {row.jobNumber}
                     </span>
                   </td>
 
@@ -992,7 +992,7 @@ const FbBody = ({
                   >
                     {row.number && (
                       <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                        {row.number}
+                        {row.jobStartDate}
                       </span>
                     )}
                   </td>
@@ -1004,7 +1004,7 @@ const FbBody = ({
                   >
                     {row.revNumber && (
                       <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.revNumber}
+                        {row.jobCompletionDate}
                       </span>
                     )}
                   </td>
@@ -1014,9 +1014,9 @@ const FbBody = ({
                     className="border border-gray-200 px-3 py-2 w-32"
                     rowSpan={1}
                   >
-                    {row.issuer && (
+                    {row.scope && (
                       <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.issuer}
+                        {row.scope?.value}
                       </span>
                     )}
                   </td>
@@ -1038,7 +1038,7 @@ const FbBody = ({
                     className="border border-gray-200 px-3 py-2 w-28"
                     rowSpan={1}
                   >
-                    {row.issueDate}
+                    {row.typeOfFinding?.value}
                   </td>
                   
                   {/* Quality Of Services */}
@@ -1046,7 +1046,7 @@ const FbBody = ({
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
                   >
-                    {row.nextReviewDate}
+                    {row.qgs}
                   </td>
 
                   {/* Communication */}
@@ -1054,7 +1054,7 @@ const FbBody = ({
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
                   >
-                    {row.nextReviewDate}
+                    {row.communication}
                   </td>
 
                   {/* On Time Delivery */}
@@ -1062,7 +1062,7 @@ const FbBody = ({
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
                   >
-                    {row.actual?.value}
+                    {row.otd}
                   </td>
 
                   {/* Documentation */}
@@ -1070,7 +1070,7 @@ const FbBody = ({
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
                   >
-                    {row.actual?.value}
+                    {row.documentation}
                   </td>
 
                   {/* Health And Safety */}
@@ -1078,7 +1078,7 @@ const FbBody = ({
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
                   >
-                    {row.actual?.value}
+                    {row.hs}
                   </td>
 
                   {/* Envinroment */}
@@ -1086,7 +1086,7 @@ const FbBody = ({
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
                   >
-                    {row.actual?.value}
+                    {row.environment}
                   </td>
 
 

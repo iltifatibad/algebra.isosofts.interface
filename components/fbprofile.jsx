@@ -208,16 +208,16 @@ const FbProfile = () => {
   //////////////////////////////////////
   const [formData, setFormData] = useState({
     id: 0,
-    process: "",
-    legislation: "",
-    section: "",
-    requirement: "",
-    riskOfViolation: "",
-    affectedPosition: "",
-    initialRiskSeverity: 0,
-    initialRiskLikelihood: 0,
-    residualRiskSeverity: 0,
-    residualRiskLikelihood: 0,
+    jobNumber: "",
+    jobStartDate: "",
+    jobCompletionDate: "",
+    scope: "",
+    customerId: "",
+    typeOfFinding: "",
+    qgs: "",
+    communication: "",
+    hs: "",
+    environment: "",
   });
 
   const [formDataHs, setFormDataHs] = useState({
@@ -362,16 +362,18 @@ const FbProfile = () => {
     if (activeHeader) {
       setFormData({
         id: 0,
-        process: "",
-        legislation: "",
-        section: "",
-        requirement: "",
-        riskOfViolation: "",
-        affectedPosition: "",
-        initialRiskSeverity: 0,
-        initialRiskLikelihood: 0,
-        residualRiskSeverity: 0,
-        residualRiskLikelihood: 0,
+        jobNumber: "",
+        jobStartDate: "",
+        jobCompletionDate: "",
+        scope: "",
+        customerId: "",
+        typeOfFinding: "",
+        qgs: "",
+        otd: "",
+        documentation: "",
+        communication: "",
+        hs: "",
+        environment: "",
       });
       setShowModal(true);
     } else {
@@ -408,16 +410,18 @@ const FbProfile = () => {
   const openEditModal = async (row) => {
     if (activeHeader) {
       setFormData({
-        process: row.process.id || String(row.process),
-        legislation: row.legislation,
-        section: row.section,
-        requirement: row.requirement,
-        affectedPosition: String(row.affectedPosition),
-        riskOfViolation: row.riskOfViolation,
-        initialRiskSeverity: row.initialRiskSeverity,
-        initialRiskLikelyhood: row.initialRiskLikelyhood,
-        residualRiskSeverity: row.residualRiskSeverity,
-        residualRiskLikelyhood: row.residualRiskLikelyhood,
+        jobNumber: row.jobNumber,
+        jobStartDate: row.jobStartDate,
+        jobCompletionDate: row.jobCompletionDate,
+        scope: row.scope.id || String(row.scope),
+        customerId: row.customerId,
+        typeOfFinding: row.typeOfFinding.id || String(row.typeOfFinding),
+        qgs: row.qgs,
+        communication: row.comment,
+        otd: row.otd,
+        documentation: row.documentation,
+        hs: row.hs,
+        environment: row.environment,
       });
     } else {
       setActionData({
@@ -524,20 +528,22 @@ const FbProfile = () => {
     if (modalMode === "add") {
       if (!showAction) {
         const payload = {
-          process: formData.process,
-          legislation: formData.legislation,
-          section: formData.section,
-          affectedPositions: formData.affectedPosition,
-          requirement: formData.requirement,
-          riskOfViolation: formData.riskOfViolation,
-          initialRiskSeverity: formData.initialRiskSeverity, // Number
-          initialRiskLikelyhood: formData.initialRiskLikelyhood, // Number, spelling uyumlu
-          residualRiskSeverity: formData.residualRiskSeverity,
-          residualRiskLikelyhood: formData.residualRiskLikelyhood,
+        jobNumber: formData.jobNumber,
+        jobStartDate: formData.jobStartDate,
+        jobCompletionDate: formData.jobCompletionDate,
+        scope: formData.scope,
+        customerId: formData.customerId,
+        typeOfFinding: formData.typeOfFinding,
+        qgs: parseInt(formData.qgs),
+        communication: parseInt(formData.comment),
+        otd: parseInt(formData.otd),
+        documentation: parseInt(formData.documentation),
+        hs: parseInt(formData.hs),
+        environment: parseInt(formData.environment),
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
 
-        fetch("http://localhost:8000/api/register/leg/one", {
+        fetch("http://localhost:8000/api/register/fb/one", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload), // Direkt obje – array yapma!
@@ -601,22 +607,23 @@ const FbProfile = () => {
     } else {
       if (!showAction) {
         const payload = {
-          id: selectedTable[0].id,
-          process: formData.process,
-          legislation: formData.legislation,
-          section: formData.section,
-          affectedPositions: formData.affectedPosition,
-          affectedPosition: formData.affectedPosition,
-          requirement: formData.requirement,
-          riskOfViolation: formData.riskOfViolation,
-          initialRiskSeverity: formData.initialRiskSeverity, // Number
-          initialRiskLikelyhood: formData.initialRiskLikelyhood, // Number, spelling uyumlu
-          residualRiskSeverity: formData.residualRiskSeverity,
-          residualRiskLikelyhood: formData.residualRiskLikelyhood,
+        id: selectedTable[0].id,
+        jobNumber: formData.jobNumber,
+        jobStartDate: formData.jobStartDate,
+        jobCompletionDate: formData.jobCompletionDate,
+        scope: formData.scope,
+        customerId: formData.customerId,
+        typeOfFinding: formData.typeOfFinding,
+        qgs: formData.qgs,
+        otd: formData.otd,
+        documentation: formData.documentation,
+        communication: formData.comment,
+        hs: formData.hs,
+        environment: formData.environment,
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
         const url =
-          "http://localhost:8000/api/register/leg/one/" + selectedTable[0].id;
+          "http://localhost:8000/api/register/fb/one/" + selectedTable[0].id;
         fetch(url, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -727,7 +734,7 @@ const FbProfile = () => {
   const handleDeleteConfirm = () => {
     if (activeHeader) {
       if (!showDeleted) {
-        fetch("http://localhost:8000/api/register/leg/all/delete", {
+        fetch("http://localhost:8000/api/register/fb/all/delete", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -747,7 +754,7 @@ const FbProfile = () => {
           })
           .catch((error) => console.log(" Error While Deleting: ", error));
       } else {
-        fetch("http://localhost:8000/api/register/leg/all/undelete", {
+        fetch("http://localhost:8000/api/register/fb/all/undelete", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -824,7 +831,7 @@ const FbProfile = () => {
 
   const archiveData = (id) => {
     if (showArchived) {
-      fetch("http://localhost:8000/api/register/leg/all/unarchive", {
+      fetch("http://localhost:8000/api/register/fb/all/unarchive", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -843,7 +850,7 @@ const FbProfile = () => {
         .catch((error) => console.log(" Error While UnArchiving : ", error));
       setRefresh(true);
     } else {
-      fetch("http://localhost:8000/api/register/leg/all/archive", {
+      fetch("http://localhost:8000/api/register/fb/all/archive", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ids: [...selectedRows] }),
@@ -1193,60 +1200,74 @@ const FbProfile = () => {
                   <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Process
+                        Job Number
+                      </label>
+                      <input
+                        value={formData.jobNumber}
+                        onChange={(e) =>
+                          handleFormChange("jobNumber", e.target.value)
+                        }
+                        type="text"
+                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Job Start Date
+                      </label>
+                      <input
+                        value={formData.jobStartDate}
+                        onChange={(e) =>
+                          handleFormChange("jobStartDate", e.target.value)
+                        }
+                        type="text"
+                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Job Completion Date
+                      </label>
+                      <input
+                        value={formData.jobCompletionDate}
+                        onChange={(e) =>
+                          handleFormChange("jobCompletionDate", e.target.value)
+                        }
+                        type="text"
+                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Scope
                       </label>
                       <select
-                        value={formData.process || ""} // Null-safe
+                        value={formData.scope}
                         onChange={(e) => {
                           console.log(
                             "Select onChange tetiklendi! Yeni value:",
                             e.target.value,
                           ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                          handleFormChange("process", e.target.value); // String path + value – obje değil!
+                          handleFormChange("scope", e.target.value); // String path + value – obje değil!
                         }}
                       >
                         <option value="">Seçiniz</option>
-                        {dropdownData?.process?.map((item) => (
+                        {dropdownData?.scope?.map((item) => (
                           <option key={item.id} value={item.id}>
                             {item.value}
                           </option>
                         ))}
-                      </select>{" "}
+                      </select>
                     </div>
+
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Legislation
+                        Name Of Customer
                       </label>
                       <input
-                        value={formData.legislation}
+                        value={formData.customerId}
                         onChange={(e) =>
-                          handleFormChange("legislation", e.target.value)
-                        }
-                        type="text"
-                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Section
-                      </label>
-                      <input
-                        value={formData.section}
-                        onChange={(e) =>
-                          handleFormChange("section", e.target.value)
-                        }
-                        type="text"
-                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Requirement
-                      </label>
-                      <input
-                        value={formData.requirement}
-                        onChange={(e) =>
-                          handleFormChange("requirement", e.target.value)
+                          handleFormChange("customerId", e.target.value)
                         }
                         type="text"
                         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
@@ -1255,34 +1276,20 @@ const FbProfile = () => {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Risk Of Violation
-                      </label>
-                      <input
-                        value={formData.riskOfViolation}
-                        onChange={(e) =>
-                          handleFormChange("riskOfViolation", e.target.value)
-                        }
-                        type="text"
-                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Affected Position
+                        Type Of Finding
                       </label>
                       <select
-                        value={formData.affectedPosition}
+                        value={formData.typeOfFinding}
                         onChange={(e) => {
                           console.log(
                             "Select onChange tetiklendi! Yeni value:",
                             e.target.value,
                           ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                          handleFormChange("affectedPosition", e.target.value); // String path + value – obje değil!
+                          handleFormChange("typeOfFinding", e.target.value); // String path + value – obje değil!
                         }}
                       >
                         <option value="">Seçiniz</option>
-                        {dropdownData?.affectedPosition?.map((item) => (
+                        {dropdownData?.typeOfFinding?.map((item) => (
                           <option key={item.id} value={item.id}>
                             {item.value}
                           </option>
@@ -1293,36 +1300,33 @@ const FbProfile = () => {
                   <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Initial Risk
+                          Quality Of Goods / Service
+                      </label>
+                      <div className="grid grid-cols-3 gap-2">
+                      <input
+                        value={formData.qgs}
+                        onChange={(e) =>
+                          handleFormChange("qgs", e.target.value)
+                        }
+                        type="text"
+                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                      />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Communication
                       </label>
                       <div className="grid grid-cols-3 gap-2">
                         <select
-                          value={formData.initialRiskSeverity}
+                          value={formData.communication}
                           onChange={(e) => {
                             console.log(
                               "Select onChange tetiklendi! Yeni value:",
                               e.target.value,
                             ); // Debug: Bu çıkmıyorsa onChange patlıyor
                             const newValue = parseInt(e.target.value, 10) || 0;
-                            handleFormChange("initialRiskSeverity", newValue); // String path + value – obje değil!
-                          }}
-                        >
-                          <option value="">Seçiniz</option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
-                        <select
-                          value={formData.initialRiskLikelyhood}
-                          onChange={(e) => {
-                            console.log(
-                              "Select onChange tetiklendi! Yeni value:",
-                              e.target.value,
-                            ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                            const newValue = parseInt(e.target.value, 10) || 0;
-                            handleFormChange("initialRiskLikelyhood", newValue); // String path + value – obje değil!
+                            handleFormChange("communication", newValue); // String path + value – obje değil!
                           }}
                         >
                           <option value="">Seçiniz</option>
@@ -1334,46 +1338,105 @@ const FbProfile = () => {
                         </select>
                       </div>
                     </div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Residual Risk / Opportunity Level
-                    </label>
-                    <div className="grid grid-cols-3 gap-2">
-                      <select
-                        value={formData.residualRiskSeverity}
-                        onChange={(e) => {
-                          console.log(
-                            "Select onChange tetiklendi! Yeni value:",
-                            e.target.value,
-                          ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                          const newValue = parseInt(e.target.value, 10) || 0;
-                          handleFormChange("residualRiskSeverity", newValue); // String path + value – obje değil!
-                        }}
-                      >
-                        <option value="">Seçiniz</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                      <select
-                        value={formData.residualRiskLikelyhood}
-                        onChange={(e) => {
-                          console.log(
-                            "Select onChange tetiklendi! Yeni value:",
-                            e.target.value,
-                          ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                          const newValue = parseInt(e.target.value, 10) || 0;
-                          handleFormChange("residualRiskLikelyhood", newValue); // String path + value – obje değil!
-                        }}
-                      >
-                        <option value="">Seçiniz</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        On - Time Delivery
+                      </label>
+                      <div className="grid grid-cols-3 gap-2">
+                        <select
+                          value={formData.otd}
+                          onChange={(e) => {
+                            console.log(
+                              "Select onChange tetiklendi! Yeni value:",
+                              e.target.value,
+                            ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                            const newValue = parseInt(e.target.value, 10) || 0;
+                            handleFormChange("otd", newValue); // String path + value – obje değil!
+                          }}
+                        >
+                          <option value="">Seçiniz</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Documentation
+                      </label>
+                      <div className="grid grid-cols-3 gap-2">
+                        <select
+                          value={formData.documentation}
+                          onChange={(e) => {
+                            console.log(
+                              "Select onChange tetiklendi! Yeni value:",
+                              e.target.value,
+                            ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                            const newValue = parseInt(e.target.value, 10) || 0;
+                            handleFormChange("documentation", newValue); // String path + value – obje değil!
+                          }}
+                        >
+                          <option value="">Seçiniz</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Health And Safety
+                      </label>
+                      <div className="grid grid-cols-3 gap-2">
+                        <select
+                          value={formData.hs}
+                          onChange={(e) => {
+                            console.log(
+                              "Select onChange tetiklendi! Yeni value:",
+                              e.target.value,
+                            ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                            const newValue = parseInt(e.target.value, 10) || 0;
+                            handleFormChange("hs", newValue); // String path + value – obje değil!
+                          }}
+                        >
+                          <option value="">Seçiniz</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Envinroment
+                      </label>
+                      <div className="grid grid-cols-3 gap-2">
+                        <select
+                          value={formData.environment}
+                          onChange={(e) => {
+                            console.log(
+                              "Select onChange tetiklendi! Yeni value:",
+                              e.target.value,
+                            ); // Debug: Bu çıkmıyorsa onChange patlıyor
+                            const newValue = parseInt(e.target.value, 10) || 0;
+                            handleFormChange("environment", newValue); // String path + value – obje değil!
+                          }}
+                        >
+                          <option value="">Seçiniz</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                 </div>
