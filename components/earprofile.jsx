@@ -596,10 +596,10 @@ const EarProfile = () => {
       if (!showAction) {
         const payload = {
           id: selectedTable[0].id,
-          employee: formData.employee,
+          employeeName: formData.employee,
           position: formData.position,
           lineManager: formData.lineManager,
-          esd: formData.esf,
+          esd: formData.esd,
           appraisalDate: formData.appraisalDate,
           appraisalType: formData.appraisalType,
           tca: formData.tca,
