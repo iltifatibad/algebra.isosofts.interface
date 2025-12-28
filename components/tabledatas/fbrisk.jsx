@@ -618,7 +618,7 @@ const FbBody = ({
                       <input
                         type="checkbox"
                         checked={selectedRowsForActions.has(row.id)}
-                        onChange={() => onCheckboxChangeForActions(row.id, tableData)}
+                        onChange={() => onCheckboxChangeForActions(row.id, actionData)}
                         className="h-4 w-4 text-blue-600 rounded"
                       />
                     </div>
@@ -628,9 +628,9 @@ const FbBody = ({
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
                   >
-                    {row.name && (
+                    {row.scope && (
                       <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 border border-rose-200 rounded-full shadow-sm">
-                        {row.name}
+                        {row.scope?.value}
                       </span>
                     )}
                   </td>
@@ -640,9 +640,9 @@ const FbBody = ({
                     className="border border-gray-200 px-3 py-2 w-32"
                     rowSpan={1}
                   >
-                    {row.issuer && (
+                    {row.scope && (
                       <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.issuer}
+                        {row.scope?.value}
                       </span>
                     )}
                   </td>
@@ -732,14 +732,14 @@ const FbBody = ({
               Arşiv verileri yükleniyor...
             </td>
           </tr>
-        ) : !tableData || tableData.length === 0 ? (
+        ) : !actionData || actionData.length === 0 ? (
           <tr>
             <td colSpan={25} className="text-center py-6 text-gray-500">
               No Data
             </td>
           </tr>
         ) : (
-          tableData.map((row, index) => {
+          actionData.map((row, index) => {
             const numActions = row.actions ? row.actions.length : 1;
             const actions = Array.isArray(row.actions)
               ? row.actions
@@ -765,8 +765,8 @@ const FbBody = ({
                       </span>
                       <input
                         type="checkbox"
-                        checked={selectedRows.has(row.id)}
-                        onChange={() => onCheckboxChange(row.id, tableData)}
+                        checked={selectedRowsForActions.has(row.id)}
+                        onChange={() => onCheckboxChangeForActions(row.id, actionData)}
                         className="h-4 w-4 text-blue-600 rounded"
                       />
                     </div>
