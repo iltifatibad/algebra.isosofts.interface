@@ -123,7 +123,7 @@ const FbBody = ({
     const selectedRowsArray = [...selectedRows];
     try {
       const firstRowId = selectedRowsArray[0];
-      const url = `http://localhost:8000/api/register/component/action/all?registerId=${firstRowId}&status=deleted`;
+      const url = `http://localhost:8000/api/register/component/fb/all?registerId=${firstRowId}&status=deleted`;
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Failed To Get Datas From Deleted DataBase");
@@ -645,7 +645,7 @@ const FbBody = ({
                       <input
                         type="checkbox"
                         checked={selectedRows.has(row.id)}
-                        onChange={() => onCheckboxChange(row.id, tableData)}
+                        onChange={() => onCheckboxChangeForActions(row.id, tableData)}
                         className="h-4 w-4 text-blue-600 rounded"
                       />
                     </div>
@@ -793,7 +793,7 @@ const FbBody = ({
                       <input
                         type="checkbox"
                         checked={selectedRows.has(row.id)}
-                        onChange={() => onCheckboxChange(row.id, tableData)}
+                        onChange={() => onCheckboxChangeForActions(row.id, tableData)}
                         className="h-4 w-4 text-blue-600 rounded"
                       />
                     </div>
