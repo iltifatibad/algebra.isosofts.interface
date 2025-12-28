@@ -13,6 +13,7 @@ import EarProfile from "./earprofile.jsx";
 import MocProfile from "./mocprofile.jsx";
 import FProfile from "./flog.jsx";
 import AoProfile from "./aoprofile.jsx";
+import KPIDashboard from "./kpi.jsx";
 
 const RiskRouter = () => {
   // Sample data - gerçek projede API'den veya props'tan gelebilir
@@ -34,7 +35,6 @@ const RiskRouter = () => {
     { id: "ao-reg", name: "Assurance & Oversight" },
     { id: "mr-reg", name: "Management Review Meeting" },
     { id: "ac-reg", name: "Action Logs" },
-
 
     // Diğer risk kategorileri eklenebilir
   ]);
@@ -127,6 +127,8 @@ const RiskRouter = () => {
           <FProfile />
         ) : selectedRisk === "ao-reg" ? (
           <AoProfile />
+        ) : selectedRisk === "kpi" ? (
+          <KPIDashboard />
         ) : null}
       </div>
     </div>

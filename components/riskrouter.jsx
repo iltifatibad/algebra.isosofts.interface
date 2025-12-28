@@ -16,6 +16,7 @@ import AoProfile from "./aoprofile.jsx";
 import MRMProfile from "./mrmprofile.jsx";
 import CusProfile from "./customerprofile.jsx";
 import AcProfile from "./actionprofile.jsx";
+import KPIDashboard from "./kpi.jsx";
 
 const RiskRouter = () => {
   // Sample data - gerçek projede API'den veya props'tan gelebilir
@@ -133,6 +134,8 @@ const RiskRouter = () => {
           <MRMProfile />
         ) : selectedRisk === "ac-reg" ? (
           <AcProfile />
+        ) : selectedRisk === "kpi" ? (
+          <KPIDashboard/>
         ) : null}
       </div>
     </div>

@@ -21,27 +21,10 @@ const ActionBody = ({
   const [archivedData, setArchivedData] = useState([]);
   const [deletedData, setDeletedData] = useState([]);
   const [deletedActionData, setDeletedActionData] = useState([]);
+  const [archivedActionData, setArchivedActionData] = useState([]);
   const [actionData, setActionData] = useState([]);
   const [editData, setEditData] = useState([]);
-  const getArchivedData = async () => {
-    setLoading(true); // Loading başla
-    try {
-      const response = await fetch(
-        "http://localhost:8000/api/dashboard/actionLog/all?status=archived",
-      );
-      if (!response.ok) {
-        throw new Error("Failed To Get Datas From Archived DataBase");
-      }
-      const fetchedData = await response.json();
-      setArchivedData(fetchedData || []);
-      console.log("Arşiv verileri:", fetchedData);
-    } catch (err) {
-      console.error("Error While Fetching Archived Datas:", err);
-      setArchivedData([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+
 
   useEffect(() => {
     if (refresh) {
@@ -68,7 +51,7 @@ const ActionBody = ({
         return () => clearTimeout(timer); // cleanup
       } else if (!activeHeader) {
         const timer = setTimeout(() => {
-          getAllActions(selectedRows);
+          getAllActions();
           setRefresh(false);
         }, 500);
         return () => clearTimeout(timer); // cleanup
@@ -138,6 +121,29 @@ const ActionBody = ({
       setLoading(false); // Loading bitir
     }
   };
+
+
+  const getArchivedActionData = async () => {
+    setLoading(true); // Loading başla
+    const selectedRowsArray = [...selectedRows];
+    try {
+      const firstRowId = selectedRowsArray[0];
+      const url = `http://localhost:8000/api/dashboard/actionLog/all?status=archived`;
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Failed To Get Datas From Deleted DataBase");
+      }
+      const fetchedData = await response.json();
+      setDeletedActionData(fetchedData || []); // Veri set et, fallback []
+      console.log("Arşiv Action verileri:", fetchedData);
+    } catch (err) {
+      console.error("Error While Fetching Deleted Datas:", err);
+      setDeletedActionData([]); // Hata durumunda boş array set et (null değil!)
+    } finally {
+      setLoading(false); // Loading bitir
+    }
+  };
+
   useEffect(() => {
     if (!activeHeader && showDeletedAction) {
       getDeletedActionData(); // Async çağrı
@@ -145,6 +151,14 @@ const ActionBody = ({
       setDeletedActionData([]); // Normal moda geçince temizle (opsiyonel)
     }
   }, [showDeletedAction]); // Dependency: showArchived değişince
+
+  useEffect(() => {
+    if (!activeHeader && showArchived) {
+      getArchivedActionData(); // Async çağrı
+    } else {
+      setArchivedActionData([]); // Normal moda geçince temizle (opsiyonel)
+    }
+  }, [showArchived]); // Dependency: showArchived değişince
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -179,15 +193,6 @@ const ActionBody = ({
 
   const getAllActions = async () => {
     setLoading(true);
-    // getDeletedActionData();
-    // Set'i Array'e çevir (bu kritik kısım!)
-    // const selectedRowsArray = [...selectedRows];
-
-    // if (selectedRowsArray.length === 0) {
-    //   console.error("Seçili satır yok!"); // Hata kontrolü
-    //   setLoading(false);
-    //   return; // Erken çık
-    // }
 
     // const firstRowId = selectedRowsArray[0]; // Artık ID'yi alabilirsin: "I234884J501LA657g6S20N2Nc2V71p"
     const url = `http://localhost:8000/api/dashboard/actionLog/all?status=active`;
@@ -460,9 +465,8 @@ const ActionBody = ({
                 </span>
               ) : null;
 
-            return (
+              return (
               <React.Fragment key={row.id}>
-                {/* Ana row */}
                 <tr
                   className={`border-b h-16 min-h-16 align-middle border-gray-200 ${
                     index % 2 === 0
@@ -470,148 +474,111 @@ const ActionBody = ({
                       : "bg-green-100 hover:bg-green-200"
                   }`}
                 >
+                  {/* # column */}
                   <td
-                    className="border border-gray-200 px-2 py-1 w-16 sticky left-0 top-0 z-10 bg-white"
-                    rowSpan={1}
+                    className="border-b border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px"
+                    rowSpan={numActions}
                   >
-                    <div className="flex items-center gap-1">
-                      <span className="font-semibold">{row.no}</span>
-                      <input
-                        checked={selectedRows.has(row.id)}
-                        onChange={() => onCheckboxChange(row.id, archivedData)}
-                        type="checkbox"
-                        className="ml-2 h-4 w-4 text-blue-600"
+                    {selectedTable[0].no}
+                    <input
+                      checked={selectedRowsForActions.has(
+                        archivedData[index].id,
+                      )}
+                      onChange={() =>
+                        onCheckboxChangeForActions(
+                          archivedData[index].id,
+                          archivedData,
+                        )
+                      }
+                      type="checkbox"
+                      className="ml-2"
+                    />
+                  </td>
+                  {/* FIRST ACTION PLAN FIELDS */}
+                  <td className="border-b border-gray-200 px-2 py-1 w-32">
+                    <SoftBadge value={archivedData?.[index]?.title} />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-32">
+                    <SoftBadge value={archivedData?.[index]?.raiseDate} />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-24">
+                    <SoftBadge
+                      value={
+                        archivedData?.[index]?.resources?.toString() || ""
+                      }
+                    />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-28">
+                    <SoftBadge
+                      value={
+                        archivedData?.[index]?.relativeFunction?.value
+                      }
+                    />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-28">
+                    <SoftBadge
+                      value={archivedData?.[index]?.responsible?.value}
+                    />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-24">
+                    <SoftBadge value={archivedData?.[index]?.deadline} />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-36">
+                    <SoftBadge
+                      value={archivedData?.[index]?.confirmation?.value}
+                    />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-24">
+                    <SoftBadge
+                      value={archivedData?.[
+                        index
+                      ]?.status?.value?.toString()}
+                    />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-24">
+                    <SoftBadge
+                      value={archivedData?.[index]?.completionDate}
+                    />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-32">
+                    <SoftBadge
+                      value={
+                        archivedData?.[index]?.verificationStatus?.value
+                      }
+                    />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-40">
+                    <SoftBadge value={archivedData?.[index]?.comment} />
+                  </td>
+                  {/* MONITORING MONTH COLUMNS */}
+                  {[
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December",
+                  ].map((month) => (
+                    <td
+                      key={`$deletedActionData?.[index]?.id}-${month}`}
+                      className="border-b border-gray-200 px-2 py-1 w-24"
+                    >
+                      {/* Assuming monitoring data is stored indeletedActionData[index].monitoring[month] or similar; adjust as needed */}
+                      <SoftBadge
+                        value={
+                          archivedData?.[index]?.[month.toLowerCase()]
+                            ?.value || ""
+                        }
                       />
-                    </div>
-                  </td>
-
-                  {/* Process */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.process?.value}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
-
-                  {/* legislation */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.legislation}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
-
-                  {/* Section */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.section}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
-
-                  {/* Requirement */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.requirement}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
-
-                  {/* Risk Of Violation */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.riskOfViolation}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
-
-                  {/* Affected Positions */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    {row.affectedPositions?.value}
-                  </td>
-
-                  {/* Initial Risk */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.initialRiskSeverity}
-                      color="bg-emerald-100 text-emerald-700 border border-emerald-200"
-                    />
-                  </td>
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.initialRiskLikelyhood}
-                      color="bg-emerald-100 text-emerald-700 border border-emerald-200"
-                    />
-                  </td>
-
-                  {/* Risk Level */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value="Medium"
-                      color="bg-yellow-100 text-yellow-700 border border-yellow-200"
-                    />
-                  </td>
-
-                  {/* İlk Action */}
-
-                  {/* Residual Risk */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.residualRiskSeverity}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.residualRiskLikelyhood}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value="Low"
-                      color="bg-emerald-100 text-emerald-700 border border-emerald-200"
-                    />
-                  </td>
+                    </td>
+                  ))}
                 </tr>
-
-                {/* Ek Actions */}
               </React.Fragment>
             );
           })
@@ -639,7 +606,7 @@ const ActionBody = ({
                 </span>
               ) : null;
 
-            return (
+                  return (
               <React.Fragment key={row.id}>
                 <tr
                   className={`border-b h-16 min-h-16 align-middle border-gray-200 ${
@@ -655,7 +622,9 @@ const ActionBody = ({
                   >
                     {selectedTable[0].no}
                     <input
-                      checked={selectedRowsForActions.has(actionData[index].id)}
+                      checked={selectedRowsForActions.has(
+                        actionData[index].id,
+                      )}
                       onChange={() =>
                         onCheckboxChangeForActions(
                           actionData[index].id,
@@ -675,12 +644,16 @@ const ActionBody = ({
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-24">
                     <SoftBadge
-                      value={actionData?.[index]?.resources?.toString() || ""}
+                      value={
+                        actionData?.[index]?.resources?.toString() || ""
+                      }
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-28">
                     <SoftBadge
-                      value={actionData?.[index]?.relativeFunction?.value}
+                      value={
+                        actionData?.[index]?.relativeFunction?.value
+                      }
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-28">
@@ -698,15 +671,21 @@ const ActionBody = ({
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-24">
                     <SoftBadge
-                      value={actionData?.[index]?.status?.value?.toString()}
+                      value={actionData?.[
+                        index
+                      ]?.status?.value?.toString()}
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-24">
-                    <SoftBadge value={actionData?.[index]?.completionDate} />
+                    <SoftBadge
+                      value={actionData?.[index]?.completionDate}
+                    />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-32">
                     <SoftBadge
-                      value={actionData?.[index]?.verificationStatus?.value}
+                      value={
+                        actionData?.[index]?.verificationStatus?.value
+                      }
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-40">
@@ -728,14 +707,14 @@ const ActionBody = ({
                     "December",
                   ].map((month) => (
                     <td
-                      key={`${actionData?.[index]?.id}-${month}`}
+                      key={`$deletedActionData?.[index]?.id}-${month}`}
                       className="border-b border-gray-200 px-2 py-1 w-24"
                     >
-                      {/* Assuming monitoring data is stored in actionData[index].monitoring[month] or similar; adjust as needed */}
+                      {/* Assuming monitoring data is stored indeletedActionData[index].monitoring[month] or similar; adjust as needed */}
                       <SoftBadge
                         value={
-                          actionData?.[index]?.[month.toLowerCase()]?.value ||
-                          ""
+                          actionData?.[index]?.[month.toLowerCase()]
+                            ?.value || ""
                         }
                       />
                     </td>
@@ -918,103 +897,128 @@ const ActionBody = ({
           </tr>
         ) : (
           tableData.map((row, index) => {
-  const actions = Array.isArray(row.actions) ? row.actions : [];
-  const numActions = actions.length || 1;
+            const numActions = row.actions ? row.actions.length : 1;
+            const actions = Array.isArray(row.actions)
+              ? row.actions
+              : [row.actions];
 
-  return (
-    <React.Fragment key={row.id}>
-      {actions.map((action, actionIndex) => (
-        <tr
-          key={action.id}
-          className={`border-b h-16 min-h-16 align-middle border-gray-200 ${
-            index % 2 === 0
-              ? "bg-white hover:bg-gray-200"
-              : "bg-green-100 hover:bg-green-200"
-          }`}
-        >
-          {/* # COLUMN – sadece ilk action’da göster */}
-          {actionIndex === 0 && (
-            <td
-              className="border-b border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px"
-              rowSpan={numActions}
-            >
-              {row.no}
-            </td>
-          )}
-
-          {/* ACTION PLAN FIELDS */}
-          <td className="border-b border-gray-200 px-2 py-1 w-32">
-            <SoftBadge value={action.title} />
-          </td>
-
-          <td className="border-b border-gray-200 px-2 py-1 w-32">
-            <SoftBadge value={action.raiseDate} />
-          </td>
-
-          <td className="border-b border-gray-200 px-2 py-1 w-24">
-            <SoftBadge value={action.resources?.toString() || ""} />
-          </td>
-
-          <td className="border-b border-gray-200 px-2 py-1 w-28">
-            <SoftBadge value={action.relativeFunction?.value} />
-          </td>
-
-          <td className="border-b border-gray-200 px-2 py-1 w-28">
-            <SoftBadge value={action.responsible?.value} />
-          </td>
-
-          <td className="border-b border-gray-200 px-2 py-1 w-24">
-            <SoftBadge value={action.deadline} />
-          </td>
-
-          <td className="border-b border-gray-200 px-2 py-1 w-36">
-            <SoftBadge value={action.confirmation?.value} />
-          </td>
-
-          <td className="border-b border-gray-200 px-2 py-1 w-24">
-            <SoftBadge value={action.status?.value} />
-          </td>
-
-          <td className="border-b border-gray-200 px-2 py-1 w-24">
-            <SoftBadge value={action.completionDate} />
-          </td>
-
-          <td className="border-b border-gray-200 px-2 py-1 w-32">
-            <SoftBadge value={action.verificationStatus?.value} />
-          </td>
-
-          <td className="border-b border-gray-200 px-2 py-1 w-40">
-            <SoftBadge value={action.comment} />
-          </td>
-
-          {/* MONTHLY MONITORING */}
-          {[
-            "january",
-            "february",
-            "march",
-            "april",
-            "may",
-            "june",
-            "july",
-            "august",
-            "september",
-            "october",
-            "november",
-            "december",
-          ].map((month) => (
-            <td
-              key={`${action.id}-${month}`}
-              className="border-b border-gray-200 px-2 py-1 w-24"
-            >
-              <SoftBadge value={action[month]?.value || ""} />
-            </td>
-          ))}
-        </tr>
-      ))}
-    </React.Fragment>
-  );
-})
-
+            return (
+              <React.Fragment key={row.id}>
+                <tr
+                  className={`border-b h-16 min-h-16 align-middle border-gray-200 ${
+                    index % 2 === 0
+                      ? "bg-white hover:bg-gray-200"
+                      : "bg-green-100 hover:bg-green-200"
+                  }`}
+                >
+                  {/* # column */}
+                  <td
+                    className="border-b border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px"
+                    rowSpan={numActions}
+                  >
+                    {selectedTable[0].no}
+                    <input
+                      checked={selectedRowsForActions.has(
+                        tableData[index].id,
+                      )}
+                      onChange={() =>
+                        onCheckboxChangeForActions(
+                          tableData[index].id,
+                          tableData,
+                        )
+                      }
+                      type="checkbox"
+                      className="ml-2"
+                    />
+                  </td>
+                  {/* FIRST ACTION PLAN FIELDS */}
+                  <td className="border-b border-gray-200 px-2 py-1 w-32">
+                    <SoftBadge value={tableData?.[index]?.title} />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-32">
+                    <SoftBadge value={tableData?.[index]?.raiseDate} />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-24">
+                    <SoftBadge
+                      value={
+                        tableData?.[index]?.resources?.toString() || ""
+                      }
+                    />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-28">
+                    <SoftBadge
+                      value={
+                        tableData?.[index]?.relativeFunction?.value
+                      }
+                    />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-28">
+                    <SoftBadge
+                      value={tableData?.[index]?.responsible?.value}
+                    />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-24">
+                    <SoftBadge value={tableData?.[index]?.deadline} />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-36">
+                    <SoftBadge
+                      value={tableData?.[index]?.confirmation?.value}
+                    />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-24">
+                    <SoftBadge
+                      value={tableData?.[
+                        index
+                      ]?.status?.value?.toString()}
+                    />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-24">
+                    <SoftBadge
+                      value={tableData?.[index]?.completionDate}
+                    />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-32">
+                    <SoftBadge
+                      value={
+                        tableData?.[index]?.verificationStatus?.value
+                      }
+                    />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-40">
+                    <SoftBadge value={tableData?.[index]?.comment} />
+                  </td>
+                  {/* MONITORING MONTH COLUMNS */}
+                  {[
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December",
+                  ].map((month) => (
+                    <td
+                      key={`$deletedActionData?.[index]?.id}-${month}`}
+                      className="border-b border-gray-200 px-2 py-1 w-24"
+                    >
+                      {/* Assuming monitoring data is stored indeletedActionData[index].monitoring[month] or similar; adjust as needed */}
+                      <SoftBadge
+                        value={
+                          deletedActionData?.[index]?.[month.toLowerCase()]
+                            ?.value || ""
+                        }
+                      />
+                    </td>
+                  ))}
+                </tr>
+              </React.Fragment>
+            );
+          })
         )}
       </tbody>
     );

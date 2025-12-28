@@ -190,7 +190,6 @@ const FbProfile = () => {
     { id: "mr-reg", name: "Management Review Meeting" },
     { id: "ac-reg", name: "Action Logs" },
 
-
     // Diğer risk kategorileri eklenebilir
   ]);
   const [refresh, setRefresh] = useState(false);

@@ -159,34 +159,36 @@ const FbBody = ({
         }
         return response.json();
       })
-        .then(async (fetchedData) => {
-  console.log("FETCHEDDDDD", fetchedData);
+      .then(async (fetchedData) => {
+        console.log("FETCHEDDDDD", fetchedData);
 
-  const updatedData = await Promise.all(
-    fetchedData.map(async (item) => {
-      if (item.customerId) { // customerId varsa fetch at
-        try {
-          const res = await fetch(`http://localhost:8000/api/register/cus/one/${item.customerId}`);
-          if (!res.ok) throw new Error("Customer fetch failed");
-          const customer = await res.json();
-          return {
-            ...item,
-            customerName: customer.Name || customer.name || item.customerId, // isim yoksa id kalır
-          };
-        } catch (err) {
-          console.error(err);
-          return { ...item, customerName: item.customerId }; // hata olursa id olarak bırak
-        }
-      }
-      return { ...item, customerName: "" }; // customerId yoksa boş string
-    })
-  );
+        const updatedData = await Promise.all(
+          fetchedData.map(async (item) => {
+            if (item.customerId) {
+              // customerId varsa fetch at
+              try {
+                const res = await fetch(
+                  `http://localhost:8000/api/register/cus/one/${item.customerId}`,
+                );
+                if (!res.ok) throw new Error("Customer fetch failed");
+                const customer = await res.json();
+                return {
+                  ...item,
+                  customerName:
+                    customer.Name || customer.name || item.customerId, // isim yoksa id kalır
+                };
+              } catch (err) {
+                console.error(err);
+                return { ...item, customerName: item.customerId }; // hata olursa id olarak bırak
+              }
+            }
+            return { ...item, customerName: "" }; // customerId yoksa boş string
+          }),
+        );
 
-  setTableData(updatedData);
-  setLoading(false);
-})
-
-
+        setTableData(updatedData);
+        setLoading(false);
+      })
 
       .catch((err) => {
         setError(err.message);
@@ -618,7 +620,9 @@ const FbBody = ({
                       <input
                         type="checkbox"
                         checked={selectedRowsForActions.has(row.id)}
-                        onChange={() => onCheckboxChangeForActions(row.id, actionData)}
+                        onChange={() =>
+                          onCheckboxChangeForActions(row.id, actionData)
+                        }
                         className="h-4 w-4 text-blue-600 rounded"
                       />
                     </div>
@@ -666,7 +670,7 @@ const FbBody = ({
                   >
                     {row.qgs}
                   </td>
-                  
+
                   {/* Quality Of Services */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-20"
@@ -714,8 +718,6 @@ const FbBody = ({
                   >
                     {row.actual?.value}
                   </td>
-
-
                 </tr>
               </React.Fragment>
             );
@@ -766,7 +768,9 @@ const FbBody = ({
                       <input
                         type="checkbox"
                         checked={selectedRowsForActions.has(row.id)}
-                        onChange={() => onCheckboxChangeForActions(row.id, actionData)}
+                        onChange={() =>
+                          onCheckboxChangeForActions(row.id, actionData)
+                        }
                         className="h-4 w-4 text-blue-600 rounded"
                       />
                     </div>
@@ -782,7 +786,6 @@ const FbBody = ({
                       </span>
                     )}
                   </td>
-
 
                   {/* Scope */}
                   <td
@@ -815,7 +818,7 @@ const FbBody = ({
                   >
                     {row.issueDate}
                   </td>
-                  
+
                   {/* Quality Of Services */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-20"
@@ -863,8 +866,6 @@ const FbBody = ({
                   >
                     {row.actual?.value}
                   </td>
-
-
                 </tr>
               </React.Fragment>
             );
@@ -954,7 +955,7 @@ const FbBody = ({
                       </span>
                     )}
                   </td>
-                    
+
                   {/* Job Completion Date */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-32"
@@ -998,7 +999,7 @@ const FbBody = ({
                   >
                     {row.typeOfFinding?.value}
                   </td>
-                  
+
                   {/* Quality Of Services */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-20"
@@ -1046,14 +1047,13 @@ const FbBody = ({
                   >
                     {row.environment}
                   </td>
-                                      {/* Envinroment */}
+                  {/* Envinroment */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
                   >
                     {row.environment}
                   </td>
-
                 </tr>
               </React.Fragment>
             );

@@ -190,7 +190,6 @@ const EnvProfile = () => {
     { id: "mr-reg", name: "Management Review Meeting" },
     { id: "ac-reg", name: "Action Logs" },
 
-
     // Diğer risk kategorileri eklenebilir
   ]);
   const [refresh, setRefresh] = useState(false);
@@ -1785,12 +1784,13 @@ const EnvProfile = () => {
                                   className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
                                 >
                                   <option value="">Seçiniz</option>
-                                  {dropdownData?.actionData.actionPlan?.[0]
-                                      ?.verificationStatus ?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                      {item.value}
-                                    </option>
-                                  ))}
+                                  {dropdownData?.actionData.actionPlan?.[0]?.verificationStatus?.map(
+                                    (item) => (
+                                      <option key={item.id} value={item.id}>
+                                        {item.value}
+                                      </option>
+                                    ),
+                                  )}
                                 </select>
                               </div>
 
