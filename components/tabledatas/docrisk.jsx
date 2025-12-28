@@ -585,7 +585,7 @@ const DocBody = ({
                     className="border-b border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px"
                     rowSpan={numActions}
                   >
-                    {selectedTable[0].no}
+                    {selectedRowsForActions[0].no}
                     <input
                       checked={selectedRowsForActions.has(actionData[index].id)}
                       onChange={() =>

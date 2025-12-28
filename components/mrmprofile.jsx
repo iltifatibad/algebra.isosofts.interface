@@ -503,9 +503,9 @@ const MRMProfile = () => {
     if (modalMode === "add") {
       if (!showAction) {
         const payload = {
-        risos: formData.risos,
-        topic: formData.topic,
-        process: formData.process,
+          risos: formData.risos,
+          topic: formData.topic,
+          process: formData.process,
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
 

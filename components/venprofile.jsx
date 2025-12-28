@@ -206,15 +206,15 @@ const VenProfile = () => {
   const [modalMode, setModalMode] = useState("add");
   const [editingRow, setEditingRow] = useState(null);
   const [formData, setFormData] = useState({
-          id: 0,
-          name: "",
-          regNumber: "",
-          scope1: "",
-          scope2: "",
-          scope3: "",
-          registrationDate: "",
-          reviewDate: "",
-          approved: 0,
+    id: 0,
+    name: "",
+    regNumber: "",
+    scope1: "",
+    scope2: "",
+    scope3: "",
+    registrationDate: "",
+    reviewDate: "",
+    approved: 0,
   });
 
   const [formDataHs, setFormDataHs] = useState({
@@ -358,14 +358,14 @@ const VenProfile = () => {
     const dropdownData = await getDefaultDropdownList();
     if (activeHeader) {
       setFormData({
-          name: "",
-          regNumber: "",
-          scope1: "",
-          scope2: "",
-          scope3: "",
-          registrationDate: "",
-          reviewDate: "",
-          approved: 0,
+        name: "",
+        regNumber: "",
+        scope1: "",
+        scope2: "",
+        scope3: "",
+        registrationDate: "",
+        reviewDate: "",
+        approved: 0,
       });
       setShowModal(true);
     } else {
@@ -1194,16 +1194,16 @@ const VenProfile = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Reg Number
-                        </label>
-                        <input
-                          value={formData.regNumber}
-                          onChange={(e) =>
-                            handleFormChange("regNumber", e.target.value)
-                          }
-                          type="text"
-                          className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        />
+                        Reg Number
+                      </label>
+                      <input
+                        value={formData.regNumber}
+                        onChange={(e) =>
+                          handleFormChange("regNumber", e.target.value)
+                        }
+                        type="text"
+                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                      />
                     </div>
 
                     <div>

@@ -361,17 +361,17 @@ const FProfile = () => {
     const dropdownData = await getDefaultDropdownList();
     if (activeHeader) {
       setFormData({
-    id: 0,
-    issuer: "",
-    process: "",
-    categoryOfFinding: "",
-    typeOfFinding: "",
-    sourceOfFinding: "",
-    customer: "",
-    vendor: "",
-    description: "",
-    containmentAction: "",
-    rootCauses: "",
+        id: 0,
+        issuer: "",
+        process: "",
+        categoryOfFinding: "",
+        typeOfFinding: "",
+        sourceOfFinding: "",
+        customer: "",
+        vendor: "",
+        description: "",
+        containmentAction: "",
+        rootCauses: "",
       });
       setShowModal(true);
     } else {
@@ -410,7 +410,8 @@ const FProfile = () => {
       setFormData({
         issuer: row.issuer,
         process: row.process.id || String(row.process),
-        categoryOfFinding: row.categoryOfFinding.id || String(row.categoryOfFinding),
+        categoryOfFinding:
+          row.categoryOfFinding.id || String(row.categoryOfFinding),
         typeOfFinding: row.typeOfFinding.id || String(row.typeOfFinding),
         sourceOfFinding: row.sourceOfFinding.id || String(row.sourceOfFinding),
         customer: row.customer,
@@ -1229,7 +1230,7 @@ const FProfile = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Category Of Finding
                       </label>
-                               <select
+                      <select
                         value={formData.categoryOfFinding || ""} // Null-safe
                         onChange={(e) => {
                           console.log(
@@ -1251,7 +1252,7 @@ const FProfile = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Type Of Finding
                       </label>
-                                 <select
+                      <select
                         value={formData.typeOfFinding || ""} // Null-safe
                         onChange={(e) => {
                           console.log(
@@ -1274,7 +1275,7 @@ const FProfile = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Source Of Finding
                       </label>
-         <select
+                      <select
                         value={formData.sourceOfFinding || ""} // Null-safe
                         onChange={(e) => {
                           console.log(
@@ -1297,7 +1298,7 @@ const FProfile = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Customer
                       </label>
-                                            <input
+                      <input
                         value={formData.customer}
                         onChange={(e) =>
                           handleFormChange("customer", e.target.value)
@@ -1312,7 +1313,7 @@ const FProfile = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Vendor
                       </label>
-                                            <input
+                      <input
                         value={formData.vendor}
                         onChange={(e) =>
                           handleFormChange("vendor", e.target.value)
@@ -1325,37 +1326,37 @@ const FProfile = () => {
                       Description
                     </label>
                     <input
-                        value={formData.description}
-                        onChange={(e) =>
-                          handleFormChange("description", e.target.value)
-                        }
-                        type="text"
-                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                      />
+                      value={formData.description}
+                      onChange={(e) =>
+                        handleFormChange("description", e.target.value)
+                      }
+                      type="text"
+                      className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
 
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Containment Action
                     </label>
                     <input
-                        value={formData.containmentAction}
-                        onChange={(e) =>
-                          handleFormChange("containmentAction", e.target.value)
-                        }
-                        type="text"
-                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                      />
-                      
-                                     <label className="block text-sm font-medium text-gray-700 mb-2">
+                      value={formData.containmentAction}
+                      onChange={(e) =>
+                        handleFormChange("containmentAction", e.target.value)
+                      }
+                      type="text"
+                      className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
+
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
                       Root Causes
                     </label>
                     <input
-                        value={formData.rootCauses}
-                        onChange={(e) =>
-                          handleFormChange("rootCauses", e.target.value)
-                        }
-                        type="text"
-                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                      />
+                      value={formData.rootCauses}
+                      onChange={(e) =>
+                        handleFormChange("rootCauses", e.target.value)
+                      }
+                      type="text"
+                      className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                    />
                   </div>
                 </div>
               </div>

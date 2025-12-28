@@ -360,16 +360,16 @@ const MocProfile = () => {
     const dropdownData = await getDefaultDropdownList();
     if (activeHeader) {
       setFormData({
-    id: 0,
-    issuer: "",
-    reasonOfChange: "",
-    process: "",
-    action: "",
-    risks: "",
-    initialRiskSeverity: 0,
-    initialRiskLikelihood: 0,
-    residualRiskSeverity: 0,
-    residualRiskLikelihood: 0,
+        id: 0,
+        issuer: "",
+        reasonOfChange: "",
+        process: "",
+        action: "",
+        risks: "",
+        initialRiskSeverity: 0,
+        initialRiskLikelihood: 0,
+        residualRiskSeverity: 0,
+        residualRiskLikelihood: 0,
       });
       setShowModal(true);
     } else {

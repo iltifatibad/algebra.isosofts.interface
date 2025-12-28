@@ -362,18 +362,18 @@ const AoProfile = () => {
     const dropdownData = await getDefaultDropdownList();
     if (activeHeader) {
       setFormData({
-    id: 0,
-    activityDescription: "",
-    auditorInspector: "",
-    auditeeInspectee: "",
-    reviewedPremises: "",
-    reviewedProcess: "",
-    rtic: "",
-    frequency: "",
-    auditDate: "",
-    inspectionFrequency: "",
-    nextAuditDate: "",
-    auditStatus: "",
+        id: 0,
+        activityDescription: "",
+        auditorInspector: "",
+        auditeeInspectee: "",
+        reviewedPremises: "",
+        reviewedProcess: "",
+        rtic: "",
+        frequency: "",
+        auditDate: "",
+        inspectionFrequency: "",
+        nextAuditDate: "",
+        auditStatus: "",
       });
       setShowModal(true);
     } else {
@@ -411,13 +411,18 @@ const AoProfile = () => {
     if (activeHeader) {
       setFormData({
         id: 0,
-        activityDescription: row.activityDescription.id || String(row.activityDescription),
-        auditorInspector: row.auditorInspector.id || String(row.auditorInspector),
-        auditeeInspectee: row.auditeeInspectee.id || String(row.auditeeInspectee),
-        reviewedPremises: row.reviewedPremises.id || String(row.reviewedPremises),
+        activityDescription:
+          row.activityDescription.id || String(row.activityDescription),
+        auditorInspector:
+          row.auditorInspector.id || String(row.auditorInspector),
+        auditeeInspectee:
+          row.auditeeInspectee.id || String(row.auditeeInspectee),
+        reviewedPremises:
+          row.reviewedPremises.id || String(row.reviewedPremises),
         reviewedProcess: row.reviewedProcess.id || String(row.reviewedProcess),
         auditDate: row.auditDate,
-        inspectionFrequency: row.inspectionFrequency.id || String(row.inspectionFrequency),
+        inspectionFrequency:
+          row.inspectionFrequency.id || String(row.inspectionFrequency),
         nextAuditDate: row.nextAuditDate,
         auditStatus: row.auditStatus.id || String(row.auditStatus),
       });
@@ -526,17 +531,17 @@ const AoProfile = () => {
     if (modalMode === "add") {
       if (!showAction) {
         const payload = {
-        activityDescription: formData.activityDescription,
-        auditorInspector: formData.auditorInspector,
-        auditeeInspectee: formData.auditeeInspectee,
-        reviewedPremises: formData.reviewedPremises,
-        reviewedProcess: formData.reviewedProcess,
-        rtic: formData.rtic,
-        frequency: formData.frequency,
-        auditDate: formData.auditDate,
-        inspectionFrequency: formData.inspectionFrequency,
-        nextAuditDate: formData.nextAuditDate,
-        auditStatus: formData.auditStatus,
+          activityDescription: formData.activityDescription,
+          auditorInspector: formData.auditorInspector,
+          auditeeInspectee: formData.auditeeInspectee,
+          reviewedPremises: formData.reviewedPremises,
+          reviewedProcess: formData.reviewedProcess,
+          rtic: formData.rtic,
+          frequency: formData.frequency,
+          auditDate: formData.auditDate,
+          inspectionFrequency: formData.inspectionFrequency,
+          nextAuditDate: formData.nextAuditDate,
+          auditStatus: formData.auditStatus,
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
 
@@ -1205,7 +1210,10 @@ const AoProfile = () => {
                             "Select onChange tetiklendi! Yeni value:",
                             e.target.value,
                           ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                          handleFormChange("activityDescription", e.target.value); // String path + value – obje değil!
+                          handleFormChange(
+                            "activityDescription",
+                            e.target.value,
+                          ); // String path + value – obje değil!
                         }}
                       >
                         <option value="">Seçiniz</option>
@@ -1288,18 +1296,21 @@ const AoProfile = () => {
                       </select>{" "}
                     </div>
 
-                                       <div>
+                    <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Inspection Frequency
                       </label>
-                       <select
+                      <select
                         value={formData.inspectionFrequency || ""} // Null-safe
                         onChange={(e) => {
                           console.log(
                             "Select onChange tetiklendi! Yeni value:",
                             e.target.value,
                           ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                          handleFormChange("inspectionFrequency", e.target.value); // String path + value – obje değil!
+                          handleFormChange(
+                            "inspectionFrequency",
+                            e.target.value,
+                          ); // String path + value – obje değil!
                         }}
                       >
                         <option value="">Seçiniz</option>
@@ -1311,7 +1322,7 @@ const AoProfile = () => {
                       </select>{" "}
                     </div>
 
-                                       <div>
+                    <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Next Audit Date
                       </label>
@@ -1325,7 +1336,7 @@ const AoProfile = () => {
                       />
                     </div>
 
-                                       <div>
+                    <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Audit Status
                       </label>
@@ -1351,7 +1362,7 @@ const AoProfile = () => {
                         type="text"
                         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                       />
-                    </div> 
+                    </div>
                   </div>
                   <div className="space-y-4">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -1367,7 +1378,7 @@ const AoProfile = () => {
                         className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                       />
                     </div>
-                  </div> 
+                  </div>
                 </div>
               </div>
               <div className="p-6 border-t border-blue-100 flex justify-end space-x-4">

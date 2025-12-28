@@ -273,7 +273,7 @@ const VenBody = ({
                       : "bg-green-100 hover:bg-green-200"
                   }`}
                 >
-                                    <td
+                  <td
                     className="border border-gray-200 px-3 py-2 w-16 sticky left-[-1px] top-0 z-10 bg-white"
                     rowSpan={1}
                   >
@@ -315,19 +315,18 @@ const VenBody = ({
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
                   >
-                    
-                      <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                        {row.scope1?.value}
-                      </span>
+                    <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
+                      {row.scope1?.value}
+                    </span>
                   </td>
 
                   <td
                     className="border border-gray-200 px-3 py-2 w-32"
                     rowSpan={1}
                   >
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.scope2?.value}
-                      </span>
+                    <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
+                      {row.scope2?.value}
+                    </span>
                   </td>
 
                   {/* Certificate No */}
@@ -335,9 +334,9 @@ const VenBody = ({
                     className="border border-gray-200 px-3 py-2 w-32"
                     rowSpan={1}
                   >
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.scope3?.value}
-                      </span>
+                    <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
+                      {row.scope3?.value}
+                    </span>
                   </td>
 
                   {/* Inspection Frequency */}
@@ -345,9 +344,9 @@ const VenBody = ({
                     className="border border-gray-200 px-3 py-2 w-32"
                     rowSpan={1}
                   >
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.registrationDate}
-                      </span>
+                    <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
+                      {row.registrationDate}
+                    </span>
                   </td>
 
                   <td
@@ -464,7 +463,7 @@ const VenBody = ({
                       : "bg-green-100 hover:bg-green-200"
                   }`}
                 >
-                                    <td
+                  <td
                     className="border border-gray-200 px-3 py-2 w-16 sticky left-[-1px] top-0 z-10 bg-white"
                     rowSpan={1}
                   >
@@ -506,19 +505,18 @@ const VenBody = ({
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
                   >
-                    
-                      <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                        {row.scope1?.value}
-                      </span>
+                    <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
+                      {row.scope1?.value}
+                    </span>
                   </td>
 
                   <td
                     className="border border-gray-200 px-3 py-2 w-32"
                     rowSpan={1}
                   >
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.scope2?.value}
-                      </span>
+                    <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
+                      {row.scope2?.value}
+                    </span>
                   </td>
 
                   {/* Certificate No */}
@@ -526,9 +524,9 @@ const VenBody = ({
                     className="border border-gray-200 px-3 py-2 w-32"
                     rowSpan={1}
                   >
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.scope3?.value}
-                      </span>
+                    <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
+                      {row.scope3?.value}
+                    </span>
                   </td>
 
                   {/* Inspection Frequency */}
@@ -536,9 +534,9 @@ const VenBody = ({
                     className="border border-gray-200 px-3 py-2 w-32"
                     rowSpan={1}
                   >
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.registrationDate}
-                      </span>
+                    <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
+                      {row.registrationDate}
+                    </span>
                   </td>
 
                   <td
@@ -971,19 +969,18 @@ const VenBody = ({
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
                   >
-                    
-                      <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                        {row.scope1?.value}
-                      </span>
+                    <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
+                      {row.scope1?.value}
+                    </span>
                   </td>
 
                   <td
                     className="border border-gray-200 px-3 py-2 w-32"
                     rowSpan={1}
                   >
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.scope2?.value}
-                      </span>
+                    <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
+                      {row.scope2?.value}
+                    </span>
                   </td>
 
                   {/* Certificate No */}
@@ -991,9 +988,9 @@ const VenBody = ({
                     className="border border-gray-200 px-3 py-2 w-32"
                     rowSpan={1}
                   >
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.scope3?.value}
-                      </span>
+                    <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
+                      {row.scope3?.value}
+                    </span>
                   </td>
 
                   {/* Inspection Frequency */}
@@ -1001,9 +998,9 @@ const VenBody = ({
                     className="border border-gray-200 px-3 py-2 w-32"
                     rowSpan={1}
                   >
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.registrationDate}
-                      </span>
+                    <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
+                      {row.registrationDate}
+                    </span>
                   </td>
 
                   <td

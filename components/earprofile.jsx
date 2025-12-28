@@ -359,15 +359,15 @@ const EarProfile = () => {
     const dropdownData = await getDefaultDropdownList();
     if (activeHeader) {
       setFormData({
-    id: 0,
-    employee: "",
-    position: "",
-    lineManager: "",
-    esd: "",
-    appraisalDate: "",
-    appraisalType: "",
-    tca: "",
-    skillsAppraisal: "",
+        id: 0,
+        employee: "",
+        position: "",
+        lineManager: "",
+        esd: "",
+        appraisalDate: "",
+        appraisalType: "",
+        tca: "",
+        skillsAppraisal: "",
       });
       setShowModal(true);
     } else {
@@ -404,15 +404,15 @@ const EarProfile = () => {
   const openEditModal = async (row) => {
     if (activeHeader) {
       setFormData({
-            id: 0,
-    employee: row.employee,
-    position: row.position,
-    lineManager: row.lineManager,
-    esd: row.esf,
-    appraisalDate: row.appraisalDate,
-    appraisalType: row.appraisalType,
-    tca: row.tca,
-    skillsAppraisal: row.skillsAppraisal,
+        id: 0,
+        employee: row.employee,
+        position: row.position,
+        lineManager: row.lineManager,
+        esd: row.esf,
+        appraisalDate: row.appraisalDate,
+        appraisalType: row.appraisalType,
+        tca: row.tca,
+        skillsAppraisal: row.skillsAppraisal,
       });
     } else {
       setActionData({
@@ -519,14 +519,14 @@ const EarProfile = () => {
     if (modalMode === "add") {
       if (!showAction) {
         const payload = {
-    employee: formData.employee,
-    position: formData.position,
-    lineManager: formData.lineManager,
-    esd: formData.esf,
-    appraisalDate: formData.appraisalDate,
-    appraisalType: formData.appraisalType,
-    tca: formData.tca,
-    skillsAppraisal: formData.skillsAppraisal,
+          employee: formData.employee,
+          position: formData.position,
+          lineManager: formData.lineManager,
+          esd: formData.esf,
+          appraisalDate: formData.appraisalDate,
+          appraisalType: formData.appraisalType,
+          tca: formData.tca,
+          skillsAppraisal: formData.skillsAppraisal,
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
 
@@ -595,14 +595,14 @@ const EarProfile = () => {
       if (!showAction) {
         const payload = {
           id: selectedTable[0].id,
-              employee: formData.employee,
-    position: formData.position,
-    lineManager: formData.lineManager,
-    esd: formData.esf,
-    appraisalDate: formData.appraisalDate,
-    appraisalType: formData.appraisalType,
-    tca: formData.tca,
-    skillsAppraisal: formData.skillsAppraisal,
+          employee: formData.employee,
+          position: formData.position,
+          lineManager: formData.lineManager,
+          esd: formData.esf,
+          appraisalDate: formData.appraisalDate,
+          appraisalType: formData.appraisalType,
+          tca: formData.tca,
+          skillsAppraisal: formData.skillsAppraisal,
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
         const url =
@@ -1182,7 +1182,7 @@ const EarProfile = () => {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-4">
                     <div>
-                                              <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         Employee Name
                       </label>
                       <input
@@ -1277,7 +1277,7 @@ const EarProfile = () => {
                       />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         Skills Appraisal
                       </label>
                       <input

@@ -413,7 +413,7 @@ const DocProfile = () => {
         origin: row.origin.id || String(row.origin),
         number: row.number,
         depntFunctionName:
-        row.depntFunctionName || String(row.depntFunctionName),
+          row.depntFunctionName || String(row.depntFunctionName),
         type: row.type || String(row.type),
         serialNumber: row.serialNumber,
         revNumber: row.revNumber,
@@ -612,7 +612,8 @@ const DocProfile = () => {
           origin: formData.origin,
           number: formData.number,
           type: formData.type.id || String(formData.type),
-          depntFunctionName: formData.depntFunctionName.id || String(formData.depntFunctionName),
+          depntFunctionName:
+            formData.depntFunctionName.id || String(formData.depntFunctionName),
           serialNumber: formData.serialNumber,
           revNumber: formData.revNumber,
           issuer: formData.issuer,
@@ -633,23 +634,23 @@ const DocProfile = () => {
             if (!response.ok) {
               console.error("Kaydetme başarısız:", response.statusText);
             } else {
-              setSelectedTable(prev => [
-            {
-              ...prev[0],
-              ...payload,
+              setSelectedTable((prev) => [
+                {
+                  ...prev[0],
+                  ...payload,
 
-              type: formData.type,
-              depntFunctionName: formData.depntFunctionName,
-            },
-          ]);
+                  type: formData.type,
+                  depntFunctionName: formData.depntFunctionName,
+                },
+              ]);
 
-          setFormData(prev => ({
-            ...prev,
-            ...payload,
+              setFormData((prev) => ({
+                ...prev,
+                ...payload,
 
-            type: formData.type,
-            depntFunctionName: formData.depntFunctionName,
-          }));
+                type: formData.type,
+                depntFunctionName: formData.depntFunctionName,
+              }));
 
               console.log("Kayıt başarıyla kaydedildi. Yeni state:", [payload]);
             }

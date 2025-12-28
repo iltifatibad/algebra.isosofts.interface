@@ -69,14 +69,14 @@ const AoHeaders = ({ activeHeader }) => {
             Next Audit Date
           </th>
 
-         <th
+          <th
             className="min-w-15 border-r border-blue-500 sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Days Left To Next Examination
           </th>
 
-         <th
+          <th
             className="min-w-15 border-r border-blue-500 sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >

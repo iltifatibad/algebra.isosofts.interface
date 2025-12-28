@@ -114,11 +114,10 @@ const FbHeaders = ({ activeHeader }) => {
           </th>
         </tr>
       </thead>
-
     );
   } else {
     return (
-            <thead>
+      <thead>
         {/* ================= 1. SATIR ================= */}
         <tr className="h-[52px]">
           <th

@@ -120,10 +120,10 @@ const FbBody = ({
 
   const getDeletedActionData = async () => {
     setLoading(true); // Loading başla
-    const selectedRowsArray = [...selectedRows];
+    const selectedRowsArray = [...selectedRowsForActions];
     try {
       const firstRowId = selectedRowsArray[0];
-      const url = `http://localhost:8000/api/register/component/fb/all?registerId=${firstRowId}&status=deleted`;
+      const url = `http://localhost:8000/api/register/component/vendorFeedback/all?registerId=${firstRowId}&status=deleted`;
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Failed To Get Datas From Deleted DataBase");
@@ -203,76 +203,49 @@ const FbBody = ({
   }, [showArchived, showDeleted]);
 
   const getAllActions = async (selectedRows) => {
-  setLoading(true);
-  getDeletedActionData();
+    setLoading(true);
+    getDeletedActionData();
+    // Set'i Array'e çevir (bu kritik kısım!)
+    const selectedRowsArray = [...selectedRows];
 
-  const selectedRowsArray = [...selectedRows];
-
-  if (selectedRowsArray.length === 0) {
-    console.error("Seçili satır yok!");
-    setLoading(false);
-    return;
-  }
-
-  const firstRowId = selectedRowsArray[0];
-  const url = `http://localhost:8000/api/register/component/vendorFeedback/all?registerId=${firstRowId}&status=active`;
-
-  try {
-    const response = await fetch(url, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
-
-    if (!response.ok) {
-      throw new Error(
-        `Failed To Get Actions: ${response.status} - ${response.statusText}`
-      );
+    if (selectedRowsArray.length === 0) {
+      console.error("Seçili satır yok!"); // Hata kontrolü
+      setLoading(false);
+      return; // Erken çık
     }
 
-    const data = await response.json();
-    console.log("Fetched actions:", data);
+    const firstRowId = selectedRowsArray[0]; // Artık ID'yi alabilirsin: "I234884J501LA657g6S20N2Nc2V71p"
+    const url = `http://localhost:8000/api/register/component/vendorFeedback/all?registerId=${firstRowId}&status=active`;
 
-    const updatedActions = await Promise.all(
-      data.map(async (item) => {
-        if (item.customerId) {
-          try {
-            const res = await fetch(
-              `http://localhost:8000/api/register/ven/one/${item.customerId}`
-            );
+    console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontrol et
 
-            if (!res.ok) throw new Error("VEN fetch failed");
-
-            const ven = await res.json();
-
-            return {
-              ...item,
-              customerName: ven.Name || ven.name || item.customerId,
-            };
-          } catch (err) {
-            console.error("VEN fetch error:", err);
-            return {
-              ...item,
-              customerName: item.customerId,
-            };
-          }
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        console.log("AAA", selectedRows); // Bu zaten Set'i gösteriyor
+        if (!response.ok) {
+          throw new Error(
+            `Failed To Get Actions: ${response.status} - ${response.statusText}`,
+          );
         }
-
-        return {
-          ...item,
-          customerName: "",
-        };
+        return response.json();
       })
-    );
-
-    setActionData(updatedActions);
-  } catch (err) {
-    console.error("Fetch hatası:", err);
-    setError(err.message);
-  } finally {
-    setLoading(false);
-  }
-};
-
+      .then((data) => {
+        // Başarılı veriyi işle, örneğin setActions(data);
+        console.log("Fetched data:", data); // Debug için ekle
+        setActionData(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Fetch hatası:", err); // Hata detayını logla
+        setError(err.message);
+        setLoading(false);
+      });
+  };
 
   useEffect(() => {
     if (!activeHeader && selectedRows.size > 0) {
@@ -618,7 +591,7 @@ const FbBody = ({
             </td>
           </tr>
         ) : (
-          tableData.map((row, index) => {
+          actionData.map((row, index) => {
             const numActions = row.actions ? row.actions.length : 1;
             const actions = Array.isArray(row.actions)
               ? row.actions
@@ -644,7 +617,7 @@ const FbBody = ({
                       </span>
                       <input
                         type="checkbox"
-                        checked={selectedRows.has(row.id)}
+                        checked={selectedRowsForActions.has(row.id)}
                         onChange={() => onCheckboxChangeForActions(row.id, tableData)}
                         className="h-4 w-4 text-blue-600 rounded"
                       />
@@ -793,7 +766,7 @@ const FbBody = ({
                       <input
                         type="checkbox"
                         checked={selectedRows.has(row.id)}
-                        onChange={() => onCheckboxChangeForActions(row.id, tableData)}
+                        onChange={() => onCheckboxChange(row.id, tableData)}
                         className="h-4 w-4 text-blue-600 rounded"
                       />
                     </div>
@@ -809,6 +782,7 @@ const FbBody = ({
                       </span>
                     )}
                   </td>
+
 
                   {/* Scope */}
                   <td
