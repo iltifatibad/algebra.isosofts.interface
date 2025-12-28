@@ -129,31 +129,10 @@ const FbHeaders = ({ activeHeader }) => {
           </th>
 
           <th
-            className="min-w-[120px] border-r border-blue-500 sticky top-0 z-20 bg-blue-100"
-            rowSpan={3}
-          >
-            Job Number
-          </th>
-
-          <th
-            className="min-w-[150px] border-r border-blue-500 sticky top-0 z-20 bg-blue-100"
-            rowSpan={3}
-          >
-            Job Start Date
-          </th>
-
-          <th
-            className="min-w-[170px] border-r border-blue-500 sticky top-0 z-20 bg-blue-100"
-            rowSpan={3}
-          >
-            Job Completion Date
-          </th>
-
-          <th
             className="border-r border-blue-500 sticky top-0 z-20 bg-blue-100 text-center"
             colSpan={10}
           >
-            Feedback Of Customer
+            Feedback For Vendor
           </th>
         </tr>
 
@@ -170,7 +149,7 @@ const FbHeaders = ({ activeHeader }) => {
             className="min-w-[150px] border-r border-blue-500 sticky top-[52px] z-20 bg-blue-200"
             rowSpan={2}
           >
-            Name Of Customer
+            Name Of Vendor
           </th>
 
           <th

@@ -159,10 +159,35 @@ const FbBody = ({
         }
         return response.json();
       })
-      .then((fetchedData) => {
-        setTableData(fetchedData);
-        setLoading(false);
-      })
+        .then(async (fetchedData) => {
+  console.log("FETCHEDDDDD", fetchedData);
+
+  const updatedData = await Promise.all(
+    fetchedData.map(async (item) => {
+      if (item.customerId) { // customerId varsa fetch at
+        try {
+          const res = await fetch(`http://localhost:8000/api/register/cus/one/${item.customerId}`);
+          if (!res.ok) throw new Error("Customer fetch failed");
+          const customer = await res.json();
+          return {
+            ...item,
+            customerName: customer.Name || customer.name || item.customerId, // isim yoksa id kalır
+          };
+        } catch (err) {
+          console.error(err);
+          return { ...item, customerName: item.customerId }; // hata olursa id olarak bırak
+        }
+      }
+      return { ...item, customerName: "" }; // customerId yoksa boş string
+    })
+  );
+
+  setTableData(updatedData);
+  setLoading(false);
+})
+
+
+
       .catch((err) => {
         setError(err.message);
         setLoading(false);
@@ -189,7 +214,7 @@ const FbBody = ({
       return; // Erken çık
     }
 
-    const firstRowId = selectedRowsArray[0]; // Artık ID'yi alabilirsin: "I234884J501LA657g6S20N2Nc2V71p"
+    const firstRowId = selectedRowsArray[0]; 
     const url = `http://localhost:8000/api/register/component/action/all?registerId=${firstRowId}&status=active`;
 
     console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontrol et
@@ -201,7 +226,7 @@ const FbBody = ({
       },
     })
       .then((response) => {
-        console.log("AAA", selectedRows); // Bu zaten Set'i gösteriyor
+        console.log("AAA", selectedRows);
         if (!response.ok) {
           throw new Error(
             `Failed To Get Actions: ${response.status} - ${response.statusText}`,
@@ -610,40 +635,6 @@ const FbBody = ({
                     )}
                   </td>
 
-                  {/* Job Number */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                      {row.origin?.value}
-                    </span>
-                  </td>
-
-                  {/* Job Start Date */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.number && (
-                      <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                        {row.number}
-                      </span>
-                    )}
-                  </td>
-                    
-                  {/* Job Completion Date */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.revNumber && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.revNumber}
-                      </span>
-                    )}
-                  </td>
-
                   {/* Scope */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-32"
@@ -788,40 +779,6 @@ const FbBody = ({
                     {row.name && (
                       <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 border border-rose-200 rounded-full shadow-sm">
                         {row.name}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Job Number */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                      {row.origin?.value}
-                    </span>
-                  </td>
-
-                  {/* Job Start Date */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.number && (
-                      <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                        {row.number}
-                      </span>
-                    )}
-                  </td>
-                    
-                  {/* Job Completion Date */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.revNumber && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.revNumber}
                       </span>
                     )}
                   </td>
@@ -990,7 +947,7 @@ const FbBody = ({
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
                   >
-                    {row.number && (
+                    {row.jobStartDate && (
                       <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
                         {row.jobStartDate}
                       </span>
@@ -1002,7 +959,7 @@ const FbBody = ({
                     className="border border-gray-200 px-3 py-2 w-32"
                     rowSpan={1}
                   >
-                    {row.revNumber && (
+                    {row.jobCompletionDate && (
                       <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
                         {row.jobCompletionDate}
                       </span>
@@ -1026,9 +983,9 @@ const FbBody = ({
                     className="border border-gray-200 px-3 py-2 w-32"
                     rowSpan={1}
                   >
-                    {row.approver && (
+                    {row.customerName && (
                       <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.approver}
+                        {row.customerName}
                       </span>
                     )}
                   </td>
@@ -1088,7 +1045,13 @@ const FbBody = ({
                   >
                     {row.environment}
                   </td>
-
+                                      {/* Envinroment */}
+                  <td
+                    className="border border-gray-200 px-3 py-2 w-20"
+                    rowSpan={1}
+                  >
+                    {row.environment}
+                  </td>
 
                 </tr>
               </React.Fragment>

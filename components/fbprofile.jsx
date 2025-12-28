@@ -284,6 +284,7 @@ const FbProfile = () => {
   const [deletingId, setDeletingId] = useState(null);
   const [selectedRows, setSelectedRows] = useState(new Set()); // Checkbox state'i ekle
   const [dropdownData, setDropdownData] = useState({});
+  const [customers, setCustomers] = useState({});
   const [selectedRowsForActions, setSelectedRowsForActions] = useState(
     new Set(),
   );
@@ -305,6 +306,21 @@ const FbProfile = () => {
       }
       const result = await response.json();
       setDropdownData(result);
+      console.log(result);
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  async function getDefaultCustomers() {
+  const url = "http://localhost:8000/api/register/cus/all?status=active";
+  try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+      const result = await response.json();
+      setCustomers(result);
       console.log(result);
     } catch (error) {
       console.error(error.message);
@@ -359,6 +375,7 @@ const FbProfile = () => {
     setModalMode("add");
     setEditingRow(null);
     const dropdownData = await getDefaultDropdownList();
+    const customerData = await getDefaultCustomers();
     if (activeHeader) {
       setFormData({
         id: 0,
@@ -414,10 +431,10 @@ const FbProfile = () => {
         jobStartDate: row.jobStartDate,
         jobCompletionDate: row.jobCompletionDate,
         scope: row.scope.id || String(row.scope),
-        customerId: row.customerId,
+        customerId: row.scope.customerId|| String(row.customerId),
         typeOfFinding: row.typeOfFinding.id || String(row.typeOfFinding),
         qgs: row.qgs,
-        communication: row.comment,
+        communication: row.communication,
         otd: row.otd,
         documentation: row.documentation,
         hs: row.hs,
@@ -462,6 +479,7 @@ const FbProfile = () => {
       });
     }
     const dropdownData = await getDefaultDropdownList();
+    const customerData = await getDefaultCustomers();
     setModalMode("edit");
     setEditingRow(row);
 
@@ -535,7 +553,7 @@ const FbProfile = () => {
         customerId: formData.customerId,
         typeOfFinding: formData.typeOfFinding,
         qgs: parseInt(formData.qgs),
-        communication: parseInt(formData.comment),
+        communication: parseInt(formData.communication),
         otd: parseInt(formData.otd),
         documentation: parseInt(formData.documentation),
         hs: parseInt(formData.hs),
@@ -614,12 +632,12 @@ const FbProfile = () => {
         scope: formData.scope,
         customerId: formData.customerId,
         typeOfFinding: formData.typeOfFinding,
-        qgs: formData.qgs,
-        otd: formData.otd,
-        documentation: formData.documentation,
-        communication: formData.comment,
-        hs: formData.hs,
-        environment: formData.environment,
+        qgs: parseInt(formData.qgs),
+        otd: parseInt(formData.otd),
+        documentation: parseInt(formData.documentation),
+        communication: parseInt(formData.communication),
+        hs: parseInt(formData.hs),
+        environment: parseInt(formData.environment),
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
         const url =
@@ -1264,16 +1282,18 @@ const FbProfile = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Name Of Customer
                       </label>
-                      <input
-                        value={formData.customerId}
-                        onChange={(e) =>
-                          handleFormChange("customerId", e.target.value)
-                        }
-                        type="text"
-                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                      />
+                        <select
+                          value={formData.customerId}
+                          onChange={(e) => handleFormChange("customerId", e.target.value)}
+                        >
+                          <option value="">Seçiniz</option>
+                          {customers?.map((item) => (
+                            <option key={item.id} value={item.id}>
+                              {item.name}
+                            </option>
+                          ))}
+                        </select>
                     </div>
-
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Type Of Finding
