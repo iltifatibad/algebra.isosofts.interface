@@ -335,27 +335,33 @@ const EiBody = ({
                     )}
                   </td>
 <td
-  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-28"
   rowSpan={1}
 >
+<span className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm">
   {row.icd}
+</span>
 </td>
 <td
-  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-20"
   rowSpan={1}
 >
+<span className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm">
   {row.nvcd}
+</span>
 </td>
 <td
-  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-20"
   rowSpan={1}
 >
+<span className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm">
   {(() => {
     if (!row.icd || !row.nvcd) return "";
     const diffInMs = new Date(row.nvcd) - new Date(row.icd);
     const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
     return `${diffInDays} Days`;
   })()}
+</span>
 </td>
 
 {/* Safe To Use */}
@@ -492,30 +498,36 @@ const EiBody = ({
                       </span>
                     )}
                   </td>
-
 <td
-  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-28"
   rowSpan={1}
 >
+<span className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm">
   {row.icd}
+</span>
 </td>
 <td
-  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-20"
   rowSpan={1}
 >
+<span className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm">
   {row.nvcd}
+</span>
 </td>
 <td
-  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-20"
   rowSpan={1}
 >
+<span className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm">
   {(() => {
     if (!row.icd || !row.nvcd) return "";
     const diffInMs = new Date(row.nvcd) - new Date(row.icd);
     const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
     return `${diffInDays} Days`;
   })()}
+</span>
 </td>
+
 {/* Safe To Use */}
 <td
   className="border border-gray-200 px-3 py-2 w-24"
@@ -880,7 +892,6 @@ const EiBody = ({
                     </div>
                   </td>
 
-                  {/* Equipment Name */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
@@ -927,29 +938,34 @@ const EiBody = ({
                       </span>
                     )}
                   </td>
-
 <td
-  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-28"
   rowSpan={1}
 >
+<span className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm">
   {row.icd}
+</span>
 </td>
 <td
-  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-20"
   rowSpan={1}
 >
+<span className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm">
   {row.nvcd}
+</span>
 </td>
 <td
-  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-20"
   rowSpan={1}
 >
+<span className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm">
   {(() => {
     if (!row.icd || !row.nvcd) return "";
     const diffInMs = new Date(row.nvcd) - new Date(row.icd);
     const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
     return `${diffInDays} Days`;
   })()}
+</span>
 </td>
 
 {/* Safe To Use */}

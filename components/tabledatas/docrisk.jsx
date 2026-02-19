@@ -355,20 +355,20 @@ const DocBody = ({
                   </td>
 
 <td
-  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-28"
   rowSpan={1}
 >
   {row.issueDate}
 </td>
 <td
-  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-20"
   rowSpan={1}
 >
   {row.nextReviewDate}
 </td>
 {/* Days Left To Next Review */}
 <td
-  className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-20"
   rowSpan={1}
 >
   {(() => {
@@ -379,7 +379,7 @@ const DocBody = ({
   })()}
 </td>
 <td
-  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-20"
   rowSpan={1}
 >
   {(() => {
@@ -521,20 +521,20 @@ const DocBody = ({
                   </td>
 
 <td
-  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-28"
   rowSpan={1}
 >
   {row.issueDate}
 </td>
 <td
-  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-20"
   rowSpan={1}
 >
   {row.nextReviewDate}
 </td>
 {/* Days Left To Next Review */}
 <td
-  className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-20"
   rowSpan={1}
 >
   {(() => {
@@ -545,7 +545,7 @@ const DocBody = ({
   })()}
 </td>
 <td
-  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-20"
   rowSpan={1}
 >
   {(() => {
@@ -962,22 +962,21 @@ const DocBody = ({
                       </span>
                     )}
                   </td>
-
 <td
-  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-28"
   rowSpan={1}
 >
   {row.issueDate}
 </td>
 <td
-  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-20"
   rowSpan={1}
 >
   {row.nextReviewDate}
 </td>
 {/* Days Left To Next Review */}
 <td
-  className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-20"
   rowSpan={1}
 >
   {(() => {
@@ -988,7 +987,7 @@ const DocBody = ({
   })()}
 </td>
 <td
-  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
+  className="border border-gray-200 px-3 py-2 w-20"
   rowSpan={1}
 >
   {(() => {
