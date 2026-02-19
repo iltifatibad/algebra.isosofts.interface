@@ -314,7 +314,7 @@ const EnvBody = ({
                   >
                     <SoftBadge
                       value={row.aspect?.value}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-yellow-100 text-yellow-700 border border-yellow-200"
                     />
                   </td>
 
@@ -325,7 +325,7 @@ const EnvBody = ({
                   >
                     <SoftBadge
                       value={row.impact}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-pink-100 text-pink-700 border border-pink-200"
                     />
                   </td>
 
@@ -336,7 +336,7 @@ const EnvBody = ({
                   >
                     <SoftBadge
                       value={row.affectedReceptors?.value}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-orange-100 text-orange-700 border border-orange-200"
                     />
                   </td>
 
@@ -347,14 +347,17 @@ const EnvBody = ({
                   >
                     <SoftBadge
                       value={row.existingControls}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-cyan-100 text-cyan-700 border border-cyan-200"
                     />
                   </td>
                 <td
   className="border border-gray-200 px-2 py-1 w-32"
   rowSpan={1}
 >
-  {row.idosProbability}
+  <SoftBadge
+  value = {row.idosProbability}
+  color = "bg-emerald-100 text-emerald-700 border border-emerald-200"
+  />
 </td>
 <td
   className="border border-gray-200 px-2 py-1 w-20"
@@ -407,7 +410,10 @@ const EnvBody = ({
   className="border border-gray-200 px-2 py-1 w-32"
   rowSpan={1}
 >
-  {row.rdosProbability}
+  <SoftBadge
+  value = {row.rdosProbability}
+  color = "bg-emerald-100 text-emerald-700 border border-emerald-200"
+  />
 </td>
 {/* Severity */}
 <td
@@ -521,7 +527,6 @@ const EnvBody = ({
                       />
                     </div>
                   </td>
-
                   {/* Process */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-20"
@@ -540,7 +545,7 @@ const EnvBody = ({
                   >
                     <SoftBadge
                       value={row.aspect?.value}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-yellow-100 text-yellow-700 border border-yellow-200"
                     />
                   </td>
 
@@ -551,7 +556,7 @@ const EnvBody = ({
                   >
                     <SoftBadge
                       value={row.impact}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-pink-100 text-pink-700 border border-pink-200"
                     />
                   </td>
 
@@ -562,7 +567,7 @@ const EnvBody = ({
                   >
                     <SoftBadge
                       value={row.affectedReceptors?.value}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-orange-100 text-orange-700 border border-orange-200"
                     />
                   </td>
 
@@ -573,15 +578,17 @@ const EnvBody = ({
                   >
                     <SoftBadge
                       value={row.existingControls}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-cyan-100 text-cyan-700 border border-cyan-200"
                     />
                   </td>
-
-                                  <td
+                <td
   className="border border-gray-200 px-2 py-1 w-32"
   rowSpan={1}
 >
-  {row.idosProbability}
+  <SoftBadge
+  value = {row.idosProbability}
+  color = "bg-emerald-100 text-emerald-700 border border-emerald-200"
+  />
 </td>
 <td
   className="border border-gray-200 px-2 py-1 w-20"
@@ -634,7 +641,10 @@ const EnvBody = ({
   className="border border-gray-200 px-2 py-1 w-32"
   rowSpan={1}
 >
-  {row.rdosProbability}
+  <SoftBadge
+  value = {row.rdosProbability}
+  color = "bg-emerald-100 text-emerald-700 border border-emerald-200"
+  />
 </td>
 {/* Severity */}
 <td
@@ -1042,7 +1052,7 @@ const EnvBody = ({
                   >
                     <SoftBadge
                       value={row.aspect?.value}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-yellow-100 text-yellow-700 border border-yellow-200"
                     />
                   </td>
 
@@ -1053,7 +1063,7 @@ const EnvBody = ({
                   >
                     <SoftBadge
                       value={row.impact}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-pink-100 text-pink-700 border border-pink-200"
                     />
                   </td>
 
@@ -1064,7 +1074,7 @@ const EnvBody = ({
                   >
                     <SoftBadge
                       value={row.affectedReceptors?.value}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-orange-100 text-orange-700 border border-orange-200"
                     />
                   </td>
 
@@ -1075,16 +1085,17 @@ const EnvBody = ({
                   >
                     <SoftBadge
                       value={row.existingControls}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-cyan-100 text-cyan-700 border border-cyan-200"
                     />
                   </td>
-
-                  {/* Probability */}
                 <td
   className="border border-gray-200 px-2 py-1 w-32"
   rowSpan={1}
 >
-  {row.idosProbability}
+  <SoftBadge
+  value = {row.idosProbability}
+  color = "bg-emerald-100 text-emerald-700 border border-emerald-200"
+  />
 </td>
 <td
   className="border border-gray-200 px-2 py-1 w-20"
@@ -1137,7 +1148,10 @@ const EnvBody = ({
   className="border border-gray-200 px-2 py-1 w-32"
   rowSpan={1}
 >
-  {row.rdosProbability}
+  <SoftBadge
+  value = {row.rdosProbability}
+  color = "bg-emerald-100 text-emerald-700 border border-emerald-200"
+  />
 </td>
 {/* Severity */}
 <td
