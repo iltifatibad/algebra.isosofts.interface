@@ -401,7 +401,7 @@ const MyTableBody = ({
                     className="border border-gray-200 px-2 py-1 w-48"
                     rowSpan={1}
                   >
-                                        <SoftBadge
+                    <SoftBadge
                       value={row.ermeoa?.value || `${row.ermeoa}`}
                       color="bg-red-100 text-red-700 border border-red-200"
                     />
@@ -574,19 +574,32 @@ const MyTableBody = ({
                     className="border border-gray-200 px-2 py-1 w-32"
                     rowSpan={1}
                   >
-                    {row.riskOpportunity}
+                    <SoftBadge
+                      value={row.riskOpportunity}
+                      color="bg-red-100 text-red-700 border border-red-200"
+                    />
                   </td>
+
+
                   <td
                     className="border border-gray-200 px-2 py-1 w-28"
                     rowSpan={1}
                   >
-                    {row.objective}
+                    <SoftBadge
+                      value={row.objective}
+                      color="bg-blue-100 text-blue-700 border border-blue-200"
+                    />
                   </td>
+
+
                   <td
                     className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
-                    {row.kpi}
+                                        <SoftBadge
+                      value={row.kpi}
+                      color="bg-green-100 text-green-700 border border-green-200"
+                    />
                   </td>
 
                   {/* Process */}
@@ -605,11 +618,14 @@ const MyTableBody = ({
                     className="border border-gray-200 px-2 py-1 w-48"
                     rowSpan={1}
                   >
-                    {row.ermeoa?.value || `${row.ermeoa}`}
+                    <SoftBadge
+                      value={row.ermeoa?.value || `${row.ermeoa}`}
+                      color="bg-red-100 text-red-700 border border-red-200"
+                    />
+                    
                   </td>
 
                   {/* Initial Risk */}
-                                    {/* Initial Risk */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
@@ -1026,91 +1042,91 @@ const MyTableBody = ({
 
                   {/* SWOT */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-20"
+                    className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
-                    {row.swot?.value && (
-                      <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 border border-rose-200 rounded-full shadow-sm">
-                        {row.swot.value}
-                      </span>
-                    )}
+                    <SoftBadge
+                      value={row.swot?.value}
+                      color="bg-rose-100 text-rose-700 border border-rose-200"
+                    />
                   </td>
 
                   {/* PESTLE */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-20"
+                    className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
-                    {row.pestle?.value && (
-                      <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                        {row.pestle.value}
-                      </span>
-                    )}
+                    <SoftBadge
+                      value={row.pestle?.value}
+                      color="bg-blue-100 text-blue-700 border border-blue-200"
+                    />
                   </td>
 
                   {/* Interested Party */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-32"
+                    className="border border-gray-200 px-2 py-1 w-32"
                     rowSpan={1}
                   >
-                    {row.interestedParty?.value && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.interestedParty.value}
-                      </span>
-                    )}
+                    <SoftBadge
+                      value={row.interestedParty?.value}
+                      color="bg-green-100 text-green-700 border border-green-200"
+                    />
                   </td>
 
                   {/* Text Fields */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-32"
+                    className="border border-gray-200 px-2 py-1 w-32"
                     rowSpan={1}
                   >
                     <SoftBadge
                       value={row.riskOpportunity}
-                      color="bg-emerald-100 text-emerald-700 border border-emerald-200"
+                      color="bg-red-100 text-red-700 border border-red-200"
                     />
                   </td>
 
+
                   <td
-                    className="border border-gray-200 px-3 py-2 w-28"
+                    className="border border-gray-200 px-2 py-1 w-28"
                     rowSpan={1}
                   >
-                    
-                                        <SoftBadge
+                    <SoftBadge
                       value={row.objective}
-                      color="bg-emerald-100 text-emerald-700 border border-emerald-200"
+                      color="bg-blue-100 text-blue-700 border border-blue-200"
                     />
                   </td>
 
+
                   <td
-                    className="border border-gray-200 px-3 py-2 w-20"
+                    className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
                                         <SoftBadge
                       value={row.kpi}
-                      color="bg-emerald-100 text-emerald-700 border border-emerald-200"
+                      color="bg-green-100 text-green-700 border border-green-200"
                     />
-                    
                   </td>
 
                   {/* Process */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-24"
+                    className="border border-gray-200 px-2 py-1 w-24"
                     rowSpan={1}
                   >
-                    {row.process?.value && (
-                      <span className="inline-block px-3 py-1 bg-cyan-100 text-cyan-700 border border-cyan-200 rounded-full shadow-sm">
-                        {row.process.value}
-                      </span>
-                    )}
+                    <SoftBadge
+                      value={row.process?.value}
+                      color="bg-cyan-100 text-cyan-700 border border-cyan-200"
+                    />
                   </td>
 
                   {/* Ermeoa */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-48"
+                    className="border border-gray-200 px-2 py-1 w-48"
                     rowSpan={1}
                   >
-                    {row.ermeoa?.value || `${row.ermeoa}`}
+                    <SoftBadge
+                      value={row.ermeoa?.value || `${row.ermeoa}`}
+                      color="bg-red-100 text-red-700 border border-red-200"
+                    />
+                    
                   </td>
 
                   {/* Initial Risk */}
