@@ -287,106 +287,73 @@ const DocBody = ({
                       />
                     </div>
                   </td>
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.name && (
-                      <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 border border-rose-200 rounded-full shadow-sm">
-                        {row.name}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Serial Name */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                      {row.origin?.value}
-                    </span>
-                  </td>
-
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.number && (
-                      <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                        {row.number}
-                      </span>
-                    )}
-                  </td>
-
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.revNumber && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.revNumber}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Certificate No */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.issuer && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.issuer}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Inspection Frequency */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.approver && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.approver}
-                      </span>
-                    )}
-                  </td>
-
-<td
-  className="border border-gray-200 px-3 py-2 w-28"
-  rowSpan={1}
->
-  {row.issueDate}
+                 {/* Name */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.name} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
-<td
-  className="border border-gray-200 px-3 py-2 w-20"
-  rowSpan={1}
->
-  {row.nextReviewDate}
+
+{/* Origin */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.origin?.value} color="bg-blue-100 text-blue-700 border border-blue-200" />
 </td>
-{/* Days Left To Next Review */}
-<td
-  className="border border-gray-200 px-3 py-2 w-20"
-  rowSpan={1}
->
+
+{/* Number */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.number} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
+
+{/* Rev Number */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.revNumber} color="bg-amber-100 text-amber-700 border border-amber-200" />
+</td>
+
+{/* Issuer */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.issuer} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
+{/* Approver */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.approver} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
+
+{/* Issue Date */}
+<td className="border border-gray-200 px-3 py-2 w-28" rowSpan={1}>
+  <SoftBadge value={row.issueDate} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+</td>
+
+{/* Next Review Date */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.nextReviewDate} color="bg-sky-100 text-sky-700 border border-sky-200" />
+</td>
+
+{/* Days Difference */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
     if (!row.issueDate || !row.nextReviewDate) return "";
-    const diffInMs = new Date(row.nextReviewDate) - new Date(row.issueDate);
-    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
-    return `${diffInDays} Days`;
+    const diffInDays = Math.ceil((new Date(row.nextReviewDate) - new Date(row.issueDate)) / (1000 * 60 * 60 * 24));
+    return (
+      <SoftBadge value={`${diffInDays} Days`} color="bg-orange-100 text-orange-700 border border-orange-200" />
+    );
   })()}
 </td>
-<td
-  className="border border-gray-200 px-3 py-2 w-20"
-  rowSpan={1}
->
+
+{/* Valid Status */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
     if (!row.issueDate || !row.nextReviewDate) return "";
-    const diffInMs = new Date(row.nextReviewDate) - new Date(row.issueDate);
-    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
-    return diffInDays > 0 ? "Yes" : "No";
+    const diffInDays = Math.ceil((new Date(row.nextReviewDate) - new Date(row.issueDate)) / (1000 * 60 * 60 * 24));
+    const isValid = diffInDays > 0;
+    return (
+      <SoftBadge
+        value={isValid ? "Yes" : "No"}
+        color={
+          isValid
+            ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
+            : "bg-rose-100 text-rose-700 border border-rose-200"
+        }
+      />
+    );
   })()}
 </td>
                 </tr>
@@ -453,106 +420,73 @@ const DocBody = ({
                       />
                     </div>
                   </td>
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.name && (
-                      <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 border border-rose-200 rounded-full shadow-sm">
-                        {row.name}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Serial Name */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                      {row.origin?.value}
-                    </span>
-                  </td>
-
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.number && (
-                      <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                        {row.number}
-                      </span>
-                    )}
-                  </td>
-
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.revNumber && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.revNumber}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Certificate No */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.issuer && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.issuer}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Inspection Frequency */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.approver && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.approver}
-                      </span>
-                    )}
-                  </td>
-
-<td
-  className="border border-gray-200 px-3 py-2 w-28"
-  rowSpan={1}
->
-  {row.issueDate}
+               {/* Name */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.name} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
-<td
-  className="border border-gray-200 px-3 py-2 w-20"
-  rowSpan={1}
->
-  {row.nextReviewDate}
+
+{/* Origin */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.origin?.value} color="bg-blue-100 text-blue-700 border border-blue-200" />
 </td>
-{/* Days Left To Next Review */}
-<td
-  className="border border-gray-200 px-3 py-2 w-20"
-  rowSpan={1}
->
+
+{/* Number */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.number} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
+
+{/* Rev Number */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.revNumber} color="bg-amber-100 text-amber-700 border border-amber-200" />
+</td>
+
+{/* Issuer */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.issuer} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
+{/* Approver */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.approver} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
+
+{/* Issue Date */}
+<td className="border border-gray-200 px-3 py-2 w-28" rowSpan={1}>
+  <SoftBadge value={row.issueDate} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+</td>
+
+{/* Next Review Date */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.nextReviewDate} color="bg-sky-100 text-sky-700 border border-sky-200" />
+</td>
+
+{/* Days Difference */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
     if (!row.issueDate || !row.nextReviewDate) return "";
-    const diffInMs = new Date(row.nextReviewDate) - new Date(row.issueDate);
-    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
-    return `${diffInDays} Days`;
+    const diffInDays = Math.ceil((new Date(row.nextReviewDate) - new Date(row.issueDate)) / (1000 * 60 * 60 * 24));
+    return (
+      <SoftBadge value={`${diffInDays} Days`} color="bg-orange-100 text-orange-700 border border-orange-200" />
+    );
   })()}
 </td>
-<td
-  className="border border-gray-200 px-3 py-2 w-20"
-  rowSpan={1}
->
+
+{/* Valid Status */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
     if (!row.issueDate || !row.nextReviewDate) return "";
-    const diffInMs = new Date(row.nextReviewDate) - new Date(row.issueDate);
-    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
-    return diffInDays > 0 ? "Yes" : "No";
+    const diffInDays = Math.ceil((new Date(row.nextReviewDate) - new Date(row.issueDate)) / (1000 * 60 * 60 * 24));
+    const isValid = diffInDays > 0;
+    return (
+      <SoftBadge
+        value={isValid ? "Yes" : "No"}
+        color={
+          isValid
+            ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
+            : "bg-rose-100 text-rose-700 border border-rose-200"
+        }
+      />
+    );
   })()}
 </td>
                 </tr>
@@ -896,105 +830,73 @@ const DocBody = ({
                     </div>
                   </td>
 
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.name && (
-                      <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 border border-rose-200 rounded-full shadow-sm">
-                        {row.name}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Serial Name */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                      {row.origin?.value}
-                    </span>
-                  </td>
-
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.number && (
-                      <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                        {row.number}
-                      </span>
-                    )}
-                  </td>
-
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.revNumber && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.revNumber}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Certificate No */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.issuer && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.issuer}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Inspection Frequency */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.approver && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.approver}
-                      </span>
-                    )}
-                  </td>
-<td
-  className="border border-gray-200 px-3 py-2 w-28"
-  rowSpan={1}
->
-  {row.issueDate}
+                 {/* Name */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.name} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
-<td
-  className="border border-gray-200 px-3 py-2 w-20"
-  rowSpan={1}
->
-  {row.nextReviewDate}
+
+{/* Origin */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.origin?.value} color="bg-blue-100 text-blue-700 border border-blue-200" />
 </td>
-{/* Days Left To Next Review */}
-<td
-  className="border border-gray-200 px-3 py-2 w-20"
-  rowSpan={1}
->
+
+{/* Number */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.number} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
+
+{/* Rev Number */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.revNumber} color="bg-amber-100 text-amber-700 border border-amber-200" />
+</td>
+
+{/* Issuer */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.issuer} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
+{/* Approver */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.approver} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
+
+{/* Issue Date */}
+<td className="border border-gray-200 px-3 py-2 w-28" rowSpan={1}>
+  <SoftBadge value={row.issueDate} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+</td>
+
+{/* Next Review Date */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.nextReviewDate} color="bg-sky-100 text-sky-700 border border-sky-200" />
+</td>
+
+{/* Days Difference */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
     if (!row.issueDate || !row.nextReviewDate) return "";
-    const diffInMs = new Date(row.nextReviewDate) - new Date(row.issueDate);
-    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
-    return `${diffInDays} Days`;
+    const diffInDays = Math.ceil((new Date(row.nextReviewDate) - new Date(row.issueDate)) / (1000 * 60 * 60 * 24));
+    return (
+      <SoftBadge value={`${diffInDays} Days`} color="bg-orange-100 text-orange-700 border border-orange-200" />
+    );
   })()}
 </td>
-<td
-  className="border border-gray-200 px-3 py-2 w-20"
-  rowSpan={1}
->
+
+{/* Valid Status */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
     if (!row.issueDate || !row.nextReviewDate) return "";
-    const diffInMs = new Date(row.nextReviewDate) - new Date(row.issueDate);
-    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
-    return diffInDays > 0 ? "Yes" : "No";
+    const diffInDays = Math.ceil((new Date(row.nextReviewDate) - new Date(row.issueDate)) / (1000 * 60 * 60 * 24));
+    const isValid = diffInDays > 0;
+    return (
+      <SoftBadge
+        value={isValid ? "Yes" : "No"}
+        color={
+          isValid
+            ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
+            : "bg-rose-100 text-rose-700 border border-rose-200"
+        }
+      />
+    );
   })()}
 </td>
                 </tr>
