@@ -335,19 +335,19 @@ const EiBody = ({
                     )}
                   </td>
 <td
-  className="border border-gray-200 px-3 py-2 w-28"
+  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
   rowSpan={1}
 >
   {row.icd}
 </td>
 <td
-  className="border border-gray-200 px-3 py-2 w-20"
+  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
   rowSpan={1}
 >
   {row.nvcd}
 </td>
 <td
-  className="border border-gray-200 px-3 py-2 w-20"
+  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
   rowSpan={1}
 >
   {(() => {
@@ -494,19 +494,19 @@ const EiBody = ({
                   </td>
 
 <td
-  className="border border-gray-200 px-3 py-2 w-28"
+  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
   rowSpan={1}
 >
   {row.icd}
 </td>
 <td
-  className="border border-gray-200 px-3 py-2 w-20"
+  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
   rowSpan={1}
 >
   {row.nvcd}
 </td>
 <td
-  className="border border-gray-200 px-3 py-2 w-20"
+  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
   rowSpan={1}
 >
   {(() => {
@@ -929,19 +929,19 @@ const EiBody = ({
                   </td>
 
 <td
-  className="border border-gray-200 px-3 py-2 w-28"
+  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
   rowSpan={1}
 >
   {row.icd}
 </td>
 <td
-  className="border border-gray-200 px-3 py-2 w-20"
+  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
   rowSpan={1}
 >
   {row.nvcd}
 </td>
 <td
-  className="border border-gray-200 px-3 py-2 w-20"
+  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
   rowSpan={1}
 >
   {(() => {
