@@ -355,7 +355,7 @@ const LegBody = ({
                   >
                     <SoftBadge
                       value={row.section}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-yellow-100 text-yellow-700 border border-yellow-200"
                     />
                   </td>
 
@@ -366,7 +366,7 @@ const LegBody = ({
                   >
                     <SoftBadge
                       value={row.requirement}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-cyan-100 text-cyan-700 border border-cyan-200"
                     />
                   </td>
 
@@ -377,7 +377,7 @@ const LegBody = ({
                   >
                     <SoftBadge
                       value={row.riskOfViolation}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-blue-100 text-blue-700 border border-blue-200"
                     />
                   </td>
 
@@ -386,7 +386,10 @@ const LegBody = ({
                     className="border border-gray-200 px-2 py-1 w-32"
                     rowSpan={1}
                   >
-                    {row.affectedPositions?.value}
+                    <SoftBadge
+                    value = {row.affectedPositions?.value}
+                    color = "bg-red-100 text-red-700 border border-red-200"
+                    />
                   </td>
 
 
@@ -547,7 +550,7 @@ const LegBody = ({
                   >
                     <SoftBadge
                       value={row.section}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-yellow-100 text-yellow-700 border border-yellow-200"
                     />
                   </td>
 
@@ -558,7 +561,7 @@ const LegBody = ({
                   >
                     <SoftBadge
                       value={row.requirement}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-cyan-100 text-cyan-700 border border-cyan-200"
                     />
                   </td>
 
@@ -569,7 +572,7 @@ const LegBody = ({
                   >
                     <SoftBadge
                       value={row.riskOfViolation}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-blue-100 text-blue-700 border border-blue-200"
                     />
                   </td>
 
@@ -578,7 +581,10 @@ const LegBody = ({
                     className="border border-gray-200 px-2 py-1 w-32"
                     rowSpan={1}
                   >
-                    {row.affectedPositions?.value}
+                    <SoftBadge
+                    value = {row.affectedPositions?.value}
+                    color = "bg-red-100 text-red-700 border border-red-200"
+                    />
                   </td>
 
 
@@ -1023,7 +1029,7 @@ const LegBody = ({
                   >
                     <SoftBadge
                       value={row.section}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-yellow-100 text-yellow-700 border border-yellow-200"
                     />
                   </td>
 
@@ -1034,7 +1040,7 @@ const LegBody = ({
                   >
                     <SoftBadge
                       value={row.requirement}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-cyan-100 text-cyan-700 border border-cyan-200"
                     />
                   </td>
 
@@ -1045,7 +1051,7 @@ const LegBody = ({
                   >
                     <SoftBadge
                       value={row.riskOfViolation}
-                      color="bg-green-100 text-green-700 border border-green-200"
+                      color="bg-blue-100 text-blue-700 border border-blue-200"
                     />
                   </td>
 
@@ -1054,10 +1060,13 @@ const LegBody = ({
                     className="border border-gray-200 px-2 py-1 w-32"
                     rowSpan={1}
                   >
-                    {row.affectedPositions?.value}
+                    <SoftBadge
+                    value = {row.affectedPositions?.value}
+                    color = "bg-red-100 text-red-700 border border-red-200"
+                    />
                   </td>
 
-                  
+
                   {/* Initial Risk */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-20"
