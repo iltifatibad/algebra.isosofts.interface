@@ -274,59 +274,82 @@ const ActionBody = ({
                 }`}
               >
                 {/* # column - Her action row için ayrı row.no göster */}
-                <td className="border-b border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px">
-                  <SoftBadge value={row.no || ""} />
-                </td>
-                {/* FIRST ACTION PLAN FIELDS - Hepsi action'dan */}
-                <td className="border-b border-gray-200 px-2 py-1 w-32">
-                  <SoftBadge value={action.title || ""} />
-                </td>
-                <td className="border-b border-gray-200 px-2 py-1 w-32">
-                  <SoftBadge value={action.raiseDate || ""} />
-                </td>
-                <td className="border-b border-gray-200 px-2 py-1 w-24">
-                  <SoftBadge value={action.resources?.toString() || ""} />
-                </td>
-                <td className="border-b border-gray-200 px-2 py-1 w-28">
-                  <SoftBadge value={action.relativeFunction?.value || ""} />
-                </td>
-                <td className="border-b border-gray-200 px-2 py-1 w-28">
-                  <SoftBadge value={action.responsible?.value || ""} />
-                </td>
-                <td className="border-b border-gray-200 px-2 py-1 w-24">
-                  <SoftBadge value={action.deadline || ""} />
-                </td>
-                <td className="border-b border-gray-200 px-2 py-1 w-36">
-                  <SoftBadge value={action.confirmation?.value || ""} />
-                </td>
-                <td className="border-b border-gray-200 px-2 py-1 w-24">
-                  <SoftBadge value={action.status?.value?.toString() || ""} />
-                </td>
-                <td className="border-b border-gray-200 px-2 py-1 w-24">
-                  <SoftBadge value={action.completionDate || ""} />
-                </td>
-                <td className="border-b border-gray-200 px-2 py-1 w-32">
-                  <SoftBadge value={action.verificationStatus?.value || ""} />
-                </td>
-                <td className="border-b border-gray-200 px-2 py-1 w-40">
-                  <SoftBadge value={action.comment || ""} />
-                </td>
-                {/* MONITORING MONTH COLUMNS - action'dan */}
-                {[
-                  "January", "February", "March", "April", "May", "June",
-                  "July", "August", "September", "October", "November", "December"
-                ].map((month) => {
-                  const monthKey = month.toLowerCase();
-                  const monthValue = action[monthKey]?.value || "";
-                  return (
-                    <td
-                      key={`${row.id}-${action.id || actionIndex}-${monthKey}`}
-                      className="border-b border-gray-200 px-2 py-1 w-24"
-                    >
-                      <SoftBadge value={monthValue} />
-                    </td>
-                  );
-                })}
+              {/* No */}
+<td className="border-b border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px">
+  <SoftBadge value={row.no || ""} color="bg-slate-100 text-slate-700 border border-slate-200" />
+</td>
+
+{/* Title */}
+<td className="border-b border-gray-200 px-2 py-1 w-32">
+  <SoftBadge value={action.title || ""} color="bg-rose-100 text-rose-700 border border-rose-200" />
+</td>
+
+{/* Raise Date */}
+<td className="border-b border-gray-200 px-2 py-1 w-32">
+  <SoftBadge value={action.raiseDate || ""} color="bg-blue-100 text-blue-700 border border-blue-200" />
+</td>
+
+{/* Resources */}
+<td className="border-b border-gray-200 px-2 py-1 w-24">
+  <SoftBadge value={action.resources?.toString() || ""} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
+
+{/* Relative Function */}
+<td className="border-b border-gray-200 px-2 py-1 w-28">
+  <SoftBadge value={action.relativeFunction?.value || ""} color="bg-amber-100 text-amber-700 border border-amber-200" />
+</td>
+
+{/* Responsible */}
+<td className="border-b border-gray-200 px-2 py-1 w-28">
+  <SoftBadge value={action.responsible?.value || ""} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
+{/* Deadline */}
+<td className="border-b border-gray-200 px-2 py-1 w-24">
+  <SoftBadge value={action.deadline || ""} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
+
+{/* Confirmation */}
+<td className="border-b border-gray-200 px-2 py-1 w-36">
+  <SoftBadge value={action.confirmation?.value || ""} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+</td>
+
+{/* Status */}
+<td className="border-b border-gray-200 px-2 py-1 w-24">
+  <SoftBadge value={action.status?.value?.toString() || ""} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
+
+{/* Completion Date */}
+<td className="border-b border-gray-200 px-2 py-1 w-24">
+  <SoftBadge value={action.completionDate || ""} color="bg-orange-100 text-orange-700 border border-orange-200" />
+</td>
+
+{/* Verification Status */}
+<td className="border-b border-gray-200 px-2 py-1 w-32">
+  <SoftBadge value={action.verificationStatus?.value || ""} color="bg-lime-100 text-lime-700 border border-lime-200" />
+</td>
+
+{/* Comment */}
+<td className="border-b border-gray-200 px-2 py-1 w-40">
+  <SoftBadge value={action.comment || ""} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
+</td>
+
+{/* Monitoring Month Columns */}
+{[
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+].map((month) => {
+  const monthKey = month.toLowerCase();
+  const monthValue = action[monthKey]?.value || "";
+  return (
+    <td
+      key={`${row.id}-${action.id || actionIndex}-${monthKey}`}
+      className="border-b border-gray-200 px-2 py-1 w-24"
+    >
+      <SoftBadge value={monthValue} color="bg-sky-100 text-sky-700 border border-sky-200" />
+    </td>
+  );
+})}
               </tr>
             ))}
           </React.Fragment>

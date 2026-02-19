@@ -296,90 +296,45 @@ const EarBody = ({
                     </div>
                   </td>
 
-                                    <td
-                    className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.employeeName}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
+                                  {/* Employee Name */}
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.employeeName} color="bg-rose-100 text-rose-700 border border-rose-200" />
+</td>
 
-                  {/* legislation */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.position}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* Position */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.position} color="bg-blue-100 text-blue-700 border border-blue-200" />
+</td>
 
-                  {/* Section */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.lineManager}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* Line Manager */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.lineManager} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
 
-                  {/* Requirement */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.esd}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* ESD */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.esd} color="bg-amber-100 text-amber-700 border border-amber-200" />
+</td>
 
-                  {/* Risk Of Violation */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.appraisalDate}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* Appraisal Date */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.appraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
 
-                  {/* Affected Positions */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    {row.appraisalType}
-                  </td>
+{/* Appraisal Type */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.appraisalType} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
 
-                  {/* Initial Risk */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.tca}
-                      color="bg-emerald-100 text-emerald-700 border border-emerald-200"
-                    />
-                  </td>
-                  {/* İlk Action */}
+{/* TCA */}
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.tca} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+</td>
 
-                  {/* Residual Risk */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.skillsAppraisal}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
+{/* Skills Appraisal */}
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.skillsAppraisal} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
                 </tr>
 
                 {/* Ek Actions */}
@@ -444,91 +399,45 @@ const EarBody = ({
                       />
                     </div>
                   </td>
+{/* Employee Name */}
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.employeeName} color="bg-rose-100 text-rose-700 border border-rose-200" />
+</td>
 
-                                    <td
-                    className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.employeeName}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
+{/* Position */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.position} color="bg-blue-100 text-blue-700 border border-blue-200" />
+</td>
 
-                  {/* legislation */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.position}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* Line Manager */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.lineManager} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
 
-                  {/* Section */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.lineManager}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* ESD */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.esd} color="bg-amber-100 text-amber-700 border border-amber-200" />
+</td>
 
-                  {/* Requirement */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.esd}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* Appraisal Date */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.appraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
 
-                  {/* Risk Of Violation */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.appraisalDate}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* Appraisal Type */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.appraisalType} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
 
-                  {/* Affected Positions */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    {row.appraisalType}
-                  </td>
+{/* TCA */}
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.tca} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+</td>
 
-                  {/* Initial Risk */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.tca}
-                      color="bg-emerald-100 text-emerald-700 border border-emerald-200"
-                    />
-                  </td>
-                  {/* İlk Action */}
-
-                  {/* Residual Risk */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.skillsAppraisal}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
+{/* Skills Appraisal */}
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.skillsAppraisal} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
                 </tr>
 
                 {/* Ek Actions */}
@@ -869,91 +778,45 @@ const EarBody = ({
                       />
                     </div>
                   </td>
-                  {/* Process */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.employeeName}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
+{/* Employee Name */}
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.employeeName} color="bg-rose-100 text-rose-700 border border-rose-200" />
+</td>
 
-                  {/* legislation */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.position}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* Position */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.position} color="bg-blue-100 text-blue-700 border border-blue-200" />
+</td>
 
-                  {/* Section */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.lineManager}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* Line Manager */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.lineManager} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
 
-                  {/* Requirement */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.esd}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* ESD */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.esd} color="bg-amber-100 text-amber-700 border border-amber-200" />
+</td>
 
-                  {/* Risk Of Violation */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.appraisalDate}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* Appraisal Date */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.appraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
 
-                  {/* Affected Positions */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    {row.appraisalType}
-                  </td>
+{/* Appraisal Type */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.appraisalType} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
 
-                  {/* Initial Risk */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.tca}
-                      color="bg-emerald-100 text-emerald-700 border border-emerald-200"
-                    />
-                  </td>
-                  {/* İlk Action */}
+{/* TCA */}
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.tca} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+</td>
 
-                  {/* Residual Risk */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.skillsAppraisal}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
+{/* Skills Appraisal */}
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.skillsAppraisal} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
                 </tr>
               </React.Fragment>
             );

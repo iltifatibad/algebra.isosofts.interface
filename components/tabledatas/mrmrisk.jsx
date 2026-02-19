@@ -295,38 +295,20 @@ const MRMBody = ({
                       />
                     </div>
                   </td>
-                  {/* Process */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.risos?.value}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
+                  {/* RISOS */}
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.risos?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
+</td>
 
-                  {/* legislation */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.topic?.value}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* Topic */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.topic?.value} color="bg-blue-100 text-blue-700 border border-blue-200" />
+</td>
 
-                  {/* Section */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.process?.value}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* Process */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.process?.value} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
                 </tr>
 
                 {/* Ek Actions */}
@@ -392,38 +374,20 @@ const MRMBody = ({
                     </div>
                   </td>
 
-                  {/* Process */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.risos?.value}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
+                {/* RISOS */}
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.risos?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
+</td>
 
-                  {/* legislation */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.topic?.value}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* Topic */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.topic?.value} color="bg-blue-100 text-blue-700 border border-blue-200" />
+</td>
 
-                  {/* Section */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.process?.value}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* Process */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.process?.value} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
                 </tr>
 
                 {/* Ek Actions */}
@@ -764,38 +728,20 @@ const MRMBody = ({
                       />
                     </div>
                   </td>
-                  {/* Process */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.risos?.value}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
+                 {/* RISOS */}
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.risos?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
+</td>
 
-                  {/* legislation */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.topic?.value}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* Topic */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.topic?.value} color="bg-blue-100 text-blue-700 border border-blue-200" />
+</td>
 
-                  {/* Section */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.process?.value}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* Process */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.process?.value} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
                 </tr>
               </React.Fragment>
             );
