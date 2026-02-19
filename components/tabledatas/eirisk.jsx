@@ -232,6 +232,15 @@ const EiBody = ({
   if (loading) return;
   if (error) return;
 
+            const SoftBadge = ({ value, color }) =>
+              value ? (
+                <span
+                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
+                >
+                  {value}
+                </span>
+              ) : null;
+
   if (showDeleted) {
     return (
       <tbody className="text-sm">
@@ -288,96 +297,62 @@ const EiBody = ({
                     </div>
                   </td>
 
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.name && (
-                      <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 border border-rose-200 rounded-full shadow-sm">
-                        {row.name}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Serial Number */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.serialNumber && (
-                      <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                        {row.serialNumber}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Certificate No */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.certificateNo && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.certificateNo}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Inspection Frequency */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.inspectionFrequency && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.inspectionFrequency.value}
-                      </span>
-                    )}
-                  </td>
-<td
-  className="border border-gray-200 px-3 py-2 w-28"
-  rowSpan={1}
->
-  {row.icd}
+                {/* Name */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.name} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
-<td
-  className="border border-gray-200 px-3 py-2 w-20"
-  rowSpan={1}
->
-  {row.nvcd}
+
+{/* Serial Number */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.serialNumber} color="bg-blue-100 text-blue-700 border border-blue-200" />
 </td>
-<td
-  className="border border-gray-200 px-3 py-2 w-20"
-  rowSpan={1}
->
+
+{/* Certificate No */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.certificateNo} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
+
+{/* Inspection Frequency */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.inspectionFrequency?.value} color="bg-amber-100 text-amber-700 border border-amber-200" />
+</td>
+
+{/* ICD */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.icd} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
+{/* NVCD */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.nvcd} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
+
+{/* Days Difference */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
     if (!row.icd || !row.nvcd) return "";
-    const diffInMs = new Date(row.nvcd) - new Date(row.icd);
-    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
-    return `${diffInDays} Days`;
+    const diffInDays = Math.ceil((new Date(row.nvcd) - new Date(row.icd)) / (1000 * 60 * 60 * 24));
+    return (
+      <SoftBadge value={`${diffInDays} Days`} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+    );
   })()}
 </td>
 
 {/* Safe To Use */}
-<td
-  className="border border-gray-200 px-3 py-2 w-24"
-  rowSpan={1}
->
+<td className="border border-gray-200 px-3 py-2 w-24" rowSpan={1}>
   {(() => {
     if (!row.icd || !row.nvcd) return null;
-    const diffInMs = new Date(row.nvcd) - new Date(row.icd);
-    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
+    const diffInDays = Math.ceil((new Date(row.nvcd) - new Date(row.icd)) / (1000 * 60 * 60 * 24));
     const isSafe = diffInDays > 0;
-    const text = isSafe ? "Safe" : "Not Safe";
-    const colorClass = isSafe
-      ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
-      : "bg-rose-100 text-rose-700 border border-rose-200";
     return (
-      <span
-        className={`inline-block px-3 py-1 ${colorClass} rounded-full shadow-sm`}
-      >
-        {text}
-      </span>
+      <SoftBadge
+        value={isSafe ? "Safe" : "Not Safe"}
+        color={
+          isSafe
+            ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
+            : "bg-rose-100 text-rose-700 border border-rose-200"
+        }
+      />
     );
   })()}
 </td>
@@ -446,96 +421,62 @@ const EiBody = ({
                     </div>
                   </td>
 
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.name && (
-                      <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 border border-rose-200 rounded-full shadow-sm">
-                        {row.name}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Serial Number */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.serialNumber && (
-                      <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                        {row.serialNumber}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Certificate No */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.certificateNo && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.certificateNo}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Inspection Frequency */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.inspectionFrequency && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.inspectionFrequency.value}
-                      </span>
-                    )}
-                  </td>
-
-<td
-  className="border border-gray-200 px-3 py-2 w-28"
-  rowSpan={1}
->
-  {row.icd}
+                 {/* Name */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.name} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
-<td
-  className="border border-gray-200 px-3 py-2 w-20"
-  rowSpan={1}
->
-  {row.nvcd}
+
+{/* Serial Number */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.serialNumber} color="bg-blue-100 text-blue-700 border border-blue-200" />
 </td>
-<td
-  className="border border-gray-200 px-3 py-2 w-20"
-  rowSpan={1}
->
+
+{/* Certificate No */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.certificateNo} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
+
+{/* Inspection Frequency */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.inspectionFrequency?.value} color="bg-amber-100 text-amber-700 border border-amber-200" />
+</td>
+
+{/* ICD */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.icd} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
+{/* NVCD */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.nvcd} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
+
+{/* Days Difference */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
     if (!row.icd || !row.nvcd) return "";
-    const diffInMs = new Date(row.nvcd) - new Date(row.icd);
-    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
-    return `${diffInDays} Days`;
+    const diffInDays = Math.ceil((new Date(row.nvcd) - new Date(row.icd)) / (1000 * 60 * 60 * 24));
+    return (
+      <SoftBadge value={`${diffInDays} Days`} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+    );
   })()}
 </td>
+
 {/* Safe To Use */}
-<td
-  className="border border-gray-200 px-3 py-2 w-24"
-  rowSpan={1}
->
+<td className="border border-gray-200 px-3 py-2 w-24" rowSpan={1}>
   {(() => {
     if (!row.icd || !row.nvcd) return null;
-    const diffInMs = new Date(row.nvcd) - new Date(row.icd);
-    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
+    const diffInDays = Math.ceil((new Date(row.nvcd) - new Date(row.icd)) / (1000 * 60 * 60 * 24));
     const isSafe = diffInDays > 0;
-    const text = isSafe ? "Safe" : "Not Safe";
-    const colorClass = isSafe
-      ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
-      : "bg-rose-100 text-rose-700 border border-rose-200";
     return (
-      <span
-        className={`inline-block px-3 py-1 ${colorClass} rounded-full shadow-sm`}
-      >
-        {text}
-      </span>
+      <SoftBadge
+        value={isSafe ? "Safe" : "Not Safe"}
+        color={
+          isSafe
+            ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
+            : "bg-rose-100 text-rose-700 border border-rose-200"
+        }
+      />
     );
   })()}
 </td>
@@ -879,99 +820,62 @@ const EiBody = ({
                       />
                     </div>
                   </td>
-
-                  {/* Equipment Name */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.name && (
-                      <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 border border-rose-200 rounded-full shadow-sm">
-                        {row.name}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Serial Number */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.serialNumber && (
-                      <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                        {row.serialNumber}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Certificate No */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.certificateNo && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.certificateNo}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Inspection Frequency */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.inspectionFrequency && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.inspectionFrequency.value}
-                      </span>
-                    )}
-                  </td>
-
-<td
-  className="border border-gray-200 px-3 py-2 w-28"
-  rowSpan={1}
->
-  {row.icd}
+{/* Name */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.name} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
-<td
-  className="border border-gray-200 px-3 py-2 w-20"
-  rowSpan={1}
->
-  {row.nvcd}
+
+{/* Serial Number */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.serialNumber} color="bg-blue-100 text-blue-700 border border-blue-200" />
 </td>
-<td
-  className="border border-gray-200 px-3 py-2 w-20"
-  rowSpan={1}
->
+
+{/* Certificate No */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.certificateNo} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
+
+{/* Inspection Frequency */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.inspectionFrequency?.value} color="bg-amber-100 text-amber-700 border border-amber-200" />
+</td>
+
+{/* ICD */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.icd} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
+{/* NVCD */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.nvcd} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
+
+{/* Days Difference */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
     if (!row.icd || !row.nvcd) return "";
-    const diffInMs = new Date(row.nvcd) - new Date(row.icd);
-    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
-    return `${diffInDays} Days`;
+    const diffInDays = Math.ceil((new Date(row.nvcd) - new Date(row.icd)) / (1000 * 60 * 60 * 24));
+    return (
+      <SoftBadge value={`${diffInDays} Days`} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+    );
   })()}
 </td>
 
 {/* Safe To Use */}
-<td
-  className="border border-gray-200 px-3 py-2 w-24"
-  rowSpan={1}
->
+<td className="border border-gray-200 px-3 py-2 w-24" rowSpan={1}>
   {(() => {
     if (!row.icd || !row.nvcd) return null;
-    const diffInMs = new Date(row.nvcd) - new Date(row.icd);
-    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
+    const diffInDays = Math.ceil((new Date(row.nvcd) - new Date(row.icd)) / (1000 * 60 * 60 * 24));
     const isSafe = diffInDays > 0;
-    const text = isSafe ? "Safe" : "Not Safe";
-    const colorClass = isSafe
-      ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
-      : "bg-rose-100 text-rose-700 border border-rose-200";
     return (
-      <span
-        className={`inline-block px-3 py-1 ${colorClass} rounded-full shadow-sm`}
-      >
-        {text}
-      </span>
+      <SoftBadge
+        value={isSafe ? "Safe" : "Not Safe"}
+        color={
+          isSafe
+            ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
+            : "bg-rose-100 text-rose-700 border border-rose-200"
+        }
+      />
     );
   })()}
 </td>
