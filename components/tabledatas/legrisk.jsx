@@ -326,136 +326,71 @@ const LegBody = ({
                     </div>
                   </td>
 
-                  {/* Process */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.process?.value}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
+                 {/* Process */}
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.process?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
+</td>
 
-                  {/* legislation */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.legislation}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* Legislation */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.legislation} color="bg-blue-100 text-blue-700 border border-blue-200" />
+</td>
 
-                  {/* Section */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.section}
-                      color="bg-yellow-100 text-yellow-700 border border-yellow-200"
-                    />
-                  </td>
+{/* Section */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.section} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
 
-                  {/* Requirement */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.requirement}
-                      color="bg-cyan-100 text-cyan-700 border border-cyan-200"
-                    />
-                  </td>
+{/* Requirement */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.requirement} color="bg-amber-100 text-amber-700 border border-amber-200" />
+</td>
 
-                  {/* Risk Of Violation */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.riskOfViolation}
-                      color="bg-blue-100 text-blue-700 border border-blue-200"
-                    />
-                  </td>
+{/* Risk Of Violation */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.riskOfViolation} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
 
-                  {/* Affected Positions */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                    value = {row.affectedPositions?.value}
-                    color = "bg-red-100 text-red-700 border border-red-200"
-                    />
-                  </td>
+{/* Affected Positions */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.affectedPositions?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
 
+{/* Initial Risk Severity */}
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.initialRiskSeverity} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+</td>
 
-                  {/* Initial Risk */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.initialRiskSeverity}
-                      color="bg-emerald-100 text-emerald-700 border border-emerald-200"
-                    />
-                  </td>
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.initialRiskLikelyhood}
-                      color="bg-emerald-100 text-emerald-700 border border-emerald-200"
-                    />
-                  </td>
+{/* Initial Risk Likelihood */}
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.initialRiskLikelyhood} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
 
-                  {/* Risk Level */}
-                  <td className="border border-gray-200 px-2 py-1 w-20">
-                    {(() => {
-                      const risk = getRiskLevel(
-                        row.initialRiskSeverity,
-                        row.initialRiskLikelyhood
-                      );
+{/* Initial Risk Level */}
+<td className="border border-gray-200 px-2 py-1 w-20">
+  {(() => {
+    const risk = getRiskLevel(row.initialRiskSeverity, row.initialRiskLikelyhood);
+    return <SoftBadge value={risk.label} color={risk.color} />;
+  })()}
+</td>
 
-                      return <SoftBadge value={risk.label} color={risk.color} />;
-                    })()}
-                  </td>
+{/* Residual Risk Severity */}
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.residualRiskSeverity} color="bg-orange-100 text-orange-700 border border-orange-200" />
+</td>
 
-                  {/* İlk Action */}
+{/* Residual Risk Likelihood */}
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.residualRiskLikelyhood} color="bg-lime-100 text-lime-700 border border-lime-200" />
+</td>
 
-                  {/* Residual Risk */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.residualRiskSeverity}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.residualRiskLikelyhood}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
-                  <td className="border border-gray-200 px-2 py-1 w-20">
-                    {(() => {
-                      const risk = getRiskLevel(
-                        row.residualRiskSeverity,
-                        row.residualRiskLikelyhood
-                      );
-
-                      return <SoftBadge value={risk.label} color={risk.color} />;
-                    })()}
-                  </td>
+{/* Residual Risk Level */}
+<td className="border border-gray-200 px-2 py-1 w-20">
+  {(() => {
+    const risk = getRiskLevel(row.residualRiskSeverity, row.residualRiskLikelyhood);
+    return <SoftBadge value={risk.label} color={risk.color} />;
+  })()}
+</td>
                 </tr>
 
                 {/* Ek Actions */}
@@ -522,135 +457,70 @@ const LegBody = ({
                   </td>
 
                   {/* Process */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.process?.value}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.process?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
+</td>
 
-                  {/* legislation */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.legislation}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* Legislation */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.legislation} color="bg-blue-100 text-blue-700 border border-blue-200" />
+</td>
 
-                  {/* Section */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.section}
-                      color="bg-yellow-100 text-yellow-700 border border-yellow-200"
-                    />
-                  </td>
+{/* Section */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.section} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
 
-                  {/* Requirement */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.requirement}
-                      color="bg-cyan-100 text-cyan-700 border border-cyan-200"
-                    />
-                  </td>
+{/* Requirement */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.requirement} color="bg-amber-100 text-amber-700 border border-amber-200" />
+</td>
 
-                  {/* Risk Of Violation */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.riskOfViolation}
-                      color="bg-blue-100 text-blue-700 border border-blue-200"
-                    />
-                  </td>
+{/* Risk Of Violation */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.riskOfViolation} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
 
-                  {/* Affected Positions */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                    value = {row.affectedPositions?.value}
-                    color = "bg-red-100 text-red-700 border border-red-200"
-                    />
-                  </td>
+{/* Affected Positions */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.affectedPositions?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
 
+{/* Initial Risk Severity */}
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.initialRiskSeverity} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+</td>
 
-                  {/* Initial Risk */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.initialRiskSeverity}
-                      color="bg-emerald-100 text-emerald-700 border border-emerald-200"
-                    />
-                  </td>
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.initialRiskLikelyhood}
-                      color="bg-emerald-100 text-emerald-700 border border-emerald-200"
-                    />
-                  </td>
+{/* Initial Risk Likelihood */}
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.initialRiskLikelyhood} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
 
-                  {/* Risk Level */}
-                  <td className="border border-gray-200 px-2 py-1 w-20">
-                    {(() => {
-                      const risk = getRiskLevel(
-                        row.initialRiskSeverity,
-                        row.initialRiskLikelyhood
-                      );
+{/* Initial Risk Level */}
+<td className="border border-gray-200 px-2 py-1 w-20">
+  {(() => {
+    const risk = getRiskLevel(row.initialRiskSeverity, row.initialRiskLikelyhood);
+    return <SoftBadge value={risk.label} color={risk.color} />;
+  })()}
+</td>
 
-                      return <SoftBadge value={risk.label} color={risk.color} />;
-                    })()}
-                  </td>
+{/* Residual Risk Severity */}
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.residualRiskSeverity} color="bg-orange-100 text-orange-700 border border-orange-200" />
+</td>
 
-                  {/* İlk Action */}
+{/* Residual Risk Likelihood */}
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.residualRiskLikelyhood} color="bg-lime-100 text-lime-700 border border-lime-200" />
+</td>
 
-                  {/* Residual Risk */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.residualRiskSeverity}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.residualRiskLikelyhood}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
-                  <td className="border border-gray-200 px-2 py-1 w-20">
-                    {(() => {
-                      const risk = getRiskLevel(
-                        row.residualRiskSeverity,
-                        row.residualRiskLikelyhood
-                      );
-
-                      return <SoftBadge value={risk.label} color={risk.color} />;
-                    })()}
-                  </td>
+{/* Residual Risk Level */}
+<td className="border border-gray-200 px-2 py-1 w-20">
+  {(() => {
+    const risk = getRiskLevel(row.residualRiskSeverity, row.residualRiskLikelyhood);
+    return <SoftBadge value={risk.label} color={risk.color} />;
+  })()}
+</td>
                 </tr>
 
                 {/* Ek Actions */}
@@ -1001,135 +871,70 @@ const LegBody = ({
                     </div>
                   </td>
                   {/* Process */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.process?.value}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.process?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
+</td>
 
-                  {/* legislation */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.legislation}
-                      color="bg-green-100 text-green-700 border border-green-200"
-                    />
-                  </td>
+{/* Legislation */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.legislation} color="bg-blue-100 text-blue-700 border border-blue-200" />
+</td>
 
-                  {/* Section */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.section}
-                      color="bg-yellow-100 text-yellow-700 border border-yellow-200"
-                    />
-                  </td>
+{/* Section */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.section} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
 
-                  {/* Requirement */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.requirement}
-                      color="bg-cyan-100 text-cyan-700 border border-cyan-200"
-                    />
-                  </td>
+{/* Requirement */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.requirement} color="bg-amber-100 text-amber-700 border border-amber-200" />
+</td>
 
-                  {/* Risk Of Violation */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.riskOfViolation}
-                      color="bg-blue-100 text-blue-700 border border-blue-200"
-                    />
-                  </td>
+{/* Risk Of Violation */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.riskOfViolation} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
 
-                  {/* Affected Positions */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-32"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                    value = {row.affectedPositions?.value}
-                    color = "bg-red-100 text-red-700 border border-red-200"
-                    />
-                  </td>
+{/* Affected Positions */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.affectedPositions?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
 
+{/* Initial Risk Severity */}
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.initialRiskSeverity} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+</td>
 
-                  {/* Initial Risk */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-20"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.initialRiskSeverity}
-                      color="bg-emerald-100 text-emerald-700 border border-emerald-200"
-                    />
-                  </td>
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.initialRiskLikelyhood}
-                      color="bg-emerald-100 text-emerald-700 border border-emerald-200"
-                    />
-                  </td>
+{/* Initial Risk Likelihood */}
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.initialRiskLikelyhood} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
 
-                  {/* Risk Level */}
-                  <td className="border border-gray-200 px-2 py-1 w-20">
-                    {(() => {
-                      const risk = getRiskLevel(
-                        row.initialRiskSeverity,
-                        row.initialRiskLikelyhood
-                      );
+{/* Initial Risk Level */}
+<td className="border border-gray-200 px-2 py-1 w-20">
+  {(() => {
+    const risk = getRiskLevel(row.initialRiskSeverity, row.initialRiskLikelyhood);
+    return <SoftBadge value={risk.label} color={risk.color} />;
+  })()}
+</td>
 
-                      return <SoftBadge value={risk.label} color={risk.color} />;
-                    })()}
-                  </td>
+{/* Residual Risk Severity */}
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.residualRiskSeverity} color="bg-orange-100 text-orange-700 border border-orange-200" />
+</td>
 
-                  {/* İlk Action */}
+{/* Residual Risk Likelihood */}
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.residualRiskLikelyhood} color="bg-lime-100 text-lime-700 border border-lime-200" />
+</td>
 
-                  {/* Residual Risk */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.residualRiskSeverity}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-24"
-                    rowSpan={1}
-                  >
-                    <SoftBadge
-                      value={row.residualRiskLikelyhood}
-                      color="bg-rose-100 text-rose-700 border border-rose-200"
-                    />
-                  </td>
-                  <td className="border border-gray-200 px-2 py-1 w-20">
-                    {(() => {
-                      const risk = getRiskLevel(
-                        row.residualRiskSeverity,
-                        row.residualRiskLikelyhood
-                      );
-
-                      return <SoftBadge value={risk.label} color={risk.color} />;
-                    })()}
-                  </td>
+{/* Residual Risk Level */}
+<td className="border border-gray-200 px-2 py-1 w-20">
+  {(() => {
+    const risk = getRiskLevel(row.residualRiskSeverity, row.residualRiskLikelyhood);
+    return <SoftBadge value={risk.label} color={risk.color} />;
+  })()}
+</td>
                 </tr>
               </React.Fragment>
             );
