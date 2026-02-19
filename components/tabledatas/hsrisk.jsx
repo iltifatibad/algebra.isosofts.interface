@@ -364,7 +364,10 @@ const HsBody = ({
                     className="border border-gray-200 px-2 py-1 w-32"
                     rowSpan={1}
                   >
-                    {row.affectedPositions?.value}
+                    <SoftBadge
+                    value = {row.affectedPositions?.value}
+                    color = "bg-cyan-100 text-cyan-700 border border-cyan-200"
+                    />
                   </td>
 
                   {/* erma */}
@@ -372,7 +375,10 @@ const HsBody = ({
                     className="border border-gray-200 px-2 py-1 w-48"
                     rowSpan={1}
                   >
-                    {row.erma?.value || `${row.erma}`}
+                    <SoftBadge
+                    value = {row.erma?.value || `${row.erma}`}
+                    color = "bg-red-100 text-red-700 border border-red-200"
+                    />
                   </td>
 
                   
@@ -542,7 +548,10 @@ const HsBody = ({
                     className="border border-gray-200 px-2 py-1 w-32"
                     rowSpan={1}
                   >
-                    {row.affectedPositions?.value}
+                    <SoftBadge
+                    value = {row.affectedPositions?.value}
+                    color = "bg-cyan-100 text-cyan-700 border border-cyan-200"
+                    />
                   </td>
 
                   {/* erma */}
@@ -550,9 +559,13 @@ const HsBody = ({
                     className="border border-gray-200 px-2 py-1 w-48"
                     rowSpan={1}
                   >
-                    {row.erma?.value || `${row.erma}`}
+                    <SoftBadge
+                    value = {row.erma?.value || `${row.erma}`}
+                    color = "bg-red-100 text-red-700 border border-red-200"
+                    />
                   </td>
 
+                  
                   {/* Initial Risk */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-20"
@@ -1003,7 +1016,10 @@ const HsBody = ({
                     className="border border-gray-200 px-2 py-1 w-32"
                     rowSpan={1}
                   >
-                    {row.affectedPositions?.value}
+                    <SoftBadge
+                    value = {row.affectedPositions?.value}
+                    color = "bg-cyan-100 text-cyan-700 border border-cyan-200"
+                    />
                   </td>
 
                   {/* erma */}
@@ -1011,9 +1027,13 @@ const HsBody = ({
                     className="border border-gray-200 px-2 py-1 w-48"
                     rowSpan={1}
                   >
-                    {row.erma?.value || `${row.erma}`}
+                    <SoftBadge
+                    value = {row.erma?.value || `${row.erma}`}
+                    color = "bg-red-100 text-red-700 border border-red-200"
+                    />
                   </td>
 
+                  
                   {/* Initial Risk */}
                   <td
                     className="border border-gray-200 px-2 py-1 w-20"
