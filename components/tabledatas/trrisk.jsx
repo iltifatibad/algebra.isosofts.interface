@@ -232,6 +232,15 @@ const TrBody = ({
   if (loading) return;
   if (error) return;
 
+              const SoftBadge = ({ value, color }) =>
+              value ? (
+                <span
+                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
+                >
+                  {value}
+                </span>
+              ) : null;
+              
   if (showDeleted) {
     return (
       <tbody className="text-sm">
@@ -288,100 +297,71 @@ const TrBody = ({
                     </div>
                   </td>
 
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.employeeName && (
-                      <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 border border-rose-200 rounded-full shadow-sm">
-                        {row.employeeName}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Serial Name */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.clname && (
-                      <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                        {row.clname}
-                      </span>
-                    )}
-                  </td>
-
-  <td
-  className="border border-gray-200 px-3 py-2 w-32"
-  rowSpan={1}
->
-  {row.nvcd && (
-    <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-      {row.nvcd}
-    </span>
-  )}
+                {/* Employee Name */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.employeeName} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
-                  {/* Certificate No */}
-<td
-  className="border border-gray-200 px-3 py-2 w-32"
-  rowSpan={1}
->
+{/* CL Name */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.clname} color="bg-blue-100 text-blue-700 border border-blue-200" />
+</td>
+
+{/* NVCD */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.nvcd} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
+{/* Up To Date Status */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   {(() => {
     if (!row.nvcd || !row.ncd) return null;
-    const diffInMs = new Date(row.ncd) - new Date(row.nvcd);
-    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
+    const diffInDays = Math.ceil((new Date(row.ncd) - new Date(row.nvcd)) / (1000 * 60 * 60 * 24));
     const isUpToDate = diffInDays > 0;
-    const text = isUpToDate ? "Up To Date" : "Not Up To Date";
-    const colorClass = isUpToDate
-      ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
-      : "bg-rose-100 text-rose-700 border border-rose-200";
     return (
-      <span
-        className={`inline-block px-3 py-1 ${colorClass} rounded-full shadow-sm`}
-      >
-        {text}
-      </span>
+      <SoftBadge
+        value={isUpToDate ? "Up To Date" : "Not Up To Date"}
+        color={
+          isUpToDate
+            ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
+            : "bg-rose-100 text-rose-700 border border-rose-200"
+        }
+      />
     );
   })()}
 </td>
 
-<td
-  className="border border-gray-200 px-3 py-2 w-32"
-  rowSpan={1}
->
-  {row.ncd && (
-    <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-      {row.ncd}
-    </span>
-  )}
+{/* NCD */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.ncd} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
-<td
-  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
-  rowSpan={1}
->
+
+{/* Days Difference */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   {(() => {
     if (!row.nvcd || !row.ncd) return "";
-    const diffInMs = new Date(row.ncd) - new Date(row.nvcd);
-    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
-    return `${diffInDays} Days`;
+    const diffInDays = Math.ceil((new Date(row.ncd) - new Date(row.nvcd)) / (1000 * 60 * 60 * 24));
+    return (
+      <SoftBadge value={`${diffInDays} Days`} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+    );
   })()}
 </td>
 
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.competencyStatus}
-                  </td>
+{/* Competency Status */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.competencyStatus} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
 
-<td
-  className="border border-gray-200 px-3 py-2 w-32"
-  rowSpan={1}
->
-  <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-    {row.effectiveness === 1 ? "Yes" : "No"}
-  </span>
+{/* Effectiveness */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge
+    value={row.effectiveness === 1 ? "Yes" : "No"}
+    color={
+      row.effectiveness === 1
+        ? "bg-amber-100 text-amber-700 border border-amber-200"
+        : "bg-orange-100 text-orange-700 border border-orange-200"
+    }
+  />
 </td>
 
                 </tr>
@@ -449,105 +429,71 @@ const TrBody = ({
                     </div>
                   </td>
 
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.employeeName && (
-                      <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 border border-rose-200 rounded-full shadow-sm">
-                        {row.employeeName}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Serial Name */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.clname && (
-                      <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                        {row.clname}
-                      </span>
-                    )}
-                  </td>
-
-<td
-  className="border border-gray-200 px-3 py-2 w-32"
-  rowSpan={1}
->
-  {row.nvcd && (
-    <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-      {row.nvcd}
-    </span>
-  )}
+                 {/* Employee Name */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.employeeName} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
-                  {/* Certificate No */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.clnumber && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.clname}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Inspection Frequency */}
-<td
-  className="border border-gray-200 px-3 py-2 w-32"
-  rowSpan={1}
->
-  {row.ncd && (
-    <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-      {row.ncd}
-    </span>
-  )}
-</td>
-<td
-className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
-  rowSpan={1}
->
-  {(() => {
-    if (!row.nvcd || !row.ncd) return "";
-    const diffInMs = new Date(row.ncd) - new Date(row.nvcd);
-    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
-    return `${diffInDays} Days`;
-  })()}
+{/* CL Name */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.clname} color="bg-blue-100 text-blue-700 border border-blue-200" />
 </td>
 
-<td
-  className="border border-gray-200 px-3 py-2 w-32"
-  rowSpan={1}
->
+{/* NVCD */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.nvcd} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
+{/* Up To Date Status */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   {(() => {
     if (!row.nvcd || !row.ncd) return null;
-    const diffInMs = new Date(row.ncd) - new Date(row.nvcd);
-    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
+    const diffInDays = Math.ceil((new Date(row.ncd) - new Date(row.nvcd)) / (1000 * 60 * 60 * 24));
     const isUpToDate = diffInDays > 0;
-    const text = isUpToDate ? "Up To Date" : "Not Up To Date";
-    const colorClass = isUpToDate
-      ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
-      : "bg-rose-100 text-rose-700 border border-rose-200";
     return (
-      <span
-        className={`inline-block px-3 py-1 ${colorClass} rounded-full shadow-sm`}
-      >
-        {text}
-      </span>
+      <SoftBadge
+        value={isUpToDate ? "Up To Date" : "Not Up To Date"}
+        color={
+          isUpToDate
+            ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
+            : "bg-rose-100 text-rose-700 border border-rose-200"
+        }
+      />
     );
   })()}
 </td>
 
-<td
-  className="border border-gray-200 px-3 py-2 w-32"
-  rowSpan={1}
->
-  <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-    {row.effectiveness === 1 ? "Yes" : "No"}
-  </span>
+{/* NCD */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.ncd} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
+
+{/* Days Difference */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  {(() => {
+    if (!row.nvcd || !row.ncd) return "";
+    const diffInDays = Math.ceil((new Date(row.ncd) - new Date(row.nvcd)) / (1000 * 60 * 60 * 24));
+    return (
+      <SoftBadge value={`${diffInDays} Days`} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+    );
+  })()}
+</td>
+
+{/* Competency Status */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.competencyStatus} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
+
+{/* Effectiveness */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge
+    value={row.effectiveness === 1 ? "Yes" : "No"}
+    color={
+      row.effectiveness === 1
+        ? "bg-amber-100 text-amber-700 border border-amber-200"
+        : "bg-orange-100 text-orange-700 border border-orange-200"
+    }
+  />
 </td>
 
                 </tr>
@@ -891,105 +837,71 @@ className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-or
                     </div>
                   </td>
 
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.employeeName && (
-                      <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 border border-rose-200 rounded-full shadow-sm">
-                        {row.employeeName}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Serial Name */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-20"
-                    rowSpan={1}
-                  >
-                    {row.clname && (
-                      <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full shadow-sm">
-                        {row.clname}
-                      </span>
-                    )}
-                  </td>
-
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.nvcd && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.nvcd}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Certificate No */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.clnumber && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.clname}
-                      </span>
-                    )}
-                  </td>
-
-                  {/* Inspection Frequency */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-32"
-                    rowSpan={1}
-                  >
-                    {row.ncd && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-                        {row.ncd}
-                      </span>
-                    )}
-                  </td>
-<td
-  className="inline-block px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full shadow-sm"
-  rowSpan={1}
->
-  {(() => {
-    if (!row.nvcd || !row.ncd) return "";
-    const diffInMs = new Date(row.ncd) - new Date(row.nvcd);
-    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
-    return `${diffInDays} Days`;
-  })()}
+                {/* Employee Name */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.employeeName} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
-<td
-  className="border border-gray-200 px-3 py-2 w-32"
-  rowSpan={1}
->
+{/* CL Name */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.clname} color="bg-blue-100 text-blue-700 border border-blue-200" />
+</td>
+
+{/* NVCD */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.nvcd} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
+{/* Up To Date Status */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   {(() => {
     if (!row.nvcd || !row.ncd) return null;
-    const diffInMs = new Date(row.ncd) - new Date(row.nvcd);
-    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
+    const diffInDays = Math.ceil((new Date(row.ncd) - new Date(row.nvcd)) / (1000 * 60 * 60 * 24));
     const isUpToDate = diffInDays > 0;
-    const text = isUpToDate ? "Up To Date" : "Not Up To Date";
-    const colorClass = isUpToDate
-      ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
-      : "bg-rose-100 text-rose-700 border border-rose-200";
     return (
-      <span
-        className={`inline-block px-3 py-1 ${colorClass} rounded-full shadow-sm`}
-      >
-        {text}
-      </span>
+      <SoftBadge
+        value={isUpToDate ? "Up To Date" : "Not Up To Date"}
+        color={
+          isUpToDate
+            ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
+            : "bg-rose-100 text-rose-700 border border-rose-200"
+        }
+      />
     );
   })()}
 </td>
 
-<td
-  className="border border-gray-200 px-3 py-2 w-32"
-  rowSpan={1}
->
-  <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
-    {row.effectiveness === 1 ? "Yes" : "No"}
-  </span>
+{/* NCD */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.ncd} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
+
+{/* Days Difference */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  {(() => {
+    if (!row.nvcd || !row.ncd) return "";
+    const diffInDays = Math.ceil((new Date(row.ncd) - new Date(row.nvcd)) / (1000 * 60 * 60 * 24));
+    return (
+      <SoftBadge value={`${diffInDays} Days`} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+    );
+  })()}
+</td>
+
+{/* Competency Status */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.competencyStatus} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
+
+{/* Effectiveness */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge
+    value={row.effectiveness === 1 ? "Yes" : "No"}
+    color={
+      row.effectiveness === 1
+        ? "bg-amber-100 text-amber-700 border border-amber-200"
+        : "bg-orange-100 text-orange-700 border border-orange-200"
+    }
+  />
 </td>
 
                 </tr>
