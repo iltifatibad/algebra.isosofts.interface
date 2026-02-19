@@ -240,7 +240,6 @@ const EiBody = ({
                   {value}
                 </span>
               ) : null;
-
   if (showDeleted) {
     return (
       <tbody className="text-sm">
@@ -296,8 +295,7 @@ const EiBody = ({
                       />
                     </div>
                   </td>
-
-                {/* Name */}
+{/* Name */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge value={row.name} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
@@ -318,24 +316,25 @@ const EiBody = ({
 </td>
 
 {/* ICD */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-3 py-2 w-28" rowSpan={1}>
   <SoftBadge value={row.icd} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
 {/* NVCD */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge value={row.nvcd} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* Days Difference */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-  {(() => {
-    if (!row.icd || !row.nvcd) return "";
-    const diffInDays = Math.ceil((new Date(row.nvcd) - new Date(row.icd)) / (1000 * 60 * 60 * 24));
-    return (
-      <SoftBadge value={`${diffInDays} Days`} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
-    );
-  })()}
+  <SoftBadge
+    value={(() => {
+      if (!row.icd || !row.nvcd) return "";
+      const diffInDays = Math.ceil((new Date(row.nvcd) - new Date(row.icd)) / (1000 * 60 * 60 * 24));
+      return `${diffInDays} Days`;
+    })()}
+    color="bg-indigo-100 text-indigo-700 border border-indigo-200"
+  />
 </td>
 
 {/* Safe To Use */}
@@ -387,14 +386,6 @@ const EiBody = ({
               ? row.actionPlan
               : [row.actionPlan];
 
-            const SoftBadge = ({ value, color }) =>
-              value ? (
-                <span
-                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
-                >
-                  {value}
-                </span>
-              ) : null;
 
             return (
               <React.Fragment key={row.id}>
@@ -421,7 +412,7 @@ const EiBody = ({
                     </div>
                   </td>
 
-                 {/* Name */}
+                  {/* Name */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge value={row.name} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
@@ -442,24 +433,25 @@ const EiBody = ({
 </td>
 
 {/* ICD */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-3 py-2 w-28" rowSpan={1}>
   <SoftBadge value={row.icd} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
 {/* NVCD */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge value={row.nvcd} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* Days Difference */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-  {(() => {
-    if (!row.icd || !row.nvcd) return "";
-    const diffInDays = Math.ceil((new Date(row.nvcd) - new Date(row.icd)) / (1000 * 60 * 60 * 24));
-    return (
-      <SoftBadge value={`${diffInDays} Days`} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
-    );
-  })()}
+  <SoftBadge
+    value={(() => {
+      if (!row.icd || !row.nvcd) return "";
+      const diffInDays = Math.ceil((new Date(row.nvcd) - new Date(row.icd)) / (1000 * 60 * 60 * 24));
+      return `${diffInDays} Days`;
+    })()}
+    color="bg-indigo-100 text-indigo-700 border border-indigo-200"
+  />
 </td>
 
 {/* Safe To Use */}
@@ -820,7 +812,8 @@ const EiBody = ({
                       />
                     </div>
                   </td>
-{/* Name */}
+
+                  {/* Name */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge value={row.name} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
@@ -841,24 +834,25 @@ const EiBody = ({
 </td>
 
 {/* ICD */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-3 py-2 w-28" rowSpan={1}>
   <SoftBadge value={row.icd} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
 {/* NVCD */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge value={row.nvcd} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* Days Difference */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-  {(() => {
-    if (!row.icd || !row.nvcd) return "";
-    const diffInDays = Math.ceil((new Date(row.nvcd) - new Date(row.icd)) / (1000 * 60 * 60 * 24));
-    return (
-      <SoftBadge value={`${diffInDays} Days`} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
-    );
-  })()}
+  <SoftBadge
+    value={(() => {
+      if (!row.icd || !row.nvcd) return "";
+      const diffInDays = Math.ceil((new Date(row.nvcd) - new Date(row.icd)) / (1000 * 60 * 60 * 24));
+      return `${diffInDays} Days`;
+    })()}
+    color="bg-indigo-100 text-indigo-700 border border-indigo-200"
+  />
 </td>
 
 {/* Safe To Use */}
