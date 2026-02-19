@@ -231,9 +231,11 @@ const DocBody = ({
   }, [activeHeader, selectedRows]); // Dependency array ekle: selectedRows değişirse tekrar çalışsın
   if (loading) return;
   if (error) return;
-              const SoftBadge = ({ value }) =>
+           const SoftBadge = ({ value, color }) =>
               value ? (
-                <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
+                <span
+                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
+                >
                   {value}
                 </span>
               ) : null;
