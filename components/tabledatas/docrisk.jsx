@@ -231,7 +231,12 @@ const DocBody = ({
   }, [activeHeader, selectedRows]); // Dependency array ekle: selectedRows değişirse tekrar çalışsın
   if (loading) return;
   if (error) return;
-
+              const SoftBadge = ({ value }) =>
+              value ? (
+                <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
+                  {value}
+                </span>
+              ) : null;
   if (showDeleted) {
     return (
       <tbody className="text-sm">
@@ -512,12 +517,7 @@ const DocBody = ({
             const numActions = row.actionPlan ? row.actionPlan.length : 1;
 
             // Soft badge
-            const SoftBadge = ({ value }) =>
-              value ? (
-                <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
-                  {value}
-                </span>
-              ) : null;
+
 
             return (
               <React.Fragment key={row.id}>
