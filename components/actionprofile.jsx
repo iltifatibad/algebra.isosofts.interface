@@ -1019,114 +1019,100 @@ const AcProfile = () => {
               {/* Header */}
               <div className="p-6 border-b border-blue-100 flex items-center">
                 {/* Başlık ve sol butonlar */}
-                <div className="flex items-center space-x-3">
-                  {/* <button
-                    onClick={openAddModal}
-                    className="!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm"
-                  >
-                    <i className="fas fa-plus mr-2 text-blue-600 hover:text-blue-700"></i>
-                    {!showAction ? "Add Risk" : "Add Action"}
-                  </button> */}
-                  {/* <button
-                    onClick={toggleArchiveView}
-                    className={[
-                      "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
-                      showArchived ? "" : "",
-                    ].join(" ")}
-                  >
-                    <i className="fas fa-archive mr-2 text-blue-600 hover:text-blue-700"></i>
-                    {showArchived ? "Hide Archived" : "Show Archived"}
-                  </button> */}
-                  {/* <button
-                    onClick={toggleDeleteView}
-                    className={[
-                      "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
-                      showDeleted ? "" : "",
-                    ].join(" ")}
-                  >
-                    <i className="fas fa-archive mr-2 text-blue-600 hover:text-blue-700"></i>
-                    {activeHeader
-                      ? showDeleted
-                        ? "Hide Deleted"
-                        : "Show Deleted"
-                      : showDeletedAction
-                        ? "Hide Deleted Action"
-                        : "Show Deleted Action"}
-                  </button> */}
-                  <button
-                    onClick={toggleActionView}
-                    disabled={selectedCount !== 1}
-                    className={[
-                      "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
-                      !(selectedCount >= 1 && selectedCount < 2)
-                        ? "opacity-50 cursor-not-allowed"
-                        : "",
-                      showAction ? "" : "",
-                    ].join(" ")}
-                  >
-                    <i className="fas fa-archive mr-2 text-blue-600 hover:text-blue-700"></i>
-                    {showAction ? "Hide Action" : "Show Action"}
-                  </button>
-                  {/* Actions butonları */}
-                  <div className="flex space-x-2">
-                    <button
-                      onClick={editSingle}
-                      disabled={
-                        !(selectedCount === 1 || selectedCountForActions === 1)
-                      }
-                      className={[
-                        "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
-                        !(selectedCount === 1 || selectedCountForActions === 1)
-                          ? "opacity-50 cursor-not-allowed"
-                          : "",
-                      ].join(" ")}
-                      title="Edit (Single Selection Only)"
-                    >
-                      <i className="fas fa-edit text-blue-600 hover:text-blue-700"></i>
-                    </button>
-                    <button
-                      onClick={archive}
-                      disabled={
-                        !(selectedCount >= 1 && !showDeleted) || !activeHeader
-                      }
-                      className={[
-                        "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
-                        !(selectedCount >= 1 && !showDeleted)
-                          ? "opacity-50 cursor-not-allowed"
-                          : "",
-                        !activeHeader ? "opacity-50 cursor-not-allowed" : "",
-                      ].join(" ")}
-                      title="Archive/Restore Selected"
-                    >
-                      <i
-                        className={`fas ${showArchived ? "fa-undo" : "fa-archive"} text-blue-600 hover:text-blue-700`}
-                      ></i>
-                    </button>
-                    <button
-                      onClick={selectedCount > 0 ? confirmBulkDelete : () => {}}
-                      disabled={selectedCount === 0}
-                      className={[
-                        "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
-                        selectedCount === 0
-                          ? "opacity-50 cursor-not-allowed"
-                          : "",
-                      ].join(" ")}
-                      title="Delete Selected"
-                    >
-                      <i
-                        className={`fas ${
-                          activeHeader
-                            ? showDeleted
-                              ? "fa-trash-restore"
-                              : "fa-trash"
-                            : showDeletedAction
-                              ? "fa-trash-restore"
-                              : "fa-trash"
-                        } text-blue-600 hover:text-blue-700`}
-                      ></i>
-                    </button>
-                  </div>
-                </div>
+<div className="flex items-center gap-4 flex-wrap">
+  {/* Show/Hide Action Butonu */}
+  <button
+    onClick={toggleActionView}
+    disabled={selectedCount !== 1}
+    className={`
+      group px-5 py-2.5 rounded-xl font-medium text-sm tracking-wide
+      bg-white border border-slate-200 text-slate-700
+      disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
+      hover:border-slate-300 hover:text-slate-900 hover:bg-slate-50/80
+      shadow-sm hover:shadow-md
+      transition-all duration-300 ease-out
+      flex items-center gap-2.5
+      ${showAction ? "border-purple-300 text-purple-700 bg-purple-50/70 hover:bg-purple-100/60" : ""}
+    `}
+  >
+    <i 
+      className={`
+        fas fa-list-check text-base transition-transform duration-300 
+        group-hover:scale-110 group-hover:rotate-6
+      `}
+    />
+    {showAction ? "Hide Action" : "Show Action"}
+  </button>
+
+  {/* Aksiyon ikon butonları grubu */}
+  <div className="flex items-center gap-2.5">
+    {/* Edit Butonu */}
+    <button
+      onClick={editSingle}
+      disabled={!(selectedCount === 1 || selectedCountForActions === 1)}
+      className={`
+        group p-3 rounded-xl
+        bg-white border border-slate-200 text-blue-600
+        disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
+        hover:bg-blue-50 hover:border-blue-200 hover:text-blue-700 hover:shadow-md
+        shadow-sm transition-all duration-300 ease-out
+      `}
+      title="Edit (Single Selection Only)"
+    >
+      <i className="fas fa-edit text-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" />
+    </button>
+
+    {/* Archive / Restore Butonu */}
+    <button
+      onClick={archive}
+      disabled={!(selectedCount >= 1 && !showDeleted) || !activeHeader}
+      className={`
+        group p-3 rounded-xl
+        bg-white border border-slate-200 text-slate-600
+        disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
+        ${showArchived
+          ? "text-amber-600 border-amber-200 bg-amber-50/70 hover:bg-amber-100/70 hover:border-amber-300"
+          : "hover:bg-amber-50 hover:border-amber-200 hover:text-amber-700"}
+        shadow-sm hover:shadow-md
+        transition-all duration-300 ease-out
+      `}
+      title="Archive / Restore Selected"
+    >
+      <i
+        className={`
+          fas ${showArchived ? "fa-undo" : "fa-archive"} 
+          text-lg transition-transform duration-300 
+          group-hover:scale-110 group-hover:rotate-12
+        `}
+      />
+    </button>
+
+    {/* Delete / Restore Butonu */}
+    <button
+      onClick={selectedCount > 0 ? confirmBulkDelete : () => {}}
+      disabled={selectedCount === 0}
+      className={`
+        group p-3 rounded-xl
+        bg-white border border-slate-200
+        ${showDeleted || showDeletedAction
+          ? "text-emerald-600 border-emerald-200 bg-emerald-50/70 hover:bg-emerald-100/70 hover:border-emerald-300"
+          : "text-red-600 hover:bg-red-50 hover:border-red-200 hover:text-red-700"}
+        disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
+        shadow-sm hover:shadow-md
+        transition-all duration-300 ease-out
+      `}
+      title="Delete / Restore Selected"
+    >
+      <i
+        className={`
+          fas ${showDeleted || showDeletedAction ? "fa-trash-restore" : "fa-trash-can"} 
+          text-lg transition-transform duration-300 
+          group-hover:scale-110 group-hover:rotate-6
+        `}
+      />
+    </button>
+  </div>
+</div>
 
                 {/* Sağdaki E-Chart butonu */}
                 {/* <div className="ml-auto">
