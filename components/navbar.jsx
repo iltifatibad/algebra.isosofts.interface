@@ -21,7 +21,7 @@ const NavigationBar = ({ showProfile, setShowProfile }) => {
                 Home
               </a>
               <a
-                href="https://readdy.ai/home/d3978a81-c561-4f54-9be8-e504f8386c69/27623cd4-447e-4005-9dce-bbdbf0e1cb83"
+                href=""
                 data-readdy="true"
                 className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
               >
@@ -41,12 +41,12 @@ const NavigationBar = ({ showProfile, setShowProfile }) => {
               </a>
             </div>
           </div>
-          <a href="/profile">
+          <a href="http://www.isosofts.com">
             <button
-              onClick={() => setShowProfile(!showProfile)}
+              // onClick={() => setShowProfile(!showProfile)}
               className="rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 hover:from-blue-600 hover:to-blue-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
-              <i className="fas fa-user mr-2"></i>Profile
+              <i className="fas fa-user mr-2"></i> Main Page
             </button>
           </a>
         </div>
