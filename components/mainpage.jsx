@@ -282,6 +282,141 @@ const IsosoftsUIConcept = () => {
             </div>
           </section>
 
+          {/* <section>
+            <RiskTableee/>
+          </section> */}
+          {/* Features Section */}
+          <section className="py-20 bg-gradient-to-b from-white to-blue-50">
+            <div className="max-w-7xl mx-auto px-6">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-4">
+                  Why Choose Isosofts?
+                </h2>
+                <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                  Streamline your ISO compliance journey with our comprehensive
+                  suite of tools designed for efficiency and excellence.
+                </p>
+              </div>
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="feature-card bg-white p-8 !rounded-button shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                  <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-blue-200 !rounded-button flex items-center justify-center mb-6">
+                    <i className="fas fa-shield-alt text-2xl text-blue-600"></i>
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                    Risk Management
+                  </h3>
+                  <p className="text-gray-600">
+                    Comprehensive risk assessment and management tools to ensure
+                    your organization stays compliant and secure.
+                  </p>
+                </div>
+                <div className="feature-card bg-white p-8 !rounded-button shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                  <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-blue-200 !rounded-button flex items-center justify-center mb-6">
+                    <i className="fas fa-chart-line text-2xl text-blue-600"></i>
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                    Analytics Dashboard
+                  </h3>
+                  <p className="text-gray-600">
+                    Real-time insights and analytics to track your compliance
+                    progress and identify improvement opportunities.
+                  </p>
+                </div>
+                <div className="feature-card bg-white p-8 !rounded-button shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                  <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-blue-200 !rounded-button flex items-center justify-center mb-6">
+                    <i className="fas fa-users text-2xl text-blue-600"></i>
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                    Team Collaboration
+                  </h3>
+                  <p className="text-gray-600">
+                    Seamless collaboration tools that enable your team to work
+                    together efficiently on compliance initiatives.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+          <section className="py-20 bg-gradient-to-b from-white to-blue-50">
+            <div className="max-w-7xl mx-auto px-6">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-4">
+                  Our Services
+                </h2>
+              </div>
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="feature-card bg-white p-8 !rounded-button shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                  <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-blue-200 !rounded-button flex items-center justify-center mb-6">
+                    <i className="fas fa-shield-alt text-2xl text-blue-600"></i>
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                    Algebra
+                  </h3>
+
+                  <a href="/profile">
+                  <button
+                  onClick={() => setShowProfile(!showProfile)}
+                  className="rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 hover:from-blue-600 hover:to-blue-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                    >
+                     <i className=""></i> Go To Algebra
+                   </button>
+                  </a>
+                </div>
+                <div className="feature-card bg-white p-8 !rounded-button shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                  <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-blue-200 !rounded-button flex items-center justify-center mb-6">
+                    <i className="fas fa-chart-line text-2xl text-blue-600"></i>
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                    Phisics
+                  </h3>
+                  <a href="/">
+                  <button
+                  onClick={() => setShowProfile(!showProfile)}
+                  className="rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 hover:from-blue-600 hover:to-blue-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                    >
+                     <i className=""></i> Go To Phisics
+                   </button>
+                  </a>
+                </div>
+                <div className="feature-card bg-white p-8 !rounded-button shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                  <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-blue-200 !rounded-button flex items-center justify-center mb-6">
+                    <i className="fas fa-users text-2xl text-blue-600"></i>
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                    Geometry
+                  </h3>
+                 <a href="/">
+                  <button
+                  onClick={() => setShowProfile(!showProfile)}
+                  className="rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 hover:from-blue-600 hover:to-blue-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                    >
+                     <i className=""></i> Go To Geometry
+                   </button>
+                  </a>
+                </div>
+                <div className="feature-card bg-white p-8 !rounded-button shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                  <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-blue-200 !rounded-button flex items-center justify-center mb-6">
+                    <i className="fas fa-users text-2xl text-blue-600"></i>
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                    Pholosophy
+                  </h3>
+                  <a href="/">
+                  <button
+                  onClick={() => setShowProfile(!showProfile)}
+                  className="rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 hover:from-blue-600 hover:to-blue-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                    >
+                     <i className=""></i> Go To Pholosophy
+                   </button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
         </div>
         {/* Footer */}
         <footer className="bg-gradient-to-r from-blue-900 to-blue-800 text-white py-16">
