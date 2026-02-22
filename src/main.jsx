@@ -12,9 +12,9 @@ createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <Nav />
     <Routes>
-      <Route path="/" element={<Mai />} />
-      <Route path="/profile" element={<RiskRouter />} />
-      <Route path="/app" element={<App />} />
+      <Route path="/" element={<RiskRouter />} />
+      {/* <Route path="/profile" element={<RiskRouter />} /> */}
+      {/* <Route path="/app" element={<App />} /> */}
     </Routes>
   </BrowserRouter>,
 );
