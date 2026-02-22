@@ -1114,638 +1114,531 @@ const FbProfile = () => {
           )}
         </div>
       </div>
-      {/* Add/Edit Modal */}
-      {showModal &&
-        (activeHeader ? (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-            <div className="bg-white !rounded-button shadow-xl max-w-4xl w-full mx-4 max-h-screen overflow-y-auto">
-              <div className="p-6 border-b border-blue-100">
-                <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                  {modalMode === "add" ? "Add New Risk" : "Edit Risk"}
-                </h3>
+{/* Add/Edit Modal */}
+{showModal &&
+  (activeHeader ? (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-gray-100">
+        {/* Header */}
+        <div className="px-8 py-5 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-slate-50 to-blue-50 rounded-t-2xl">
+          <div className="flex items-center gap-3">
+            <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-blue-700 rounded-full" />
+            <h3 className="text-lg font-semibold text-gray-800">
+              {modalMode === "add" ? "Add New Risk" : "Edit Risk"}
+            </h3>
+          </div>
+          <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 transition-colors">
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div className="px-8 py-6 space-y-6">
+          <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Risk / Feedback Details</p>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="space-y-6">
+              {/* Sol sütun */}
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Job Number</label>
+                <input
+                  value={formData.jobNumber}
+                  onChange={(e) => handleFormChange("jobNumber", e.target.value)}
+                  type="text"
+                  placeholder="Enter job number..."
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                />
               </div>
-              <div className="p-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Job Number
-                      </label>
-                      <input
-                        value={formData.jobNumber}
-                        onChange={(e) =>
-                          handleFormChange("jobNumber", e.target.value)
-                        }
-                        type="text"
-                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Job Start Date
-                      </label>
-                      <input
-                        value={formData.jobStartDate}
-                        onChange={(e) =>
-                          handleFormChange("jobStartDate", e.target.value)
-                        }
-                        type="text"
-                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Job Completion Date
-                      </label>
-                      <input
-                        value={formData.jobCompletionDate}
-                        onChange={(e) =>
-                          handleFormChange("jobCompletionDate", e.target.value)
-                        }
-                        type="text"
-                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Scope
-                      </label>
-                      <select
-                        value={formData.scope}
-                        onChange={(e) => {
-                          console.log(
-                            "Select onChange tetiklendi! Yeni value:",
-                            e.target.value,
-                          ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                          handleFormChange("scope", e.target.value); // String path + value – obje değil!
-                        }}
-                      >
-                        <option value="">Select</option>
-                        {dropdownData?.scope?.map((item) => (
-                          <option key={item.id} value={item.id}>
-                            {item.value}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Name Of Customer
-                      </label>
-                      <select
-                        value={formData.customerId}
-                        onChange={(e) =>
-                          handleFormChange("customerId", e.target.value)
-                        }
-                      >
-                        <option value="">Select</option>
-                        {customers?.map((item) => (
-                          <option key={item.id} value={item.id}>
-                            {item.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Type Of Finding
-                      </label>
-                      <select
-                        value={formData.typeOfFinding}
-                        onChange={(e) => {
-                          console.log(
-                            "Select onChange tetiklendi! Yeni value:",
-                            e.target.value,
-                          ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                          handleFormChange("typeOfFinding", e.target.value); // String path + value – obje değil!
-                        }}
-                      >
-                        <option value="">Select</option>
-                        {dropdownData?.typeOfFinding?.map((item) => (
-                          <option key={item.id} value={item.id}>
-                            {item.value}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Quality Of Goods / Service
-                      </label>
-                      <div className="grid grid-cols-3 gap-2">
-                        <input
-                          value={formData.qgs}
-                          onChange={(e) =>
-                            handleFormChange("qgs", e.target.value)
-                          }
-                          type="text"
-                          className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Communication
-                      </label>
-                      <div className="grid grid-cols-3 gap-2">
-                        <select
-                          value={formData.communication}
-                          onChange={(e) => {
-                            console.log(
-                              "Select onChange tetiklendi! Yeni value:",
-                              e.target.value,
-                            ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                            const newValue = parseInt(e.target.value, 10) || 0;
-                            handleFormChange("communication", newValue); // String path + value – obje değil!
-                          }}
-                        >
-                          <option value="">Select</option>
-                          <option>-1</option>
-                          <option>0</option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        On - Time Delivery
-                      </label>
-                      <div className="grid grid-cols-3 gap-2">
-                        <select
-                          value={formData.otd}
-                          onChange={(e) => {
-                            console.log(
-                              "Select onChange tetiklendi! Yeni value:",
-                              e.target.value,
-                            ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                            const newValue = parseInt(e.target.value, 10) || 0;
-                            handleFormChange("otd", newValue); // String path + value – obje değil!
-                          }}
-                        >
-                          <option value="">Select</option>
-                          <option>-1</option>
-                          <option>0</option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Documentation
-                      </label>
-                      <div className="grid grid-cols-3 gap-2">
-                        <select
-                          value={formData.documentation}
-                          onChange={(e) => {
-                            console.log(
-                              "Select onChange tetiklendi! Yeni value:",
-                              e.target.value,
-                            ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                            const newValue = parseInt(e.target.value, 10) || 0;
-                            handleFormChange("documentation", newValue); // String path + value – obje değil!
-                          }}
-                        >
-                          <option value="">Select</option>
-                          <option>-1</option>
-                          <option>0</option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Health And Safety
-                      </label>
-                      <div className="grid grid-cols-3 gap-2">
-                        <select
-                          value={formData.hs}
-                          onChange={(e) => {
-                            console.log(
-                              "Select onChange tetiklendi! Yeni value:",
-                              e.target.value,
-                            ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                            const newValue = parseInt(e.target.value, 10) || 0;
-                            handleFormChange("hs", newValue); // String path + value – obje değil!
-                          }}
-                        >
-                          <option value="">Select</option>
-                          <option>-1</option>
-                          <option>0</option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Envinroment
-                      </label>
-                      <div className="grid grid-cols-3 gap-2">
-                        <select
-                          value={formData.environment}
-                          onChange={(e) => {
-                            console.log(
-                              "Select onChange tetiklendi! Yeni value:",
-                              e.target.value,
-                            ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                            const newValue = parseInt(e.target.value, 10) || 0;
-                            handleFormChange("environment", newValue); // String path + value – obje değil!
-                          }}
-                        >
-                          <option value="">Select</option>
-                          <option>-1</option>
-                          <option>0</option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Job Start Date</label>
+                <input
+                  value={formData.jobStartDate}
+                  onChange={(e) => handleFormChange("jobStartDate", e.target.value)}
+                  type="date"  // text yerine date yaptım, daha mantıklı
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                />
               </div>
-              <div className="p-6 border-t border-blue-100 flex justify-end space-x-4">
-                <button
-                  onClick={closeModal}
-                  className="!rounded-button whitespace-nowrap cursor-pointer border-2 border-gray-300 text-gray-600 px-6 py-2 hover:bg-gray-50 transition-all duration-300"
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Job Completion Date</label>
+                <input
+                  value={formData.jobCompletionDate}
+                  onChange={(e) => handleFormChange("jobCompletionDate", e.target.value)}
+                  type="date"
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                />
+              </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Scope</label>
+                <select
+                  value={formData.scope}
+                  onChange={(e) => {
+                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                    handleFormChange("scope", e.target.value);
+                  }}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                 >
-                  Cancel
-                </button>
-                <button
-                  onClick={saveRisk}
-                  className="!rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 hover:from-blue-600 hover:to-blue-800 transition-all duration-300"
+                  <option value="">Select</option>
+                  {dropdownData?.scope?.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.value}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Name Of Customer</label>
+                <select
+                  value={formData.customerId}
+                  onChange={(e) => handleFormChange("customerId", e.target.value)}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                 >
-                  {modalMode === "add" ? "Add Feedback" : "Update Feedback"}
-                </button>
+                  <option value="">Select</option>
+                  {customers?.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Type Of Finding</label>
+                <select
+                  value={formData.typeOfFinding}
+                  onChange={(e) => {
+                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                    handleFormChange("typeOfFinding", e.target.value);
+                  }}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                >
+                  <option value="">Select</option>
+                  {dropdownData?.typeOfFinding?.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.value}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
-          </div>
-        ) : (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-            <div className="bg-white !rounded-button shadow-xl max-w-4xl w-full mx-4 max-h-screen overflow-y-auto">
-              <div className="p-6 border-b border-blue-100">
-                <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                  {modalMode === "add" ? "Add New Action " : "Edit Action"}
-                </h3>
+
+            <div className="space-y-6">
+              {/* Sağ sütun */}
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Quality Of Goods / Service</label>
+                <input
+                  value={formData.qgs}
+                  onChange={(e) => handleFormChange("qgs", e.target.value)}
+                  type="text"
+                  placeholder="Enter value..."
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                />
               </div>
-              <div className="p-6">
-                <div className="grid md:grid-cols-1 gap-6">
-                  <div className="space-y-6">
-                    <div className="grid md:grid-cols-1 gap-6">
-                      <div className="space-y-6">
-                        <div>
-                          <div className="space-y-6">
-                            {/* Row 1 */}
-                            <div className="grid grid-cols-3 gap-4">
-                              {/* Action */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  Scope
-                                </label>
-                                <select
-                                  value={
-                                    actionData.actionPlan?.[0]?.scope || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].scope",
-                                      e.target.value,
-                                    )
-                                  }
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
-                                >
-                                  <option value="">Select</option>
-                                  {dropdownData?.scope?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                      {item.value}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
 
-                              {/* Raise Date with Label */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  Vendor ID
-                                </label>
-<select
-  value={actionData?.actionPlan?.[0]?.vendorId || ""}
-  onChange={(e) =>
-    handleFormChange("actionPlan[0].vendorId", e.target.value)
-  }
->
-  <option value="">Select</option>
-  {vendors?.map((item) => (
-    <option key={item.id} value={item.id}>
-      {item.name}
-    </option>
-  ))}
-</select>
-
-                              </div>
-
-                              {/* Resources */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  Type Of Finding
-                                </label>
-                                <select
-                                  value={
-                                    actionData.actionPlan?.[0]?.typeOfFinding ||
-                                    ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].typeOfFinding",
-                                      e.target.value,
-                                    )
-                                  }
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
-                                >
-                                  <option value="">Select</option>
-                                  {dropdownData?.typeOfFinding?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                      {item.value}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-                            </div>
-
-                            {/* Row 2 */}
-                            <div className="grid grid-cols-3 gap-4">
-                              {/* Relative Function */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  Quality Of Goods / Services
-                                </label>
-                                <select
-                                  value={actionData?.actionPlan?.[0]?.qgs || ""}
-                                  onChange={(e) => {
-                                    console.log(
-                                      "Select onChange tetiklendi! Yeni value:",
-                                      e.target.value,
-                                    ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                                    const newValue =
-                                      parseInt(e.target.value, 10) || 0;
-                                    handleFormChange(
-                                      "actionPlan[0].qgs",
-                                      newValue,
-                                    ); // String path + value – obje değil!
-                                  }}
-                                >
-                                  <option value="">Select</option>
-                                  <option>-1</option>
-                                  <option>0</option>
-                                  <option>1</option>
-                                  <option>2</option>
-                                  <option>3</option>
-                                  <option>4</option>
-                                  <option>5</option>
-                                </select>
-                              </div>
-
-                              {/* Responsible */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  Communication
-                                </label>
-                                <select
-                                  value={
-                                    actionData?.actionPlan?.[0]
-                                      ?.communication || ""
-                                  }
-                                  onChange={(e) => {
-                                    console.log(
-                                      "Select onChange tetiklendi! Yeni value:",
-                                      e.target.value,
-                                    ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                                    const newValue =
-                                      parseInt(e.target.value, 10) || 0;
-                                    handleFormChange(
-                                      "actionPlan[0].communication",
-                                      newValue,
-                                    ); // String path + value – obje değil!
-                                  }}
-                                >
-                                  <option value="">Select</option>
-                                  <option>-1</option>
-                                  <option>0</option>
-                                  <option>1</option>
-                                  <option>2</option>
-                                  <option>3</option>
-                                  <option>4</option>
-                                  <option>5</option>
-                                </select>
-                              </div>
-
-                              {/* Deadline (Calendar) */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  OTD
-                                </label>
-                                <select
-                                  value={actionData?.actionPlan?.[0]?.otd || ""}
-                                  onChange={(e) => {
-                                    console.log(
-                                      "Select onChange tetiklendi! Yeni value:",
-                                      e.target.value,
-                                    ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                                    const newValue =
-                                      parseInt(e.target.value, 10) || 0;
-                                    handleFormChange(
-                                      "actionPlan[0].otd",
-                                      newValue,
-                                    ); // String path + value – obje değil!
-                                  }}
-                                >
-                                  <option value="">Select</option>
-                                  <option>-1</option>
-                                  <option>0</option>
-                                  <option>1</option>
-                                  <option>2</option>
-                                  <option>3</option>
-                                  <option>4</option>
-                                  <option>5</option>
-                                </select>
-                              </div>
-                            </div>
-
-                            {/* Row 3 */}
-                            <div className="grid grid-cols-3 gap-4">
-                              {/* Action Confirmation */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  Documentation
-                                </label>
-                                <select
-                                  value={
-                                    actionData?.actionPlan?.[0]
-                                      ?.documentation || ""
-                                  }
-                                  onChange={(e) => {
-                                    console.log(
-                                      "Select onChange tetiklendi! Yeni value:",
-                                      e.target.value,
-                                    ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                                    const newValue =
-                                      parseInt(e.target.value, 10) || 0;
-                                    handleFormChange(
-                                      "actionPlan[0].documentation",
-                                      newValue,
-                                    ); // String path + value – obje değil!
-                                  }}
-                                >
-                                  <option value="">Select</option>
-                                  <option>-1</option>
-                                  <option>0</option>
-                                  <option>1</option>
-                                  <option>2</option>
-                                  <option>3</option>
-                                  <option>4</option>
-                                  <option>5</option>
-                                </select>
-                              </div>
-
-                              {/* Action Status */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  Health And Safety
-                                </label>
-                                <select
-                                  value={actionData?.actionPlan?.[0]?.hs || ""}
-                                  onChange={(e) => {
-                                    console.log(
-                                      "Select onChange tetiklendi! Yeni value:",
-                                      e.target.value,
-                                    ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                                    const newValue =
-                                      parseInt(e.target.value, 10) || 0;
-                                    handleFormChange(
-                                      "actionPlan[0].hs",
-                                      newValue,
-                                    ); // String path + value – obje değil!
-                                  }}
-                                >
-                                  <option value="">Select</option>
-                                  <option>-1</option>
-                                  <option>0</option>
-                                  <option>1</option>
-                                  <option>2</option>
-                                  <option>3</option>
-                                  <option>4</option>
-                                  <option>5</option>
-                                </select>
-                              </div>
-
-                              {/* Completion Date (Calendar) */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  Environment
-                                </label>
-                                <select
-                                  value={
-                                    actionData?.actionPlan?.[0]?.environment ||
-                                    ""
-                                  }
-                                  onChange={(e) => {
-                                    console.log(
-                                      "Select onChange tetiklendi! Yeni value:",
-                                      e.target.value,
-                                    ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                                    const newValue =
-                                      parseInt(e.target.value, 10) || 0;
-                                    handleFormChange(
-                                      "actionPlan[0].environment",
-                                      newValue,
-                                    ); // String path + value – obje değil!
-                                  }}
-                                >
-                                  <option value="">Select</option>
-                                  <option>-1</option>
-                                  <option>0</option>
-                                  <option>1</option>
-                                  <option>2</option>
-                                  <option>3</option>
-                                  <option>4</option>
-                                  <option>5</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Communication</label>
+                <select
+                  value={formData.communication}
+                  onChange={(e) => {
+                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                    const newValue = parseInt(e.target.value, 10) || 0;
+                    handleFormChange("communication", newValue);
+                  }}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                >
+                  <option value="">Select</option>
+                  <option value={-1}>-1</option>
+                  <option value={0}>0</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                </select>
               </div>
-              <div className="p-6 border-t border-blue-100 flex justify-end space-x-4">
-                <button
-                  onClick={closeModal}
-                  className="!rounded-button whitespace-nowrap cursor-pointer border-2 border-gray-300 text-gray-600 px-6 py-2 hover:bg-gray-50 transition-all duration-300"
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">On-Time Delivery</label>
+                <select
+                  value={formData.otd}
+                  onChange={(e) => {
+                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                    const newValue = parseInt(e.target.value, 10) || 0;
+                    handleFormChange("otd", newValue);
+                  }}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                 >
-                  Cancel
-                </button>
-                <button
-                  onClick={saveRisk}
-                  className="!rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 hover:from-blue-600 hover:to-blue-800 transition-all duration-300"
-                >
-                  {modalMode === "add" ? "Add Feedback" : "Update Action"}
-                </button>
+                  <option value="">Select</option>
+                  <option value={-1}>-1</option>
+                  <option value={0}>0</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                </select>
               </div>
-            </div>
-          </div>
-        ))}
-      {/* Delete Confirmation Modal */}
-      {showDeleteModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white !rounded-button shadow-xl max-w-md w-full mx-4">
-            <div className="p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">
-                Confirm Delete
-              </h3>
-              <p className="text-gray-600 mb-6">
-                {isBulkDelete
-                  ? `Are you sure you want to delete ${selectedCount} selected risk item(s)? This action can be undo..`
-                  : "Are you sure you want to delete this risk item? This action can be undo..."}
-              </p>
-              <div className="flex justify-end space-x-4">
-                <button
-                  onClick={() => setShowDeleteModal(false)}
-                  className="!rounded-button whitespace-nowrap cursor-pointer border-2 border-gray-300 text-gray-600 px-4 py-2 hover:bg-gray-50 transition-all duration-300"
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Documentation</label>
+                <select
+                  value={formData.documentation}
+                  onChange={(e) => {
+                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                    const newValue = parseInt(e.target.value, 10) || 0;
+                    handleFormChange("documentation", newValue);
+                  }}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                 >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleDeleteConfirm}
-                  className="!rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2 hover:from-red-600 hover:to-red-700 transition-all duration-300"
+                  <option value="">Select</option>
+                  <option value={-1}>-1</option>
+                  <option value={0}>0</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                </select>
+              </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Health And Safety</label>
+                <select
+                  value={formData.hs}
+                  onChange={(e) => {
+                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                    const newValue = parseInt(e.target.value, 10) || 0;
+                    handleFormChange("hs", newValue);
+                  }}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                 >
-                  Delete
-                </button>
+                  <option value="">Select</option>
+                  <option value={-1}>-1</option>
+                  <option value={0}>0</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                </select>
+              </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Environment</label>
+                <select
+                  value={formData.environment}
+                  onChange={(e) => {
+                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                    const newValue = parseInt(e.target.value, 10) || 0;
+                    handleFormChange("environment", newValue);
+                  }}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                >
+                  <option value="">Select</option>
+                  <option value={-1}>-1</option>
+                  <option value={0}>0</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                </select>
               </div>
             </div>
           </div>
         </div>
-      )}
+
+        {/* Footer */}
+        <div className="px-8 py-5 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50 rounded-b-2xl">
+          <button
+            onClick={closeModal}
+            className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={saveRisk}
+            className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl hover:from-blue-600 hover:to-blue-800 shadow-sm shadow-blue-200 transition-all"
+          >
+            {modalMode === "add" ? "Add Feedback" : "Update Feedback"}
+          </button>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-gray-100">
+        {/* Header */}
+        <div className="px-8 py-5 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-slate-50 to-blue-50 rounded-t-2xl">
+          <div className="flex items-center gap-3">
+            <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-blue-700 rounded-full" />
+            <h3 className="text-lg font-semibold text-gray-800">
+              {modalMode === "add" ? "Add New Action" : "Edit Action"}
+            </h3>
+          </div>
+          <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 transition-colors">
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div className="px-8 py-6 space-y-8">
+          <div>
+            <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest mb-4">Action Plan</p>
+            <div className="space-y-6">
+              <div className="grid grid-cols-3 gap-4">
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Scope</label>
+                  <select
+                    value={actionData.actionPlan?.[0]?.scope || ""}
+                    onChange={(e) => handleFormChange("actionPlan[0].scope", e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  >
+                    <option value="">Select</option>
+                    {dropdownData?.scope?.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.value}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Vendor ID</label>
+                  <select
+                    value={actionData?.actionPlan?.[0]?.vendorId || ""}
+                    onChange={(e) => handleFormChange("actionPlan[0].vendorId", e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  >
+                    <option value="">Select</option>
+                    {vendors?.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Type Of Finding</label>
+                  <select
+                    value={actionData.actionPlan?.[0]?.typeOfFinding || ""}
+                    onChange={(e) => handleFormChange("actionPlan[0].typeOfFinding", e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  >
+                    <option value="">Select</option>
+                    {dropdownData?.typeOfFinding?.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.value}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-4">
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Quality Of Goods / Services</label>
+                  <select
+                    value={actionData?.actionPlan?.[0]?.qgs || ""}
+                    onChange={(e) => {
+                      console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                      const newValue = parseInt(e.target.value, 10) || 0;
+                      handleFormChange("actionPlan[0].qgs", newValue);
+                    }}
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  >
+                    <option value="">Select</option>
+                    <option value={-1}>-1</option>
+                    <option value={0}>0</option>
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={3}>3</option>
+                    <option value={4}>4</option>
+                    <option value={5}>5</option>
+                  </select>
+                </div>
+
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Communication</label>
+                  <select
+                    value={actionData?.actionPlan?.[0]?.communication || ""}
+                    onChange={(e) => {
+                      console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                      const newValue = parseInt(e.target.value, 10) || 0;
+                      handleFormChange("actionPlan[0].communication", newValue);
+                    }}
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  >
+                    <option value="">Select</option>
+                    <option value={-1}>-1</option>
+                    <option value={0}>0</option>
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={3}>3</option>
+                    <option value={4}>4</option>
+                    <option value={5}>5</option>
+                  </select>
+                </div>
+
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">OTD</label>
+                  <select
+                    value={actionData?.actionPlan?.[0]?.otd || ""}
+                    onChange={(e) => {
+                      console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                      const newValue = parseInt(e.target.value, 10) || 0;
+                      handleFormChange("actionPlan[0].otd", newValue);
+                    }}
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  >
+                    <option value="">Select</option>
+                    <option value={-1}>-1</option>
+                    <option value={0}>0</option>
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={3}>3</option>
+                    <option value={4}>4</option>
+                    <option value={5}>5</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-4">
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Documentation</label>
+                  <select
+                    value={actionData?.actionPlan?.[0]?.documentation || ""}
+                    onChange={(e) => {
+                      console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                      const newValue = parseInt(e.target.value, 10) || 0;
+                      handleFormChange("actionPlan[0].documentation", newValue);
+                    }}
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  >
+                    <option value="">Select</option>
+                    <option value={-1}>-1</option>
+                    <option value={0}>0</option>
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={3}>3</option>
+                    <option value={4}>4</option>
+                    <option value={5}>5</option>
+                  </select>
+                </div>
+
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Health And Safety</label>
+                  <select
+                    value={actionData?.actionPlan?.[0]?.hs || ""}
+                    onChange={(e) => {
+                      console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                      const newValue = parseInt(e.target.value, 10) || 0;
+                      handleFormChange("actionPlan[0].hs", newValue);
+                    }}
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  >
+                    <option value="">Select</option>
+                    <option value={-1}>-1</option>
+                    <option value={0}>0</option>
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={3}>3</option>
+                    <option value={4}>4</option>
+                    <option value={5}>5</option>
+                  </select>
+                </div>
+
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Environment</label>
+                  <select
+                    value={actionData?.actionPlan?.[0]?.environment || ""}
+                    onChange={(e) => {
+                      console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                      const newValue = parseInt(e.target.value, 10) || 0;
+                      handleFormChange("actionPlan[0].environment", newValue);
+                    }}
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  >
+                    <option value="">Select</option>
+                    <option value={-1}>-1</option>
+                    <option value={0}>0</option>
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={3}>3</option>
+                    <option value={4}>4</option>
+                    <option value={5}>5</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Monthly Status Section – eğer varsa eklenir, önceki gibi */}
+          {/* ... (isteğe göre ekleyebilirsin) ... */}
+        </div>
+
+        {/* Footer */}
+        <div className="px-8 py-5 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50 rounded-b-2xl">
+          <button
+            onClick={closeModal}
+            className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={saveRisk}
+            className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl hover:from-blue-600 hover:to-blue-800 shadow-sm shadow-blue-200 transition-all"
+          >
+            {modalMode === "add" ? "Add Feedback" : "Update Action"}
+          </button>
+        </div>
+      </div>
+    </div>
+  ))}
+
+{/* Delete Confirmation Modal */}
+{showDeleteModal && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+    <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 border border-gray-100">
+      <div className="p-6">
+        <div className="flex items-start gap-4">
+          <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+            <svg className="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </div>
+          <div>
+            <h3 className="text-base font-semibold text-gray-800 mb-1">Confirm Delete</h3>
+            <p className="text-sm text-gray-500">
+              {isBulkDelete
+                ? `Are you sure you want to delete ${selectedCount} selected item(s)? This action can be undone.`
+                : "Are you sure you want to delete this item? This action can be undone."}
+            </p>
+          </div>
+        </div>
+        <div className="flex justify-end gap-3 mt-6">
+          <button
+            onClick={() => setShowDeleteModal(false)}
+            className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleDeleteConfirm}
+            className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-red-500 to-red-600 rounded-xl hover:from-red-600 hover:to-red-700 shadow-sm shadow-red-200 transition-all"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 };
