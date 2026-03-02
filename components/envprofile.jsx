@@ -1206,19 +1206,6 @@ const EnvProfile = () => {
   </div>
 </div>
 
-                {/* Sağdaki E-Chart butonu */}
-                {/* <div className="ml-auto">
-                  <button
-                    onClick={() => setSelectedOption("e-chart")}
-                    className={[
-                      "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
-                      selectedOption ? "" : "",
-                    ].join(" ")}
-                  >
-                    <i className="fas fa-archive mr-2 text-blue-600 hover:text-blue-700"></i>
-                    {selectedOption ? "E-Chart" : "Data"}
-                  </button>{" "}
-                </div> */}
               </div>
 
               {/* Tablo */}
