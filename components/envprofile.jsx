@@ -1040,129 +1040,172 @@ const EnvProfile = () => {
               {/* Header */}
               <div className="p-6 border-b border-blue-100 flex items-center">
                 {/* Başlık ve sol butonlar */}
-                <div className="flex items-center space-x-3">
+<div className="flex items-center gap-4 flex-wrap">
+  {/* Ana Ekleme Butonu – en dikkat çekici */}
+  <button
+    onClick={openAddModal}
+    className={`
+      group relative overflow-hidden px-6 py-2.5 rounded-xl font-medium text-sm tracking-wide
+      bg-gradient-to-r from-indigo-600 to-blue-600 text-white
+      shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40
+      hover:from-indigo-700 hover:to-blue-700
+      active:scale-[0.97]
+      transition-all duration-300 ease-out
+      flex items-center gap-2.5
+    `}
+  >
+    <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-400 rounded-xl" />
+    <i className="fas fa-plus text-base transition-transform duration-300 group-hover:rotate-90 group-hover:scale-110" />
+    {!showAction ? "Add Aspect" : "Add Action"}
+  </button>
 
-                  <button
-                    onClick={openAddModal}
-                    className="!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm"
-                  >
-                    <i className="fas fa-plus mr-2 text-blue-600 hover:text-blue-700"></i>
-                    {!showAction ? "Add Aspect" : "Add Action"}
-                  </button>
-                  <button
-                    onClick={toggleArchiveView}
-                    className={[
-                      "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
-                      showArchived ? "" : "",
-                    ].join(" ")}
-                  >
-                    <i className="fas fa-archive mr-2 text-blue-600 hover:text-blue-700"></i>
-                    {showArchived ? "Hide Archived" : "Show Archived"}
-                  </button>
-                  <button
-                    onClick={toggleDeleteView}
-                    className={[
-                      "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
-                      showDeleted ? "" : "",
-                    ].join(" ")}
-                  >
-                    <i className="fas fa-archive mr-2 text-blue-600 hover:text-blue-700"></i>
-                    {activeHeader
-                      ? showDeleted
-                        ? "Hide Deleted"
-                        : "Show Deleted"
-                      : showDeletedAction
-                        ? "Hide Deleted Action"
-                        : "Show Deleted Action"}
-                  </button>
-                  <button
-                    onClick={toggleActionView}
-                    disabled={selectedCount !== 1}
-                    className={[
-                      "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
-                      !(selectedCount >= 1 && selectedCount < 2)
-                        ? "opacity-50 cursor-not-allowed"
-                        : "",
-                      showAction ? "" : "",
-                    ].join(" ")}
-                  >
-                    <i className="fas fa-archive mr-2 text-blue-600 hover:text-blue-700"></i>
-                    {showAction ? "Hide Action" : "Show Action"}
-                  </button>
-                  {/* Actions butonları */}
-                  <div className="flex space-x-2">
-                    <button
-                      onClick={editSingle}
-                      disabled={
-                        !(selectedCount === 1 || selectedCountForActions === 1)
-                      }
-                      className={[
-                        "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
-                        !(selectedCount === 1 || selectedCountForActions === 1)
-                          ? "opacity-50 cursor-not-allowed"
-                          : "",
-                      ].join(" ")}
-                      title="Edit (Single Selection Only)"
-                    >
-                      <i className="fas fa-edit text-blue-600 hover:text-blue-700"></i>
-                    </button>
-                    <button
-                      onClick={archive}
-                      disabled={
-                        !(selectedCount >= 1 && !showDeleted) || !activeHeader
-                      }
-                      className={[
-                        "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
-                        !(selectedCount >= 1 && !showDeleted)
-                          ? "opacity-50 cursor-not-allowed"
-                          : "",
-                        !activeHeader ? "opacity-50 cursor-not-allowed" : "",
-                      ].join(" ")}
-                      title="Archive/Restore Selected"
-                    >
-                      <i
-                        className={`fas ${showArchived ? "fa-undo" : "fa-archive"} text-blue-600 hover:text-blue-700`}
-                      ></i>
-                    </button>
-                    <button
-                      onClick={selectedCount > 0 ? confirmBulkDelete : () => {}}
-                      disabled={selectedCount === 0}
-                      className={[
-                        "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
-                        selectedCount === 0
-                          ? "opacity-50 cursor-not-allowed"
-                          : "",
-                      ].join(" ")}
-                      title="Delete Selected"
-                    >
-                      <i
-                        className={`fas ${
-                          activeHeader
-                            ? showDeleted
-                              ? "fa-trash-restore"
-                              : "fa-trash"
-                            : showDeletedAction
-                              ? "fa-trash-restore"
-                              : "fa-trash"
-                        } text-blue-600 hover:text-blue-700`}
-                      ></i>
-                    </button>
-                  </div>
-                </div>
+  {/* Archive Butonu */}
+  <button
+    onClick={toggleArchiveView}
+    className={`
+      group px-5 py-2.5 rounded-xl font-medium text-sm
+      bg-white border border-slate-200 text-slate-700
+      hover:border-slate-300 hover:text-slate-900 hover:bg-slate-50/80
+      shadow-sm hover:shadow-md
+      transition-all duration-300 ease-out
+      flex items-center gap-2.5
+      ${showArchived ? "border-amber-300 text-amber-700 bg-amber-50/80 hover:bg-amber-100/70" : ""}
+    `}
+  >
+    <i
+      className={`
+        fas ${showArchived ? "fa-undo" : "fa-archive"} 
+        text-base transition-transform duration-300 
+        group-hover:scale-110 group-hover:rotate-12
+      `}
+    />
+    {showArchived ? "Hide Archived" : "Show Archived"}
+  </button>
 
-                {/* Sağdaki E-Chart butonu */}
-                {/* <div className="ml-auto">
-                  <button
-                    onClick={() => setSelectedOption("e-chart")}
-                    className={[
-                      "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
-                      selectedOption ? "" : "",
-                    ].join(" ")}
-                  >
-                    <i className="fas fa-archive mr-2 text-blue-600 hover:text-blue-700"></i>
-                    {selectedOption ? "E-Chart" : "Data"}
-                  </button>{" "}
-                </div> */}
+  {/* Show/Hide Deleted Butonu */}
+  <button
+    onClick={toggleDeleteView}
+    className={`
+      group px-5 py-2.5 rounded-xl font-medium text-sm
+      bg-white border border-slate-200
+      ${showDeleted || showDeletedAction
+        ? "border-red-300 text-red-700 bg-red-50/80 hover:bg-red-100/70 hover:border-red-400"
+        : "hover:border-slate-300 hover:text-slate-900 hover:bg-slate-50/80"}
+      shadow-sm hover:shadow-md
+      transition-all duration-300 ease-out
+      flex items-center gap-2.5
+    `}
+  >
+    <i
+      className={`
+        fas ${showDeleted || showDeletedAction ? "fa-trash-restore" : "fa-trash-can"} 
+        text-base transition-transform duration-300 
+        group-hover:scale-110 group-hover:rotate-6
+      `}
+    />
+    {activeHeader
+      ? showDeleted
+        ? "Hide Deleted"
+        : "Show Deleted"
+      : showDeletedAction
+        ? "Hide Deleted Action"
+        : "Show Deleted Action"}
+  </button>
+
+  {/* Show/Hide Action Butonu */}
+  <button
+    onClick={toggleActionView}
+    disabled={selectedCount !== 1}
+    className={`
+      group px-5 py-2.5 rounded-xl font-medium text-sm
+      bg-white border border-slate-200 text-slate-700
+      disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
+      hover:border-slate-300 hover:text-slate-900 hover:bg-slate-50/80
+      shadow-sm hover:shadow-md
+      transition-all duration-300 ease-out
+      flex items-center gap-2.5
+      ${showAction ? "border-purple-300 text-purple-700 bg-purple-50/70 hover:bg-purple-100/60" : ""}
+    `}
+  >
+    <i 
+      className={`
+        fas fa-list-check text-base transition-transform duration-300 
+        group-hover:scale-110 group-hover:rotate-6
+      `}
+    />
+    {showAction ? "Hide Action" : "Show Action"}
+  </button>
+
+  {/* Aksiyon ikon butonları grubu */}
+  <div className="flex items-center gap-2.5">
+    {/* Edit */}
+    <button
+      onClick={editSingle}
+      disabled={!(selectedCount === 1 || selectedCountForActions === 1)}
+      className={`
+        group p-3 rounded-xl
+        bg-white border border-slate-200 text-blue-600
+        disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
+        hover:bg-blue-50 hover:border-blue-200 hover:text-blue-700 hover:shadow-md
+        shadow-sm transition-all duration-300 ease-out
+      `}
+      title="Edit (Single Selection Only)"
+    >
+      <i className="fas fa-edit text-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" />
+    </button>
+
+    {/* Archive / Restore */}
+    <button
+      onClick={archive}
+      disabled={!(selectedCount >= 1 && !showDeleted) || !activeHeader}
+      className={`
+        group p-3 rounded-xl
+        bg-white border border-slate-200 text-slate-600
+        disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
+        ${showArchived
+          ? "text-amber-600 border-amber-200 bg-amber-50/70 hover:bg-amber-100/70 hover:border-amber-300"
+          : "hover:bg-amber-50 hover:border-amber-200 hover:text-amber-700"}
+        shadow-sm hover:shadow-md
+        transition-all duration-300 ease-out
+      `}
+      title="Archive / Restore Selected"
+    >
+      <i
+        className={`
+          fas ${showArchived ? "fa-undo" : "fa-archive"} 
+          text-lg transition-transform duration-300 
+          group-hover:scale-110 group-hover:rotate-12
+        `}
+      />
+    </button>
+
+    {/* Delete / Restore */}
+    <button
+      onClick={selectedCount > 0 ? confirmBulkDelete : () => {}}
+      disabled={selectedCount === 0}
+      className={`
+        group p-3 rounded-xl
+        bg-white border border-slate-200
+        ${showDeleted || showDeletedAction
+          ? "text-emerald-600 border-emerald-200 bg-emerald-50/70 hover:bg-emerald-100/70 hover:border-emerald-300"
+          : "text-red-600 hover:bg-red-50 hover:border-red-200 hover:text-red-700"}
+        disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
+        shadow-sm hover:shadow-md
+        transition-all duration-300 ease-out
+      `}
+      title="Delete / Restore Selected"
+    >
+      <i
+        className={`
+          fas ${showDeleted || showDeletedAction ? "fa-trash-restore" : "fa-trash-can"} 
+          text-lg transition-transform duration-300 
+          group-hover:scale-110 group-hover:rotate-6
+        `}
+      />
+    </button>
+  </div>
+</div>
+
               </div>
 
               {/* Tablo */}
@@ -1199,1014 +1242,533 @@ const EnvProfile = () => {
           )}
         </div>
       </div>
-      {/* Add/Edit Modal */}
-      {showModal &&
-        (activeHeader ? (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-            <div className="bg-white !rounded-button shadow-xl max-w-4xl w-full mx-4 max-h-screen overflow-y-auto">
-              <div className="p-6 border-b border-blue-100">
-                <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                  {modalMode === "add" ? "Add New Aspect" : "Edit Aspect"}
-                </h3>
-              </div>
-              <div className="p-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Process
-                      </label>
-                      <select
-                        value={formData.process || ""} // Null-safe
-                        onChange={(e) => {
-                          console.log(
-                            "Select onChange tetiklendi! Yeni value:",
-                            e.target.value,
-                          ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                          handleFormChange("process", e.target.value); // String path + value – obje değil!
-                        }}
-                      >
-                        <option value="">Select</option>
-                        {dropdownData?.process?.map((item) => (
-                          <option key={item.id} value={item.id}>
-                            {item.value}
-                          </option>
-                        ))}
-                      </select>{" "}
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Aspect
-                      </label>
-                      <select
-                        value={formData.aspect || ""} // Null-safe
-                        onChange={(e) => {
-                          console.log(
-                            "Select onChange tetiklendi! Yeni value:",
-                            e.target.value,
-                          ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                          handleFormChange("aspect", e.target.value); // String path + value – obje değil!
-                        }}
-                      >
-                        <option value="">Select</option>
-                        {dropdownData?.aspect?.map((item) => (
-                          <option key={item.id} value={item.id}>
-                            {item.value}
-                          </option>
-                        ))}
-                      </select>{" "}
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Impact
-                      </label>
-                      <input
-                        value={formData.impact}
-                        onChange={(e) =>
-                          handleFormChange("impact", e.target.value)
-                        }
-                        type="text"
-                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Affected Receptors
-                      </label>
-                      <input
-                        value={formData.affectedReceptors}
-                        onChange={(e) =>
-                          handleFormChange("affectedReceptors", e.target.value)
-                        }
-                        type="text"
-                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                      />
-                      {/* <select
-                        value={formData.affectedReceptors}
-                        onChange={(e) => {
-                          console.log(
-                            "Select onChange tetiklendi! Yeni value:",
-                            e.target.value,
-                          ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                          handleFormChange("affectedReceptors", e.target.value); // String path + value – obje değil!
-                        }}
-                      >
-                        <option value="">Select</option>
-                        {dropdownData?.affectedReceptors?.map((item) => (
-                          <option key={item.id} value={item.id}>
-                            {item.value}
-                          </option>
-                        ))}
-                      </select> */}
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Existing Controls
-                      </label>
-                      <input
-                        value={formData.existingControls}
-                        onChange={(e) =>
-                          handleFormChange("existingControls", e.target.value)
-                        }
-                        type="text"
-                        className="w-full px-3 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Initial Probability
-                      </label>
-                      <div className="grid grid-cols-3 gap-2">
-                        <select
-                          value={formData.idosProbability}
-                          onChange={(e) => {
-                            console.log(
-                              "Select onChange tetiklendi! Yeni value:",
-                              e.target.value,
-                            ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                            const newValue = parseInt(e.target.value, 10) || 0;
-                            handleFormChange("idosProbability", newValue); // String path + value – obje değil!
-                          }}
-                        >
-                          <option value="">Select</option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Initial Severity
-                      </label>
-                      <div className="grid grid-cols-3 gap-2">
-                        <select
-                          value={formData.idosSeverity}
-                          onChange={(e) => {
-                            console.log(
-                              "Select onChange tetiklendi! Yeni value:",
-                              e.target.value,
-                            ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                            const newValue = parseInt(e.target.value, 10) || 0;
-                            handleFormChange("idosSeverity", newValue); // String path + value – obje değil!
-                          }}
-                        >
-                          <option value="">Select</option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
-                      </div>
-                    </div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Initial Duration
-                    </label>
-                    <div className="grid grid-cols-3 gap-2">
-                      <select
-                        value={formData.idosDuration}
-                        onChange={(e) => {
-                          console.log(
-                            "Select onChange tetiklendi! Yeni value:",
-                            e.target.value,
-                          ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                          const newValue = parseInt(e.target.value, 10) || 0;
-                          handleFormChange("idosDuration", newValue); // String path + value – obje değil!
-                        }}
-                      >
-                        <option value="">Select</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                    </div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Initial Scale
-                    </label>
-                    <div className="grid grid-cols-3 gap-2">
-                      <select
-                        value={formData.idosScale}
-                        onChange={(e) => {
-                          console.log(
-                            "Select onChange tetiklendi! Yeni value:",
-                            e.target.value,
-                          ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                          const newValue = parseInt(e.target.value, 10) || 0;
-                          handleFormChange("idosScale", newValue); // String path + value – obje değil!
-                        }}
-                      >
-                        <option value="">Select</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Residual Probability
-                      </label>
-                      <div className="grid grid-cols-3 gap-2">
-                        <select
-                          value={formData.rdosProbability}
-                          onChange={(e) => {
-                            console.log(
-                              "Select onChange tetiklendi! Yeni value:",
-                              e.target.value,
-                            ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                            const newValue = parseInt(e.target.value, 10) || 0;
-                            handleFormChange("rdosProbability", newValue); // String path + value – obje değil!
-                          }}
-                        >
-                          <option value="">Select</option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Residual Severity
-                      </label>
-                      <div className="grid grid-cols-3 gap-2">
-                        <select
-                          value={formData.rdosSeverity}
-                          onChange={(e) => {
-                            console.log(
-                              "Select onChange tetiklendi! Yeni value:",
-                              e.target.value,
-                            ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                            const newValue = parseInt(e.target.value, 10) || 0;
-                            handleFormChange("rdosSeverity", newValue); // String path + value – obje değil!
-                          }}
-                        >
-                          <option value="">Select</option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                        </select>
-                      </div>
-                    </div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Residual Duration
-                    </label>
-                    <div className="grid grid-cols-3 gap-2">
-                      <select
-                        value={formData.rdosDuration}
-                        onChange={(e) => {
-                          console.log(
-                            "Select onChange tetiklendi! Yeni value:",
-                            e.target.value,
-                          ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                          const newValue = parseInt(e.target.value, 10) || 0;
-                          handleFormChange("rdosDuration", newValue); // String path + value – obje değil!
-                        }}
-                      >
-                        <option value="">Select</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                    </div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Residual Scale
-                    </label>
-                    <div className="grid grid-cols-3 gap-2">
-                      <select
-                        value={formData.rdosScale}
-                        onChange={(e) => {
-                          console.log(
-                            "Select onChange tetiklendi! Yeni value:",
-                            e.target.value,
-                          ); // Debug: Bu çıkmıyorsa onChange patlıyor
-                          const newValue = parseInt(e.target.value, 10) || 0;
-                          handleFormChange("rdosScale", newValue); // String path + value – obje değil!
-                        }}
-                      >
-                        <option value="">Select</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="p-6 border-t border-blue-100 flex justify-end space-x-4">
-                <button
-                  onClick={closeModal}
-                  className="!rounded-button whitespace-nowrap cursor-pointer border-2 border-gray-300 text-gray-600 px-6 py-2 hover:bg-gray-50 transition-all duration-300"
+{/* Add/Edit Modal */}
+{showModal &&
+  (activeHeader ? (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-gray-100">
+        {/* Header */}
+        <div className="px-8 py-5 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-slate-50 to-blue-50 rounded-t-2xl">
+          <div className="flex items-center gap-3">
+            <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-blue-700 rounded-full" />
+            <h3 className="text-lg font-semibold text-gray-800">
+              {modalMode === "add" ? "Add New Aspect" : "Edit Aspect"}
+            </h3>
+          </div>
+          <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 transition-colors">
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div className="px-8 py-6 space-y-6">
+          <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Aspect Details</p>
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Sol sütun */}
+            <div className="space-y-6">
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Process</label>
+                <select
+                  value={formData.process || ""}
+                  onChange={(e) => {
+                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                    handleFormChange("process", e.target.value);
+                  }}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                 >
-                  Cancel
-                </button>
-                <button
-                  onClick={saveRisk}
-                  className="!rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 hover:from-blue-600 hover:to-blue-800 transition-all duration-300"
+                  <option value="">Select</option>
+                  {dropdownData?.process?.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.value}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Aspect</label>
+                <select
+                  value={formData.aspect || ""}
+                  onChange={(e) => {
+                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                    handleFormChange("aspect", e.target.value);
+                  }}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                 >
-                  {modalMode === "add" ? "Add Aspect" : "Update Aspect"}
-                </button>
+                  <option value="">Select</option>
+                  {dropdownData?.aspect?.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.value}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Impact</label>
+                <input
+                  value={formData.impact}
+                  onChange={(e) => handleFormChange("impact", e.target.value)}
+                  type="text"
+                  placeholder="Enter impact..."
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                />
+              </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Affected Receptors</label>
+                <input
+                  value={formData.affectedReceptors}
+                  onChange={(e) => handleFormChange("affectedReceptors", e.target.value)}
+                  type="text"
+                  placeholder="Enter affected receptors..."
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                />
+                {/* Eğer select olarak kullanmak istersen, yorum satırındaki kısmı aynı stille aktif edebiliriz */}
+              </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Existing Controls</label>
+                <input
+                  value={formData.existingControls}
+                  onChange={(e) => handleFormChange("existingControls", e.target.value)}
+                  type="text"
+                  placeholder="Enter existing controls..."
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                />
               </div>
             </div>
-          </div>
-        ) : (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-            <div className="bg-white !rounded-button shadow-xl max-w-4xl w-full mx-4 max-h-screen overflow-y-auto">
-              <div className="p-6 border-b border-blue-100">
-                <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                  {modalMode === "add" ? "Add New Action " : "Edit Action"}
-                </h3>
+
+            {/* Sağ sütun */}
+            <div className="space-y-6">
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Initial Probability</label>
+                <select
+                  value={formData.idosProbability}
+                  onChange={(e) => {
+                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                    const newValue = parseInt(e.target.value, 10) || 0;
+                    handleFormChange("idosProbability", newValue);
+                  }}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                >
+                  <option value="">Select</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                </select>
               </div>
-              <div className="p-6">
-                <div className="grid md:grid-cols-1 gap-6">
-                  <div className="space-y-6">
-                    <div className="grid md:grid-cols-1 gap-6">
-                      <div className="space-y-6">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Action Plan
-                          </label>
 
-                          <div className="space-y-6">
-                            {/* Row 1 */}
-                            <div className="grid grid-cols-3 gap-4">
-                              {/* Action */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  Action
-                                </label>
-                                <input
-                                  value={
-                                    actionData?.actionPlan?.[0]?.title || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].title",
-                                      e.target.value,
-                                    )
-                                  }
-                                  type="text"
-                                  placeholder="Action"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
-                                />
-                              </div>
-
-                              {/* Raise Date with Label */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  Raise Date
-                                </label>
-                                <input
-                                  value={
-                                    actionData?.actionPlan?.[0]?.raiseDate || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].raiseDate",
-                                      e.target.value,
-                                    )
-                                  }
-                                  type="date"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
-                                />
-                              </div>
-
-                              {/* Resources */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  Resources
-                                </label>
-                                <input
-                                  value={
-                                    actionData.actionPlan?.[0]?.resources || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].resources",
-                                      parseInt(e.target.value),
-                                    )
-                                  }
-                                  type="text"
-                                  placeholder="Resources"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
-                                />
-                              </div>
-                            </div>
-
-                            {/* Row 2 */}
-                            <div className="grid grid-cols-3 gap-4">
-                              {/* Relative Function */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  Relative Function
-                                </label>
-                                <select
-                                  value={
-                                    actionData.actionPlan?.[0]
-                                      ?.relativeFunction || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].relativeFunction",
-                                      e.target.value,
-                                    )
-                                  }
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
-                                >
-                                  <option value="">Select</option>
-                                  {dropdownData?.relativeFunction?.map(
-                                    (item) => (
-                                      <option key={item.id} value={item.id}>
-                                        {item.value}
-                                      </option>
-                                    ),
-                                  )}
-                                </select>
-                              </div>
-
-                              {/* Responsible */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  Responsible
-                                </label>
-                                <select
-                                  value={
-                                    actionData.actionPlan?.[0]?.responsible ||
-                                    ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].responsible",
-                                      e.target.value,
-                                    )
-                                  }
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
-                                >
-                                  <option value="">Select</option>
-                                  {dropdownData?.affectedPosition?.map(
-                                    (item) => (
-                                      <option key={item.id} value={item.id}>
-                                        {item.value}
-                                      </option>
-                                    ),
-                                  )}
-                                </select>
-                              </div>
-
-                              {/* Deadline (Calendar) */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  Deadline
-                                </label>
-                                <input
-                                  value={
-                                    actionData.actionPlan?.[0]?.deadline || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].deadline",
-                                      e.target.value,
-                                    )
-                                  }
-                                  type="date"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
-                                />
-                              </div>
-                            </div>
-
-                            {/* Row 3 */}
-                            <div className="grid grid-cols-3 gap-4">
-                              {/* Action Confirmation */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  Action Confirmation
-                                </label>
-                                <select
-                                  value={
-                                    actionData.actionPlan?.[0]?.confirmation ||
-                                    ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].confirmation",
-                                      e.target.value,
-                                    )
-                                  }
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
-                                >
-                                  <option value="">Select</option>
-                                  {dropdownData?.confirmation?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                      {item.value}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-
-                              {/* Action Status */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  Action Status
-                                </label>
-                                <select
-                                  value={
-                                    actionData.actionPlan?.[0]?.status || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].status",
-                                      e.target.value,
-                                    )
-                                  }
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
-                                >
-                                  <option value="">Select</option>
-                                  {dropdownData?.status?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                      {item.value}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-
-                              {/* Completion Date (Calendar) */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  Completion Date
-                                </label>
-                                <input
-                                  value={
-                                    actionData.actionPlan?.[0]
-                                      ?.completionDate || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].completionDate",
-                                      e.target.value,
-                                    )
-                                  }
-                                  type="date"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
-                                />
-                              </div>
-                            </div>
-
-                            {/* Row 4 */}
-                            <div className="grid grid-cols-2 gap-4">
-                              {/* Verification Status */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  Verification Status
-                                </label>
-                                <select
-                                  value={
-                                    actionData.actionPlan?.[0]
-                                      ?.verificationStatus || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].verificationStatus",
-                                      e.target.value,
-                                    )
-                                  }
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
-                                >
-                                  <option value="">Select</option>
-                                  {dropdownData?.actionData.actionPlan?.[0]?.verificationStatus?.map(
-                                    (item) => (
-                                      <option key={item.id} value={item.id}>
-                                        {item.value}
-                                      </option>
-                                    ),
-                                  )}
-                                </select>
-                              </div>
-
-                              {/* Comment */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  Comment
-                                </label>
-                                <input
-                                  value={
-                                    actionData.actionPlan?.[0]?.comment || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].comment",
-                                      e.target.value,
-                                    )
-                                  }
-                                  type="text"
-                                  placeholder="Comment"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <label className="block text-sm font-medium text-gray-700 mt-2 mb-2">
-                            Action Status
-                          </label>
-                          <div className="space-y-6">
-                            {/* Row 1 */}
-                            <div className="grid grid-cols-3 gap-4">
-                              {/* Action */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  January
-                                </label>
-                                <select
-                                  value={
-                                    actionData?.actionPlan?.[0]?.january || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].january",
-                                      e.target.value,
-                                    )
-                                  }
-                                  type="text"
-                                  placeholder="Action"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
-                                >
-                                  <option value="">Select</option>
-                                  {dropdownData?.status?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                      {item.value}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-
-                              {/* Raise Date with Label */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  February
-                                </label>
-                                <select
-                                  value={
-                                    actionData?.actionPlan?.[0]?.february || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].february",
-                                      e.target.value,
-                                    )
-                                  }
-                                  type="date"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
-                                >
-                                  <option value="">Select</option>
-                                  {dropdownData?.status?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                      {item.value}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-
-                              {/* Resources */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  March
-                                </label>
-                                <select
-                                  value={
-                                    actionData.actionPlan?.[0]?.march || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].march",
-                                      e.target.value,
-                                    )
-                                  }
-                                  type="text"
-                                  placeholder="Resources"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
-                                >
-                                  <option value="">Select</option>
-                                  {dropdownData?.status?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                      {item.value}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-                            </div>
-
-                            {/* Row 2 */}
-                            <div className="grid grid-cols-3 gap-4">
-                              {/* Relative Function */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  April
-                                </label>
-                                <select
-                                  value={
-                                    actionData.actionPlan?.[0]?.april || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].april",
-                                      e.target.value,
-                                    )
-                                  }
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
-                                >
-                                  <option value="">Select</option>
-                                  {dropdownData?.status?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                      {item.value}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-
-                              {/* Responsible */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  May
-                                </label>
-                                <select
-                                  value={actionData.actionPlan?.[0]?.may || ""}
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].may",
-                                      e.target.value,
-                                    )
-                                  }
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
-                                >
-                                  <option value="">Select</option>
-                                  {dropdownData?.status?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                      {item.value}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-
-                              {/* Deadline (Calendar) */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  June
-                                </label>
-                                <select
-                                  value={actionData.actionPlan?.[0]?.june || ""}
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].june",
-                                      e.target.value,
-                                    )
-                                  }
-                                  type="date"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
-                                >
-                                  <option value="">Select</option>
-                                  {dropdownData?.status?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                      {item.value}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-                            </div>
-
-                            {/* Row 3 */}
-                            <div className="grid grid-cols-3 gap-4">
-                              {/* Action Confirmation */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  July
-                                </label>
-                                <select
-                                  value={actionData.actionPlan?.[0]?.july || ""}
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].july",
-                                      e.target.value,
-                                    )
-                                  }
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
-                                >
-                                  <option value="">Select</option>
-                                  {dropdownData?.status?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                      {item.value}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-
-                              {/* Action Status */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  August
-                                </label>
-                                <select
-                                  value={
-                                    actionData.actionPlan?.[0]?.august || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].august",
-                                      e.target.value,
-                                    )
-                                  }
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
-                                >
-                                  <option value="">Select</option>
-                                  {dropdownData?.status?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                      {item.value}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-
-                              {/* Completion Date (Calendar) */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  September
-                                </label>
-                                <select
-                                  value={
-                                    actionData.actionPlan?.[0]?.september || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].september",
-                                      e.target.value,
-                                    )
-                                  }
-                                  type="date"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
-                                >
-                                  <option value="">Select</option>
-                                  {dropdownData?.status?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                      {item.value}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-                            </div>
-
-                            {/* Row 4 */}
-                            <div className="grid grid-cols-3 gap-4">
-                              {/* Verification Status */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  October
-                                </label>
-                                <select
-                                  value={
-                                    actionData.actionPlan?.[0]?.october || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].october",
-                                      e.target.value,
-                                    )
-                                  }
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
-                                >
-                                  <option value="">Select</option>
-                                  {dropdownData?.status?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                      {item.value}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-
-                              {/* Comment */}
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  November
-                                </label>
-                                <select
-                                  value={
-                                    actionData.actionPlan?.[0]?.november || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].november",
-                                      e.target.value,
-                                    )
-                                  }
-                                  type="text"
-                                  placeholder="Comment"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
-                                >
-                                  <option value="">Select</option>
-                                  {dropdownData?.status?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                      {item.value}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
-                                  December
-                                </label>
-                                <select
-                                  value={
-                                    actionData.actionPlan?.[0]?.december || ""
-                                  }
-                                  onChange={(e) =>
-                                    handleFormChange(
-                                      "actionPlan[0].december",
-                                      e.target.value,
-                                    )
-                                  }
-                                  type="text"
-                                  placeholder="Comment"
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-sm"
-                                >
-                                  <option value="">Select</option>
-                                  {dropdownData?.status?.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                      {item.value}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Initial Severity</label>
+                <select
+                  value={formData.idosSeverity}
+                  onChange={(e) => {
+                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                    const newValue = parseInt(e.target.value, 10) || 0;
+                    handleFormChange("idosSeverity", newValue);
+                  }}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                >
+                  <option value="">Select</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                </select>
               </div>
-              <div className="p-6 border-t border-blue-100 flex justify-end space-x-4">
-                <button
-                  onClick={closeModal}
-                  className="!rounded-button whitespace-nowrap cursor-pointer border-2 border-gray-300 text-gray-600 px-6 py-2 hover:bg-gray-50 transition-all duration-300"
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Initial Duration</label>
+                <select
+                  value={formData.idosDuration}
+                  onChange={(e) => {
+                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                    const newValue = parseInt(e.target.value, 10) || 0;
+                    handleFormChange("idosDuration", newValue);
+                  }}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                 >
-                  Cancel
-                </button>
-                <button
-                  onClick={saveRisk}
-                  className="!rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 hover:from-blue-600 hover:to-blue-800 transition-all duration-300"
-                >
-                  {modalMode === "add" ? "Add Aspect" : "Update Aspect"}
-                </button>
+                  <option value="">Select</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                </select>
               </div>
-            </div>
-          </div>
-        ))}
-      {/* Delete Confirmation Modal */}
-      {showDeleteModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white !rounded-button shadow-xl max-w-md w-full mx-4">
-            <div className="p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">
-                Confirm Delete
-              </h3>
-              <p className="text-gray-600 mb-6">
-                {isBulkDelete
-                  ? `Are you sure you want to delete ${selectedCount} selected risk item(s)? This action can be undo..`
-                  : "Are you sure you want to delete this risk item? This action can be undo..."}
-              </p>
-              <div className="flex justify-end space-x-4">
-                <button
-                  onClick={() => setShowDeleteModal(false)}
-                  className="!rounded-button whitespace-nowrap cursor-pointer border-2 border-gray-300 text-gray-600 px-4 py-2 hover:bg-gray-50 transition-all duration-300"
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Initial Scale</label>
+                <select
+                  value={formData.idosScale}
+                  onChange={(e) => {
+                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                    const newValue = parseInt(e.target.value, 10) || 0;
+                    handleFormChange("idosScale", newValue);
+                  }}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                 >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleDeleteConfirm}
-                  className="!rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2 hover:from-red-600 hover:to-red-700 transition-all duration-300"
+                  <option value="">Select</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                </select>
+              </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Residual Probability</label>
+                <select
+                  value={formData.rdosProbability}
+                  onChange={(e) => {
+                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                    const newValue = parseInt(e.target.value, 10) || 0;
+                    handleFormChange("rdosProbability", newValue);
+                  }}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                 >
-                  Delete
-                </button>
+                  <option value="">Select</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                </select>
+              </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Residual Severity</label>
+                <select
+                  value={formData.rdosSeverity}
+                  onChange={(e) => {
+                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                    const newValue = parseInt(e.target.value, 10) || 0;
+                    handleFormChange("rdosSeverity", newValue);
+                  }}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                >
+                  <option value="">Select</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                </select>
+              </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Residual Duration</label>
+                <select
+                  value={formData.rdosDuration}
+                  onChange={(e) => {
+                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                    const newValue = parseInt(e.target.value, 10) || 0;
+                    handleFormChange("rdosDuration", newValue);
+                  }}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                >
+                  <option value="">Select</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                </select>
+              </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Residual Scale</label>
+                <select
+                  value={formData.rdosScale}
+                  onChange={(e) => {
+                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                    const newValue = parseInt(e.target.value, 10) || 0;
+                    handleFormChange("rdosScale", newValue);
+                  }}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                >
+                  <option value="">Select</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                </select>
               </div>
             </div>
           </div>
         </div>
-      )}
+
+        {/* Footer */}
+        <div className="px-8 py-5 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50 rounded-b-2xl">
+          <button
+            onClick={closeModal}
+            className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={saveRisk}
+            className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl hover:from-blue-600 hover:to-blue-800 shadow-sm shadow-blue-200 transition-all"
+          >
+            {modalMode === "add" ? "Add Aspect" : "Update Aspect"}
+          </button>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-gray-100">
+        {/* Header */}
+        <div className="px-8 py-5 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-slate-50 to-blue-50 rounded-t-2xl">
+          <div className="flex items-center gap-3">
+            <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-blue-700 rounded-full" />
+            <h3 className="text-lg font-semibold text-gray-800">
+              {modalMode === "add" ? "Add New Action" : "Edit Action"}
+            </h3>
+          </div>
+          <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 transition-colors">
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div className="px-8 py-6 space-y-8">
+          {/* Action Plan Section */}
+          <div>
+            <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest mb-4">Action Plan</p>
+            <div className="space-y-6">
+              {/* Row 1 */}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Action</label>
+                  <input
+                    value={actionData?.actionPlan?.[0]?.title || ""}
+                    onChange={(e) => handleFormChange("actionPlan[0].title", e.target.value)}
+                    type="text"
+                    placeholder="Enter action..."
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  />
+                </div>
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Raise Date</label>
+                  <input
+                    value={actionData?.actionPlan?.[0]?.raiseDate || ""}
+                    onChange={(e) => handleFormChange("actionPlan[0].raiseDate", e.target.value)}
+                    type="date"
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  />
+                </div>
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Resources</label>
+                  <input
+                    value={actionData?.actionPlan?.[0]?.resources || ""}
+                    onChange={(e) => handleFormChange("actionPlan[0].resources", parseInt(e.target.value))}
+                    type="text"
+                    placeholder="Enter resources..."
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  />
+                </div>
+              </div>
+
+              {/* Row 2 */}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Relative Function</label>
+                  <select
+                    value={actionData?.actionPlan?.[0]?.relativeFunction || ""}
+                    onChange={(e) => handleFormChange("actionPlan[0].relativeFunction", e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  >
+                    <option value="">Select</option>
+                    {dropdownData?.relativeFunction?.map((item) => (
+                      <option key={item.id} value={item.id}>{item.value}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Responsible</label>
+                  <select
+                    value={actionData?.actionPlan?.[0]?.responsible || ""}
+                    onChange={(e) => handleFormChange("actionPlan[0].responsible", e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  >
+                    <option value="">Select</option>
+                    {dropdownData?.affectedPosition?.map((item) => (
+                      <option key={item.id} value={item.id}>{item.value}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Deadline</label>
+                  <input
+                    value={actionData?.actionPlan?.[0]?.deadline || ""}
+                    onChange={(e) => handleFormChange("actionPlan[0].deadline", e.target.value)}
+                    type="date"
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  />
+                </div>
+              </div>
+
+              {/* Row 3 */}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Action Confirmation</label>
+                  <select
+                    value={actionData?.actionPlan?.[0]?.confirmation || ""}
+                    onChange={(e) => handleFormChange("actionPlan[0].confirmation", e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  >
+                    <option value="">Select</option>
+                    {dropdownData?.confirmation?.map((item) => (
+                      <option key={item.id} value={item.id}>{item.value}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Action Status</label>
+                  <select
+                    value={actionData?.actionPlan?.[0]?.status || ""}
+                    onChange={(e) => handleFormChange("actionPlan[0].status", e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  >
+                    <option value="">Select</option>
+                    {dropdownData?.status?.map((item) => (
+                      <option key={item.id} value={item.id}>{item.value}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Completion Date</label>
+                  <input
+                    value={actionData?.actionPlan?.[0]?.completionDate || ""}
+                    onChange={(e) => handleFormChange("actionPlan[0].completionDate", e.target.value)}
+                    type="date"
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  />
+                </div>
+              </div>
+
+              {/* Row 4 */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Verification Status</label>
+                  <select
+                    value={actionData?.actionPlan?.[0]?.verificationStatus || ""}
+                    onChange={(e) => handleFormChange("actionPlan[0].verificationStatus", e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  >
+                    <option value="">Select</option>
+                    {dropdownData?.verificationStatus?.map((item) => (
+                      <option key={item.id} value={item.id}>{item.value}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Comment</label>
+                  <input
+                    value={actionData?.actionPlan?.[0]?.comment || ""}
+                    onChange={(e) => handleFormChange("actionPlan[0].comment", e.target.value)}
+                    type="text"
+                    placeholder="Enter comment..."
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Monthly Status Section */}
+          <div>
+            <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest mb-4">Monthly Action Status</p>
+            <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5">
+              <div className="grid grid-cols-4 gap-4">
+                {["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"].map((month) => (
+                  <div key={month} className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5 capitalize group-focus-within:text-blue-500 transition-colors">
+                      {month.charAt(0).toUpperCase() + month.slice(1)}
+                    </label>
+                    <select
+                      value={actionData?.actionPlan?.[0]?.[month] || ""}
+                      onChange={(e) => handleFormChange(`actionPlan[0].${month}`, e.target.value)}
+                      className="w-full px-3.5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                    >
+                      <option value="">Select</option>
+                      {dropdownData?.status?.map((item) => (
+                        <option key={item.id} value={item.id}>{item.value}</option>
+                      ))}
+                    </select>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="px-8 py-5 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50 rounded-b-2xl">
+          <button
+            onClick={closeModal}
+            className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={saveRisk}
+            className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl hover:from-blue-600 hover:to-blue-800 shadow-sm shadow-blue-200 transition-all"
+          >
+            {modalMode === "add" ? "Add Action" : "Update Action"}
+          </button>
+        </div>
+      </div>
+    </div>
+  ))}
+
+{/* Delete Confirmation Modal */}
+{showDeleteModal && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+    <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 border border-gray-100">
+      <div className="p-6">
+        <div className="flex items-start gap-4">
+          <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+            <svg className="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </div>
+          <div>
+            <h3 className="text-base font-semibold text-gray-800 mb-1">Confirm Delete</h3>
+            <p className="text-sm text-gray-500">
+              {isBulkDelete
+                ? `Are you sure you want to delete ${selectedCount} selected item(s)? This action can be undone.`
+                : "Are you sure you want to delete this item? This action can be undone."}
+            </p>
+          </div>
+        </div>
+        <div className="flex justify-end gap-3 mt-6">
+          <button
+            onClick={() => setShowDeleteModal(false)}
+            className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleDeleteConfirm}
+            className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-red-500 to-red-600 rounded-xl hover:from-red-600 hover:to-red-700 shadow-sm shadow-red-200 transition-all"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 };
