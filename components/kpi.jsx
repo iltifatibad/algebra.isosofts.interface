@@ -69,8 +69,7 @@ export default function KPIDashboard() {
   );
 
   const renderChart = () => {
-    const common = { data: chartData, margin: { top: 10, right: 24, left: 0, bottom: 0 } };
-
+const common = { data: chartData, margin: { top: 10, right: 5, left: 0, bottom: 0 } };
     if (chartType === "Line Chart") return (
       <LineChart {...common}>
         {axes}
@@ -109,8 +108,7 @@ export default function KPIDashboard() {
     );
 
     if (chartType === "Radar Chart") return (
-      <RadarChart data={radarData} margin={{ top: 10, right: 30, left: 30, bottom: 10 }}>
-        <PolarGrid stroke="#dbeafe" />
+<RadarChart data={radarData} margin={{ top: 10, right: 5, left: 5, bottom: 10 }}>        <PolarGrid stroke="#dbeafe" />
         <PolarAngleAxis dataKey="month" tick={{ fill: "#64748b", fontSize: 11 }} />
         <PolarRadiusAxis tick={{ fill: "#94a3b8", fontSize: 10 }} unit={kpi.unit} />
         <Radar name="Actual" dataKey="Actual" stroke={C.actual}  fill={C.actual}  fillOpacity={0.15} strokeWidth={2} />
@@ -222,8 +220,7 @@ export default function KPIDashboard() {
                     <p className="text-xs text-gray-400 mt-0.5">Monthly Performance — {chartType}</p>
                   </div>
                 </div>
-                <ResponsiveContainer width="100%" height={320}>
-                  {renderChart()}
+<ResponsiveContainer width="100%" height={320} debounce={50}>                  {renderChart()}
                 </ResponsiveContainer>
               </div>
             </div>
