@@ -158,7 +158,7 @@ export default function KPIDashboard() {
       <div style={{ display: "flex", gap: 16, marginBottom: 28, flexWrap: "wrap" }}>
         <div style={{ flex: "2 1 280px" }}>
           <label style={{ display: "block", fontSize: 11, color: "#3b82f6", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>
-            KPI Seç
+            Select KPI
           </label>
           <select value={selectedKPI} onChange={e => setSelectedKPI(e.target.value)} style={{
             width: "100%", background: "#f8fafc", border: "1px solid #bfdbfe",
@@ -170,7 +170,7 @@ export default function KPIDashboard() {
         </div>
         <div style={{ flex: "1 1 180px" }}>
           <label style={{ display: "block", fontSize: 11, color: "#3b82f6", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>
-            Grafik Tipi
+            Type Of Chart
           </label>
           <select value={chartType} onChange={e => setChartType(e.target.value)} style={{
             width: "100%", background: "#f8fafc", border: "1px solid #bfdbfe",
