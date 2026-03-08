@@ -28,7 +28,7 @@ const KPI_DATA = {
 
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const CHART_TYPES = ["Line Chart","Bar Chart","Area Chart","Radar Chart","Composed Chart"];
-const COLORS = { actual: "#6366f1", target: "#f59e0b", lastYear: "#10b981" };
+const COLORS = { actual: "#3b82f6", target: "#f59e0b", lastYear: "#10b981" };
 
 const SIDEBAR_WIDTH = 280;
 const NAVBAR_HEIGHT = 72;
@@ -56,26 +56,25 @@ export default function KPIDashboard() {
 
   const tooltipStyle = {
     contentStyle: {
-      background: "#0f172a",
-      border: "1px solid #334155",
+      background: "#ffffff",
+      border: "1px solid #bfdbfe",
       borderRadius: 8,
-      color: "#f1f5f9",
+      color: "#1e3a5f",
       fontSize: 13,
     }
   };
 
   const axes = (
     <>
-      <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-      <XAxis dataKey="month" tick={{ fill: "#94a3b8", fontSize: 12 }} />
-      <YAxis tick={{ fill: "#94a3b8", fontSize: 12 }} unit={kpi.unit} />
+      <CartesianGrid strokeDasharray="3 3" stroke="#dbeafe" />
+      <XAxis dataKey="month" tick={{ fill: "#64748b", fontSize: 12 }} />
+      <YAxis tick={{ fill: "#64748b", fontSize: 12 }} unit={kpi.unit} />
       <Tooltip {...tooltipStyle} />
-      <Legend wrapperStyle={{ color: "#94a3b8", fontSize: 13 }} />
+      <Legend wrapperStyle={{ color: "#475569", fontSize: 13 }} />
     </>
   );
 
   const renderChart = () => {
-    // ✅ right: 0 — sağdaki boşluğu kapatır
     const common = { data: chartData, margin: { top: 10, right: 0, left: 0, bottom: 0 } };
 
     if (chartType === "Line Chart") return (
@@ -113,14 +112,13 @@ export default function KPIDashboard() {
       </AreaChart>
     );
     if (chartType === "Radar Chart") return (
-      // ✅ right: 0, left: 0
       <RadarChart data={radarData} margin={{ top: 10, right: 0, left: 0, bottom: 10 }}>
-        <PolarGrid stroke="#1e293b" />
-        <PolarAngleAxis dataKey="month" tick={{ fill: "#94a3b8", fontSize: 11 }} />
-        <PolarRadiusAxis tick={{ fill: "#64748b", fontSize: 10 }} unit={kpi.unit} />
+        <PolarGrid stroke="#dbeafe" />
+        <PolarAngleAxis dataKey="month" tick={{ fill: "#64748b", fontSize: 11 }} />
+        <PolarRadiusAxis tick={{ fill: "#94a3b8", fontSize: 10 }} unit={kpi.unit} />
         <Radar name="Actual" dataKey="Actual" stroke={COLORS.actual} fill={COLORS.actual} fillOpacity={0.3} />
         <Radar name="Target" dataKey="Target" stroke={COLORS.target} fill={COLORS.target} fillOpacity={0.1} />
-        <Legend wrapperStyle={{ color: "#94a3b8", fontSize: 13 }} />
+        <Legend wrapperStyle={{ color: "#475569", fontSize: 13 }} />
         <Tooltip {...tooltipStyle} />
       </RadarChart>
     );
@@ -140,9 +138,9 @@ export default function KPIDashboard() {
       marginTop: NAVBAR_HEIGHT,
       minHeight: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
       width: `calc(100vw - ${SIDEBAR_WIDTH}px)`,
-      background: "#020817",
+      background: "linear-gradient(135deg, #eff6ff 0%, #ffffff 100%)",
       padding: "32px 28px",
-      color: "#f1f5f9",
+      color: "#1e3a5f",
       fontFamily: "'Georgia', serif",
       boxSizing: "border-box",
       overflowX: "hidden",
@@ -150,33 +148,33 @@ export default function KPIDashboard() {
 
       {/* Header */}
       <div style={{ marginBottom: 28 }}>
-        <p style={{ color: "#475569", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 4px" }}>
+        <p style={{ color: "#3b82f6", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 4px" }}>
           Performance Intelligence
         </p>
-        <h1 style={{ fontSize: 24, fontWeight: 700, color: "#f8fafc", margin: 0 }}>KPI Dashboard</h1>
+        <h1 style={{ fontSize: 24, fontWeight: 700, color: "#1e3a5f", margin: 0 }}>KPI Dashboard</h1>
       </div>
 
       {/* Controls */}
       <div style={{ display: "flex", gap: 16, marginBottom: 28, flexWrap: "wrap" }}>
         <div style={{ flex: "2 1 280px" }}>
-          <label style={{ display: "block", fontSize: 11, color: "#64748b", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>
+          <label style={{ display: "block", fontSize: 11, color: "#3b82f6", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>
             KPI Seç
           </label>
           <select value={selectedKPI} onChange={e => setSelectedKPI(e.target.value)} style={{
-            width: "100%", background: "#0f172a", border: "1px solid #1e293b",
-            color: "#f1f5f9", padding: "11px 16px", borderRadius: 10, fontSize: 14,
+            width: "100%", background: "#f8fafc", border: "1px solid #bfdbfe",
+            color: "#1e3a5f", padding: "11px 16px", borderRadius: 10, fontSize: 14,
             outline: "none", cursor: "pointer",
           }}>
             {Object.keys(KPI_DATA).map(k => <option key={k} value={k}>{k}</option>)}
           </select>
         </div>
         <div style={{ flex: "1 1 180px" }}>
-          <label style={{ display: "block", fontSize: 11, color: "#64748b", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>
+          <label style={{ display: "block", fontSize: 11, color: "#3b82f6", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>
             Grafik Tipi
           </label>
           <select value={chartType} onChange={e => setChartType(e.target.value)} style={{
-            width: "100%", background: "#0f172a", border: "1px solid #1e293b",
-            color: "#f1f5f9", padding: "11px 16px", borderRadius: 10, fontSize: 14,
+            width: "100%", background: "#f8fafc", border: "1px solid #bfdbfe",
+            color: "#1e3a5f", padding: "11px 16px", borderRadius: 10, fontSize: 14,
             outline: "none", cursor: "pointer",
           }}>
             {CHART_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
@@ -189,23 +187,23 @@ export default function KPIDashboard() {
         {[
           { label: "Last Year",     value: `${kpi.lastYear}${kpi.unit}`,  color: "#10b981" },
           { label: "Annual Target", value: `${kpi.target}${kpi.unit}`,    color: "#f59e0b" },
-          { label: "Latest Actual", value: `${latestActual}${kpi.unit}`,  color: "#6366f1" },
+          { label: "Latest Actual", value: `${latestActual}${kpi.unit}`,  color: "#3b82f6" },
           { label: "Progress",      value: `${progress}%`,                color: progress >= 90 ? "#10b981" : progress >= 70 ? "#f59e0b" : "#ef4444" },
         ].map(s => (
-          <div key={s.label} style={{ background: "#0f172a", border: "1px solid #1e293b", borderRadius: 12, padding: "18px 20px" }}>
-            <p style={{ fontSize: 11, color: "#475569", textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 6px" }}>{s.label}</p>
+          <div key={s.label} style={{ background: "#ffffff", border: "1px solid #dbeafe", borderRadius: 12, padding: "18px 20px" }}>
+            <p style={{ fontSize: 11, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 6px" }}>{s.label}</p>
             <p style={{ fontSize: 24, fontWeight: 700, color: s.color, margin: 0 }}>{s.value}</p>
           </div>
         ))}
       </div>
 
       {/* Progress Bar */}
-      <div style={{ background: "#0f172a", border: "1px solid #1e293b", borderRadius: 12, padding: "14px 20px", marginBottom: 28 }}>
+      <div style={{ background: "#ffffff", border: "1px solid #dbeafe", borderRadius: 12, padding: "14px 20px", marginBottom: 28 }}>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-          <span style={{ fontSize: 13, color: "#64748b" }}>Target Progress</span>
-          <span style={{ fontSize: 13, color: "#f1f5f9", fontWeight: 600 }}>{progress}%</span>
+          <span style={{ fontSize: 13, color: "#6b7280" }}>Target Progress</span>
+          <span style={{ fontSize: 13, color: "#1e3a5f", fontWeight: 600 }}>{progress}%</span>
         </div>
-        <div style={{ height: 6, background: "#1e293b", borderRadius: 99 }}>
+        <div style={{ height: 6, background: "#dbeafe", borderRadius: 99 }}>
           <div style={{
             height: "100%",
             width: `${progress}%`,
@@ -217,14 +215,13 @@ export default function KPIDashboard() {
       </div>
 
       {/* Chart */}
-      {/* ✅ padding sağ tarafı sıfırladık: "24px 0 16px" */}
-      <div style={{ background: "#0f172a", border: "1px solid #1e293b", borderRadius: 16, padding: "24px 0 16px" }}>
+      <div style={{ background: "#ffffff", border: "1px solid #dbeafe", borderRadius: 16, padding: "24px 0 16px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20, paddingInline: 16 }}>
           <div>
-            <h2 style={{ margin: 0, fontSize: 15, fontWeight: 600, color: "#f8fafc" }}>{selectedKPI}</h2>
-            <p style={{ margin: "4px 0 0", fontSize: 12, color: "#475569" }}>Monthly Performance — {chartType}</p>
+            <h2 style={{ margin: 0, fontSize: 15, fontWeight: 600, color: "#1e3a5f" }}>{selectedKPI}</h2>
+            <p style={{ margin: "4px 0 0", fontSize: 12, color: "#6b7280" }}>Monthly Performance — {chartType}</p>
           </div>
-          <span style={{ background: "#1e293b", color: "#94a3b8", fontSize: 12, padding: "4px 12px", borderRadius: 99 }}>2024</span>
+          <span style={{ background: "#dbeafe", color: "#3b82f6", fontSize: 12, padding: "4px 12px", borderRadius: 99 }}>2024</span>
         </div>
         <ResponsiveContainer width="100%" height={340}>
           {renderChart()}
