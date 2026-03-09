@@ -7,7 +7,7 @@ import {
 } from "recharts";
 
 const KPI_DATA = {
-  "Objectives Completion Rate": { unit: "%", lastYear: 78, target: 90, monthly: [72,75,78,80,82,85,83,87,88,90,89,91] },
+  "Objectives Completion Rate": { unit: "%", lastYear: 78, target: 100, monthly: [72,75,78,80,82,85,83,87,88,90,89,91] },
   "HS Risk Actions Closure Rate": { unit: "%", lastYear: 65, target: 85, monthly: [60,63,67,70,72,74,73,76,79,81,83,85] },
   "Legal Compliance Actions Closure Rate": { unit: "%", lastYear: 88, target: 95, monthly: [85,86,88,89,90,91,90,92,93,94,94,95] },
   "Environmental Aspects Actions Closure Rate": { unit: "%", lastYear: 70, target: 88, monthly: [68,70,71,73,75,76,74,78,80,82,84,87] },
