@@ -294,20 +294,23 @@ const VenProfile = () => {
     setSelectedRowsForActions,
     setSelectedTableForActions,
   );
-  async function getDefaultDropdownList() {
-    const url = "/api/tablecomponent/dropdownlistitem";
+async function getDefaultDropdownList() {
+    const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+    
+    const url = `/api/tablecomponent/dropdownlistitem?token=${token}`;
+
     try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-      }
-      const result = await response.json();
-      setDropdownData(result);
-      console.log(result);
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const result = await response.json();
+        setDropdownData(result);
+        console.log(result);
     } catch (error) {
-      console.error(error.message);
+        console.error(error.message);
     }
-  }
+}
 
   // Filtered data based on archived
 
@@ -514,177 +517,172 @@ const VenProfile = () => {
 
   const closeModal = () => setShowModal(false);
 
-  const saveRisk = () => {
+const saveRisk = () => {
+    const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+
     if (modalMode === "add") {
-      if (!showAction) {
-        const payload = {
-          name: formData.name,
-          regNumber: formData.regNumber,
-          scope1: formData.scope1,
-          scope2: formData.scope2,
-          scope3: formData.scope3,
-          registrationDate: formData.registrationDate,
-          reviewDate: formData.reviewDate,
-          approved: parseInt(formData.approved),
-        };
-        console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-
-        fetch("/api/register/ven/one", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload), // Direkt obje – array yapma!
-        })
-          .then((response) => {
-            if (!response.ok) {
-              console.error("Kaydetme başarısız:", response.statusText);
-            } else {
-              console.log("Kayıt başarıyla kaydedildi.");
-            }
-          })
-          .catch((error) => console.error("Hata:", error));
-        setRefresh(true);
-      } else {
-        const payload = {
-          registerId: Array.from(selectedRows)[0],
-          registerType: "ven",
-          title: actionData.actionPlan[0]?.title || "",
-          resources: parseInt(actionData.actionPlan[0]?.resources) || 0,
-          raiseDate: actionData.actionPlan[0]?.raiseDate || "",
-          currency: actionData.actionPlan[0]?.currency || "",
-          relativeFunction: actionData.actionPlan[0]?.relativeFunction || "",
-          responsible: actionData.actionPlan[0]?.responsible || "",
-          deadline: actionData.actionPlan[0]?.deadline || "",
-          confirmation: actionData.actionPlan[0]?.confirmation || "",
-          status: actionData.actionPlan[0]?.status || "",
-          completionDate: actionData.actionPlan[0]?.completionDate || "",
-          verificationStatus:
-            actionData.actionPlan[0]?.verificationStatus || "",
-          comment: actionData.actionPlan[0]?.comment || "",
-          january: actionData.actionPlan[0]?.january || "",
-          february: actionData.actionPlan[0]?.february || "",
-          march: actionData.actionPlan[0]?.march || "",
-          april: actionData.actionPlan[0]?.april || "",
-          may: actionData.actionPlan[0]?.may || "",
-          june: actionData.actionPlan[0]?.june || "",
-          july: actionData.actionPlan[0]?.july || "",
-          august: actionData.actionPlan[0]?.august || "",
-          september: actionData.actionPlan[0]?.september || "",
-          october: actionData.actionPlan[0]?.october || "",
-          november: actionData.actionPlan[0]?.november || "",
-          december: actionData.actionPlan[0]?.december || "",
-        };
-        console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-
-        fetch("/api/register/component/action/one", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload), // Direkt obje – array yapma!
-        })
-          .then((response) => {
-            if (!response.ok) {
-              console.error("Kaydetme başarısız:", response.statusText);
-            } else {
-              console.log("Kayıt başarıyla kaydedildi.");
-            }
-          })
-          .catch((error) => console.error("Hata:", error));
-        setRefresh(true);
-      }
-      // Sadece backend beklediği alanları al (diğerlerini sil)
+        if (!showAction) {
+            const payload = {
+                name: formData.name,
+                regNumber: formData.regNumber,
+                scope1: formData.scope1,
+                scope2: formData.scope2,
+                scope3: formData.scope3,
+                registrationDate: formData.registrationDate,
+                reviewDate: formData.reviewDate,
+                approved: parseInt(formData.approved),
+            };
+            console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
+            fetch(`/api/register/ven/one?token=${token}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload), // Direkt obje – array yapma!
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        console.error("Kaydetme başarısız:", response.statusText);
+                    } else {
+                        console.log("Kayıt başarıyla kaydedildi.");
+                    }
+                })
+                .catch((error) => console.error("Hata:", error));
+            setRefresh(true);
+        } else {
+            const payload = {
+                registerId: Array.from(selectedRows)[0],
+                registerType: "ven",
+                title: actionData.actionPlan[0]?.title || "",
+                resources: parseInt(actionData.actionPlan[0]?.resources) || 0,
+                raiseDate: actionData.actionPlan[0]?.raiseDate || "",
+                currency: actionData.actionPlan[0]?.currency || "",
+                relativeFunction: actionData.actionPlan[0]?.relativeFunction || "",
+                responsible: actionData.actionPlan[0]?.responsible || "",
+                deadline: actionData.actionPlan[0]?.deadline || "",
+                confirmation: actionData.actionPlan[0]?.confirmation || "",
+                status: actionData.actionPlan[0]?.status || "",
+                completionDate: actionData.actionPlan[0]?.completionDate || "",
+                verificationStatus:
+                    actionData.actionPlan[0]?.verificationStatus || "",
+                comment: actionData.actionPlan[0]?.comment || "",
+                january: actionData.actionPlan[0]?.january || "",
+                february: actionData.actionPlan[0]?.february || "",
+                march: actionData.actionPlan[0]?.march || "",
+                april: actionData.actionPlan[0]?.april || "",
+                may: actionData.actionPlan[0]?.may || "",
+                june: actionData.actionPlan[0]?.june || "",
+                july: actionData.actionPlan[0]?.july || "",
+                august: actionData.actionPlan[0]?.august || "",
+                september: actionData.actionPlan[0]?.september || "",
+                october: actionData.actionPlan[0]?.october || "",
+                november: actionData.actionPlan[0]?.november || "",
+                december: actionData.actionPlan[0]?.december || "",
+            };
+            console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
+            fetch(`/api/register/component/action/one?token=${token}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload), // Direkt obje – array yapma!
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        console.error("Kaydetme başarısız:", response.statusText);
+                    } else {
+                        console.log("Kayıt başarıyla kaydedildi.");
+                    }
+                })
+                .catch((error) => console.error("Hata:", error));
+            setRefresh(true);
+        }
+        // Sadece backend beklediği alanları al (diğerlerini sil)
     } else {
-      if (!showAction) {
-        const payload = {
-          id: selectedTable[0].id,
-          name: formData.name,
-          regNumber: formData.regNumber,
-          scope1: formData.scope1.id || String(formData.scope1),
-          scope2: formData.scope2.id || String(formData.scope2),
-          scope3: formData.scope3.id || String(formData.scope3),
-          registrationDate: formData.registrationDate,
-          reviewDate: formData.reviewDate,
-          approved: parseInt(formData.approved),
-        };
-        console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-        const url =
-          "/api/register/ven/one/" + selectedTable[0].id;
-        fetch(url, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload), // Direkt obje – array yapma!
-        })
-          .then((response) => {
-            if (!response.ok) {
-              console.error("Kaydetme başarısız:", response.statusText);
-            } else {
-              setSelectedTable([payload]);
-              setFormData([payload]);
-              console.log("Kayıt başarıyla kaydedildi. Yeni state:", [payload]);
-            }
-          })
-          .catch((error) => console.error("Hata:", error));
-        setRefresh(true);
-      } else {
-        setActionData({
-          actionPlan: [
-            {
-              id: [...selectedRowsForActions][0],
-              title: actionData.actionPlan[0].title,
-              raiseDate: actionData.raiseDate,
-              resources: parseInt(actionData.actionPlan[0].resources.id) || 0,
-              currency: "",
-              relativeFunction: actionData.relativeFunction?.id || "",
-              responsible: actionData.responsible?.id || "",
-              deadline: actionData.deadline,
-              confirmation: actionData.actionPlan[0].confirmation?.id || "",
-              status: actionData.actionPlan[0].status?.id,
-              completionDate: actionData.completionDate,
-              verificationStatus: actionData.verificationStatus?.id,
-              comment: actionData.comment?.id || "",
-              january: actionData.january?.id || "",
-              february: actionData.february?.id || "",
-              march: actionData.march?.id || "",
-              april: actionData.april?.id || "",
-              may: actionData.may?.id || "",
-              june: actionData.june?.id || "",
-              july: actionData.july?.id || "",
-              august: actionData.august?.id || "",
-              september: actionData.september?.id || "",
-              october: actionData.october?.id || "",
-              november: actionData.november?.id || "",
-              december: actionData.december?.id || "",
-            },
-          ],
-        });
-        const payload = { ...actionData.actionPlan[0] };
-        console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-
-        const url =
-          "/api/register/component/action/one/" +
-          [...selectedRowsForActions][0];
-        fetch(url, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload), // Direkt obje – array yapma!
-        })
-          .then((response) => {
-            if (!response.ok) {
-              console.error("Kaydetme başarısız:", response.statusText);
-            } else {
-              console.log("SELECTED actionData ", actionData);
-              console.log("SELECTED PAYLOAD ", payload);
-              setActionData([payload]);
-              setSelectedTableForActions([payload]);
-              console.log("SELECTED actionData ", actionData);
-
-              console.log("Kayıt başarıyla kaydedildi.");
-            }
-          })
-          .catch((error) => console.error("Hata:", error));
-        setRefresh(true);
-      }
+        if (!showAction) {
+            const payload = {
+                id: selectedTable[0].id,
+                name: formData.name,
+                regNumber: formData.regNumber,
+                scope1: formData.scope1.id || String(formData.scope1),
+                scope2: formData.scope2.id || String(formData.scope2),
+                scope3: formData.scope3.id || String(formData.scope3),
+                registrationDate: formData.registrationDate,
+                reviewDate: formData.reviewDate,
+                approved: parseInt(formData.approved),
+            };
+            console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
+            const url = `/api/register/ven/one/${selectedTable[0].id}?token=${token}`;
+            fetch(url, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload), // Direkt obje – array yapma!
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        console.error("Kaydetme başarısız:", response.statusText);
+                    } else {
+                        setSelectedTable([payload]);
+                        setFormData([payload]);
+                        console.log("Kayıt başarıyla kaydedildi. Yeni state:", [payload]);
+                    }
+                })
+                .catch((error) => console.error("Hata:", error));
+            setRefresh(true);
+        } else {
+            setActionData({
+                actionPlan: [
+                    {
+                        id: [...selectedRowsForActions][0],
+                        title: actionData.actionPlan[0].title,
+                        raiseDate: actionData.raiseDate,
+                        resources: parseInt(actionData.actionPlan[0].resources.id) || 0,
+                        currency: "",
+                        relativeFunction: actionData.relativeFunction?.id || "",
+                        responsible: actionData.responsible?.id || "",
+                        deadline: actionData.deadline,
+                        confirmation: actionData.actionPlan[0].confirmation?.id || "",
+                        status: actionData.actionPlan[0].status?.id,
+                        completionDate: actionData.completionDate,
+                        verificationStatus: actionData.verificationStatus?.id,
+                        comment: actionData.comment?.id || "",
+                        january: actionData.january?.id || "",
+                        february: actionData.february?.id || "",
+                        march: actionData.march?.id || "",
+                        april: actionData.april?.id || "",
+                        may: actionData.may?.id || "",
+                        june: actionData.june?.id || "",
+                        july: actionData.july?.id || "",
+                        august: actionData.august?.id || "",
+                        september: actionData.september?.id || "",
+                        october: actionData.october?.id || "",
+                        november: actionData.november?.id || "",
+                        december: actionData.december?.id || "",
+                    },
+                ],
+            });
+            const payload = { ...actionData.actionPlan[0] };
+            console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
+            const url = `/api/register/component/action/one/${[...selectedRowsForActions][0]}?token=${token}`;
+            fetch(url, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload), // Direkt obje – array yapma!
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        console.error("Kaydetme başarısız:", response.statusText);
+                    } else {
+                        console.log("SELECTED actionData ", actionData);
+                        console.log("SELECTED PAYLOAD ", payload);
+                        setActionData([payload]);
+                        setSelectedTableForActions([payload]);
+                        console.log("SELECTED actionData ", actionData);
+                        console.log("Kayıt başarıyla kaydedildi.");
+                    }
+                })
+                .catch((error) => console.error("Hata:", error));
+            setRefresh(true);
+        }
     }
     closeModal();
-  };
+};
   // Bulk delete için confirm
   const confirmBulkDelete = () => {
     setIsBulkDelete(true);
@@ -713,108 +711,13 @@ const VenProfile = () => {
     setIsBulkDelete(false);
   };
 
-  // Delete modal'da çağırma
-  const handleDeleteConfirm = () => {
-    if (activeHeader) {
-      if (!showDeleted) {
-        fetch("/api/register/ven/all/delete", {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ids: [...selectedRows],
-          }),
-        })
-          .then((response) => {
-            if (!response.ok) {
-              console.log(" Failed Deleting Registers ");
-            } else {
-              console.log(" Deleting Success");
-              selectedRows.clear();
-              setSelectedTable([]);
-              setShowDeleteModal(false);
-              setRefresh(true);
-            }
-          })
-          .catch((error) => console.log(" Error While Deleting: ", error));
-      } else {
-        fetch("/api/register/ven/all/undelete", {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ids: [...selectedRows],
-          }),
-        })
-          .then((response) => {
-            if (!response.ok) {
-              console.log(" Failed Deleting Registers ");
-            } else {
-              console.log(" Deleting Success");
-              selectedRows.clear();
-              setSelectedTable([]);
-              setShowDeleteModal(false);
-            }
-          })
-          .catch((error) => console.log(" Error While Deleting: ", error));
-        setRefresh(true);
-      }
-    } else {
-      if (!showDeletedAction) {
-        console.log("AAABBB: ", selectedRowsForActions);
-        fetch(
-          "/api/register/component/action/all/delete",
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              ids: [...selectedRowsForActions],
-            }),
-          },
-        )
-          .then((response) => {
-            if (!response.ok) {
-              console.log(" Failed Deleting Registers ");
-            } else {
-              console.log(" Deleting Success");
-              setSelectedTableForActions([]);
-              setSelectedRowsForActions(new Set());
-              setShowDeleteModal(false);
-              setRefresh(true);
-            }
-          })
-          .catch((error) => console.log(" Error While Deleting: ", error));
-        setRefresh(true);
-      } else {
-        console.log("CCC: ", selectedRowsForActions);
-        fetch(
-          "/api/register/component/action/all/undelete",
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              ids: [...selectedRowsForActions],
-            }),
-          },
-        )
-          .then((response) => {
-            if (!response.ok) {
-              console.log(" Failed Deleting Registers ");
-            } else {
-              console.log(" UnDeleting Successsss");
-              setSelectedTableForActions([]);
-              setSelectedRowsForActions(new Set());
-              setRefresh(true);
-              setShowDeleteModal(false);
-            }
-          })
-          .catch((error) => console.log(" Error While Deleting: ", error));
-        setRefresh(true);
-      }
-    }
-  };
+// Delete modal'da çağırma
+const handleDeleteConfirm = () => {
+  const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
 
-  const archiveData = (id) => {
-    if (showArchived) {
-      fetch("/api/register/ven/all/unarchive", {
+  if (activeHeader) {
+    if (!showDeleted) {
+      fetch(`/api/register/ven/all/delete?token=${token}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -823,35 +726,128 @@ const VenProfile = () => {
       })
         .then((response) => {
           if (!response.ok) {
-            console.log(" UnArchiving Failed ");
+            console.log(" Failed Deleting Registers ");
           } else {
+            console.log(" Deleting Success");
             selectedRows.clear();
             setSelectedTable([]);
-            console.log(" UnArchiving Success ");
+            setShowDeleteModal(false);
+            setRefresh(true);
           }
         })
-        .catch((error) => console.log(" Error While UnArchiving : ", error));
-      setRefresh(true);
+        .catch((error) => console.log(" Error While Deleting: ", error));
     } else {
-      fetch("/api/register/ven/all/archive", {
+      fetch(`/api/register/ven/all/undelete?token=${token}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ids: [...selectedRows] }),
+        body: JSON.stringify({
+          ids: [...selectedRows],
+        }),
       })
         .then((response) => {
           if (!response.ok) {
-            console.log(selectedRows);
-            console.log(" Archiving Failed ");
+            console.log(" Failed Deleting Registers ");
           } else {
+            console.log(" Deleting Success");
             selectedRows.clear();
             setSelectedTable([]);
-            console.log(" Archiving Success ");
+            setShowDeleteModal(false);
           }
         })
-        .catch((error) => console.log(" Error While Archiving : ", error));
+        .catch((error) => console.log(" Error While Deleting: ", error));
       setRefresh(true);
     }
-  };
+  } else {
+    if (!showDeletedAction) {
+      console.log("AAABBB: ", selectedRowsForActions);
+      fetch(`/api/register/component/action/all/delete?token=${token}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ids: [...selectedRowsForActions],
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            console.log(" Failed Deleting Registers ");
+          } else {
+            console.log(" Deleting Success");
+            setSelectedTableForActions([]);
+            setSelectedRowsForActions(new Set());
+            setShowDeleteModal(false);
+            setRefresh(true);
+          }
+        })
+        .catch((error) => console.log(" Error While Deleting: ", error));
+      setRefresh(true);
+    } else {
+      console.log("CCC: ", selectedRowsForActions);
+      fetch(`/api/register/component/action/all/undelete?token=${token}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ids: [...selectedRowsForActions],
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            console.log(" Failed Deleting Registers ");
+          } else {
+            console.log(" UnDeleting Successsss");
+            setSelectedTableForActions([]);
+            setSelectedRowsForActions(new Set());
+            setRefresh(true);
+            setShowDeleteModal(false);
+          }
+        })
+        .catch((error) => console.log(" Error While Deleting: ", error));
+      setRefresh(true);
+    }
+  }
+};
+
+const archiveData = (id) => {
+  const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+
+  if (showArchived) {
+    fetch(`/api/register/ven/all/unarchive?token=${token}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ids: [...selectedRows],
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          console.log(" UnArchiving Failed ");
+        } else {
+          selectedRows.clear();
+          setSelectedTable([]);
+          console.log(" UnArchiving Success ");
+        }
+      })
+      .catch((error) => console.log(" Error While UnArchiving : ", error));
+    setRefresh(true);
+  } else {
+    fetch(`/api/register/ven/all/archive?token=${token}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ids: [...selectedRows] }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          console.log(selectedRows);
+          console.log(" Archiving Failed ");
+        } else {
+          selectedRows.clear();
+          setSelectedTable([]);
+          console.log(" Archiving Success ");
+        }
+      })
+      .catch((error) => console.log(" Error While Archiving : ", error));
+    setRefresh(true);
+  }
+};
 
   // Bulk actions
   const bulkArchive = () => {

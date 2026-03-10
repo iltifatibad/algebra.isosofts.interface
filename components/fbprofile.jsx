@@ -256,50 +256,59 @@ const FbProfile = () => {
     setSelectedRowsForActions,
     setSelectedTableForActions,
   );
-  async function getDefaultDropdownList() {
-    const url = "/api/tablecomponent/dropdownlistitem";
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-      }
-      const result = await response.json();
-      setDropdownData(result);
-      console.log(result);
-    } catch (error) {
-      console.error(error.message);
-    }
-  }
+async function getDefaultDropdownList() {
+    const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+    
+    const url = `/api/tablecomponent/dropdownlistitem?token=${token}`;
 
-  async function getDefaultCustomers() {
-    const url = "/api/register/cus/all?status=active";
     try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-      }
-      const result = await response.json();
-      setCustomers(result);
-      console.log(result);
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const result = await response.json();
+        setDropdownData(result);
+        console.log(result);
     } catch (error) {
-      console.error(error.message);
+        console.error(error.message);
     }
-  }
+}
 
-  async function getDefaultVendors() {
-    const url = "/api/register/ven/all?status=active";
+async function getDefaultCustomers() {
+    const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+    
+    const url = `/api/register/cus/all?status=active&token=${token}`;
+    
     try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-      }
-      const result = await response.json();
-      setVendors(result);
-      console.log(result);
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const result = await response.json();
+        setCustomers(result);
+        console.log(result);
     } catch (error) {
-      console.error(error.message);
+        console.error(error.message);
     }
-  }
+}
+
+async function getDefaultVendors() {
+    const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+    
+    const url = `/api/register/ven/all?status=active&token=${token}`;
+    
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const result = await response.json();
+        setVendors(result);
+        console.log(result);
+    } catch (error) {
+        console.error(error.message);
+    }
+}
 
   // Filtered data based on archived
 
@@ -484,156 +493,150 @@ const FbProfile = () => {
 
   const closeModal = () => setShowModal(false);
 
-  const saveRisk = () => {
+const saveRisk = () => {
+    const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+
     if (modalMode === "add") {
-      if (!showAction) {
-        const payload = {
-          jobNumber: formData.jobNumber,
-          jobStartDate: formData.jobStartDate,
-          jobCompletionDate: formData.jobCompletionDate,
-          scope: formData.scope,
-          customerId: formData.customerId,
-          typeOfFinding: formData.typeOfFinding,
-          qgs: parseInt(formData.qgs),
-          communication: parseInt(formData.communication),
-          otd: parseInt(formData.otd),
-          documentation: parseInt(formData.documentation),
-          hs: parseInt(formData.hs),
-          environment: parseInt(formData.environment),
-        };
-        console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-
-        fetch("/api/register/fb/one", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload), // Direkt obje – array yapma!
-        })
-          .then((response) => {
-            if (!response.ok) {
-              console.error("Kaydetme başarısız:", response.statusText);
-            } else {
-              console.log("Kayıt başarıyla kaydedildi.");
-            }
-          })
-          .catch((error) => console.error("Hata:", error));
-        setRefresh(true);
-      } else {
-        const payload = {
-          registerId: Array.from(selectedRows)[0],
-          scope: actionData.actionPlan[0].scope,
-          vendorId: actionData.actionPlan[0].vendorId,
-          typeOfFinding: actionData.actionPlan[0].typeOfFinding,
-          qgs: parseInt(actionData.actionPlan[0].qgs),
-          communication: parseInt(actionData.actionPlan[0].communication),
-          otd: parseInt(actionData.actionPlan[0].otd),
-          documentation: parseInt(actionData.actionPlan[0].documentation),
-          hs: parseInt(actionData.actionPlan[0].hs),
-          environment: parseInt(actionData.actionPlan[0].environment),
-        };
-        console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-
-        fetch(
-          "/api/register/component/vendorFeedback/one",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload), // Direkt obje – array yapma!
-          },
-        )
-          .then((response) => {
-            if (!response.ok) {
-              console.error("Kaydetme başarısız:", response.statusText);
-            } else {
-              console.log("Kayıt başarıyla kaydedildi.");
-            }
-          })
-          .catch((error) => console.error("Hata:", error));
-        setRefresh(true);
-      }
-      // Sadece backend beklediği alanları al (diğerlerini sil)
+        if (!showAction) {
+            const payload = {
+                jobNumber: formData.jobNumber,
+                jobStartDate: formData.jobStartDate,
+                jobCompletionDate: formData.jobCompletionDate,
+                scope: formData.scope,
+                customerId: formData.customerId,
+                typeOfFinding: formData.typeOfFinding,
+                qgs: parseInt(formData.qgs),
+                communication: parseInt(formData.communication),
+                otd: parseInt(formData.otd),
+                documentation: parseInt(formData.documentation),
+                hs: parseInt(formData.hs),
+                environment: parseInt(formData.environment),
+            };
+            console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
+            fetch(`/api/register/fb/one?token=${token}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload), // Direkt obje – array yapma!
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        console.error("Kaydetme başarısız:", response.statusText);
+                    } else {
+                        console.log("Kayıt başarıyla kaydedildi.");
+                    }
+                })
+                .catch((error) => console.error("Hata:", error));
+            setRefresh(true);
+        } else {
+            const payload = {
+                registerId: Array.from(selectedRows)[0],
+                scope: actionData.actionPlan[0].scope,
+                vendorId: actionData.actionPlan[0].vendorId,
+                typeOfFinding: actionData.actionPlan[0].typeOfFinding,
+                qgs: parseInt(actionData.actionPlan[0].qgs),
+                communication: parseInt(actionData.actionPlan[0].communication),
+                otd: parseInt(actionData.actionPlan[0].otd),
+                documentation: parseInt(actionData.actionPlan[0].documentation),
+                hs: parseInt(actionData.actionPlan[0].hs),
+                environment: parseInt(actionData.actionPlan[0].environment),
+            };
+            console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
+            fetch(`/api/register/component/vendorFeedback/one?token=${token}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload), // Direkt obje – array yapma!
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        console.error("Kaydetme başarısız:", response.statusText);
+                    } else {
+                        console.log("Kayıt başarıyla kaydedildi.");
+                    }
+                })
+                .catch((error) => console.error("Hata:", error));
+            setRefresh(true);
+        }
+        // Sadece backend beklediği alanları al (diğerlerini sil)
     } else {
-      if (!showAction) {
-        const payload = {
-          id: selectedTable[0].id,
-          jobNumber: formData.jobNumber,
-          jobStartDate: formData.jobStartDate,
-          jobCompletionDate: formData.jobCompletionDate,
-          scope: formData.scope,
-          customerId: formData.customerId,
-          typeOfFinding: formData.typeOfFinding,
-          qgs: parseInt(formData.qgs),
-          otd: parseInt(formData.otd),
-          documentation: parseInt(formData.documentation),
-          communication: parseInt(formData.communication),
-          hs: parseInt(formData.hs),
-          environment: parseInt(formData.environment),
-        };
-        console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-        const url =
-          "/api/register/fb/one/" + selectedTable[0].id;
-        fetch(url, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload), // Direkt obje – array yapma!
-        })
-          .then((response) => {
-            if (!response.ok) {
-              console.error("Kaydetme başarısız:", response.statusText);
-            } else {
-              setSelectedTable([payload]);
-              setFormData([payload]);
-              console.log("Kayıt başarıyla kaydedildi. Yeni state:", [payload]);
-            }
-          })
-          .catch((error) => console.error("Hata:", error));
-        setRefresh(true);
-      } else {
-        setActionData({
-          actionPlan: [
-            {
-              id: [...selectedRowsForActions][0],
-              scope: actionData.actionPlan[0].scope?.id || "",
-              vendorId: actionData.actionPlan[0].vendorId,
-              typeOfFinding: actionData.actionPlan[0].typeOfFinding?.id || "",
-              qgs: actionData.actionPlan[0].qgs?.id || "",
-              communication: actionData.communication?.id || "",
-              otd: actionData.actionPlan[0].otd?.id || "",
-              documentation: actionData.actionPlan[0].documentation?.id,
-              hs: actionData.actionPlan[0].hs,
-              environment: actionData.actionPlan[0].environment?.id,
-            },
-          ],
-        });
-        const payload = { ...actionData.actionPlan[0] };
-        console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-
-        const url =
-          "/api/register/component/vendorFeedback/one/" +
-          [...selectedRowsForActions][0];
-        fetch(url, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload), // Direkt obje – array yapma!
-        })
-          .then((response) => {
-            if (!response.ok) {
-              console.error("Kaydetme başarısız:", response.statusText);
-            } else {
-              console.log("SELECTED actionData ", actionData);
-              console.log("SELECTED PAYLOAD ", payload);
-              setActionData([payload]);
-              setSelectedTableForActions([payload]);
-              console.log("SELECTED actionData ", actionData);
-
-              console.log("Kayıt başarıyla kaydedildi.");
-            }
-          })
-          .catch((error) => console.error("Hata:", error));
-        setRefresh(true);
-      }
+        if (!showAction) {
+            const payload = {
+                id: selectedTable[0].id,
+                jobNumber: formData.jobNumber,
+                jobStartDate: formData.jobStartDate,
+                jobCompletionDate: formData.jobCompletionDate,
+                scope: formData.scope,
+                customerId: formData.customerId,
+                typeOfFinding: formData.typeOfFinding,
+                qgs: parseInt(formData.qgs),
+                otd: parseInt(formData.otd),
+                documentation: parseInt(formData.documentation),
+                communication: parseInt(formData.communication),
+                hs: parseInt(formData.hs),
+                environment: parseInt(formData.environment),
+            };
+            console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
+            const url =
+                `/api/register/fb/one/${selectedTable[0].id}?token=${token}`;
+            fetch(url, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload), // Direkt obje – array yapma!
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        console.error("Kaydetme başarısız:", response.statusText);
+                    } else {
+                        setSelectedTable([payload]);
+                        setFormData([payload]);
+                        console.log("Kayıt başarıyla kaydedildi. Yeni state:", [payload]);
+                    }
+                })
+                .catch((error) => console.error("Hata:", error));
+            setRefresh(true);
+        } else {
+            setActionData({
+                actionPlan: [
+                    {
+                        id: [...selectedRowsForActions][0],
+                        scope: actionData.actionPlan[0].scope?.id || "",
+                        vendorId: actionData.actionPlan[0].vendorId,
+                        typeOfFinding: actionData.actionPlan[0].typeOfFinding?.id || "",
+                        qgs: actionData.actionPlan[0].qgs?.id || "",
+                        communication: actionData.communication?.id || "",
+                        otd: actionData.actionPlan[0].otd?.id || "",
+                        documentation: actionData.actionPlan[0].documentation?.id,
+                        hs: actionData.actionPlan[0].hs,
+                        environment: actionData.actionPlan[0].environment?.id,
+                    },
+                ],
+            });
+            const payload = { ...actionData.actionPlan[0] };
+            console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
+            const url =
+                `/api/register/component/vendorFeedback/one/${[...selectedRowsForActions][0]}?token=${token}`;
+            fetch(url, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload), // Direkt obje – array yapma!
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        console.error("Kaydetme başarısız:", response.statusText);
+                    } else {
+                        console.log("SELECTED actionData ", actionData);
+                        console.log("SELECTED PAYLOAD ", payload);
+                        setActionData([payload]);
+                        setSelectedTableForActions([payload]);
+                        console.log("SELECTED actionData ", actionData);
+                        console.log("Kayıt başarıyla kaydedildi.");
+                    }
+                })
+                .catch((error) => console.error("Hata:", error));
+            setRefresh(true);
+        }
     }
     closeModal();
-  };
+};
   // Bulk delete için confirm
   const confirmBulkDelete = () => {
     setIsBulkDelete(true);
@@ -662,108 +665,13 @@ const FbProfile = () => {
     setIsBulkDelete(false);
   };
 
-  // Delete modal'da çağırma
-  const handleDeleteConfirm = () => {
-    if (activeHeader) {
-      if (!showDeleted) {
-        fetch("/api/register/fb/all/delete", {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ids: [...selectedRows],
-          }),
-        })
-          .then((response) => {
-            if (!response.ok) {
-              console.log(" Failed Deleting Registers ");
-            } else {
-              console.log(" Deleting Success");
-              selectedRows.clear();
-              setSelectedTable([]);
-              setShowDeleteModal(false);
-              setRefresh(true);
-            }
-          })
-          .catch((error) => console.log(" Error While Deleting: ", error));
-      } else {
-        fetch("/api/register/fb/all/undelete", {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ids: [...selectedRows],
-          }),
-        })
-          .then((response) => {
-            if (!response.ok) {
-              console.log(" Failed Deleting Registers ");
-            } else {
-              console.log(" Deleting Success");
-              selectedRows.clear();
-              setSelectedTable([]);
-              setShowDeleteModal(false);
-            }
-          })
-          .catch((error) => console.log(" Error While Deleting: ", error));
-        setRefresh(true);
-      }
-    } else {
-      if (!showDeletedAction) {
-        console.log("AAABBB: ", selectedRowsForActions);
-        fetch(
-          "/api/register/component/vendorFeedback/all/delete",
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              ids: [...selectedRowsForActions],
-            }),
-          },
-        )
-          .then((response) => {
-            if (!response.ok) {
-              console.log(" Failed Deleting Registers ");
-            } else {
-              console.log(" Deleting Success");
-              setSelectedTableForActions([]);
-              setSelectedRowsForActions(new Set());
-              setShowDeleteModal(false);
-              setRefresh(true);
-            }
-          })
-          .catch((error) => console.log(" Error While Deleting: ", error));
-        setRefresh(true);
-      } else {
-        console.log("CCC: ", selectedRowsForActions);
-        fetch(
-          "/api/register/component/vendorFeedback/all/undelete",
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              ids: [...selectedRowsForActions],
-            }),
-          },
-        )
-          .then((response) => {
-            if (!response.ok) {
-              console.log(" Failed Deleting Registers ");
-            } else {
-              console.log(" UnDeleting Successsss");
-              setSelectedTableForActions([]);
-              setSelectedRowsForActions(new Set());
-              setRefresh(true);
-              setShowDeleteModal(false);
-            }
-          })
-          .catch((error) => console.log(" Error While Deleting: ", error));
-        setRefresh(true);
-      }
-    }
-  };
+// Delete modal'da çağırma
+const handleDeleteConfirm = () => {
+  const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
 
-  const archiveData = (id) => {
-    if (showArchived) {
-      fetch("/api/register/fb/all/unarchive", {
+  if (activeHeader) {
+    if (!showDeleted) {
+      fetch(`/api/register/fb/all/delete?token=${token}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -772,35 +680,133 @@ const FbProfile = () => {
       })
         .then((response) => {
           if (!response.ok) {
-            console.log(" UnArchiving Failed ");
+            console.log(" Failed Deleting Registers ");
           } else {
+            console.log(" Deleting Success");
             selectedRows.clear();
             setSelectedTable([]);
-            console.log(" UnArchiving Success ");
+            setShowDeleteModal(false);
+            setRefresh(true);
           }
         })
-        .catch((error) => console.log(" Error While UnArchiving : ", error));
-      setRefresh(true);
+        .catch((error) => console.log(" Error While Deleting: ", error));
     } else {
-      fetch("/api/register/fb/all/archive", {
+      fetch(`/api/register/fb/all/undelete?token=${token}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ids: [...selectedRows] }),
+        body: JSON.stringify({
+          ids: [...selectedRows],
+        }),
       })
         .then((response) => {
           if (!response.ok) {
-            console.log(selectedRows);
-            console.log(" Archiving Failed ");
+            console.log(" Failed Deleting Registers ");
           } else {
+            console.log(" Deleting Success");
             selectedRows.clear();
             setSelectedTable([]);
-            console.log(" Archiving Success ");
+            setShowDeleteModal(false);
           }
         })
-        .catch((error) => console.log(" Error While Archiving : ", error));
+        .catch((error) => console.log(" Error While Deleting: ", error));
       setRefresh(true);
     }
-  };
+  } else {
+    if (!showDeletedAction) {
+      console.log("AAABBB: ", selectedRowsForActions);
+      fetch(
+        `/api/register/component/vendorFeedback/all/delete?token=${token}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ids: [...selectedRowsForActions],
+          }),
+        },
+      )
+        .then((response) => {
+          if (!response.ok) {
+            console.log(" Failed Deleting Registers ");
+          } else {
+            console.log(" Deleting Success");
+            setSelectedTableForActions([]);
+            setSelectedRowsForActions(new Set());
+            setShowDeleteModal(false);
+            setRefresh(true);
+          }
+        })
+        .catch((error) => console.log(" Error While Deleting: ", error));
+      setRefresh(true);
+    } else {
+      console.log("CCC: ", selectedRowsForActions);
+      fetch(
+        `/api/register/component/vendorFeedback/all/undelete?token=${token}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ids: [...selectedRowsForActions],
+          }),
+        },
+      )
+        .then((response) => {
+          if (!response.ok) {
+            console.log(" Failed Deleting Registers ");
+          } else {
+            console.log(" UnDeleting Successsss");
+            setSelectedTableForActions([]);
+            setSelectedRowsForActions(new Set());
+            setRefresh(true);
+            setShowDeleteModal(false);
+          }
+        })
+        .catch((error) => console.log(" Error While Deleting: ", error));
+      setRefresh(true);
+    }
+  }
+};
+const archiveData = (id) => {
+  const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+
+  if (showArchived) {
+    fetch(`/api/register/fb/all/unarchive?token=${token}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ids: [...selectedRows],
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          console.log(" UnArchiving Failed ");
+        } else {
+          selectedRows.clear();
+          setSelectedTable([]);
+          console.log(" UnArchiving Success ");
+        }
+      })
+      .catch((error) => console.log(" Error While UnArchiving : ", error));
+    setRefresh(true);
+  } else {
+    fetch(`/api/register/fb/all/archive?token=${token}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ids: [...selectedRows] }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          console.log(selectedRows);
+          console.log(" Archiving Failed ");
+        } else {
+          selectedRows.clear();
+          setSelectedTable([]);
+          console.log(" Archiving Success ");
+        }
+      })
+      .catch((error) => console.log(" Error While Archiving : ", error));
+    setRefresh(true);
+  }
+};
 
   // Bulk actions
   const bulkArchive = () => {
