@@ -299,7 +299,8 @@ const RisksAssessment = () => {
     setSelectedTableForActions,
   );
   async function getDefaultDropdownList() {
-    const url = "/api/tablecomponent/dropdownlistitem";
+    const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+const url = `/api/tablecomponent/dropdownlistitem?token=${token}`;
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -543,8 +544,9 @@ const RisksAssessment = () => {
           residualRiskLikelyhood: formData.residualRiskLikelyhood,
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-
-        fetch("/api/register/br/one", {
+        const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+const url = `/api/register/br/one?token=${token}`;
+        fetch(url, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload), // Direkt obje – array yapma!
@@ -589,8 +591,9 @@ const RisksAssessment = () => {
           december: actionData.actionPlan[0]?.december || "",
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-
-        fetch("/api/register/component/action/one", {
+        const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+const url = `/api/register/component/action/one?token=${token}`;
+        fetch(url, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload), // Direkt obje – array yapma!
@@ -624,8 +627,8 @@ const RisksAssessment = () => {
           residualRiskLikelyhood: formData.residualRiskLikelyhood,
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-        const url =
-          "/api/register/br/one/" + selectedTable[0].id;
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+const url = `/api/register/br/one/${selectedTable[0].id}?token=${token}`;
         fetch(url, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -677,9 +680,8 @@ const RisksAssessment = () => {
         const payload = { ...actionData.actionPlan[0] };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
 
-        const url =
-          "/api/register/component/action/one/" +
-          [...selectedRowsForActions][0];
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+const url = `/api/register/component/action/one/${[...selectedRowsForActions][0]}?token=${token}`;
         fetch(url, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -736,7 +738,9 @@ const RisksAssessment = () => {
   const handleDeleteConfirm = () => {
     if (activeHeader) {
       if (!showDeleted) {
-        fetch("/api/register/br/all/delete", {
+        const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+const url = `/api/register/br/all/delete?token=${token}`;
+        fetch(url, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -756,7 +760,9 @@ const RisksAssessment = () => {
           })
           .catch((error) => console.log(" Error While Deleting: ", error));
       } else {
-        fetch("/api/register/br/all/undelete", {
+        const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+const url = `/api/register/br/all/undelete?token=${token}`;
+        fetch(url, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -779,8 +785,10 @@ const RisksAssessment = () => {
     } else {
       if (!showDeletedAction) {
         console.log("AAABBB: ", selectedRowsForActions);
+        const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+const url = `/api/register/component/action/all/delete?token=${token}`
         fetch(
-          "/api/register/component/action/all/delete",
+          url,
           {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -804,8 +812,10 @@ const RisksAssessment = () => {
         setRefresh(true);
       } else {
         console.log("CCC: ", selectedRowsForActions);
+        const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+const url = `/api/register/component/action/all/undelete?token=${token}`;
         fetch(
-          "/api/register/component/action/all/undelete",
+          url,
           {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -833,7 +843,9 @@ const RisksAssessment = () => {
 
   const archiveData = (id) => {
     if (showArchived) {
-      fetch("/api/register/br/all/unarchive", {
+      const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+const url = `/api/register/br/all/unarchive?token=${token}`;
+      fetch(url, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -852,7 +864,9 @@ const RisksAssessment = () => {
         .catch((error) => console.log(" Error While UnArchiving : ", error));
       setRefresh(true);
     } else {
-      fetch("/api/register/br/all/archive", {
+      const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+const url = `/api/register/br/all/archive?token=${token}`;
+      fetch(url, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ids: [...selectedRows] }),
