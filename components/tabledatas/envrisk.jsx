@@ -238,6 +238,113 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
       </span>
     ) : null;
 
+  // Shared column renderer for all activeHeader=true branches (normal, archived, deleted)
+  const renderMainCols = (row, data, isDeleted = false, isArchived = false) => (
+    <>
+      {/* ID + Checkbox */}
+      <td className="border border-gray-200 px-3 py-2 w-16 sticky left-[-1px] top-0 z-10 bg-white" rowSpan={1}>
+        <div className="flex items-center gap-2">
+          <span className="font-semibold text-gray-700">{row.no}</span>
+          <input
+            type="checkbox"
+            checked={selectedRows.has(row.id)}
+            onChange={() => onCheckboxChange(row.id, data)}
+            className="h-4 w-4 text-blue-600 rounded"
+          />
+        </div>
+      </td>
+
+      {/* Process */}
+      <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+        <SoftBadge value={row.process?.value ?? ""} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+      </td>
+
+      {/* Aspect */}
+      <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+        <SoftBadge value={row.aspect?.value ?? ""} color="bg-rose-100 text-rose-700 border border-rose-200" />
+      </td>
+
+      {/* Impact — backend'den string olarak geliyor */}
+      <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+        <SoftBadge value={typeof row.impact === "string" ? row.impact : (row.impact?.value ?? "")} color="bg-amber-100 text-amber-700 border border-amber-200" />
+      </td>
+
+      {/* Affected Receptors — backend'den object geliyor */}
+      <td className="border border-gray-200 px-2 py-1 w-40" rowSpan={1}>
+        <SoftBadge value={row.affectedReceptors?.value ?? ""} color="bg-violet-100 text-violet-700 border border-violet-200" />
+      </td>
+
+      {/* Existing Controls — backend'den string olarak geliyor */}
+      <td className="border border-gray-200 px-2 py-1 w-48" rowSpan={1}>
+        <SoftBadge value={typeof row.existingControls === "string" ? row.existingControls : (row.existingControls?.value ?? "")} color="bg-pink-100 text-pink-700 border border-pink-200" />
+      </td>
+
+      {/* Initial Probability — backend field: idosProbability */}
+      <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+        <SoftBadge value={row.idosProbability != null ? String(row.idosProbability) : ""} color="bg-orange-100 text-orange-700 border border-orange-200" />
+      </td>
+
+      {/* Initial Severity — backend field: idosSeverity */}
+      <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+        <SoftBadge value={row.idosSeverity != null ? String(row.idosSeverity) : ""} color="bg-lime-100 text-lime-700 border border-lime-200" />
+      </td>
+
+      {/* Initial Duration — backend field: idosDuration */}
+      <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+        <SoftBadge value={row.idosDuration != null ? String(row.idosDuration) : ""} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+      </td>
+
+      {/* Initial Scale — backend field: idosScale */}
+      <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+        <SoftBadge value={row.idosScale != null ? String(row.idosScale) : ""} color="bg-teal-100 text-teal-700 border border-teal-200" />
+      </td>
+
+      {/* Initial Risk Level — hesaplanıyor: idosProbability * idosSeverity * idosDuration * idosScale */}
+      <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+        <SoftBadge
+          value={
+            row.idosProbability != null && row.idosSeverity != null && row.idosDuration != null && row.idosScale != null
+              ? String(row.idosProbability * row.idosSeverity * row.idosDuration * row.idosScale)
+              : ""
+          }
+          color="bg-red-100 text-red-700 border border-red-200"
+        />
+      </td>
+
+      {/* Residual Probability — backend field: rdosProbability */}
+      <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+        <SoftBadge value={row.rdosProbability != null ? String(row.rdosProbability) : ""} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
+      </td>
+
+      {/* Residual Severity — backend field: rdosSeverity */}
+      <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+        <SoftBadge value={row.rdosSeverity != null ? String(row.rdosSeverity) : ""} color="bg-sky-100 text-sky-700 border border-sky-200" />
+      </td>
+
+      {/* Residual Duration — backend field: rdosDuration */}
+      <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+        <SoftBadge value={row.rdosDuration != null ? String(row.rdosDuration) : ""} color="bg-blue-100 text-blue-700 border border-blue-200" />
+      </td>
+
+      {/* Residual Scale — backend field: rdosScale */}
+      <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+        <SoftBadge value={row.rdosScale != null ? String(row.rdosScale) : ""} color="bg-emerald-100 text-emerald-700 border border-emerald-200" />
+      </td>
+
+      {/* Residual Risk Level — hesaplanıyor: rdosProbability * rdosSeverity * rdosDuration * rdosScale */}
+      <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+        <SoftBadge
+          value={
+            row.rdosProbability != null && row.rdosSeverity != null && row.rdosDuration != null && row.rdosScale != null
+              ? String(row.rdosProbability * row.rdosSeverity * row.rdosDuration * row.rdosScale)
+              : ""
+          }
+          color="bg-green-100 text-green-700 border border-green-200"
+        />
+      </td>
+    </>
+  );
+
   if (showDeleted) {
     return (
       <tbody className="text-sm">
@@ -273,96 +380,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                       : "bg-green-100 hover:bg-green-200"
                   }`}
                 >
-                  {/* ID + Checkbox */}
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-16 sticky left-0 top-0 z-10 bg-white"
-                    rowSpan={1}
-                  >
-                    <div className="flex items-center gap-1">
-                      <span className="font-semibold">{row.no}</span>
-                      <input
-                        checked={selectedRows.has(row.id)}
-                        onChange={() => onCheckboxChange(row.id, deletedData)}
-                        type="checkbox"
-                        className="ml-2 h-4 w-4 text-blue-600"
-                      />
-                    </div>
-                  </td>
-
-                  {/* Process */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.process?.value} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
-                  </td>
-
-                  {/* Aspect */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.aspect?.value ?? ""} color="bg-rose-100 text-rose-700 border border-rose-200" />
-                  </td>
-
-                  {/* Impact */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.impact?.value ?? ""} color="bg-amber-100 text-amber-700 border border-amber-200" />
-                  </td>
-
-                  {/* Affected Receptors */}
-                  <td className="border border-gray-200 px-2 py-1 w-40" rowSpan={1}>
-                    <SoftBadge value={row.affectedReceptors?.value ?? ""} color="bg-violet-100 text-violet-700 border border-violet-200" />
-                  </td>
-
-                  {/* Existing Controls */}
-                  <td className="border border-gray-200 px-2 py-1 w-48" rowSpan={1}>
-                    <SoftBadge value={row.existingControls?.value ?? ""} color="bg-pink-100 text-pink-700 border border-pink-200" />
-                  </td>
-
-                  {/* Initial Probability */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.initialProbability?.value ?? row.initialProbability ?? ""} color="bg-orange-100 text-orange-700 border border-orange-200" />
-                  </td>
-
-                  {/* Initial Severity */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.initialSeverity?.value ?? row.initialSeverity ?? ""} color="bg-lime-100 text-lime-700 border border-lime-200" />
-                  </td>
-
-                  {/* Initial Duration */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.initialDuration?.value ?? row.initialDuration ?? ""} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
-                  </td>
-
-                  {/* Initial Scale */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.initialScale?.value ?? row.initialScale ?? ""} color="bg-teal-100 text-teal-700 border border-teal-200" />
-                  </td>
-
-                  {/* Initial Risk Level */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.initialRiskLevel?.value ?? ""} color="bg-red-100 text-red-700 border border-red-200" />
-                  </td>
-
-                  {/* Residual Probability */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.residualProbability?.value ?? row.residualProbability ?? ""} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
-                  </td>
-
-                  {/* Residual Severity */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.residualSeverity?.value ?? row.residualSeverity ?? ""} color="bg-sky-100 text-sky-700 border border-sky-200" />
-                  </td>
-
-                  {/* Residual Duration */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.residualDuration?.value ?? row.residualDuration ?? ""} color="bg-blue-100 text-blue-700 border border-blue-200" />
-                  </td>
-
-                  {/* Residual Scale */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.residualScale?.value ?? row.residualScale ?? ""} color="bg-emerald-100 text-emerald-700 border border-emerald-200" />
-                  </td>
-
-                  {/* Residual Risk Level */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.residualRiskLevel?.value ?? ""} color="bg-green-100 text-green-700 border border-green-200" />
-                  </td>
+                  {renderMainCols(row, deletedData)}
                 </tr>
               </React.Fragment>
             );
@@ -405,98 +423,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                       : "bg-green-100 hover:bg-green-200"
                   }`}
                 >
-                  {/* ID + Checkbox */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-16 sticky left-[-1px] top-0 z-10 bg-white"
-                    rowSpan={1}
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="font-semibold text-gray-700">
-                        {row.no}
-                      </span>
-                      <input
-                        type="checkbox"
-                        checked={selectedRows.has(row.id)}
-                        onChange={() => onCheckboxChange(row.id, archivedData)}
-                        className="h-4 w-4 text-blue-600 rounded"
-                      />
-                    </div>
-                  </td>
-
-                  {/* Process */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.process?.value} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
-                  </td>
-
-                  {/* Aspect */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.aspect?.value ?? ""} color="bg-rose-100 text-rose-700 border border-rose-200" />
-                  </td>
-
-                  {/* Impact */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.impact?.value ?? ""} color="bg-amber-100 text-amber-700 border border-amber-200" />
-                  </td>
-
-                  {/* Affected Receptors */}
-                  <td className="border border-gray-200 px-2 py-1 w-40" rowSpan={1}>
-                    <SoftBadge value={row.affectedReceptors?.value ?? ""} color="bg-violet-100 text-violet-700 border border-violet-200" />
-                  </td>
-
-                  {/* Existing Controls */}
-                  <td className="border border-gray-200 px-2 py-1 w-48" rowSpan={1}>
-                    <SoftBadge value={row.existingControls?.value ?? ""} color="bg-pink-100 text-pink-700 border border-pink-200" />
-                  </td>
-
-                  {/* Initial Probability */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.initialProbability?.value ?? row.initialProbability ?? ""} color="bg-orange-100 text-orange-700 border border-orange-200" />
-                  </td>
-
-                  {/* Initial Severity */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.initialSeverity?.value ?? row.initialSeverity ?? ""} color="bg-lime-100 text-lime-700 border border-lime-200" />
-                  </td>
-
-                  {/* Initial Duration */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.initialDuration?.value ?? row.initialDuration ?? ""} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
-                  </td>
-
-                  {/* Initial Scale */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.initialScale?.value ?? row.initialScale ?? ""} color="bg-teal-100 text-teal-700 border border-teal-200" />
-                  </td>
-
-                  {/* Initial Risk Level */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.initialRiskLevel?.value ?? ""} color="bg-red-100 text-red-700 border border-red-200" />
-                  </td>
-
-                  {/* Residual Probability */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.residualProbability?.value ?? row.residualProbability ?? ""} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
-                  </td>
-
-                  {/* Residual Severity */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.residualSeverity?.value ?? row.residualSeverity ?? ""} color="bg-sky-100 text-sky-700 border border-sky-200" />
-                  </td>
-
-                  {/* Residual Duration */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.residualDuration?.value ?? row.residualDuration ?? ""} color="bg-blue-100 text-blue-700 border border-blue-200" />
-                  </td>
-
-                  {/* Residual Scale */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.residualScale?.value ?? row.residualScale ?? ""} color="bg-emerald-100 text-emerald-700 border border-emerald-200" />
-                  </td>
-
-                  {/* Residual Risk Level */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.residualRiskLevel?.value ?? ""} color="bg-green-100 text-green-700 border border-green-200" />
-                  </td>
+                  {renderMainCols(row, archivedData)}
                 </tr>
               </React.Fragment>
             );
@@ -816,98 +743,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                       : "bg-green-100 hover:bg-green-200"
                   }`}
                 >
-                  {/* ID + Checkbox */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-16 sticky left-[-1px] top-0 z-10 bg-white"
-                    rowSpan={1}
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="font-semibold text-gray-700">
-                        {row.no}
-                      </span>
-                      <input
-                        type="checkbox"
-                        checked={selectedRows.has(row.id)}
-                        onChange={() => onCheckboxChange(row.id, tableData)}
-                        className="h-4 w-4 text-blue-600 rounded"
-                      />
-                    </div>
-                  </td>
-
-                  {/* Process */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.process?.value} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
-                  </td>
-
-                  {/* Aspect */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.aspect?.value ?? ""} color="bg-rose-100 text-rose-700 border border-rose-200" />
-                  </td>
-
-                  {/* Impact */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.impact?.value ?? ""} color="bg-amber-100 text-amber-700 border border-amber-200" />
-                  </td>
-
-                  {/* Affected Receptors */}
-                  <td className="border border-gray-200 px-2 py-1 w-40" rowSpan={1}>
-                    <SoftBadge value={row.affectedReceptors?.value ?? ""} color="bg-violet-100 text-violet-700 border border-violet-200" />
-                  </td>
-
-                  {/* Existing Controls */}
-                  <td className="border border-gray-200 px-2 py-1 w-48" rowSpan={1}>
-                    <SoftBadge value={row.existingControls?.value ?? ""} color="bg-pink-100 text-pink-700 border border-pink-200" />
-                  </td>
-
-                  {/* Initial Probability */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.initialProbability?.value ?? row.initialProbability ?? ""} color="bg-orange-100 text-orange-700 border border-orange-200" />
-                  </td>
-
-                  {/* Initial Severity */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.initialSeverity?.value ?? row.initialSeverity ?? ""} color="bg-lime-100 text-lime-700 border border-lime-200" />
-                  </td>
-
-                  {/* Initial Duration */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.initialDuration?.value ?? row.initialDuration ?? ""} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
-                  </td>
-
-                  {/* Initial Scale */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.initialScale?.value ?? row.initialScale ?? ""} color="bg-teal-100 text-teal-700 border border-teal-200" />
-                  </td>
-
-                  {/* Initial Risk Level */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.initialRiskLevel?.value ?? ""} color="bg-red-100 text-red-700 border border-red-200" />
-                  </td>
-
-                  {/* Residual Probability */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.residualProbability?.value ?? row.residualProbability ?? ""} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
-                  </td>
-
-                  {/* Residual Severity */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.residualSeverity?.value ?? row.residualSeverity ?? ""} color="bg-sky-100 text-sky-700 border border-sky-200" />
-                  </td>
-
-                  {/* Residual Duration */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.residualDuration?.value ?? row.residualDuration ?? ""} color="bg-blue-100 text-blue-700 border border-blue-200" />
-                  </td>
-
-                  {/* Residual Scale */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.residualScale?.value ?? row.residualScale ?? ""} color="bg-emerald-100 text-emerald-700 border border-emerald-200" />
-                  </td>
-
-                  {/* Residual Risk Level */}
-                  <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                    <SoftBadge value={row.residualRiskLevel?.value ?? ""} color="bg-green-100 text-green-700 border border-green-200" />
-                  </td>
+                  {renderMainCols(row, tableData)}
                 </tr>
               </React.Fragment>
             );
