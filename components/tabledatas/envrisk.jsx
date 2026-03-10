@@ -1,950 +1,1079 @@
-// MyTableBody.jsx (ayrı bir dosya olarak kaydedin)
-import React from "react";
-import { useState, useEffect } from "react";
-import { hCheckboxChange } from "../profile.jsx";
-const EnvBody = ({
-  selectedRows,
-  selectedRowsForActions,
-  showArchived,
-  onCheckboxChange,
-  onCheckboxChangeForActions,
-  showDeleted,
-  showDeletedAction,
-  setSelectedRows,
-  setSelectedTable,
-  activeHeader,
-  selectedTable,
-  refresh,
-  setRefresh,
-}) => {
-  console.log("ACTIVE HEADERRRRR : ", activeHeader);
-  const [archivedData, setArchivedData] = useState([]);
-  const [deletedData, setDeletedData] = useState([]);
-  const [deletedActionData, setDeletedActionData] = useState([]);
-  const [actionData, setActionData] = useState([]);
-  const [editData, setEditData] = useState([]);
-const getArchivedData = async () => {
-  setLoading(true);
-  try {
-    const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-    const response = await fetch(`/api/register/eai/all?status=archived&token=${token}`);
-    if (!response.ok) {
-      throw new Error("Failed To Get Datas From Archived DataBase");
-    }
-    const fetchedData = await response.json();
-    setArchivedData(fetchedData || []);
-    console.log("Arşiv verileri:", fetchedData);
-  } catch (err) {
-    console.error("Error While Fetching Archived Datas:", err);
-    setArchivedData([]);
-  } finally {
-    setLoading(false);
-  }
-};
+import React, { useState, useEffect } from "react";
+import EnvBody from "./tabledatas/envrisk.jsx";
+import EnvHeaders from "./tableheaders/envheaders.jsx";
+import ReactECharts from "echarts-for-react";
 
-  useEffect(() => {
-    if (refresh) {
-      if (!showArchived & !showDeleted & !showDeletedAction & activeHeader) {
-        const timer = setTimeout(() => {
-          getAll();
-          setRefresh(false);
-        }, 500);
-
-        return () => clearTimeout(timer); // cleanup
-      } else if (showArchived) {
-        const timer = setTimeout(() => {
-          getArchivedData();
-          setRefresh(false);
-        }, 500);
-
-        return () => clearTimeout(timer); // cleanup
-      } else if (showDeleted) {
-        const timer = setTimeout(() => {
-          getDeletedData();
-          setRefresh(false);
-        }, 500);
-
-        return () => clearTimeout(timer); // cleanup
-      } else if (!activeHeader) {
-        const timer = setTimeout(() => {
-          getAllActions(selectedRows);
-          setRefresh(false);
-        }, 500);
-        return () => clearTimeout(timer); // cleanup
-      } else if ((activeHeader == false) & (showDeletedAction == true)) {
-        const timer = setTimeout(() => {
-          getDeletedActionData();
-          console.log("HERE HERE HERE");
-          setRefresh(false);
-        }, 500);
-        return () => clearTimeout(timer); // cleanup
+export const hCheckboxChange =
+  (setSelectedRows, setSelectedTable) => (id, table) => {
+    const selectedItem = table.find((item) => item.id === id);
+    setSelectedTable((prev) => {
+      const exists = prev.find((item) => item.id === id);
+      let newTables;
+      if (exists) {
+        newTables = prev.filter((item) => item.id !== id);
+      } else {
+        newTables = [...prev, selectedItem];
       }
-    }
-  }, [refresh]);
-
-  useEffect(() => {
-    if (showArchived) {
-      getArchivedData(); // Async çağrı
-    } else {
-      setArchivedData([]); // Normal moda geçince temizle (opsiyonel)
-    }
-  }, [showArchived]); // Dependency: showArchived değişince
-
-const getDeletedData = async () => {
-  setLoading(true);
-  try {
-    const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-    const response = await fetch(`/api/register/eai/all?status=deleted&token=${token}`);
-    if (!response.ok) {
-      throw new Error("Failed To Get Datas From Deleted DataBase");
-    }
-    const fetchedData = await response.json();
-    setDeletedData(fetchedData || []);
-    console.log("Arşiv verileri:", fetchedData);
-  } catch (err) {
-    console.error("Error While Fetching Deleted Datas:", err);
-    setDeletedData([]);
-  } finally {
-    setLoading(false);
-  }
-};
-  useEffect(() => {
-    if (showDeleted) {
-      getDeletedData(); // Async çağrı
-    } else {
-      setDeletedData([]); // Normal moda geçince temizle (opsiyonel)
-    }
-  }, [showDeleted]); // Dependency: showArchived değişince
-const getDeletedActionData = async () => {
-  setLoading(true);
-  const selectedRowsArray = [...selectedRows];
-  try {
-    const firstRowId = selectedRowsArray[0];
-    const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-    const url = `/api/register/component/action/all?registerId=${firstRowId}&status=deleted&token=${token}`;
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error("Failed To Get Datas From Deleted DataBase");
-    }
-    const fetchedData = await response.json();
-    setDeletedActionData(fetchedData || []);
-    console.log("Arşiv Action verileri:", fetchedData);
-  } catch (err) {
-    console.error("Error While Fetching Deleted Datas:", err);
-    setDeletedActionData([]);
-  } finally {
-    setLoading(false);
-  }
-};
-  useEffect(() => {
-    if (!activeHeader && showDeletedAction) {
-      getDeletedActionData(); // Async çağrı
-    } else {
-      setDeletedActionData([]); // Normal moda geçince temizle (opsiyonel)
-    }
-  }, [showDeletedAction]); // Dependency: showArchived değişince
-
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const [tableData, setTableData] = useState([]);
-const getAll = async () => {
-  setLoading(true);
-  const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-  fetch(`/api/register/eai/all?token=${token}`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Failed To Get Datas From Database");
-      }
-      return response.json();
-    })
-    .then((fetchedData) => {
-      setTableData(fetchedData);
-      setLoading(false);
-    })
-    .catch((err) => {
-      setError(err.message);
-      setLoading(false);
+      console.log("Seçili tablolar (selectedTables):", newTables);
+      return newTables;
     });
-};
-  useEffect(() => {
-    if (!showArchived && !showDeleted && activeHeader) {
-      getAll();
-    } else {
-      console.log("");
-    }
-  }, [showArchived, showDeleted]);
-
-  const getAllActions = async (selectedRows) => {
-    setLoading(true);
-    getDeletedActionData();
-    // Set'i Array'e çevir (bu kritik kısım!)
-    const selectedRowsArray = [...selectedRows];
-
-    if (selectedRowsArray.length === 0) {
-      console.error("Seçili satır yok!"); // Hata kontrolü
-      setLoading(false);
-      return; // Erken çık
-    }
-
-const firstRowId = selectedRowsArray[0]; // Artık ID'yi alabilirsin: "I234884J501LA657g6S20N2Nc2V71p"
-const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-const url = `/api/register/component/action/all?registerId=${firstRowId}&status=active&token=${token}`;
-console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontrol et
-
-    fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        console.log("AAA", selectedRows); // Bu zaten Set'i gösteriyor
-        if (!response.ok) {
-          throw new Error(
-            `Failed To Get Actions: ${response.status} - ${response.statusText}`,
-          );
-        }
-        return response.json();
-      })
-      .then((data) => {
-        // Başarılı veriyi işle, örneğin setActions(data);
-        console.log("Fetched data:", data); // Debug için ekle
-        setActionData(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Fetch hatası:", err); // Hata detayını logla
-        setError(err.message);
-        setLoading(false);
-      });
+    setSelectedRows((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      console.log("Seçili satırlar (selectedRows):", Array.from(newSet));
+      return newSet;
+    });
   };
 
-  useEffect(() => {
-    if (!activeHeader && selectedRows.size > 0) {
-      // selectedRows.size ile Set'in boş olup olmadığını kontrol et
-      getAllActions(selectedRows);
-      console.log("Function Running");
+export const hCheckboxChangeForActions =
+  (setSelectedRowsForActions, setSelectedTableForActions) => (id, table) => {
+    const selectedItem = table.find((item) => item.id === id);
+    setSelectedTableForActions((prev) => {
+      const exists = prev.find((item) => item.id === id);
+      let newTables;
+      if (exists) {
+        newTables = prev.filter((item) => item.id !== id);
+      } else {
+        newTables = [...prev, selectedItem];
+      }
+      console.log(" Selected Tables For Actions ", newTables);
+      return newTables;
+    });
+    setSelectedRowsForActions((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      console.log(" Selected Rows For Actions :", Array.from(newSet));
+      return newSet;
+    });
+  };
+
+const EnvProfile = () => {
+  const riskHeatmapOption = {
+    tooltip: { position: "top" },
+    grid: { height: "60%", top: "10%" },
+    xAxis: { type: "category", data: ["1", "2", "3", "4", "5"], name: "Impact" },
+    yAxis: { type: "category", data: ["1", "2", "3", "4", "5"], name: "Likelihood" },
+    visualMap: { min: 1, max: 25, calculable: true, orient: "horizontal", left: "center", bottom: "5%" },
+    series: [
+      {
+        name: "Risk Score",
+        type: "heatmap",
+        data: [
+          [0,0,1],[1,0,4],[2,0,9],[3,0,16],[4,0,20],
+          [0,1,2],[1,1,6],[2,1,12],[3,1,18],[4,1,22],
+          [0,2,3],[1,2,8],[2,2,15],[3,2,19],[4,2,23],
+          [0,3,4],[1,3,10],[2,3,17],[3,3,21],[4,3,24],
+          [0,4,5],[1,4,11],[2,4,14],[3,4,18],[4,4,25],
+        ],
+        label: { show: true },
+      },
+    ],
+  };
+
+  const kpiTrendOption = {
+    tooltip: { trigger: "axis" },
+    xAxis: { type: "category", data: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"] },
+    yAxis: { type: "value" },
+    series: [{ data: [50, 55, 62, 67, 70, 72], type: "line", smooth: true, areaStyle: {} }],
+  };
+
+  const riskPieOption = {
+    tooltip: { trigger: "item" },
+    legend: { top: "bottom" },
+    series: [
+      {
+        name: "Risk Categories",
+        type: "pie",
+        radius: ["40%", "70%"],
+        data: [
+          { value: 12, name: "Operational" },
+          { value: 8, name: "Financial" },
+          { value: 5, name: "Compliance" },
+          { value: 4, name: "Strategic" },
+        ],
+      },
+    ],
+  };
+
+  const [risks, setRisks] = useState([
+    { id: "kpi", name: "Key Performance Indicators" },
+    { id: "bg-reg", name: "Business Risks" },
+    { id: "hs-reg", name: "Health & Safety Risks" },
+    { id: "leg-reg", name: "Legislations" },
+    { id: "env-reg", name: "Environmental Aspects & Impacts" },
+    { id: "eq-reg", name: "Equipment & Inventory" },
+    { id: "tr-reg", name: "Trainings" },
+    { id: "doc-reg", name: "Documents" },
+    { id: "ven-reg", name: "Vendors" },
+    { id: "cus-reg", name: "Customers" },
+    { id: "fb-reg", name: "Feedbacks" },
+    { id: "ear-reg", name: "Employee Appraisals" },
+    { id: "moc-reg", name: "Management Of Changes" },
+    { id: "fl-reg", name: "Findings" },
+    { id: "ao-reg", name: "Assurances & Oversights" },
+    { id: "mr-reg", name: "Management Review" },
+    { id: "ac-reg", name: "Action Logs" },
+  ]);
+
+  const [refresh, setRefresh] = useState(false);
+  const [logs, setLogs] = useState([{ id: "a-l", name: "Action Log" }]);
+  const [selectedTable, setSelectedTable] = useState([]);
+  const [activeHeader, setActiveHeader] = useState(true);
+  const [selectedOption, setSelectedOption] = useState("datas");
+  const [selectedRisk, setSelectedRisk] = useState("");
+  const [isOpenReg, setIsOpenReg] = useState(false);
+  const [showArchived, setShowArchived] = useState(false);
+  const [showDeleted, setShowDeleted] = useState(false);
+  const [showDeletedAction, setShowDeletedAction] = useState(false);
+  const [showAction, setShowAction] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalMode, setModalMode] = useState("add");
+  const [editingRow, setEditingRow] = useState(null);
+
+  const [formData, setFormData] = useState({
+    id: 0,
+    process: "",
+    aspect: "",
+    impact: "",
+    affectedReceptors: "",
+    existingControls: "",
+    idosProbability: 0,
+    idosSeverity: 0,
+    idosDuration: 0,
+    idosScale: 0,
+    rdosProbability: 0,
+    rdosSeverity: 0,
+    rdosDuration: 0,
+    rdosScale: 0,
+    riskLevel: 0,
+  });
+
+  const [formDataHs, setFormDataHs] = useState({
+    id: 0,
+    process: "",
+    hazard: "",
+    risk: "",
+    affectedPosition: "",
+    ERMA: "",
+    initialRiskSeverity: "",
+    initialRiskLikelihood: "",
+    actionPlan: [
+      {
+        action: "",
+        raiseDate: "",
+        resources: "",
+        function: "",
+        responsible: "",
+        deadline: "",
+        actionConfirmation: "",
+        actionStatus: "",
+        compilationData: "",
+        verification: "",
+        comment: "",
+      },
+    ],
+    residualRiskSeverity: "",
+    residualRiskLikelihood: "",
+  });
+
+  const [actionData, setActionData] = useState({
+    actionPlan: [
+      {
+        title: "",
+        raiseDate: "",
+        resources: 0,
+        currency: "",
+        relativeFunction: "",
+        responsible: "",
+        deadline: "",
+        confirmation: "",
+        status: "",
+        completionDate: "",
+        verificationStatus: "",
+        comment: "",
+        january: "",
+        february: "",
+        march: "",
+        april: "",
+        may: "",
+        june: "",
+        july: "",
+        august: "",
+        september: "",
+        october: "",
+        november: "",
+        december: "",
+      },
+    ],
+  });
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [isBulkDelete, setIsBulkDelete] = useState(false);
+  const [deletingId, setDeletingId] = useState(null);
+  const [selectedRows, setSelectedRows] = useState(new Set());
+  const [dropdownData, setDropdownData] = useState({});
+  const [selectedRowsForActions, setSelectedRowsForActions] = useState(new Set());
+  const [selectedTableForActions, setSelectedTableForActions] = useState([]);
+
+  const handleCheckboxChange = hCheckboxChange(setSelectedRows, setSelectedTable);
+  const handleCheckboxChangeForActions = hCheckboxChangeForActions(setSelectedRowsForActions, setSelectedTableForActions);
+
+  async function getDefaultDropdownList() {
+    const url = "/api/tablecomponent/dropdownlistitem";
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`Response status: ${response.status}`);
+      const result = await response.json();
+      setDropdownData(result);
+      console.log(result);
+    } catch (error) {
+      console.error(error.message);
     }
-  }, [activeHeader, selectedRows]); // Dependency array ekle: selectedRows değişirse tekrar çalışsın
-  if (loading) return;
-  if (error) return;
-  const SoftBadge = ({ value, color }) =>
-    value ? (
-      <span
-        className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
-      >
-        {value}
-      </span>
-    ) : null;
+  }
 
-  if (showDeleted) {
-    return (
-      <tbody className="text-sm">
-        {loading ? (
-          <tr>
-            <td colSpan={25} className="text-center py-4 text-gray-600">
-              Deleted verileri yükleniyor...
-            </td>
-          </tr>
-        ) : !deletedData || deletedData.length === 0 ? (
-          <tr>
-            <td colSpan={25} className="text-center py-4 text-gray-500">
-              No Data
-            </td>
-          </tr>
-        ) : (
-          deletedData.map((row, index) => {
-            const numActions = row.actionPlan ? row.actionPlan.length : 1;
-            const actions = Array.isArray(row.actionPlan)
-              ? row.actionPlan
-              : [row.actionPlan];
+  const selectedCount = selectedRows.size;
+  const selectedCountForActions = selectedRowsForActions.size;
+  const getSelectedRow = () => selectedTable[0];
+  const getSelectedRowForAction = () => selectedTableForActions[0];
 
-            const SoftBadge = ({ value, color }) =>
-              value ? (
-                <span
-                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
-                >
-                  {value}
-                </span>
-              ) : null;
+  const toggleArchiveView = () => {
+    setShowArchived(!showArchived);
+    selectedRows.clear();
+    setSelectedTable([]);
+    if (showDeleted || showAction) {
+      if (!activeHeader) setActiveHeader(!activeHeader);
+      setShowDeleted(false);
+      setShowAction(false);
+      setShowDeletedAction(false);
+    }
+  };
 
-            return (
-              <React.Fragment key={row.id}>
-                {/* Ana row */}
-                <tr
-                  className={`border-b h-16 min-h-16 align-middle border-gray-200 ${
-                    index % 2 === 0
-                      ? "bg-white hover:bg-gray-200"
-                      : "bg-green-100 hover:bg-green-200"
-                  }`}
-                >
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-16 sticky left-0 top-0 z-10 bg-white"
-                    rowSpan={1}
-                  >
-                    <div className="flex items-center gap-1">
-                      <span className="font-semibold">{row.no}</span>
-                      <input
-                        checked={selectedRows.has(row.id)}
-                        onChange={() => onCheckboxChange(row.id, deletedData)}
-                        type="checkbox"
-                        className="ml-2 h-4 w-4 text-blue-600"
-                      />
-                    </div>
-                  </td>
+  const toggleDeleteView = () => {
+    console.log("ACTIVE HEADERRRRR : ", activeHeader);
+    if (activeHeader) {
+      setShowDeleted((prev) => !prev);
+      setShowArchived(false);
+      selectedRows.clear();
+      setSelectedTable([]);
+    } else {
+      selectedRowsForActions.clear();
+      setSelectedTableForActions([]);
+      setShowDeletedAction((prev) => !prev);
+    }
+  };
 
-                  {/* No */}
-<td className="border-b border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px">
-  <SoftBadge value={row.no || ""} color="bg-slate-100 text-slate-700 border border-slate-200" />
-</td>
+  const toggleActionView = () => {
+    setShowAction(!showAction);
+    setActiveHeader(!activeHeader);
+    if (showArchived || showDeleted) {
+      setShowArchived(false);
+      setShowDeleted(false);
+    }
+  };
 
-{/* Title */}
-<td className="border-b border-gray-200 px-2 py-1 w-32">
-  <SoftBadge value={row.title || ""} color="bg-rose-100 text-rose-700 border border-rose-200" />
-</td>
+  const openAddModal = async () => {
+    setModalMode("add");
+    setEditingRow(null);
+    await getDefaultDropdownList();
+    if (activeHeader) {
+      setFormData({
+        id: 0, process: "", aspect: "", impact: "", affectedReceptors: "",
+        existingControls: "", idosProbability: 0, idosSeverity: 0, idosDuration: 0,
+        idosScale: 0, rdosProbability: 0, rdosSeverity: 0, rdosDuration: 0, rdosScale: 0, riskLevel: 0,
+      });
+      setShowModal(true);
+    } else {
+      setActionData({
+        actionPlan: [{
+          title: "", raiseDate: "", resources: 0, currency: "", relativeFunction: "",
+          responsible: "", deadline: "", confirmation: "", status: "", completionDate: "",
+          verificationStatus: "", comment: "", january: "", february: "", march: "",
+          april: "", may: "", june: "", july: "", august: "", september: "",
+          october: "", november: "", december: "",
+        }],
+      });
+      setShowModal(true);
+    }
+  };
 
-{/* Raise Date */}
-<td className="border-b border-gray-200 px-2 py-1 w-32">
-  <SoftBadge value={row.raiseDate || ""} color="bg-blue-100 text-blue-700 border border-blue-200" />
-</td>
+  const openEditModal = async (row) => {
+    if (activeHeader) {
+      setFormData({
+        process: row.process.id || String(row.process),
+        aspect: row.aspect.id || String(row.aspect),
+        impact: row.impact,
+        affectedReceptors: row.affectedReceptors.id || String(row.affectedReceptors),
+        existingControls: row.existingControls,
+        riskOfViolation: row.riskOfViolation,
+        idosProbability: row.idosProbability,
+        idosSeverity: row.idosSeverity,
+        idosDuration: row.idosDuration,
+        idosScale: row.idosScale,
+        rdosProbability: row.rdosProbability,
+        rdosSeverity: row.rdosSeverity,
+        rdosDuration: row.rdosDuration,
+        rdosScale: row.rdosScale,
+      });
+    } else {
+      setActionData({
+        actionPlan: [{
+          title: row.title,
+          raiseDate: row.raiseDate,
+          resources: parseInt(row.resources?.id) || parseInt(row.resources) || 0,
+          currency: "",
+          relativeFunction: row.relativeFunction?.id || String(row.relativeFunction) || "",
+          responsible: row.responsible?.id || String(row.responsible) || "",
+          deadline: row.deadline,
+          confirmation: row.confirmation?.id || String(row.confirmation) || "",
+          status: row.status?.id || parseInt(row.status) || "",
+          completionDate: row.completionDate || "",
+          verificationStatus: row.verificationStatus?.id || parseInt(row.verificationStatus) || "",
+          comment: row.comment || "",
+          january: row.january?.id || String(row.january) || "",
+          february: row.february?.id || String(row.february) || "",
+          march: row.march?.id || String(row.march) || "",
+          april: row.april?.id || String(row.april) || "",
+          may: row.may?.id || String(row.may) || "",
+          june: row.june?.id || String(row.june) || "",
+          july: row.july?.id || String(row.july) || "",
+          august: row.august?.id || String(row.august) || "",
+          september: row.september?.id || String(row.september) || "",
+          october: row.october?.id || String(row.october) || "",
+          november: row.november?.id || String(row.november) || "",
+          december: row.december?.id || String(row.december) || "",
+        }],
+      });
+    }
+    await getDefaultDropdownList();
+    setModalMode("edit");
+    setEditingRow(row);
+    setShowModal(true);
+  };
 
-{/* Resources */}
-<td className="border-b border-gray-200 px-2 py-1 w-24">
-  <SoftBadge value={row.resources?.toString() || ""} color="bg-violet-100 text-violet-700 border border-violet-200" />
-</td>
+  const handleFormChange = (arg1, arg2) => {
+    const parsePath = (path) =>
+      path.replace(/\]/g, "").split(/\.|\[/).map((p) => (isNaN(p) ? p : Number(p)));
 
-{/* Relative Function */}
-<td className="border-b border-gray-200 px-2 py-1 w-28">
-  <SoftBadge value={row.relativeFunction?.value || ""} color="bg-amber-100 text-amber-700 border border-amber-200" />
-</td>
+    const updateNested = (obj, pathArr, val) => {
+      const newObj = Array.isArray(obj) ? [...obj] : { ...obj };
+      let current = newObj;
+      for (let i = 0; i < pathArr.length - 1; i++) {
+        const key = pathArr[i];
+        const nextKey = pathArr[i + 1];
+        if (typeof key === "number") {
+          current[key] = current[key] ? { ...current[key] } : {};
+          current = current[key];
+        } else {
+          current[key] =
+            current[key] && typeof current[key] === "object"
+              ? { ...current[key] }
+              : typeof nextKey === "number" ? [] : {};
+          current = current[key];
+        }
+      }
+      const lastKey = pathArr[pathArr.length - 1];
+      current[lastKey] = val;
+      return newObj;
+    };
 
-{/* Responsible */}
-<td className="border-b border-gray-200 px-2 py-1 w-28">
-  <SoftBadge value={row.responsible?.value || ""} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
-</td>
+    let setter;
+    if (showAction) {
+      setter = setActionData;
+    } else {
+      setter = setFormData;
+    }
 
-{/* Deadline */}
-<td className="border-b border-gray-200 px-2 py-1 w-24">
-  <SoftBadge value={row.deadline || ""} color="bg-teal-100 text-teal-700 border border-teal-200" />
-</td>
+    if (typeof arg1 === "string") {
+      const pathArr = parsePath(arg1);
+      setter((prev) => updateNested(prev, pathArr, arg2));
+    } else if (arg1 && typeof arg1 === "object") {
+      setter((prev) => ({ ...(prev || {}), ...arg1 }));
+    } else {
+      console.warn("handleFormChange: Beklenen string path veya obje");
+    }
+  };
 
-{/* Confirmation */}
-<td className="border-b border-gray-200 px-2 py-1 w-36">
-  <SoftBadge value={row.confirmation?.value || ""} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
-</td>
+  const closeModal = () => setShowModal(false);
 
-{/* Status */}
-<td className="border-b border-gray-200 px-2 py-1 w-24">
-  <SoftBadge value={row.status?.value?.toString() || ""} color="bg-pink-100 text-pink-700 border border-pink-200" />
-</td>
-
-{/* Completion Date */}
-<td className="border-b border-gray-200 px-2 py-1 w-24">
-  <SoftBadge value={row.completionDate || ""} color="bg-orange-100 text-orange-700 border border-orange-200" />
-</td>
-
-{/* Verification Status */}
-<td className="border-b border-gray-200 px-2 py-1 w-32">
-  <SoftBadge value={row.verificationStatus?.value || ""} color="bg-lime-100 text-lime-700 border border-lime-200" />
-</td>
-
-{/* Comment */}
-<td className="border-b border-gray-200 px-2 py-1 w-40">
-  <SoftBadge value={row.comment || ""} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
-</td>
-
-{/* Monitoring Month Columns */}
-{[
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-].map((month) => {
-  const monthKey = month.toLowerCase();
-  const monthValue = row[monthKey]?.value || "";
-  return (
-    <td
-      key={`${row.id}-${row.id}-${monthKey}`}
-      className="border-b border-gray-200 px-2 py-1 w-24"
-    >
-      <SoftBadge value={monthValue} color="bg-sky-100 text-sky-700 border border-sky-200" />
-    </td>
-  );
-})}
-                </tr>
-
-                {/* Ek Actions */}
-              </React.Fragment>
-            );
-          })
-        )}
-      </tbody>
-    );
-  } else if (showArchived) {
-    return (
-      <tbody className="text-sm">
-        {loading ? (
-          <tr>
-            <td colSpan={25} className="text-center py-4 text-gray-600">
-              Arşiv verileri yükleniyor...
-            </td>
-          </tr>
-        ) : !archivedData || archivedData.length === 0 ? (
-          <tr>
-            <td colSpan={25} className="text-center py-4 text-gray-500">
-              No Data
-            </td>
-          </tr>
-        ) : (
-          archivedData.map((row, index) => {
-            const numActions = row.actionPlan ? row.actionPlan.length : 1;
-            const actions = Array.isArray(row.actionPlan)
-              ? row.actionPlan
-              : [row.actionPlan];
-
-            const SoftBadge = ({ value, color }) =>
-              value ? (
-                <span
-                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
-                >
-                  {value}
-                </span>
-              ) : null;
-
-            return (
-              <React.Fragment key={row.id}>
-                {/* Ana row */}
-                <tr
-                  className={`border-b h-16 min-h-16 align-middle border-gray-200 ${
-                    index % 2 === 0
-                      ? "bg-white hover:bg-gray-200"
-                      : "bg-green-100 hover:bg-green-200"
-                  }`}
-                >
-                  <td
-                    className="border border-gray-200 px-2 py-1 w-16 sticky left-0 top-0 z-10 bg-white"
-                    rowSpan={1}
-                  >
-                    <div className="flex items-center gap-1">
-                      <span className="font-semibold">{row.no}</span>
-                      <input
-                        checked={selectedRows.has(row.id)}
-                        onChange={() => onCheckboxChange(row.id, archivedData)}
-                        type="checkbox"
-                        className="ml-2 h-4 w-4 text-blue-600"
-                      />
-                    </div>
-                  </td>
-                 {/* No */}
-<td className="border-b border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px">
-  <SoftBadge value={row.no || ""} color="bg-slate-100 text-slate-700 border border-slate-200" />
-</td>
-
-{/* Title */}
-<td className="border-b border-gray-200 px-2 py-1 w-32">
-  <SoftBadge value={row.title || ""} color="bg-rose-100 text-rose-700 border border-rose-200" />
-</td>
-
-{/* Raise Date */}
-<td className="border-b border-gray-200 px-2 py-1 w-32">
-  <SoftBadge value={row.raiseDate || ""} color="bg-blue-100 text-blue-700 border border-blue-200" />
-</td>
-
-{/* Resources */}
-<td className="border-b border-gray-200 px-2 py-1 w-24">
-  <SoftBadge value={row.resources?.toString() || ""} color="bg-violet-100 text-violet-700 border border-violet-200" />
-</td>
-
-{/* Relative Function */}
-<td className="border-b border-gray-200 px-2 py-1 w-28">
-  <SoftBadge value={row.relativeFunction?.value || ""} color="bg-amber-100 text-amber-700 border border-amber-200" />
-</td>
-
-{/* Responsible */}
-<td className="border-b border-gray-200 px-2 py-1 w-28">
-  <SoftBadge value={row.responsible?.value || ""} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
-</td>
-
-{/* Deadline */}
-<td className="border-b border-gray-200 px-2 py-1 w-24">
-  <SoftBadge value={row.deadline || ""} color="bg-teal-100 text-teal-700 border border-teal-200" />
-</td>
-
-{/* Confirmation */}
-<td className="border-b border-gray-200 px-2 py-1 w-36">
-  <SoftBadge value={row.confirmation?.value || ""} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
-</td>
-
-{/* Status */}
-<td className="border-b border-gray-200 px-2 py-1 w-24">
-  <SoftBadge value={row.status?.value?.toString() || ""} color="bg-pink-100 text-pink-700 border border-pink-200" />
-</td>
-
-{/* Completion Date */}
-<td className="border-b border-gray-200 px-2 py-1 w-24">
-  <SoftBadge value={row.completionDate || ""} color="bg-orange-100 text-orange-700 border border-orange-200" />
-</td>
-
-{/* Verification Status */}
-<td className="border-b border-gray-200 px-2 py-1 w-32">
-  <SoftBadge value={row.verificationStatus?.value || ""} color="bg-lime-100 text-lime-700 border border-lime-200" />
-</td>
-
-{/* Comment */}
-<td className="border-b border-gray-200 px-2 py-1 w-40">
-  <SoftBadge value={row.comment || ""} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
-</td>
-
-{/* Monitoring Month Columns */}
-{[
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-].map((month) => {
-  const monthKey = month.toLowerCase();
-  const monthValue = row[monthKey]?.value || "";
-  return (
-    <td
-      key={`${row.id}-${row.id}-${monthKey}`}
-      className="border-b border-gray-200 px-2 py-1 w-24"
-    >
-      <SoftBadge value={monthValue} color="bg-sky-100 text-sky-700 border border-sky-200" />
-    </td>
-  );
-})}
-                </tr>
-
-                {/* Ek Actions */}
-              </React.Fragment>
-            );
-          })
-        )}
-      </tbody>
-    );
-  } else if (!activeHeader && showDeletedAction === false) {
-    return (
-      <tbody>
-        {loading ? (
-          <tr>
-            <td colSpan={25} className="text-center py-4">
-              Deleted verileri yükleniyor...
-            </td>
-          </tr>
-        ) : selectedTable && actionData && selectedTable.length > 0 ? (
-          actionData.map((row, index) => {
-            const numActions = row.actionPlan ? row.actionPlan.length : 1;
-
-            // Soft badge
-            const SoftBadge = ({ value }) =>
-              value ? (
-                <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
-                  {value}
-                </span>
-              ) : null;
-
-            return (
-              <React.Fragment key={row.id}>
-                <tr
-                  className={`border-b h-16 min-h-16 align-middle border-gray-200 ${
-                    index % 2 === 0
-                      ? "bg-white hover:bg-gray-200"
-                      : "bg-green-100 hover:bg-green-200"
-                  }`}
-                >
-                  {/* # column */}
-                  <td
-                    className="border-b border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px"
-                    rowSpan={numActions}
-                  >
-                    {selectedTable[0].no}
-                    <input
-                      checked={selectedRowsForActions.has(actionData[index].id)}
-                      onChange={() =>
-                        onCheckboxChangeForActions(
-                          actionData[index].id,
-                          actionData,
-                        )
-                      }
-                      type="checkbox"
-                      className="ml-2"
-                    />
-                  </td>
-                  {/* FIRST ACTION PLAN FIELDS */}
-                  <td className="border-b border-gray-200 px-2 py-1 w-32">
-                    <SoftBadge value={actionData?.[index]?.title} />
-                  </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-32">
-                    <SoftBadge value={actionData?.[index]?.raiseDate} />
-                  </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-24">
-                    <SoftBadge
-                      value={actionData?.[index]?.resources?.toString() || ""}
-                    />
-                  </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-28">
-                    <SoftBadge
-                      value={actionData?.[index]?.relativeFunction?.value}
-                    />
-                  </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-28">
-                    <SoftBadge
-                      value={actionData?.[index]?.responsible?.value}
-                    />
-                  </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-24">
-                    <SoftBadge value={actionData?.[index]?.deadline} />
-                  </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-36">
-                    <SoftBadge
-                      value={actionData?.[index]?.confirmation?.value}
-                    />
-                  </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-24">
-                    <SoftBadge
-                      value={actionData?.[index]?.status?.value?.toString()}
-                    />
-                  </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-24">
-                    <SoftBadge value={actionData?.[index]?.completionDate} />
-                  </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-32">
-                    <SoftBadge
-                      value={actionData?.[index]?.verificationStatus?.value}
-                    />
-                  </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-40">
-                    <SoftBadge value={actionData?.[index]?.comment} />
-                  </td>
-                  {/* MONITORING MONTH COLUMNS */}
-                  {[
-                    "January",
-                    "February",
-                    "March",
-                    "April",
-                    "May",
-                    "June",
-                    "July",
-                    "August",
-                    "September",
-                    "October",
-                    "November",
-                    "December",
-                  ].map((month) => (
-                    <td
-                      key={`${actionData?.[index]?.id}-${month}`}
-                      className="border-b border-gray-200 px-2 py-1 w-24"
-                    >
-                      {/* Assuming monitoring data is stored in actionData[index].monitoring[month] or similar; adjust as needed */}
-                      <SoftBadge
-                        value={
-                          actionData?.[index]?.[month.toLowerCase()]?.value ||
-                          ""
-                        }
-                      />
-                    </td>
-                  ))}
-                </tr>
-              </React.Fragment>
-            );
-          })
-        ) : (
-          <tr>
-            <td colSpan={25} className="text-center py-4">
-              No Data
-            </td>
-          </tr>
-        )}
-      </tbody>
-    );
-  } else if (!activeHeader && showDeletedAction === true) {
-    return (
-      <tbody>
-        {loading ? (
-          <tr>
-            <td colSpan={25} className="text-center py-4">
-              Deleted verileri yükleniyor...
-            </td>
-          </tr>
-        ) : selectedTable && deletedActionData && selectedTable.length > 0 ? (
-          deletedActionData.map((row, index) => {
-            const numActions = row.actionPlan ? row.actionPlan.length : 1;
-            console.log("WORKINGGGGG !!!");
-            // Soft badge
-            const SoftBadge = ({ value }) =>
-              value ? (
-                <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
-                  {value}
-                </span>
-              ) : null;
-
-            return (
-              <React.Fragment key={row.id}>
-                <tr
-                  className={`border-b h-16 min-h-16 align-middle border-gray-200 ${
-                    index % 2 === 0
-                      ? "bg-white hover:bg-gray-200"
-                      : "bg-green-100 hover:bg-green-200"
-                  }`}
-                >
-                  {/* # column */}
-                  <td
-                    className="border-b border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px"
-                    rowSpan={numActions}
-                  >
-                    {selectedTable[0].no}
-                    <input
-                      checked={selectedRowsForActions.has(
-                        deletedActionData[index].id,
-                      )}
-                      onChange={() =>
-                        onCheckboxChangeForActions(
-                          deletedActionData[index].id,
-                          deletedActionData,
-                        )
-                      }
-                      type="checkbox"
-                      className="ml-2"
-                    />
-                  </td>
-                  {/* FIRST ACTION PLAN FIELDS */}
-                  <td className="border-b border-gray-200 px-2 py-1 w-32">
-                    <SoftBadge value={deletedActionData?.[index]?.title} />
-                  </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-32">
-                    <SoftBadge value={deletedActionData?.[index]?.raiseDate} />
-                  </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-24">
-                    <SoftBadge
-                      value={
-                        deletedActionData?.[index]?.resources?.toString() || ""
-                      }
-                    />
-                  </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-28">
-                    <SoftBadge
-                      value={
-                        deletedActionData?.[index]?.relativeFunction?.value
-                      }
-                    />
-                  </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-28">
-                    <SoftBadge
-                      value={deletedActionData?.[index]?.responsible?.value}
-                    />
-                  </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-24">
-                    <SoftBadge value={deletedActionData?.[index]?.deadline} />
-                  </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-36">
-                    <SoftBadge
-                      value={deletedActionData?.[index]?.confirmation?.value}
-                    />
-                  </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-24">
-                    <SoftBadge
-                      value={deletedActionData?.[
-                        index
-                      ]?.status?.value?.toString()}
-                    />
-                  </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-24">
-                    <SoftBadge
-                      value={deletedActionData?.[index]?.completionDate}
-                    />
-                  </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-32">
-                    <SoftBadge
-                      value={
-                        deletedActionData?.[index]?.verificationStatus?.value
-                      }
-                    />
-                  </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-40">
-                    <SoftBadge value={deletedActionData?.[index]?.comment} />
-                  </td>
-                  {/* MONITORING MONTH COLUMNS */}
-                  {[
-                    "January",
-                    "February",
-                    "March",
-                    "April",
-                    "May",
-                    "June",
-                    "July",
-                    "August",
-                    "September",
-                    "October",
-                    "November",
-                    "December",
-                  ].map((month) => (
-                    <td
-                      key={`$deletedActionData?.[index]?.id}-${month}`}
-                      className="border-b border-gray-200 px-2 py-1 w-24"
-                    >
-                      {/* Assuming monitoring data is stored indeletedActionData[index].monitoring[month] or similar; adjust as needed */}
-                      <SoftBadge
-                        value={
-                          deletedActionData?.[index]?.[month.toLowerCase()]
-                            ?.value || ""
-                        }
-                      />
-                    </td>
-                  ))}
-                </tr>
-              </React.Fragment>
-            );
-          })
-        ) : (
-          <tr>
-            <td colSpan={25} className="text-center py-4">
-              No Data
-            </td>
-          </tr>
-        )}
-      </tbody>
-    );
-  } else {
-  // 🟩 Normal (aktif) tablo
-  return (
-    <tbody className="text-sm">
-      {loading ? (
-        <tr>
-          <td colSpan={25} className="text-center py-6 text-gray-600">
-            Arşiv verileri yükleniyor...
-          </td>
-        </tr>
-      ) : !tableData || tableData.length === 0 ? (
-        <tr>
-          <td colSpan={25} className="text-center py-6 text-gray-500">
-            No Data
-          </td>
-        </tr>
-      ) : (
-        tableData.map((row, index) => {
-          const numActions = row.actions ? row.actions.length : 1;
-          const actions = Array.isArray(row.actions)
-            ? row.actions
-            : [row.actions];
-
-          // ← SoftBadge komponentini buraya ekledim (referans kod gibi)
-          const SoftBadge = ({ value, color }) =>
-            value ? (
-              <span
-                className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
-              >
-                {value}
-              </span>
-            ) : null;
-
-          return (
-            <React.Fragment key={row.id}>
-              <tr
-                className={`border-b h-16 min-h-16 align-middle border-gray-200 ${
-                  index % 2 === 0
-                    ? "bg-white hover:bg-gray-200"
-                    : "bg-green-100 hover:bg-green-200"
-                }`}
-              >
-                {/* ID + Checkbox */}
-                <td
-                  className="border border-gray-200 px-3 py-2 w-16 sticky left-[-1px] top-0 z-10 bg-white"
-                  rowSpan={1}
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="font-semibold text-gray-700">
-                      {row.no}
-                    </span>
-                    <input
-                      type="checkbox"
-                      checked={selectedRows.has(row.id)}
-                      onChange={() => onCheckboxChange(row.id, tableData)}
-                      className="h-4 w-4 text-blue-600 rounded"
-                    />
-                  </div>
-                </td>
-
-                {/* No */}
-                <td className="border border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px">
-                  <SoftBadge value={row.no || ""} color="bg-slate-100 text-slate-700 border border-slate-200" />
-                </td>
-
-                {/* Title */}
-                <td className="border border-gray-200 px-2 py-1 w-32">
-                  <SoftBadge value={row.title || ""} color="bg-rose-100 text-rose-700 border border-rose-200" />
-                </td>
-
-                {/* Raise Date */}
-                <td className="border border-gray-200 px-2 py-1 w-32">
-                  <SoftBadge value={row.raiseDate || ""} color="bg-blue-100 text-blue-700 border border-blue-200" />
-                </td>
-
-                {/* Resources */}
-                <td className="border border-gray-200 px-2 py-1 w-24">
-                  <SoftBadge value={row.resources?.toString() || ""} color="bg-violet-100 text-violet-700 border border-violet-200" />
-                </td>
-
-                {/* Relative Function */}
-                <td className="border border-gray-200 px-2 py-1 w-28">
-                  <SoftBadge value={row.relativeFunction?.value || ""} color="bg-amber-100 text-amber-700 border border-amber-200" />
-                </td>
-
-                {/* Responsible */}
-                <td className="border border-gray-200 px-2 py-1 w-28">
-                  <SoftBadge value={row.responsible?.value || ""} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
-                </td>
-
-                {/* Deadline */}
-                <td className="border border-gray-200 px-2 py-1 w-24">
-                  <SoftBadge value={row.deadline || ""} color="bg-teal-100 text-teal-700 border border-teal-200" />
-                </td>
-
-                {/* Confirmation */}
-                <td className="border border-gray-200 px-2 py-1 w-36">
-                  <SoftBadge value={row.confirmation?.value || ""} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
-                </td>
-
-                {/* Status */}
-                <td className="border border-gray-200 px-2 py-1 w-24">
-                  <SoftBadge value={row.status?.value?.toString() || ""} color="bg-pink-100 text-pink-700 border border-pink-200" />
-                </td>
-
-                {/* Completion Date */}
-                <td className="border border-gray-200 px-2 py-1 w-24">
-                  <SoftBadge value={row.completionDate || ""} color="bg-orange-100 text-orange-700 border border-orange-200" />
-                </td>
-
-                {/* Verification Status */}
-                <td className="border border-gray-200 px-2 py-1 w-32">
-                  <SoftBadge value={row.verificationStatus?.value || ""} color="bg-lime-100 text-lime-700 border border-lime-200" />
-                </td>
-
-                {/* Comment */}
-                <td className="border border-gray-200 px-2 py-1 w-40">
-                  <SoftBadge value={row.comment || ""} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
-                </td>
-
-                {/* Monitoring Month Columns */}
-                {[
-                  "January", "February", "March", "April", "May", "June",
-                  "July", "August", "September", "October", "November", "December"
-                ].map((month) => {
-                  const monthKey = month.toLowerCase();
-                  const monthValue = row[monthKey]?.value || "";
-                  return (
-                    <td
-                      key={`${row.id}-${monthKey}`}
-                      className="border border-gray-200 px-2 py-1 w-24"
-                    >
-                      <SoftBadge value={monthValue} color="bg-sky-100 text-sky-700 border border-sky-200" />
-                    </td>
-                  );
-                })}
-              </tr>
-            </React.Fragment>
-          );
+  const saveRisk = () => {
+    if (modalMode === "add") {
+      if (!showAction) {
+        const payload = {
+          process: formData.process, aspect: formData.aspect, impact: formData.impact,
+          affectedReceptors: formData.affectedReceptors, existingControls: formData.existingControls,
+          riskOfViolation: formData.riskOfViolation, idosProbability: formData.idosProbability,
+          idosSeverity: formData.idosSeverity, idosDuration: formData.idosDuration,
+          idosScale: formData.idosScale, rdosProbability: formData.rdosProbability,
+          rdosSeverity: formData.rdosSeverity, rdosDuration: formData.rdosDuration, rdosScale: formData.rdosScale,
+        };
+        console.log("Gönderilen body:", payload);
+        fetch("/api/register/eai/one", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
         })
+          .then((response) => {
+            if (!response.ok) console.error("Kaydetme başarısız:", response.statusText);
+            else console.log("Kayıt başarıyla kaydedildi.");
+          })
+          .catch((error) => console.error("Hata:", error));
+        setRefresh(true);
+      } else {
+        const payload = {
+          registerId: Array.from(selectedRows)[0],
+          registerType: "eai",
+          title: actionData.actionPlan[0]?.title || "",
+          resources: parseInt(actionData.actionPlan[0]?.resources) || 0,
+          raiseDate: actionData.actionPlan[0]?.raiseDate || "",
+          currency: actionData.actionPlan[0]?.currency || "",
+          relativeFunction: actionData.actionPlan[0]?.relativeFunction || "",
+          responsible: actionData.actionPlan[0]?.responsible || "",
+          deadline: actionData.actionPlan[0]?.deadline || "",
+          confirmation: actionData.actionPlan[0]?.confirmation || "",
+          status: actionData.actionPlan[0]?.status || "",
+          completionDate: actionData.actionPlan[0]?.completionDate || "",
+          verificationStatus: actionData.actionPlan[0]?.verificationStatus || "",
+          comment: actionData.actionPlan[0]?.comment || "",
+          january: actionData.actionPlan[0]?.january || "",
+          february: actionData.actionPlan[0]?.february || "",
+          march: actionData.actionPlan[0]?.march || "",
+          april: actionData.actionPlan[0]?.april || "",
+          may: actionData.actionPlan[0]?.may || "",
+          june: actionData.actionPlan[0]?.june || "",
+          july: actionData.actionPlan[0]?.july || "",
+          august: actionData.actionPlan[0]?.august || "",
+          september: actionData.actionPlan[0]?.september || "",
+          october: actionData.actionPlan[0]?.october || "",
+          november: actionData.actionPlan[0]?.november || "",
+          december: actionData.actionPlan[0]?.december || "",
+        };
+        console.log("Gönderilen body:", payload);
+        fetch("/api/register/component/action/one", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        })
+          .then((response) => {
+            if (!response.ok) console.error("Kaydetme başarısız:", response.statusText);
+            else console.log("Kayıt başarıyla kaydedildi.");
+          })
+          .catch((error) => console.error("Hata:", error));
+        setRefresh(true);
+      }
+    } else {
+      if (!showAction) {
+        const payload = {
+          id: selectedTable[0].id,
+          process: formData.process, aspect: formData.aspect, impact: formData.impact,
+          affectedReceptors: formData.affectedReceptors, existingControls: formData.existingControls,
+          riskOfViolation: formData.riskOfViolation, idosProbability: formData.idosProbability,
+          idosSeverity: formData.idosSeverity, idosDuration: formData.idosDuration,
+          idosScale: formData.idosScale, rdosProbability: formData.rdosProbability,
+          rdosSeverity: formData.rdosSeverity, rdosDuration: formData.rdosDuration, rdosScale: formData.rdosScale,
+        };
+        console.log("Gönderilen body:", payload);
+        fetch("/api/register/eai/one/" + selectedTable[0].id, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        })
+          .then((response) => {
+            if (!response.ok) console.error("Kaydetme başarısız:", response.statusText);
+            else {
+              setSelectedTable([payload]);
+              setFormData([payload]);
+              console.log("Kayıt başarıyla kaydedildi. Yeni state:", [payload]);
+            }
+          })
+          .catch((error) => console.error("Hata:", error));
+        setRefresh(true);
+      } else {
+        const payload = { ...actionData.actionPlan[0] };
+        console.log("Gönderilen body:", payload);
+        fetch("/api/register/component/action/one/" + [...selectedRowsForActions][0], {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        })
+          .then((response) => {
+            if (!response.ok) console.error("Kaydetme başarısız:", response.statusText);
+            else {
+              setActionData([payload]);
+              setSelectedTableForActions([payload]);
+              console.log("Kayıt başarıyla kaydedildi.");
+            }
+          })
+          .catch((error) => console.error("Hata:", error));
+        setRefresh(true);
+      }
+    }
+    closeModal();
+  };
+
+  const confirmBulkDelete = () => {
+    setIsBulkDelete(true);
+    setShowDeleteModal(true);
+  };
+
+  const confirmSingleDelete = (id) => {
+    setIsBulkDelete(false);
+    setDeletingId(id);
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    if (activeHeader) {
+      if (!showDeleted) {
+        fetch("/api/register/eai/all/delete", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ids: [...selectedRows] }),
+        })
+          .then((response) => {
+            if (!response.ok) console.log(" Failed Deleting Registers ");
+            else {
+              console.log(" Deleting Success");
+              selectedRows.clear();
+              setSelectedTable([]);
+              setShowDeleteModal(false);
+              setRefresh(true);
+            }
+          })
+          .catch((error) => console.log(" Error While Deleting: ", error));
+      } else {
+        fetch("/api/register/eai/all/undelete", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ids: [...selectedRows] }),
+        })
+          .then((response) => {
+            if (!response.ok) console.log(" Failed Deleting Registers ");
+            else {
+              console.log(" Deleting Success");
+              selectedRows.clear();
+              setSelectedTable([]);
+              setShowDeleteModal(false);
+            }
+          })
+          .catch((error) => console.log(" Error While Deleting: ", error));
+        setRefresh(true);
+      }
+    } else {
+      if (!showDeletedAction) {
+        console.log("AAABBB: ", selectedRowsForActions);
+        fetch("/api/register/component/action/all/delete", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ids: [...selectedRowsForActions] }),
+        })
+          .then((response) => {
+            if (!response.ok) console.log(" Failed Deleting Registers ");
+            else {
+              console.log(" Deleting Success");
+              setSelectedTableForActions([]);
+              setSelectedRowsForActions(new Set());
+              setShowDeleteModal(false);
+              setRefresh(true);
+            }
+          })
+          .catch((error) => console.log(" Error While Deleting: ", error));
+        setRefresh(true);
+      } else {
+        console.log("CCC: ", selectedRowsForActions);
+        fetch("/api/register/component/action/all/undelete", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ids: [...selectedRowsForActions] }),
+        })
+          .then((response) => {
+            if (!response.ok) console.log(" Failed Deleting Registers ");
+            else {
+              console.log(" UnDeleting Successsss");
+              setSelectedTableForActions([]);
+              setSelectedRowsForActions(new Set());
+              setRefresh(true);
+              setShowDeleteModal(false);
+            }
+          })
+          .catch((error) => console.log(" Error While Deleting: ", error));
+        setRefresh(true);
+      }
+    }
+  };
+
+  const archiveData = (id) => {
+    if (showArchived) {
+      fetch("/api/register/eai/all/unarchive", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: [...selectedRows] }),
+      })
+        .then((response) => {
+          if (!response.ok) console.log(" UnArchiving Failed ");
+          else {
+            selectedRows.clear();
+            setSelectedTable([]);
+            console.log(" UnArchiving Success ");
+          }
+        })
+        .catch((error) => console.log(" Error While UnArchiving : ", error));
+      setRefresh(true);
+    } else {
+      fetch("/api/register/eai/all/archive", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: [...selectedRows] }),
+      })
+        .then((response) => {
+          if (!response.ok) console.log(" Archiving Failed ");
+          else {
+            selectedRows.clear();
+            setSelectedTable([]);
+            console.log(" Archiving Success ");
+          }
+        })
+        .catch((error) => console.log(" Error While Archiving : ", error));
+      setRefresh(true);
+    }
+  };
+
+  const editSingle = () => {
+    let row;
+    if (activeHeader) {
+      row = getSelectedRow();
+    } else {
+      row = getSelectedRowForAction();
+      console.log("SELECTED ROW FOR EDIT ACTION", row);
+    }
+    if (row) openEditModal(row);
+  };
+
+  const archive = () => {
+    const row = getSelectedRow();
+    if (row) archiveData(row.id);
+  };
+
+  return (
+    <div className="pt-20 h-screen overflow-hidden">
+      <div className="flex h-full">
+        <div className="flex-1 ml-64 p-8 bg-gradient-to-br from-blue-50/50 to-white h-full overflow-y-auto">
+          {selectedOption === "e-chart" ? (
+            <div className="bg-white !rounded-button shadow-lg overflow-hidden">
+              <div className="p-6 border-b border-blue-100 flex justify-between items-center">
+                <h3 className="text-2xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                  E-Chart
+                </h3>
+                <div className="flex space-x-3 items-center">
+                  <button
+                    onClick={() => setSelectedOption("datas")}
+                    className="!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm"
+                  >
+                    <i className="fas fa-archive mr-2 text-blue-600 hover:text-blue-700"></i>
+                    Data
+                  </button>
+                </div>
+              </div>
+              <div className="overflow-x-auto max-h-[75vh] overflow-y-auto">
+                <div className="p-6">
+                  <h4 className="text-lg font-medium mb-4">E-Chart View</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-white rounded-lg shadow p-4">
+                      <h4 className="text-lg font-semibold mb-4 text-gray-700">KPI Performance (ISO 9001)</h4>
+                      <ReactECharts
+                        style={{ height: "300px", width: "100%" }}
+                        option={{
+                          tooltip: { trigger: "axis" },
+                          legend: { data: ["KPI", "Target"], top: 10 },
+                          grid: { left: "5%", right: "5%", bottom: "8%", containLabel: true },
+                          xAxis: { type: "category", data: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"], axisLabel: { rotate: 30 } },
+                          yAxis: { type: "value", min: 0, max: 100 },
+                          series: [
+                            { name: "KPI", type: "line", smooth: true, symbol: "circle", lineStyle: { width: 3 }, data: [72, 75, 78, 82, 87, 85] },
+                            { name: "Target", type: "line", smooth: false, symbol: "none", lineStyle: { width: 2, type: "dashed", color: "#ff4d4d" }, data: [80, 80, 80, 80, 80, 80] },
+                          ],
+                        }}
+                      />
+                    </div>
+                    <div className="bg-white rounded-lg shadow p-4">
+                      <h4 className="text-md font-medium mb-2">Risk Heatmap</h4>
+                      <ReactECharts option={riskHeatmapOption} style={{ height: "350px" }} />
+                    </div>
+                    <div className="bg-white rounded-lg shadow p-4">
+                      <h4 className="text-md font-medium mb-2">KPI Trend</h4>
+                      <ReactECharts option={kpiTrendOption} style={{ height: "300px" }} />
+                    </div>
+                    <div className="bg-white rounded-lg shadow p-4">
+                      <h4 className="text-md font-medium mb-2">Risk Categories</h4>
+                      <ReactECharts option={riskPieOption} style={{ height: "350px" }} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : selectedOption === "datas" ? (
+            <div className="bg-white !rounded-button shadow-lg overflow-hidden">
+              {/* Header */}
+              <div className="p-6 border-b border-blue-100 flex items-center">
+                <div className="flex items-center gap-4 flex-wrap">
+                  {/* Add Button */}
+                  <button
+                    onClick={openAddModal}
+                    className="group relative overflow-hidden px-6 py-2.5 rounded-xl font-medium text-sm tracking-wide bg-gradient-to-r from-indigo-600 to-blue-600 text-white shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40 hover:from-indigo-700 hover:to-blue-700 active:scale-[0.97] transition-all duration-300 ease-out flex items-center gap-2.5"
+                  >
+                    <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-400 rounded-xl" />
+                    <i className="fas fa-plus text-base transition-transform duration-300 group-hover:rotate-90 group-hover:scale-110" />
+                    {!showAction ? "Add Aspect" : "Add Action"}
+                  </button>
+
+                  {/* Archive Button */}
+                  <button
+                    onClick={toggleArchiveView}
+                    className={`group px-5 py-2.5 rounded-xl font-medium text-sm bg-white border border-slate-200 text-slate-700 hover:border-slate-300 hover:text-slate-900 hover:bg-slate-50/80 shadow-sm hover:shadow-md transition-all duration-300 ease-out flex items-center gap-2.5 ${showArchived ? "border-amber-300 text-amber-700 bg-amber-50/80 hover:bg-amber-100/70" : ""}`}
+                  >
+                    <i className={`fas ${showArchived ? "fa-undo" : "fa-archive"} text-base transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12`} />
+                    {showArchived ? "Hide Archived" : "Show Archived"}
+                  </button>
+
+                  {/* Show/Hide Deleted Button */}
+                  <button
+                    onClick={toggleDeleteView}
+                    className={`group px-5 py-2.5 rounded-xl font-medium text-sm bg-white border border-slate-200 ${showDeleted || showDeletedAction ? "border-red-300 text-red-700 bg-red-50/80 hover:bg-red-100/70 hover:border-red-400" : "hover:border-slate-300 hover:text-slate-900 hover:bg-slate-50/80"} shadow-sm hover:shadow-md transition-all duration-300 ease-out flex items-center gap-2.5`}
+                  >
+                    <i className={`fas ${showDeleted || showDeletedAction ? "fa-trash-restore" : "fa-trash-can"} text-base transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6`} />
+                    {activeHeader
+                      ? showDeleted ? "Hide Deleted" : "Show Deleted"
+                      : showDeletedAction ? "Hide Deleted Action" : "Show Deleted Action"}
+                  </button>
+
+                  {/* Show Action Button */}
+                  <button
+                    onClick={toggleActionView}
+                    disabled={selectedCount !== 1}
+                    className={`group px-5 py-2.5 rounded-xl font-medium text-sm bg-white border border-slate-200 text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none hover:border-slate-300 hover:text-slate-900 hover:bg-slate-50/80 shadow-sm hover:shadow-md transition-all duration-300 ease-out flex items-center gap-2.5 ${showAction ? "border-purple-300 text-purple-700 bg-purple-50/70 hover:bg-purple-100/60" : ""}`}
+                  >
+                    <i className="fas fa-list-check text-base transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6" />
+                    {showAction ? "Hide Action" : "Show Action"}
+                  </button>
+
+                  {/* Icon Buttons */}
+                  <div className="flex items-center gap-2.5">
+                    {/* Edit */}
+                    <button
+                      onClick={editSingle}
+                      disabled={!(selectedCount === 1 || selectedCountForActions === 1)}
+                      className="group p-3 rounded-xl bg-white border border-slate-200 text-blue-600 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none hover:bg-blue-50 hover:border-blue-200 hover:text-blue-700 hover:shadow-md shadow-sm transition-all duration-300 ease-out"
+                      title="Edit (Single Selection Only)"
+                    >
+                      <i className="fas fa-edit text-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" />
+                    </button>
+
+                    {/* Archive/Restore */}
+                    <button
+                      onClick={archive}
+                      disabled={!(selectedCount >= 1 && !showDeleted) || !activeHeader}
+                      className={`group p-3 rounded-xl bg-white border border-slate-200 text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none ${showArchived ? "text-amber-600 border-amber-200 bg-amber-50/70 hover:bg-amber-100/70 hover:border-amber-300" : "hover:bg-amber-50 hover:border-amber-200 hover:text-amber-700"} shadow-sm hover:shadow-md transition-all duration-300 ease-out`}
+                      title="Archive / Restore Selected"
+                    >
+                      <i className={`fas ${showArchived ? "fa-undo" : "fa-archive"} text-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12`} />
+                    </button>
+
+                    {/* Delete/Restore */}
+                    <button
+                      onClick={activeHeader ? (selectedCount > 0 ? confirmBulkDelete : () => {}) : (selectedCountForActions > 0 ? confirmBulkDelete : () => {})}
+                      disabled={activeHeader ? selectedCount === 0 : selectedCountForActions === 0}
+                      className={`group p-3 rounded-xl bg-white border border-slate-200 ${showDeleted || showDeletedAction ? "text-emerald-600 border-emerald-200 bg-emerald-50/70 hover:bg-emerald-100/70 hover:border-emerald-300" : "text-red-600 hover:bg-red-50 hover:border-red-200 hover:text-red-700"} disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none shadow-sm hover:shadow-md transition-all duration-300 ease-out`}
+                      title="Delete / Restore Selected"
+                    >
+                      <i className={`fas ${showDeleted || showDeletedAction ? "fa-trash-restore" : "fa-trash-can"} text-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6`} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Table */}
+              <div className="overflow-x-auto max-h-[75vh] overflow-y-auto">
+                <table>
+                  <EnvHeaders activeHeader={activeHeader} />
+                  <EnvBody
+                    selectedRows={selectedRows}
+                    selectedRowsForActions={selectedRowsForActions}
+                    showArchived={showArchived}
+                    showDeleted={showDeleted}
+                    showDeletedAction={showDeletedAction}
+                    onCheckboxChange={handleCheckboxChange}
+                    onCheckboxChangeForActions={handleCheckboxChangeForActions}
+                    activeHeader={activeHeader}
+                    selectedTable={selectedTable}
+                    refresh={refresh}
+                    setRefresh={setRefresh}
+                  />
+                </table>
+              </div>
+            </div>
+          ) : (
+            <div className="bg-white !rounded-button shadow-lg p-8 text-center">
+              <i className="fas fa-chart-bar text-6xl text-blue-300 mb-4"></i>
+              <h3 className="text-xl font-semibold text-gray-700 mb-2">Select a Risk Category</h3>
+              <p className="text-gray-500">Choose a risk category from the sidebar to view detailed assessment data.</p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Add/Edit Modal */}
+      {showModal && (activeHeader ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-gray-100">
+            <div className="px-8 py-5 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-slate-50 to-blue-50 rounded-t-2xl">
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-blue-700 rounded-full" />
+                <h3 className="text-lg font-semibold text-gray-800">
+                  {modalMode === "add" ? "Add New Aspect" : "Edit Aspect"}
+                </h3>
+              </div>
+              <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 transition-colors">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="px-8 py-6 space-y-6">
+              <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Aspect Details</p>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-6">
+                  <div className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Process</label>
+                    <select value={formData.process || ""} onChange={(e) => handleFormChange("process", e.target.value)}
+                      className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all">
+                      <option value="">Select</option>
+                      {dropdownData?.process?.map((item) => (<option key={item.id} value={item.id}>{item.value}</option>))}
+                    </select>
+                  </div>
+                  <div className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Aspect</label>
+                    <select value={formData.aspect || ""} onChange={(e) => handleFormChange("aspect", e.target.value)}
+                      className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all">
+                      <option value="">Select</option>
+                      {dropdownData?.aspect?.map((item) => (<option key={item.id} value={item.id}>{item.value}</option>))}
+                    </select>
+                  </div>
+                  <div className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Impact</label>
+                    <input value={formData.impact} onChange={(e) => handleFormChange("impact", e.target.value)} type="text" placeholder="Enter impact..."
+                      className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all" />
+                  </div>
+                  <div className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Affected Receptors</label>
+                    <input value={formData.affectedReceptors} onChange={(e) => handleFormChange("affectedReceptors", e.target.value)} type="text" placeholder="Enter affected receptors..."
+                      className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all" />
+                  </div>
+                  <div className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Existing Controls</label>
+                    <input value={formData.existingControls} onChange={(e) => handleFormChange("existingControls", e.target.value)} type="text" placeholder="Enter existing controls..."
+                      className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all" />
+                  </div>
+                </div>
+                <div className="space-y-6">
+                  {[
+                    { label: "Initial Probability", field: "idosProbability" },
+                    { label: "Initial Severity", field: "idosSeverity" },
+                    { label: "Initial Duration", field: "idosDuration" },
+                    { label: "Initial Scale", field: "idosScale" },
+                    { label: "Residual Probability", field: "rdosProbability" },
+                    { label: "Residual Severity", field: "rdosSeverity" },
+                    { label: "Residual Duration", field: "rdosDuration" },
+                    { label: "Residual Scale", field: "rdosScale" },
+                  ].map(({ label, field }) => (
+                    <div className="group" key={field}>
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">{label}</label>
+                      <select value={formData[field]} onChange={(e) => handleFormChange(field, parseInt(e.target.value, 10) || 0)}
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all">
+                        <option value="">Select</option>
+                        {[1,2,3,4,5].map(n => (<option key={n} value={n}>{n}</option>))}
+                      </select>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="px-8 py-5 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50 rounded-b-2xl">
+              <button onClick={closeModal} className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all">Cancel</button>
+              <button onClick={saveRisk} className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl hover:from-blue-600 hover:to-blue-800 shadow-sm shadow-blue-200 transition-all">
+                {modalMode === "add" ? "Add Aspect" : "Update Aspect"}
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-gray-100">
+            <div className="px-8 py-5 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-slate-50 to-blue-50 rounded-t-2xl">
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-blue-700 rounded-full" />
+                <h3 className="text-lg font-semibold text-gray-800">
+                  {modalMode === "add" ? "Add New Action" : "Edit Action"}
+                </h3>
+              </div>
+              <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 transition-colors">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="px-8 py-6 space-y-8">
+              <div>
+                <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest mb-4">Action Plan</p>
+                <div className="space-y-6">
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Action</label>
+                      <input value={actionData?.actionPlan?.[0]?.title || ""} onChange={(e) => handleFormChange("actionPlan[0].title", e.target.value)} type="text" placeholder="Enter action..."
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all" />
+                    </div>
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Raise Date</label>
+                      <input value={actionData?.actionPlan?.[0]?.raiseDate || ""} onChange={(e) => handleFormChange("actionPlan[0].raiseDate", e.target.value)} type="date"
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all" />
+                    </div>
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Resources</label>
+                      <input value={actionData?.actionPlan?.[0]?.resources || ""} onChange={(e) => handleFormChange("actionPlan[0].resources", parseInt(e.target.value))} type="text" placeholder="Enter resources..."
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all" />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Relative Function</label>
+                      <select value={actionData?.actionPlan?.[0]?.relativeFunction || ""} onChange={(e) => handleFormChange("actionPlan[0].relativeFunction", e.target.value)}
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all">
+                        <option value="">Select</option>
+                        {dropdownData?.relativeFunction?.map((item) => (<option key={item.id} value={item.id}>{item.value}</option>))}
+                      </select>
+                    </div>
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Responsible</label>
+                      <select value={actionData?.actionPlan?.[0]?.responsible || ""} onChange={(e) => handleFormChange("actionPlan[0].responsible", e.target.value)}
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all">
+                        <option value="">Select</option>
+                        {dropdownData?.affectedPosition?.map((item) => (<option key={item.id} value={item.id}>{item.value}</option>))}
+                      </select>
+                    </div>
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Deadline</label>
+                      <input value={actionData?.actionPlan?.[0]?.deadline || ""} onChange={(e) => handleFormChange("actionPlan[0].deadline", e.target.value)} type="date"
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all" />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Action Confirmation</label>
+                      <select value={actionData?.actionPlan?.[0]?.confirmation || ""} onChange={(e) => handleFormChange("actionPlan[0].confirmation", e.target.value)}
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all">
+                        <option value="">Select</option>
+                        {dropdownData?.confirmation?.map((item) => (<option key={item.id} value={item.id}>{item.value}</option>))}
+                      </select>
+                    </div>
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Action Status</label>
+                      <select value={actionData?.actionPlan?.[0]?.status || ""} onChange={(e) => handleFormChange("actionPlan[0].status", e.target.value)}
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all">
+                        <option value="">Select</option>
+                        {dropdownData?.status?.map((item) => (<option key={item.id} value={item.id}>{item.value}</option>))}
+                      </select>
+                    </div>
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Completion Date</label>
+                      <input value={actionData?.actionPlan?.[0]?.completionDate || ""} onChange={(e) => handleFormChange("actionPlan[0].completionDate", e.target.value)} type="date"
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all" />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Verification Status</label>
+                      <select value={actionData?.actionPlan?.[0]?.verificationStatus || ""} onChange={(e) => handleFormChange("actionPlan[0].verificationStatus", e.target.value)}
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all">
+                        <option value="">Select</option>
+                        {dropdownData?.verificationStatus?.map((item) => (<option key={item.id} value={item.id}>{item.value}</option>))}
+                      </select>
+                    </div>
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Comment</label>
+                      <input value={actionData?.actionPlan?.[0]?.comment || ""} onChange={(e) => handleFormChange("actionPlan[0].comment", e.target.value)} type="text" placeholder="Enter comment..."
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Monthly Status */}
+              <div>
+                <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest mb-4">Monthly Action Status</p>
+                <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5">
+                  <div className="grid grid-cols-4 gap-4">
+                    {["january","february","march","april","may","june","july","august","september","october","november","december"].map((month) => (
+                      <div key={month} className="group">
+                        <label className="block text-xs font-medium text-gray-500 mb-1.5 capitalize group-focus-within:text-blue-500 transition-colors">
+                          {month.charAt(0).toUpperCase() + month.slice(1)}
+                        </label>
+                        <select value={actionData?.actionPlan?.[0]?.[month] || ""} onChange={(e) => handleFormChange(`actionPlan[0].${month}`, e.target.value)}
+                          className="w-full px-3.5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all">
+                          <option value="">Select</option>
+                          {dropdownData?.status?.map((item) => (<option key={item.id} value={item.id}>{item.value}</option>))}
+                        </select>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="px-8 py-5 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50 rounded-b-2xl">
+              <button onClick={closeModal} className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all">Cancel</button>
+              <button onClick={saveRisk} className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl hover:from-blue-600 hover:to-blue-800 shadow-sm shadow-blue-200 transition-all">
+                {modalMode === "add" ? "Add Action" : "Update Action"}
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
+
+      {/* Delete Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 border border-gray-100">
+            <div className="p-6">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-base font-semibold text-gray-800 mb-1">Confirm Delete</h3>
+                  <p className="text-sm text-gray-500">
+                    {isBulkDelete
+                      ? `Are you sure you want to delete ${selectedCount} selected item(s)? This action can be undone.`
+                      : "Are you sure you want to delete this item? This action can be undone."}
+                  </p>
+                </div>
+              </div>
+              <div className="flex justify-end gap-3 mt-6">
+                <button onClick={() => setShowDeleteModal(false)} className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all">Cancel</button>
+                <button onClick={handleDeleteConfirm} className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-red-500 to-red-600 rounded-xl hover:from-red-600 hover:to-red-700 shadow-sm shadow-red-200 transition-all">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
-    </tbody>
+    </div>
   );
-}
 };
 
-export default EnvBody;
+export default EnvProfile;
