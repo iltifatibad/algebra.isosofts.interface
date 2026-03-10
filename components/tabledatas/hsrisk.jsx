@@ -190,9 +190,19 @@ const HsBody = ({
     }
 
     const firstRowId = selectedRowsArray[0]; // Artık ID'yi alabilirsin: "I234884J501LA657g6S20N2Nc2V71p"
-    const url = `/api/register/component/action/all?registerId=${firstRowId}&status=active`;
+ // 1️⃣ Cookie’den auth_token al
+const token = document.cookie
+  .split("; ")
+  .find(c => c.startsWith("auth_token="))
+  ?.split("=")[1] || "";
 
-    console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontrol et
+// 2️⃣ Mevcut URL
+let url = `/api/register/component/action/all?registerId=${firstRowId}&status=active`;
+
+// 3️⃣ Token’ı ekle
+url += `&token=${encodeURIComponent(token)}`;
+
+console.log(url);
 
     fetch(url, {
       method: "GET",
