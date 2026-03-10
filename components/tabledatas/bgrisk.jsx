@@ -457,6 +457,26 @@ const MyTableBody = ({
                       : "bg-green-100 hover:bg-green-200"
                   }`}
                 >
+
+                                    {/* ID + Checkbox */}
+                  <td
+                    className="border border-gray-200 px-3 py-2 w-16 sticky left-[-1px] top-0 z-10 bg-white"
+                    rowSpan={1}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="font-semibold text-gray-700">
+                        {row.no}
+                      </span>
+                      <input
+                        type="checkbox"
+                        checked={selectedRows.has(row.id)}
+                        onChange={() => onCheckboxChange(row.id, tableData)}
+                        className="h-4 w-4 text-blue-600 rounded"
+                      />
+                    </div>
+                  </td>
+
+                  
                   {/* SWOT */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.swot?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
