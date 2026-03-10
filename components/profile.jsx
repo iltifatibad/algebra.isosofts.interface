@@ -299,7 +299,7 @@ const RisksAssessment = () => {
     setSelectedTableForActions,
   );
   async function getDefaultDropdownList() {
-    const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
 const url = `/api/tablecomponent/dropdownlistitem?token=${token}`;
     try {
       const response = await fetch(url);
@@ -596,7 +596,7 @@ const url = `/api/register/br/one?token=${token}`;
           december: actionData.actionPlan[0]?.december || "",
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-        const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
 const url = `/api/register/component/action/one?token=${token}`;
         fetch(url, {
           method: "POST",
@@ -632,7 +632,7 @@ const url = `/api/register/component/action/one?token=${token}`;
           residualRiskLikelyhood: formData.residualRiskLikelyhood,
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
 const url = `/api/register/br/one/${selectedTable[0].id}?token=${token}`;
         fetch(url, {
           method: "PUT",
@@ -685,7 +685,7 @@ const url = `/api/register/br/one/${selectedTable[0].id}?token=${token}`;
         const payload = { ...actionData.actionPlan[0] };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
 
-const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
 const url = `/api/register/component/action/one/${[...selectedRowsForActions][0]}?token=${token}`;
         fetch(url, {
           method: "PUT",
@@ -743,7 +743,7 @@ const url = `/api/register/component/action/one/${[...selectedRowsForActions][0]
   const handleDeleteConfirm = () => {
     if (activeHeader) {
       if (!showDeleted) {
-        const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
 const url = `/api/register/br/all/delete?token=${token}`;
         fetch(url, {
           method: "PUT",
@@ -765,7 +765,7 @@ const url = `/api/register/br/all/delete?token=${token}`;
           })
           .catch((error) => console.log(" Error While Deleting: ", error));
       } else {
-        const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
 const url = `/api/register/br/all/undelete?token=${token}`;
         fetch(url, {
           method: "PUT",
@@ -790,8 +790,8 @@ const url = `/api/register/br/all/undelete?token=${token}`;
     } else {
       if (!showDeletedAction) {
         console.log("AAABBB: ", selectedRowsForActions);
-        const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
-const url = `/api/register/component/action/all/delete?token=${token}`
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+const url = `/api/register/component/action/all/delete?token=${token}`;
         fetch(
           url,
           {
@@ -817,7 +817,7 @@ const url = `/api/register/component/action/all/delete?token=${token}`
         setRefresh(true);
       } else {
         console.log("CCC: ", selectedRowsForActions);
-        const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
 const url = `/api/register/component/action/all/undelete?token=${token}`;
         fetch(
           url,
@@ -848,7 +848,7 @@ const url = `/api/register/component/action/all/undelete?token=${token}`;
 
   const archiveData = (id) => {
     if (showArchived) {
-      const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
 const url = `/api/register/br/all/unarchive?token=${token}`;
       fetch(url, {
         method: "PUT",
@@ -869,7 +869,7 @@ const url = `/api/register/br/all/unarchive?token=${token}`;
         .catch((error) => console.log(" Error While UnArchiving : ", error));
       setRefresh(true);
     } else {
-      const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
 const url = `/api/register/br/all/archive?token=${token}`;
       fetch(url, {
         method: "PUT",
