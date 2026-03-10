@@ -802,138 +802,149 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
       </tbody>
     );
   } else {
-    // 🟩 Normal (aktif) tablo
-    return (
-      <tbody className="text-sm">
-        {loading ? (
-          <tr>
-            <td colSpan={25} className="text-center py-6 text-gray-600">
-              Arşiv verileri yükleniyor...
-            </td>
-          </tr>
-        ) : !tableData || tableData.length === 0 ? (
-          <tr>
-            <td colSpan={25} className="text-center py-6 text-gray-500">
-              No Data
-            </td>
-          </tr>
-        ) : (
-          tableData.map((row, index) => {
-            const numActions = row.actions ? row.actions.length : 1;
-            const actions = Array.isArray(row.actions)
-              ? row.actions
-              : [row.actions];
-
-            return (
-              <React.Fragment key={row.id}>
-                <tr
-                  className={`border-b h-16 min-h-16 align-middle border-gray-200 ${
-                    index % 2 === 0
-                      ? "bg-white hover:bg-gray-200"
-                      : "bg-green-100 hover:bg-green-200"
-                  }`}
-                >
-                  {/* ID + Checkbox */}
-                  <td
-                    className="border border-gray-200 px-3 py-2 w-16 sticky left-[-1px] top-0 z-10 bg-white"
-                    rowSpan={1}
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="font-semibold text-gray-700">
-                        {row.no}
-                      </span>
-                      <input
-                        type="checkbox"
-                        checked={selectedRows.has(row.id)}
-                        onChange={() => onCheckboxChange(row.id, tableData)}
-                        className="h-4 w-4 text-blue-600 rounded"
-                      />
-                    </div>
-                  </td>
-                  {/* No */}
-<td className="border-b border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px">
-  <SoftBadge value={row.no || ""} color="bg-slate-100 text-slate-700 border border-slate-200" />
-</td>
-
-{/* Title */}
-<td className="border-b border-gray-200 px-2 py-1 w-32">
-  <SoftBadge value={row.title || ""} color="bg-rose-100 text-rose-700 border border-rose-200" />
-</td>
-
-{/* Raise Date */}
-<td className="border-b border-gray-200 px-2 py-1 w-32">
-  <SoftBadge value={row.raiseDate || ""} color="bg-blue-100 text-blue-700 border border-blue-200" />
-</td>
-
-{/* Resources */}
-<td className="border-b border-gray-200 px-2 py-1 w-24">
-  <SoftBadge value={row.resources?.toString() || ""} color="bg-violet-100 text-violet-700 border border-violet-200" />
-</td>
-
-{/* Relative Function */}
-<td className="border-b border-gray-200 px-2 py-1 w-28">
-  <SoftBadge value={row.relativeFunction?.value || ""} color="bg-amber-100 text-amber-700 border border-amber-200" />
-</td>
-
-{/* Responsible */}
-<td className="border-b border-gray-200 px-2 py-1 w-28">
-  <SoftBadge value={row.responsible?.value || ""} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
-</td>
-
-{/* Deadline */}
-<td className="border-b border-gray-200 px-2 py-1 w-24">
-  <SoftBadge value={row.deadline || ""} color="bg-teal-100 text-teal-700 border border-teal-200" />
-</td>
-
-{/* Confirmation */}
-<td className="border-b border-gray-200 px-2 py-1 w-36">
-  <SoftBadge value={row.confirmation?.value || ""} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
-</td>
-
-{/* Status */}
-<td className="border-b border-gray-200 px-2 py-1 w-24">
-  <SoftBadge value={row.status?.value?.toString() || ""} color="bg-pink-100 text-pink-700 border border-pink-200" />
-</td>
-
-{/* Completion Date */}
-<td className="border-b border-gray-200 px-2 py-1 w-24">
-  <SoftBadge value={row.completionDate || ""} color="bg-orange-100 text-orange-700 border border-orange-200" />
-</td>
-
-{/* Verification Status */}
-<td className="border-b border-gray-200 px-2 py-1 w-32">
-  <SoftBadge value={row.verificationStatus?.value || ""} color="bg-lime-100 text-lime-700 border border-lime-200" />
-</td>
-
-{/* Comment */}
-<td className="border-b border-gray-200 px-2 py-1 w-40">
-  <SoftBadge value={row.comment || ""} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
-</td>
-
-{/* Monitoring Month Columns */}
-{[
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-].map((month) => {
-  const monthKey = month.toLowerCase();
-  const monthValue = row[monthKey]?.value || "";
+  // 🟩 Normal (aktif) tablo
   return (
-    <td
-      key={`${row.id}-${row.id}-${monthKey}`}
-      className="border-b border-gray-200 px-2 py-1 w-24"
-    >
-      <SoftBadge value={monthValue} color="bg-sky-100 text-sky-700 border border-sky-200" />
-    </td>
+    <tbody className="text-sm">
+      {loading ? (
+        <tr>
+          <td colSpan={25} className="text-center py-6 text-gray-600">
+            Arşiv verileri yükleniyor...
+          </td>
+        </tr>
+      ) : !tableData || tableData.length === 0 ? (
+        <tr>
+          <td colSpan={25} className="text-center py-6 text-gray-500">
+            No Data
+          </td>
+        </tr>
+      ) : (
+        tableData.map((row, index) => {
+          const numActions = row.actions ? row.actions.length : 1;
+          const actions = Array.isArray(row.actions)
+            ? row.actions
+            : [row.actions];
+
+          // ← SoftBadge komponentini buraya ekledim (referans kod gibi)
+          const SoftBadge = ({ value, color }) =>
+            value ? (
+              <span
+                className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
+              >
+                {value}
+              </span>
+            ) : null;
+
+          return (
+            <React.Fragment key={row.id}>
+              <tr
+                className={`border-b h-16 min-h-16 align-middle border-gray-200 ${
+                  index % 2 === 0
+                    ? "bg-white hover:bg-gray-200"
+                    : "bg-green-100 hover:bg-green-200"
+                }`}
+              >
+                {/* ID + Checkbox */}
+                <td
+                  className="border border-gray-200 px-3 py-2 w-16 sticky left-[-1px] top-0 z-10 bg-white"
+                  rowSpan={1}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-gray-700">
+                      {row.no}
+                    </span>
+                    <input
+                      type="checkbox"
+                      checked={selectedRows.has(row.id)}
+                      onChange={() => onCheckboxChange(row.id, tableData)}
+                      className="h-4 w-4 text-blue-600 rounded"
+                    />
+                  </div>
+                </td>
+
+                {/* No */}
+                <td className="border border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px">
+                  <SoftBadge value={row.no || ""} color="bg-slate-100 text-slate-700 border border-slate-200" />
+                </td>
+
+                {/* Title */}
+                <td className="border border-gray-200 px-2 py-1 w-32">
+                  <SoftBadge value={row.title || ""} color="bg-rose-100 text-rose-700 border border-rose-200" />
+                </td>
+
+                {/* Raise Date */}
+                <td className="border border-gray-200 px-2 py-1 w-32">
+                  <SoftBadge value={row.raiseDate || ""} color="bg-blue-100 text-blue-700 border border-blue-200" />
+                </td>
+
+                {/* Resources */}
+                <td className="border border-gray-200 px-2 py-1 w-24">
+                  <SoftBadge value={row.resources?.toString() || ""} color="bg-violet-100 text-violet-700 border border-violet-200" />
+                </td>
+
+                {/* Relative Function */}
+                <td className="border border-gray-200 px-2 py-1 w-28">
+                  <SoftBadge value={row.relativeFunction?.value || ""} color="bg-amber-100 text-amber-700 border border-amber-200" />
+                </td>
+
+                {/* Responsible */}
+                <td className="border border-gray-200 px-2 py-1 w-28">
+                  <SoftBadge value={row.responsible?.value || ""} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+                </td>
+
+                {/* Deadline */}
+                <td className="border border-gray-200 px-2 py-1 w-24">
+                  <SoftBadge value={row.deadline || ""} color="bg-teal-100 text-teal-700 border border-teal-200" />
+                </td>
+
+                {/* Confirmation */}
+                <td className="border border-gray-200 px-2 py-1 w-36">
+                  <SoftBadge value={row.confirmation?.value || ""} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+                </td>
+
+                {/* Status */}
+                <td className="border border-gray-200 px-2 py-1 w-24">
+                  <SoftBadge value={row.status?.value?.toString() || ""} color="bg-pink-100 text-pink-700 border border-pink-200" />
+                </td>
+
+                {/* Completion Date */}
+                <td className="border border-gray-200 px-2 py-1 w-24">
+                  <SoftBadge value={row.completionDate || ""} color="bg-orange-100 text-orange-700 border border-orange-200" />
+                </td>
+
+                {/* Verification Status */}
+                <td className="border border-gray-200 px-2 py-1 w-32">
+                  <SoftBadge value={row.verificationStatus?.value || ""} color="bg-lime-100 text-lime-700 border border-lime-200" />
+                </td>
+
+                {/* Comment */}
+                <td className="border border-gray-200 px-2 py-1 w-40">
+                  <SoftBadge value={row.comment || ""} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
+                </td>
+
+                {/* Monitoring Month Columns */}
+                {[
+                  "January", "February", "March", "April", "May", "June",
+                  "July", "August", "September", "October", "November", "December"
+                ].map((month) => {
+                  const monthKey = month.toLowerCase();
+                  const monthValue = row[monthKey]?.value || "";
+                  return (
+                    <td
+                      key={`${row.id}-${monthKey}`}
+                      className="border border-gray-200 px-2 py-1 w-24"
+                    >
+                      <SoftBadge value={monthValue} color="bg-sky-100 text-sky-700 border border-sky-200" />
+                    </td>
+                  );
+                })}
+              </tr>
+            </React.Fragment>
+          );
+        })
+      )}
+    </tbody>
   );
-})}
-                </tr>
-              </React.Fragment>
-            );
-          })
-        )}
-      </tbody>
-    );
-  }
+}
 };
 
 export default EnvBody;
