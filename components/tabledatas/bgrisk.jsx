@@ -191,6 +191,8 @@ const MyTableBody = ({
 
     const firstRowId = selectedRowsArray[0]; // Artık ID'yi alabilirsin: "I234884J501LA657g6S20N2Nc2V71p"
     const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+console.log("token:", token);
+console.log("url:", url);
 const url = `/api/register/component/action/all?registerId=${firstRowId}&status=active&token=${token}`;
 
     console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontrol et
