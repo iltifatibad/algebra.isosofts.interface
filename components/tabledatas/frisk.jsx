@@ -23,25 +23,24 @@ const FBody = ({
   const [deletedActionData, setDeletedActionData] = useState([]);
   const [actionData, setActionData] = useState([]);
   const [editData, setEditData] = useState([]);
-  const getArchivedData = async () => {
-    setLoading(true); // Loading başla
-    try {
-      const response = await fetch(
-        "/api/register/fin/all?status=archived",
-      );
-      if (!response.ok) {
-        throw new Error("Failed To Get Datas From Archived DataBase");
-      }
-      const fetchedData = await response.json();
-      setArchivedData(fetchedData || []);
-      console.log("Arşiv verileri:", fetchedData);
-    } catch (err) {
-      console.error("Error While Fetching Archived Datas:", err);
-      setArchivedData([]);
-    } finally {
-      setLoading(false);
+const getArchivedData = async () => {
+  setLoading(true);
+  try {
+    const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+    const response = await fetch(`/api/register/fin/all?status=archived&token=${token}`);
+    if (!response.ok) {
+      throw new Error("Failed To Get Datas From Archived DataBase");
     }
-  };
+    const fetchedData = await response.json();
+    setArchivedData(fetchedData || []);
+    console.log("Arşiv verileri:", fetchedData);
+  } catch (err) {
+    console.error("Error While Fetching Archived Datas:", err);
+    setArchivedData([]);
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     if (refresh) {
@@ -91,25 +90,24 @@ const FBody = ({
     }
   }, [showArchived]); // Dependency: showArchived değişince
 
-  const getDeletedData = async () => {
-    setLoading(true); // Loading başla
-    try {
-      const response = await fetch(
-        "/api/register/fin/all?status=deleted",
-      );
-      if (!response.ok) {
-        throw new Error("Failed To Get Datas From Deleted DataBase");
-      }
-      const fetchedData = await response.json();
-      setDeletedData(fetchedData || []); // Veri set et, fallback []
-      console.log("Arşiv verileri:", fetchedData);
-    } catch (err) {
-      console.error("Error While Fetching Deleted Datas:", err);
-      setDeletedData([]); // Hata durumunda boş array set et (null değil!)
-    } finally {
-      setLoading(false); // Loading bitir
+const getDeletedData = async () => {
+  setLoading(true);
+  try {
+    const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+    const response = await fetch(`/api/register/fin/all?status=deleted&token=${token}`);
+    if (!response.ok) {
+      throw new Error("Failed To Get Datas From Deleted DataBase");
     }
-  };
+    const fetchedData = await response.json();
+    setDeletedData(fetchedData || []);
+    console.log("Arşiv verileri:", fetchedData);
+  } catch (err) {
+    console.error("Error While Fetching Deleted Datas:", err);
+    setDeletedData([]);
+  } finally {
+    setLoading(false);
+  }
+};
   useEffect(() => {
     if (showDeleted) {
       getDeletedData(); // Async çağrı
@@ -118,26 +116,27 @@ const FBody = ({
     }
   }, [showDeleted]); // Dependency: showArchived değişince
 
-  const getDeletedActionData = async () => {
-    setLoading(true); // Loading başla
-    const selectedRowsArray = [...selectedRows];
-    try {
-      const firstRowId = selectedRowsArray[0];
-      const url = `/api/register/component/action/all?registerId=${firstRowId}&status=deleted`;
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error("Failed To Get Datas From Deleted DataBase");
-      }
-      const fetchedData = await response.json();
-      setDeletedActionData(fetchedData || []); // Veri set et, fallback []
-      console.log("Arşiv Action verileri:", fetchedData);
-    } catch (err) {
-      console.error("Error While Fetching Deleted Datas:", err);
-      setDeletedActionData([]); // Hata durumunda boş array set et (null değil!)
-    } finally {
-      setLoading(false); // Loading bitir
+const getDeletedActionData = async () => {
+  setLoading(true);
+  const selectedRowsArray = [...selectedRows];
+  try {
+    const firstRowId = selectedRowsArray[0];
+    const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+    const url = `/api/register/component/action/all?registerId=${firstRowId}&status=deleted&token=${token}`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("Failed To Get Datas From Deleted DataBase");
     }
-  };
+    const fetchedData = await response.json();
+    setDeletedActionData(fetchedData || []);
+    console.log("Arşiv Action verileri:", fetchedData);
+  } catch (err) {
+    console.error("Error While Fetching Deleted Datas:", err);
+    setDeletedActionData([]);
+  } finally {
+    setLoading(false);
+  }
+};
   useEffect(() => {
     if (!activeHeader && showDeletedAction) {
       getDeletedActionData(); // Async çağrı
@@ -150,24 +149,25 @@ const FBody = ({
   const [error, setError] = useState(null);
 
   const [tableData, setTableData] = useState([]);
-  const getAll = async () => {
-    setLoading(true);
-    fetch("/api/register/fin/all")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed To Get Datas From Database");
-        }
-        return response.json();
-      })
-      .then((fetchedData) => {
-        setTableData(fetchedData);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
-  };
+const getAll = async () => {
+  setLoading(true);
+  const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+  fetch(`/api/register/fin/all?token=${token}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed To Get Datas From Database");
+      }
+      return response.json();
+    })
+    .then((fetchedData) => {
+      setTableData(fetchedData);
+      setLoading(false);
+    })
+    .catch((err) => {
+      setError(err.message);
+      setLoading(false);
+    });
+};
 
   useEffect(() => {
     if (!showArchived && !showDeleted && activeHeader) {
@@ -188,11 +188,10 @@ const FBody = ({
       setLoading(false);
       return; // Erken çık
     }
-
-    const firstRowId = selectedRowsArray[0]; // Artık ID'yi alabilirsin: "I234884J501LA657g6S20N2Nc2V71p"
-    const url = `/api/register/component/action/all?registerId=${firstRowId}&status=active`;
-
-    console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontrol et
+const firstRowId = selectedRowsArray[0]; // Artık ID'yi alabilirsin: "I234884J501LA657g6S20N2Nc2V71p"
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+const url = `/api/register/component/action/all?registerId=${firstRowId}&status=active&token=${token}`;
+console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontrol et
 
     fetch(url, {
       method: "GET",

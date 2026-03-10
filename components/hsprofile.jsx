@@ -296,20 +296,21 @@ const HsProfile = () => {
     setSelectedRowsForActions,
     setSelectedTableForActions,
   );
-  async function getDefaultDropdownList() {
-    const url = "/api/tablecomponent/dropdownlistitem";
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-      }
-      const result = await response.json();
-      setDropdownData(result);
-      console.log(result);
-    } catch (error) {
-      console.error(error.message);
+async function getDefaultDropdownList() {
+  const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+  const url = `/api/tablecomponent/dropdownlistitem?token=${token}`;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
     }
+    const result = await response.json();
+    setDropdownData(result);
+    console.log(result);
+  } catch (error) {
+    console.error(error.message);
   }
+}
 
   // Filtered data based on archived
 
@@ -535,11 +536,12 @@ const HsProfile = () => {
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
 
-        fetch("/api/register/hsr/one", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload), // Direkt obje – array yapma!
-        })
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+fetch(`/api/register/hsr/one?token=${token}`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(payload),
+})
           .then((response) => {
             if (!response.ok) {
               console.error("Kaydetme başarısız:", response.statusText);
@@ -581,11 +583,12 @@ const HsProfile = () => {
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
 
-        fetch("/api/register/component/action/one", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload), // Direkt obje – array yapma!
-        })
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+fetch(`/api/register/component/action/one?token=${token}`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(payload),
+})
           .then((response) => {
             if (!response.ok) {
               console.error("Kaydetme başarısız:", response.statusText);
@@ -613,13 +616,13 @@ const HsProfile = () => {
           residualRiskLikelyhood: formData.residualRiskLikelyhood,
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-        const url =
-          "/api/register/hsr/one/" + selectedTable[0].id;
-        fetch(url, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload), // Direkt obje – array yapma!
-        })
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+const url = `/api/register/hsr/one/${selectedTable[0].id}?token=${token}`;
+fetch(url, {
+  method: "PUT",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(payload),
+})
           .then((response) => {
             if (!response.ok) {
               console.error("Kaydetme başarısız:", response.statusText);
@@ -666,14 +669,13 @@ const HsProfile = () => {
         const payload = { ...actionData.actionPlan[0] };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
 
-        const url =
-          "/api/register/component/action/one/" +
-          [...selectedRowsForActions][0];
-        fetch(url, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload), // Direkt obje – array yapma!
-        })
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+const url = `/api/register/component/action/one/${[...selectedRowsForActions][0]}?token=${token}`;
+fetch(url, {
+  method: "PUT",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(payload),
+})
           .then((response) => {
             if (!response.ok) {
               console.error("Kaydetme başarısız:", response.statusText);
@@ -725,13 +727,14 @@ const HsProfile = () => {
   const handleDeleteConfirm = () => {
     if (activeHeader) {
       if (!showDeleted) {
-        fetch("/api/register/hsr/all/delete", {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ids: [...selectedRows],
-          }),
-        })
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+fetch(`/api/register/hsr/all/delete?token=${token}`, {
+  method: "PUT",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    ids: [...selectedRows],
+  }),
+})
           .then((response) => {
             if (!response.ok) {
               console.log(" Failed Deleting Registers ");
@@ -745,13 +748,14 @@ const HsProfile = () => {
           })
           .catch((error) => console.log(" Error While Deleting: ", error));
       } else {
-        fetch("/api/register/hsr/all/undelete", {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ids: [...selectedRows],
-          }),
-        })
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+fetch(`/api/register/hsr/all/undelete?token=${token}`, {
+  method: "PUT",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    ids: [...selectedRows],
+  }),
+})
           .then((response) => {
             if (!response.ok) {
               console.log(" Failed Deleting Registers ");
@@ -768,16 +772,14 @@ const HsProfile = () => {
     } else {
       if (!showDeletedAction) {
         console.log("AAABBB: ", selectedRowsForActions);
-        fetch(
-          "/api/register/component/action/all/delete",
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              ids: [...selectedRowsForActions],
-            }),
-          },
-        )
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+fetch(`/api/register/component/action/all/delete?token=${token}`, {
+  method: "PUT",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    ids: [...selectedRowsForActions],
+  }),
+})
           .then((response) => {
             if (!response.ok) {
               console.log(" Failed Deleting Registers ");
@@ -793,16 +795,14 @@ const HsProfile = () => {
         setRefresh(true);
       } else {
         console.log("CCC: ", selectedRowsForActions);
-        fetch(
-          "/api/register/component/action/all/undelete",
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              ids: [...selectedRowsForActions],
-            }),
-          },
-        )
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+fetch(`/api/register/component/action/all/undelete?token=${token}`, {
+  method: "PUT",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    ids: [...selectedRowsForActions],
+  }),
+})
           .then((response) => {
             if (!response.ok) {
               console.log(" Failed Deleting Registers ");
@@ -822,13 +822,14 @@ const HsProfile = () => {
 
   const archiveData = (id) => {
     if (showArchived) {
-      fetch("/api/register/hsr/all/unarchive", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ids: [...selectedRows],
-        }),
-      })
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+fetch(`/api/register/hsr/all/unarchive?token=${token}`, {
+  method: "PUT",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    ids: [...selectedRows],
+  }),
+})
         .then((response) => {
           if (!response.ok) {
             console.log(" UnArchiving Failed ");
@@ -841,11 +842,12 @@ const HsProfile = () => {
         .catch((error) => console.log(" Error While UnArchiving : ", error));
       setRefresh(true);
     } else {
-      fetch("/api/register/hsr/all/archive", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ids: [...selectedRows] }),
-      })
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+fetch(`/api/register/hsr/all/archive?token=${token}`, {
+  method: "PUT",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ ids: [...selectedRows] }),
+})
         .then((response) => {
           if (!response.ok) {
             console.log(selectedRows);

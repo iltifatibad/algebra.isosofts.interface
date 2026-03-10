@@ -26,9 +26,8 @@ const HsBody = ({
   const getArchivedData = async () => {
     setLoading(true); // Loading başla
     try {
-      const response = await fetch(
-        "/api/register/hsr/all?status=archived",
-      );
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+const response = await fetch(`/api/register/hsr/all?status=archived&token=${token}`);
       if (!response.ok) {
         throw new Error("Failed To Get Datas From Archived DataBase");
       }
@@ -94,9 +93,8 @@ const HsBody = ({
   const getDeletedData = async () => {
     setLoading(true); // Loading başla
     try {
-      const response = await fetch(
-        "/api/register/hsr/all?status=deleted",
-      );
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+const response = await fetch(`/api/register/hsr/all?status=deleted&token=${token}`);
       if (!response.ok) {
         throw new Error("Failed To Get Datas From Deleted DataBase");
       }
@@ -123,8 +121,9 @@ const HsBody = ({
     const selectedRowsArray = [...selectedRows];
     try {
       const firstRowId = selectedRowsArray[0];
-      const url = `/api/register/component/action/all?registerId=${firstRowId}&status=deleted`;
-      const response = await fetch(url);
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+const url = `/api/register/component/action/all?registerId=${firstRowId}&status=deleted&token=${token}`;
+const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Failed To Get Datas From Deleted DataBase");
       }
@@ -150,25 +149,25 @@ const HsBody = ({
   const [error, setError] = useState(null);
 
   const [tableData, setTableData] = useState([]);
-  const getAll = async () => {
-    setLoading(true);
-    fetch("/api/register/hsr/all")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed To Get Datas From Database");
-        }
-        return response.json();
-      })
-      .then((fetchedData) => {
-        setTableData(fetchedData);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
-  };
-
+const getAll = async () => {
+  setLoading(true);
+  const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+  fetch(`/api/register/hsr/all?token=${token}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed To Get Datas From Database");
+      }
+      return response.json();
+    })
+    .then((fetchedData) => {
+      setTableData(fetchedData);
+      setLoading(false);
+    })
+    .catch((err) => {
+      setError(err.message);
+      setLoading(false);
+    });
+};
   useEffect(() => {
     if (!showArchived && !showDeleted && activeHeader) {
       getAll();
