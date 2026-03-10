@@ -4,6 +4,14 @@ import BgHeaders from "./tableheaders/tableheards.jsx";
 
 import ReactECharts from "echarts-for-react";
 
+const getToken = () =>
+  document.cookie
+    .split("; ")
+    .find((r) => r.startsWith("auth_token="))
+    ?.split("=")
+    .slice(1)
+    .join("=") ?? "";
+
 export const hCheckboxChange =
   (setSelectedRows, setSelectedTable) => (id, table) => {
     // id'ye uygun objeyi bul
@@ -299,8 +307,8 @@ const RisksAssessment = () => {
     setSelectedTableForActions,
   );
   async function getDefaultDropdownList() {
-const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-const url = `/api/tablecomponent/dropdownlistitem?token=${token}`;
+    const token = getToken();
+    const url = `/api/tablecomponent/dropdownlistitem?token=${token}`;
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -538,23 +546,18 @@ const url = `/api/tablecomponent/dropdownlistitem?token=${token}`;
           kpi: formData.kpi,
           process: formData.process,
           ermeoa: formData.ermeoa,
-          initialRiskSeverity: formData.initialRiskSeverity, // Number
-          initialRiskLikelyhood: formData.initialRiskLikelyhood, // Number, spelling uyumlu
+          initialRiskSeverity: formData.initialRiskSeverity,
+          initialRiskLikelyhood: formData.initialRiskLikelyhood,
           residualRiskSeverity: formData.residualRiskSeverity,
           residualRiskLikelyhood: formData.residualRiskLikelyhood,
         };
-        console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-        const token = document.cookie
-  .split("; ")
-  .find((r) => r.startsWith("auth_token="))
-  ?.split("=")
-  .slice(1)
-  .join("=") ?? "";
-const url = `/api/register/br/one?token=${token}`;
+        console.log("Gönderilen body:", payload);
+        const token = getToken();
+        const url = `/api/register/br/one?token=${token}`;
         fetch(url, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload), // Direkt obje – array yapma!
+          body: JSON.stringify(payload),
         })
           .then((response) => {
             if (!response.ok) {
@@ -595,13 +598,13 @@ const url = `/api/register/br/one?token=${token}`;
           november: actionData.actionPlan[0]?.november || "",
           december: actionData.actionPlan[0]?.december || "",
         };
-        console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-const url = `/api/register/component/action/one?token=${token}`;
+        console.log("Gönderilen body:", payload);
+        const token = getToken();
+        const url = `/api/register/component/action/one?token=${token}`;
         fetch(url, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload), // Direkt obje – array yapma!
+          body: JSON.stringify(payload),
         })
           .then((response) => {
             if (!response.ok) {
@@ -613,7 +616,6 @@ const url = `/api/register/component/action/one?token=${token}`;
           .catch((error) => console.error("Hata:", error));
         setRefresh(true);
       }
-      // Sadece backend beklediği alanları al (diğerlerini sil)
     } else {
       if (!showAction) {
         const payload = {
@@ -626,18 +628,18 @@ const url = `/api/register/component/action/one?token=${token}`;
           kpi: formData.kpi,
           process: formData.process,
           ermeoa: formData.ermeoa,
-          initialRiskSeverity: formData.initialRiskSeverity, // Number
-          initialRiskLikelyhood: formData.initialRiskLikelyhood, // Number, spelling uyumlu
+          initialRiskSeverity: formData.initialRiskSeverity,
+          initialRiskLikelyhood: formData.initialRiskLikelyhood,
           residualRiskSeverity: formData.residualRiskSeverity,
           residualRiskLikelyhood: formData.residualRiskLikelyhood,
         };
-        console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-const url = `/api/register/br/one/${selectedTable[0].id}?token=${token}`;
+        console.log("Gönderilen body:", payload);
+        const token = getToken();
+        const url = `/api/register/br/one/${selectedTable[0].id}?token=${token}`;
         fetch(url, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload), // Direkt obje – array yapma!
+          body: JSON.stringify(payload),
         })
           .then((response) => {
             if (!response.ok) {
@@ -683,14 +685,13 @@ const url = `/api/register/br/one/${selectedTable[0].id}?token=${token}`;
           ],
         });
         const payload = { ...actionData.actionPlan[0] };
-        console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-
-const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-const url = `/api/register/component/action/one/${[...selectedRowsForActions][0]}?token=${token}`;
+        console.log("Gönderilen body:", payload);
+        const token = getToken();
+        const url = `/api/register/component/action/one/${[...selectedRowsForActions][0]}?token=${token}`;
         fetch(url, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload), // Direkt obje – array yapma!
+          body: JSON.stringify(payload),
         })
           .then((response) => {
             if (!response.ok) {
@@ -701,7 +702,6 @@ const url = `/api/register/component/action/one/${[...selectedRowsForActions][0]
               setActionData([payload]);
               setSelectedTableForActions([payload]);
               console.log("SELECTED actionData ", actionData);
-
               console.log("Kayıt başarıyla kaydedildi.");
             }
           })
@@ -743,8 +743,8 @@ const url = `/api/register/component/action/one/${[...selectedRowsForActions][0]
   const handleDeleteConfirm = () => {
     if (activeHeader) {
       if (!showDeleted) {
-const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-const url = `/api/register/br/all/delete?token=${token}`;
+        const token = getToken();
+        const url = `/api/register/br/all/delete?token=${token}`;
         fetch(url, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -765,8 +765,8 @@ const url = `/api/register/br/all/delete?token=${token}`;
           })
           .catch((error) => console.log(" Error While Deleting: ", error));
       } else {
-const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-const url = `/api/register/br/all/undelete?token=${token}`;
+        const token = getToken();
+        const url = `/api/register/br/all/undelete?token=${token}`;
         fetch(url, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -790,18 +790,15 @@ const url = `/api/register/br/all/undelete?token=${token}`;
     } else {
       if (!showDeletedAction) {
         console.log("AAABBB: ", selectedRowsForActions);
-const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-const url = `/api/register/component/action/all/delete?token=${token}`;
-        fetch(
-          url,
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              ids: [...selectedRowsForActions],
-            }),
-          },
-        )
+        const token = getToken();
+        const url = `/api/register/component/action/all/delete?token=${token}`;
+        fetch(url, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ids: [...selectedRowsForActions],
+          }),
+        })
           .then((response) => {
             if (!response.ok) {
               console.log(" Failed Deleting Registers ");
@@ -817,18 +814,15 @@ const url = `/api/register/component/action/all/delete?token=${token}`;
         setRefresh(true);
       } else {
         console.log("CCC: ", selectedRowsForActions);
-const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-const url = `/api/register/component/action/all/undelete?token=${token}`;
-        fetch(
-          url,
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              ids: [...selectedRowsForActions],
-            }),
-          },
-        )
+        const token = getToken();
+        const url = `/api/register/component/action/all/undelete?token=${token}`;
+        fetch(url, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ids: [...selectedRowsForActions],
+          }),
+        })
           .then((response) => {
             if (!response.ok) {
               console.log(" Failed Deleting Registers ");
@@ -848,8 +842,8 @@ const url = `/api/register/component/action/all/undelete?token=${token}`;
 
   const archiveData = (id) => {
     if (showArchived) {
-const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-const url = `/api/register/br/all/unarchive?token=${token}`;
+      const token = getToken();
+      const url = `/api/register/br/all/unarchive?token=${token}`;
       fetch(url, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -869,8 +863,8 @@ const url = `/api/register/br/all/unarchive?token=${token}`;
         .catch((error) => console.log(" Error While UnArchiving : ", error));
       setRefresh(true);
     } else {
-const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-const url = `/api/register/br/all/archive?token=${token}`;
+      const token = getToken();
+      const url = `/api/register/br/all/archive?token=${token}`;
       fetch(url, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
