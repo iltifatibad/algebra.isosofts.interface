@@ -544,7 +544,12 @@ const url = `/api/tablecomponent/dropdownlistitem?token=${token}`;
           residualRiskLikelyhood: formData.residualRiskLikelyhood,
         };
         console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-        const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=")[1] ?? "";
+        const token = document.cookie
+  .split("; ")
+  .find((r) => r.startsWith("auth_token="))
+  ?.split("=")
+  .slice(1)
+  .join("=") ?? "";
 const url = `/api/register/br/one?token=${token}`;
         fetch(url, {
           method: "POST",
