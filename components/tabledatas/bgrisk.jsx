@@ -570,7 +570,7 @@ const MyTableBody = ({
               Deleted verileri yükleniyor...
             </td>
           </tr>
-        ) : selectedTable && actionData && selectedTable.length > 0 ? (
+        ) : selectedTable && Array.isArray(actionData) && actionData.length > 0 && selectedTable.length > 0 ? (
           actionData.map((row, index) => {
             const numActions = row.actionPlan ? row.actionPlan.length : 1;
 
@@ -674,7 +674,6 @@ const MyTableBody = ({
                       key={`${actionData?.[index]?.id}-${month}`}
                       className="border-b border-gray-200 px-2 py-1 w-24"
                     >
-                      {/* Assuming monitoring data is stored in actionData[index].monitoring[month] or similar; adjust as needed */}
                       <SoftBadge
                         value={
                           actionData?.[index]?.[month.toLowerCase()]?.value ||
@@ -705,7 +704,7 @@ const MyTableBody = ({
               Deleted verileri yükleniyor...
             </td>
           </tr>
-        ) : selectedTable && deletedActionData && selectedTable.length > 0 ? (
+        ) : selectedTable && Array.isArray(deletedActionData) && deletedActionData.length > 0 && selectedTable.length > 0 ? (
           deletedActionData.map((row, index) => {
             const numActions = row.actionPlan ? row.actionPlan.length : 1;
             console.log("WORKINGGGGG !!!");
@@ -818,10 +817,9 @@ const MyTableBody = ({
                     "December",
                   ].map((month) => (
                     <td
-                      key={`$deletedActionData?.[index]?.id}-${month}`}
+                      key={`${deletedActionData?.[index]?.id}-${month}`}
                       className="border-b border-gray-200 px-2 py-1 w-24"
                     >
-                      {/* Assuming monitoring data is stored indeletedActionData[index].monitoring[month] or similar; adjust as needed */}
                       <SoftBadge
                         value={
                           deletedActionData?.[index]?.[month.toLowerCase()]
