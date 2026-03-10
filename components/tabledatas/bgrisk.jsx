@@ -2,6 +2,15 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { hCheckboxChange } from "../profile.jsx";
+
+const getToken = () =>
+  document.cookie
+    .split("; ")
+    .find((r) => r.startsWith("auth_token="))
+    ?.split("=")
+    .slice(1)
+    .join("=") ?? "";
+
 const MyTableBody = ({
   selectedRows,
   selectedRowsForActions,
@@ -26,8 +35,9 @@ const MyTableBody = ({
   const getArchivedData = async () => {
     setLoading(true); // Loading başla
     try {
+      const token = getToken();
       const response = await fetch(
-        "/api/register/br/all?status=archived",
+        `/api/register/br/all?status=archived&token=${token}`,
       );
       if (!response.ok) {
         throw new Error("Failed To Get Datas From Archived DataBase");
@@ -94,8 +104,9 @@ const MyTableBody = ({
   const getDeletedData = async () => {
     setLoading(true); // Loading başla
     try {
+      const token = getToken();
       const response = await fetch(
-        "/api/register/br/all?status=deleted",
+        `/api/register/br/all?status=deleted&token=${token}`,
       );
       if (!response.ok) {
         throw new Error("Failed To Get Datas From Deleted DataBase");
@@ -123,7 +134,8 @@ const MyTableBody = ({
     const selectedRowsArray = [...selectedRows];
     try {
       const firstRowId = selectedRowsArray[0];
-      const url = `/api/register/component/action/all?registerId=${firstRowId}&status=deleted`;
+      const token = getToken();
+      const url = `/api/register/component/action/all?registerId=${firstRowId}&status=deleted&token=${token}`;
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Failed To Get Datas From Deleted DataBase");
@@ -152,7 +164,8 @@ const MyTableBody = ({
   const [tableData, setTableData] = useState([]);
   const getAll = async () => {
     setLoading(true);
-    fetch("/api/register/br/all")
+    const token = getToken();
+    fetch(`/api/register/br/all?token=${token}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed To Get Datas From Database");
@@ -190,14 +203,9 @@ const MyTableBody = ({
     }
 
     const firstRowId = selectedRowsArray[0]; // Artık ID'yi alabilirsin: "I234884J501LA657g6S20N2Nc2V71p"
-    const token = document.cookie
-  .split("; ")
-  .find(c => c.startsWith("auth_token="))
-  ?.split("=")[1] || "";
+    const token = getToken();
 
-console.log(token);
-    const url = `/api/register/component/action/all?registerId=${firstRowId}&status=active&token=${encodeURIComponent(token)}`;
-
+    const url = `/api/tablecomponent/dropdownlistitem?token=${token}`;
     console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontrol et
 
     fetch(url, {
