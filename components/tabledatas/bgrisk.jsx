@@ -960,6 +960,10 @@ const MyTableBody = ({
   })()}
 </td>
 
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.kpi} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
+
 {/* Residual Risk Severity */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
   <SoftBadge value={row.residualRiskSeverity} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
