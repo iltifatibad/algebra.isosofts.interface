@@ -7,68 +7,68 @@ const FHeaders = ({ activeHeader }) => {
         {/* First header row - fixed height for sticky positioning */}
         <tr className="h-13">
           <th
-            className="min-w-15 border-r border-white-500 sticky left-[-1px] top-0 z-21 bg-white -ml-px"
+            className="min-w-15 border-r border-white sticky left-[-1px] top-0 z-21 bg-white -ml-px"
             rowSpan={2}
           >
             #
           </th>
           <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Issuer
           </th>
           <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Process
           </th>
           <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Category Of Finding
           </th>
           <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Type Of Finding
           </th>
           <th
-            className="min-w-50 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-50 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Source Of Finding
           </th>
           <th
-            className="min-w-50 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-50 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Customer
           </th>
           <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Vendor
           </th>
 
           <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Finding Description
           </th>
           <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Containtment Action
           </th>
           <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Root Causes
@@ -84,21 +84,21 @@ const FHeaders = ({ activeHeader }) => {
         {/* First header row */}
         <tr className="w-full h-12">
           <th
-            className="min-w-35 border-r border-white-500 sticky left-[-1px] top-0 z-21 bg-white -ml-px"
+            className="min-w-35 border-r border-white sticky left-[-1px] top-0 z-21 bg-white -ml-px"
             rowSpan={2}
           >
             #
           </th>
 
           <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             colSpan={11}
           >
             Action Plan
           </th>
 
           <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             colSpan={12}
           >
             Monitoring
@@ -107,37 +107,37 @@ const FHeaders = ({ activeHeader }) => {
 
         {/* Second header row */}
         <tr className="h-12">
-          <th className="min-w-15 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-15 border-r border-white sticky top-12 z-20 bg-blue-200">
             Action
           </th>
-          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Action Raise Date
           </th>
-          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Resources
           </th>
-          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Relactive Function
           </th>
-          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Responsible
           </th>
-          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Deadline
           </th>
-          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Action Confirmation
           </th>
-          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Action Status
           </th>
-          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Completion Date
           </th>
-          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Status Of Verification
           </th>
-          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Comment
           </th>
 
@@ -158,7 +158,7 @@ const FHeaders = ({ activeHeader }) => {
           ].map((month) => (
             <th
               key={month}
-              className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200"
+              className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200"
             >
               {month}
             </th>

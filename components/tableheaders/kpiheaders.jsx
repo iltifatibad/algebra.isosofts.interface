@@ -7,116 +7,116 @@ const HsHeaders = ({ activeHeader }) => {
         {/* First header row - fixed height for sticky positioning */}
         <tr className="h-13">
           <th
-            className="min-w-15 border-r border-white-500 sticky left-[-1px] top-0 z-21 bg-white -ml-px"
+            className="min-w-15 border-r border-white sticky left-[-1px] top-0 z-21 bg-white -ml-px"
             rowSpan={2}
           >
             #
           </th>
           <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             KPI
           </th>
           <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Function the KPI applied to
           </th>
           <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Last Year KPI
           </th>
           <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Actual KPI
           </th>
           <th
-            className="min-w-50 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-50 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Annual Target 
           </th>
           <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             KPI Checking Date
           </th>
 
           <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             January
           </th>
                     <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             February
           </th>
                     <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             March
           </th>
                     <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             April
           </th>
                     <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             May
           </th>
                     <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             June
           </th>
                     <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             July
           </th>
                     <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             August
           </th>
                     <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             September
           </th>
                     <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             October
           </th>
                     <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             November
           </th>
                     <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             December
@@ -131,21 +131,21 @@ const HsHeaders = ({ activeHeader }) => {
         {/* First header row */}
         <tr className="w-full h-12">
           <th
-            className="min-w-35 border-r border-white-500 sticky left-[-1px] top-0 z-21 bg-white -ml-px"
+            className="min-w-35 border-r border-white sticky left-[-1px] top-0 z-21 bg-white -ml-px"
             rowSpan={2}
           >
             #
           </th>
 
           <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             colSpan={11}
           >
             Action Plan
           </th>
 
           <th
-            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             colSpan={12}
           >
             Monitoring
@@ -154,37 +154,37 @@ const HsHeaders = ({ activeHeader }) => {
 
         {/* Second header row */}
         <tr className="h-12">
-          <th className="min-w-15 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-15 border-r border-white sticky top-12 z-20 bg-blue-200">
             Action
           </th>
-          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Action Raise Date
           </th>
-          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Resources
           </th>
-          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Relactive Function
           </th>
-          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Responsible
           </th>
-          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Deadline
           </th>
-          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Action Confirmation
           </th>
-          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Action Status
           </th>
-          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Completion Date
           </th>
-          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Status Of Verification
           </th>
-          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Comment
           </th>
 
@@ -205,7 +205,7 @@ const HsHeaders = ({ activeHeader }) => {
           ].map((month) => (
             <th
               key={month}
-              className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200"
+              className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200"
             >
               {month}
             </th>
