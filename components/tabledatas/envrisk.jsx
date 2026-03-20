@@ -148,7 +148,7 @@ const getDeletedActionData = async () => {
   const [error, setError] = useState(null);
 
   const [tableData, setTableData] = useState([]);
-const getAll = async () => {
+  const getAll = async () => {
   setLoading(true);
   const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
   fetch(`/api/register/eai/all?token=${token}`)
@@ -276,7 +276,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
       {/* Existing Control Measuress — backend'den string olarak geliyor */}
       <td className="border border-gray-200 px-2 py-1 w-48" rowSpan={1}>
-        <SoftBadge value={typeof row.existingControls === "string" ? row.existingControls : (row.existingControls?.value ?? "")} color="bg-pink-100 text-pink-700 border border-pink-200" />
+        <SoftBadge value={typeof row.ecm === "string" ? row.ecm : (row.ecm?.value ?? "")} color="bg-pink-100 text-pink-700 border border-pink-200" />
       </td>
 
       {/* Initial Probability — backend field: idosProbability */}
@@ -309,6 +309,11 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
           }
           color="bg-red-100 text-red-700 border border-red-200"
         />
+      </td>
+
+      {/* Additional Control Measures */}
+      <td className="border border-gray-200 px-2 py-1 w-48" rowSpan={1}>
+        <SoftBadge value={typeof row.acm === "string" ? row.acm : (row.acm?.value ?? "")} color="bg-pink-100 text-pink-700 border border-pink-200" />
       </td>
 
       {/* Residual Probability — backend field: rdosProbability */}

@@ -213,7 +213,8 @@ const EnvProfile = () => {
     aspect: "",
     impact: "",
     affectedReceptors: "",
-    existingControls: "",
+    acm: "",
+    ecm: "",
     idosProbability: 0,
     idosSeverity: 0,
     idosDuration: 0,
@@ -375,7 +376,8 @@ async function getDefaultDropdownList() {
         aspect: "",
         impact: "",
         affectedReceptors: "",
-        existingControls: "",
+        acm: "",
+        ecm: "",
         idosProbability: 0,
         idosSeverity: 0,
         idosDuration: 0,
@@ -425,8 +427,9 @@ async function getDefaultDropdownList() {
         aspect: row.aspect.id || String(row.aspect),
         impact: row.impact,
         affectedReceptors:
-          row.affectedReceptors.id || String(row.affectedReceptors),
-        existingControls: row.existingControls,
+        row.affectedReceptors.id || String(row.affectedReceptors),
+        acm: row.acm,
+        ecm: row.ecm,
         riskOfViolation: row.riskOfViolation,
         idosProbability: row.idosProbability,
         idosSeverity: row.idosSeverity,
@@ -547,7 +550,8 @@ const saveRisk = () => {
                 aspect: formData.aspect,
                 impact: formData.impact,
                 affectedReceptors: formData.affectedReceptors,
-                existingControls: formData.existingControls,
+                acm: formData.acm,
+                ecm: formData.ecm,
                 riskOfViolation: formData.riskOfViolation,
                 idosProbability: formData.idosProbability,
                 idosSeverity: formData.idosSeverity,
@@ -628,7 +632,8 @@ const saveRisk = () => {
                 aspect: formData.aspect,
                 impact: formData.impact,
                 affectedReceptors: formData.affectedReceptors,
-                existingControls: formData.existingControls,
+                acm: formData.acm,
+                ecm: formData.ecm,
                 riskOfViolation: formData.riskOfViolation,
                 idosProbability: formData.idosProbability,
                 idosSeverity: formData.idosSeverity,
@@ -1351,8 +1356,19 @@ const archiveData = (id) => {
               <div className="group">
                 <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Existing Control Measuress</label>
                 <input
-                  value={formData.existingControls}
-                  onChange={(e) => handleFormChange("existingControls", e.target.value)}
+                  value={formData.acm}
+                  onChange={(e) => handleFormChange("acm", e.target.value)}
+                  type="text"
+                  placeholder="Enter Existing Control Measuress..."
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                />
+              </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Existing Control Measuress</label>
+                <input
+                  value={formData.ecm}
+                  onChange={(e) => handleFormChange("ecm", e.target.value)}
                   type="text"
                   placeholder="Enter Existing Control Measuress..."
                   className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"

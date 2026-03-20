@@ -1315,6 +1315,18 @@ const archiveData = (id) => {
                 </select>
               </div>
 
+              {/* ECM */}
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Existing Control Measures</label>
+                <input
+                  value={formData.ecm}
+                  onChange={(e) => handleFormChange("ecm", e.target.value)}
+                  type="text"
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  placeholder="Enter Additional Control Measures..."
+                />
+              </div>
+
               {/* ACM */}
               <div className="group">
                 <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Additional Control Measures</label>

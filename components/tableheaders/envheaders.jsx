@@ -52,6 +52,13 @@ const EnvHeaders = ({ activeHeader }) => {
           </th>
 
           <th
+            rowSpan={2}
+            className="min-w-[200px] border-r border-white sticky top-0 z-20 bg-blue-100"
+          >
+            Additional Control Measures
+          </th>
+
+          <th
             colSpan={5}
             className="border-r border-white sticky top-0 z-20 bg-blue-100"
             style={{ minWidth: 600 }}
