@@ -82,9 +82,6 @@ const BgHeaders = ({ activeHeader }) => {
           </th>
         </tr>
         <tr className="h-[48px]">
-
-
-
           <th className="min-w-[70px] border-r border-white sticky top-13 z-20 bg-blue-200">
             Severity
           </th>

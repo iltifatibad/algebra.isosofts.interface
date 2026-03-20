@@ -207,7 +207,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
         }
         return response.json();
       })
-      .then((data) => {
+      .then((data) => {z
         // Başarılı veriyi işle, örneğin setActions(data);
         console.log("Fetched data:", data); // Debug için ekle
         setActionData(data);
@@ -302,7 +302,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* CL Name */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-  <SoftBadge value={row.clname} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.tcln} color="bg-blue-100 text-blue-700 border border-blue-200" />
 </td>
 
 {/* NVCD */}
@@ -434,7 +434,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* CL Name */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-  <SoftBadge value={row.clname} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.tcln} color="bg-blue-100 text-blue-700 border border-blue-200" />
 </td>
 
 {/* NVCD */}
@@ -842,7 +842,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* CL Name */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-  <SoftBadge value={row.clname} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.tcln} color="bg-blue-100 text-blue-700 border border-blue-200" />
 </td>
 
 {/* NVCD */}

@@ -214,7 +214,7 @@ const EiProfile = () => {
     inspectionFrequency: "",
     icd: "",
     nvcd: "",
-    safeToUse: 0,
+    eis: 0,
   });
 
   const [formDataHs, setFormDataHs] = useState({
@@ -225,7 +225,7 @@ const EiProfile = () => {
     inspectionFrequency: "",
     icd: "",
     nvcd: "",
-    safeToUse: 0,
+    eis: 0,
     actionPlan: [
       {
         action: "",
@@ -367,7 +367,7 @@ async function getDefaultDropdownList() {
         inspectionFrequency: "",
         icd: "",
         nvcd: "",
-        safeToUse: 0,
+        eis: 0,
       });
       setShowModal(true);
     } else {
@@ -411,7 +411,7 @@ async function getDefaultDropdownList() {
           row.inspectionFrequency.id || String(row.inspectionFrequency),
         icd: row.icd,
         nvcd: row.nvcd,
-        safeToUse: row.safeToUse,
+        eis: row.eis,
       });
     } else {
       setActionData({
@@ -526,7 +526,7 @@ const saveRisk = () => {
                 inspectionFrequency: formData.inspectionFrequency,
                 icd: formData.icd,
                 nvcd: formData.nvcd,
-                safeToUse: parseInt(formData.safeToUse),
+                eis: parseInt(formData.eis),
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             fetch(`/api/register/ei/one?token=${token}`, {
@@ -600,7 +600,7 @@ const saveRisk = () => {
                 inspectionFrequency: formData.inspectionFrequency,
                 icd: formData.icd,
                 nvcd: formData.nvcd,
-                safeToUse: parseInt(formData.safeToUse),
+                eis: parseInt(formData.eis),
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             const url =

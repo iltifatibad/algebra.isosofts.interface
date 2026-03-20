@@ -322,14 +322,14 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Next Review Date */}
 <td className="border border-gray-200 px-3 py-2 w-28" rowSpan={1}>
-  <SoftBadge value={row.reviewDate} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+  <SoftBadge value={row.nrd} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
 </td>
 
 {/* Days Difference */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
-    if (!row.registrationDate || !row.reviewDate) return "";
-    const diffInDays = Math.ceil((new Date(row.reviewDate) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
+    if (!row.registrationDate || !row.nrd) return "";
+    const diffInDays = Math.ceil((new Date(row.nrd) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
     return (
       <SoftBadge value={`${diffInDays} Days`} color="bg-sky-100 text-sky-700 border border-sky-200" />
     );
@@ -339,8 +339,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 {/* Valid Status */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
-    if (!row.registrationDate || !row.reviewDate) return "";
-    const diffInDays = Math.ceil((new Date(row.reviewDate) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
+    if (!row.registrationDate || !row.nrd) return "";
+    const diffInDays = Math.ceil((new Date(row.nrd) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
     const isValid = diffInDays > 0;
     return (
       <SoftBadge
@@ -489,14 +489,14 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Next Review Date */}
 <td className="border border-gray-200 px-3 py-2 w-28" rowSpan={1}>
-  <SoftBadge value={row.reviewDate} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+  <SoftBadge value={row.nrd} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
 </td>
 
 {/* Days Difference */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
-    if (!row.registrationDate || !row.reviewDate) return "";
-    const diffInDays = Math.ceil((new Date(row.reviewDate) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
+    if (!row.registrationDate || !row.nrd) return "";
+    const diffInDays = Math.ceil((new Date(row.nrd) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
     return (
       <SoftBadge value={`${diffInDays} Days`} color="bg-sky-100 text-sky-700 border border-sky-200" />
     );
@@ -506,8 +506,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 {/* Valid Status */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
-    if (!row.registrationDate || !row.reviewDate) return "";
-    const diffInDays = Math.ceil((new Date(row.reviewDate) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
+    if (!row.registrationDate || !row.nrd) return "";
+    const diffInDays = Math.ceil((new Date(row.nrd) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
     const isValid = diffInDays > 0;
     return (
       <SoftBadge
@@ -939,14 +939,14 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Next Review Date */}
 <td className="border border-gray-200 px-3 py-2 w-28" rowSpan={1}>
-  <SoftBadge value={row.reviewDate} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+  <SoftBadge value={row.nrd} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
 </td>
 
 {/* Days Difference */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
-    if (!row.registrationDate || !row.reviewDate) return "";
-    const diffInDays = Math.ceil((new Date(row.reviewDate) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
+    if (!row.registrationDate || !row.nrd) return "";
+    const diffInDays = Math.ceil((new Date(row.nrd) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
     return (
       <SoftBadge value={`${diffInDays} Days`} color="bg-sky-100 text-sky-700 border border-sky-200" />
     );
@@ -956,8 +956,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 {/* Valid Status */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
-    if (!row.registrationDate || !row.reviewDate) return "";
-    const diffInDays = Math.ceil((new Date(row.reviewDate) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
+    if (!row.registrationDate || !row.nrd) return "";
+    const diffInDays = Math.ceil((new Date(row.nrd) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
     const isValid = diffInDays > 0;
     return (
       <SoftBadge

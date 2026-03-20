@@ -209,9 +209,9 @@ const TrProfile = () => {
   const [formData, setFormData] = useState({
     id: 0,
     employeeName: "",
-    clname: "",
+    tcln: "",
     position: "",
-    clname: "",
+    tcln: "",
     nvcd: "",
     clnumber: "",
     ncd: "",
@@ -365,7 +365,7 @@ async function getDefaultDropdownList() {
       setFormData({
         name: "",
         serialNumber: "",
-        clname: "",
+        tcln: "",
         certificateNo: "",
         inspectionFrequency: "",
         icd: "",
@@ -410,7 +410,7 @@ async function getDefaultDropdownList() {
       setFormData({
         employeeName: row.employeeName,
         position: row.position,
-        clname: row.clname,
+        tcln: row.tcln,
         nvcd: row.nvcd,
         clnumber: row.clnumber,
         ncd: row.ncd,
@@ -524,7 +524,7 @@ const saveRisk = () => {
         if (!showAction) {
             const payload = {
                 employeeName: formData.employeeName,
-                clname: formData.clname,
+                tcln: formData.tcln,
                 nvcd: formData.nvcd,
                 clnumber: formData.clnumber,
                 ncd: formData.ncd,
@@ -599,7 +599,7 @@ const saveRisk = () => {
             const payload = {
                 id: selectedTable[0].id,
                 employeeName: formData.employeeName,
-                clname: formData.clname,
+                tcln: formData.tcln,
                 nvcd: formData.nvcd,
                 clnumber: formData.clnumber,
                 ncd: formData.ncd,
@@ -1255,8 +1255,8 @@ const archiveData = (id) => {
             <div className="group">
               <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Training / Certificate / License Name</label>
               <input
-                value={formData.clname}
-                onChange={(e) => handleFormChange("clname", e.target.value)}
+                value={formData.tcln}
+                onChange={(e) => handleFormChange("tcln", e.target.value)}
                 type="text"
                 placeholder="Enter certificate name..."
                 className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
