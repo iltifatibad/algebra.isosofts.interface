@@ -72,7 +72,7 @@ const HsHeaders = ({ activeHeader }) => {
             Severity
           </th>
           <th className="min-w-[70px] border-r border-white sticky top-13 z-20 bg-blue-200">
-            Likelyhood
+            Likelihood
           </th>
           <th className="min-w-[70px] border-r border-white sticky top-13 z-20 bg-blue-200">
             Level

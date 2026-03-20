@@ -35,7 +35,7 @@ const staticData = [
     objective: "Service continuity",
     kpi: "99%",
     process: { value: "IT" },
-    ermeoa: { value: "ERP Failure" },
+    ecm: { value: "ERP Failure" },
     initialRiskSeverity: 4,
     initialRiskLikelihood: 3,
     residualRiskSeverity: 2,
@@ -51,7 +51,7 @@ const staticData = [
     objective: "Data safety",
     kpi: "100%",
     process: { value: "Security" },
-    ermeoa: { value: "Backup risk" },
+    ecm: { value: "Backup risk" },
     initialRiskSeverity: 5,
     initialRiskLikelihood: 4,
     residualRiskSeverity: 2,
@@ -72,7 +72,7 @@ const staticData = [
           <th>Objective</th>
           <th>KPI</th>
           <th>Process</th>
-          <th>ERMEOA</th>
+          <th>ecm</th>
 
           <th colSpan="3">Initial Risk</th>
           <th colSpan="3">Residual Risk</th>
@@ -116,7 +116,7 @@ const staticData = [
             <td className="border px-2">{row.objective}</td>
             <td className="border px-2">{row.kpi}</td>
             <td className="border px-2"><SoftBadge value={row.process.value} color="bg-cyan-100 text-cyan-700" /></td>
-            <td className="border px-2">{row.ermeoa.value}</td>
+            <td className="border px-2">{row.ecm.value}</td>
 
             {/* Initial */}
             <td className="border px-2">{row.initialRiskSeverity}</td>

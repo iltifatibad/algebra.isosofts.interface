@@ -223,7 +223,7 @@ const RisksAssessment = () => {
     objective: "",
     kpi: "",
     process: "",
-    ermeoa: "",
+    ecm: "",
     acm: "",
     initialRiskSeverity: "",
     initialRiskLikelihood: "",
@@ -380,7 +380,7 @@ const RisksAssessment = () => {
         objective: "",
         kpi: "",
         process: "",
-        ermeoa: "",
+        ecm: "",
         acm: "",
         initialRiskSeverity: 0,
         initialRiskLikelihood: 0,
@@ -429,7 +429,7 @@ const RisksAssessment = () => {
         riskOpportunity: row.riskOpportunity,
         objective: row.objective,
         kpi: row.kpi,
-        ermeoa: row.ermeoa,
+        ecm: row.ecm,
         acm: row.acm,
         initialRiskSeverity: row.initialRiskSeverity,
         initialRiskLikelihood: row.initialRiskLikelihood,
@@ -548,7 +548,7 @@ const RisksAssessment = () => {
           objective: formData.objective,
           kpi: formData.kpi,
           process: formData.process,
-          ermeoa: formData.ermeoa,
+          ecm: formData.ecm,
           acm: formData.acm,
           initialRiskSeverity: formData.initialRiskSeverity,
           initialRiskLikelihood: formData.initialRiskLikelihood,
@@ -631,7 +631,7 @@ const RisksAssessment = () => {
           objective: formData.objective,
           kpi: formData.kpi,
           process: formData.process,
-          ermeoa: formData.ermeoa,
+          ecm: formData.ecm,
           acm: formData.acm,
           initialRiskSeverity: formData.initialRiskSeverity,
           initialRiskLikelihood: formData.initialRiskLikelihood,
@@ -1385,8 +1385,8 @@ const RisksAssessment = () => {
     <div className="group">
       <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Existing Risk Mitigation</label>
       <input
-        value={formData.ermeoa}
-        onChange={(e) => handleFormChange("ermeoa", e.target.value)}
+        value={formData.ecm}
+        onChange={(e) => handleFormChange("ecm", e.target.value)}
         type="text"
         className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
         placeholder="Enter mitigation measures..."
