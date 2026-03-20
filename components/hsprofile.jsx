@@ -214,6 +214,7 @@ const HsProfile = () => {
     risk: "",
     affectedPosition: "",
     erma: "",
+    acm: "",
     initialRiskSeverity: "",
     initialRiskLikelihood: "",
     residualRiskSeverity: "",
@@ -531,6 +532,7 @@ const saveRisk = () => {
                 risk: formData.risk,
                 affectedPositions: formData.affectedPosition,
                 erma: formData.erma,
+                acm: formData.acm,
                 initialRiskSeverity: formData.initialRiskSeverity, // Number
                 initialRiskLikelyhood: formData.initialRiskLikelyhood, // Number, spelling uyumlu
                 residualRiskSeverity: formData.residualRiskSeverity,
@@ -608,6 +610,7 @@ const saveRisk = () => {
                 affectedPositions: formData.affectedPosition,
                 affectedPosition: formData.affectedPosition,
                 erma: formData.erma,
+                acm: formData.acm,
                 initialRiskSeverity: formData.initialRiskSeverity, // Number
                 initialRiskLikelyhood: formData.initialRiskLikelyhood, // Number, spelling uyumlu
                 residualRiskSeverity: formData.residualRiskSeverity,
