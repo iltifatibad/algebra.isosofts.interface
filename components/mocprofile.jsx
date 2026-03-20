@@ -1315,7 +1315,7 @@ const archiveData = (id) => {
             {/* Sağ sütun */}
             <div className="space-y-6">
               <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Initial Risk</label>
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">İnitial Risk/İnitial Opportunity Assessment</label>
                 <div className="grid grid-cols-2 gap-4">
                   <select
                     value={formData.initialRiskSeverity}
@@ -1354,7 +1354,7 @@ const archiveData = (id) => {
               </div>
 
               <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Residual Risk / Opportunity Level</label>
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Residual Risk/Residual Opportunity Assessment</label>
                 <div className="grid grid-cols-2 gap-4">
                   <select
                     value={formData.residualRiskSeverity}

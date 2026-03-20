@@ -1312,7 +1312,7 @@ const archiveData = (id) => {
 
               {/* Initial Risk */}
               <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-4 space-y-3">
-                <p className="text-xs font-semibold text-emerald-600 uppercase tracking-wider">Initial Risk</p>
+                <p className="text-xs font-semibold text-emerald-600 uppercase tracking-wider">İnitial Risk/İnitial Opportunity Assessment</p>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="group">
                     <label className="block text-xs font-medium text-gray-500 mb-1.5">Severity</label>
@@ -1341,7 +1341,7 @@ const archiveData = (id) => {
 
               {/* Residual Risk */}
               <div className="bg-rose-50 border border-rose-100 rounded-2xl p-4 space-y-3">
-                <p className="text-xs font-semibold text-rose-500 uppercase tracking-wider">Residual Risk / Opportunity Level</p>
+                <p className="text-xs font-semibold text-rose-500 uppercase tracking-wider">Residual Risk/Residual Opportunity Assessment</p>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="group">
                     <label className="block text-xs font-medium text-gray-500 mb-1.5">Severity</label>
