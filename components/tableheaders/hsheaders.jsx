@@ -7,50 +7,50 @@ const HsHeaders = ({ activeHeader }) => {
         {/* First header row - fixed height for sticky positioning */}
         <tr className="h-13">
           <th
-            className="min-w-15 border-r border-blue-500 sticky left-[-1px] top-0 z-21 bg-white -ml-px"
+            className="min-w-15 border-r border-white-500 sticky left-[-1px] top-0 z-21 bg-white -ml-px"
             rowSpan={2}
           >
             #
           </th>
           <th
-            className="min-w-15 border-r border-blue-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Process
           </th>
           <th
-            className="min-w-15 border-r border-blue-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Hazard
           </th>
           <th
-            className="min-w-15 border-r border-blue-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Risk
           </th>
           <th
-            className="min-w-15 border-r border-blue-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Affected Positions
           </th>
           <th
-            className="min-w-50 border-r border-blue-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-50 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Existing Risk Mitigation/Exploting Opportunity's Actions
           </th>
           <th
-            className="min-w-15 border-r border-blue-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
             colSpan={3}
           >
             Initial Risk Assesment
           </th>
 
           <th
-            className="min-w-15 border-r border-blue-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
             colSpan={3}
           >
             Residual Risk Assesment
@@ -60,23 +60,23 @@ const HsHeaders = ({ activeHeader }) => {
 
 
 
-          <th className="min-w-[70px] border-r border-blue-500 sticky top-13 z-20 bg-blue-200">
+          <th className="min-w-[70px] border-r border-white-500 sticky top-13 z-20 bg-blue-200">
             Severity
           </th>
-          <th className="min-w-[70px] border-r border-blue-500 sticky top-13 z-20 bg-blue-200">
+          <th className="min-w-[70px] border-r border-white-500 sticky top-13 z-20 bg-blue-200">
             Likelyhood
           </th>
-          <th className="min-w-[70px] border-r border-blue-500 sticky top-13 z-20 bg-blue-200">
+          <th className="min-w-[70px] border-r border-white-500 sticky top-13 z-20 bg-blue-200">
             Level
           </th>
 
-          <th className="min-w-[70px] border-r border-blue-500 sticky top-13 z-20 bg-blue-200">
+          <th className="min-w-[70px] border-r border-white-500 sticky top-13 z-20 bg-blue-200">
             Severity
           </th>
-          <th className="min-w-[70px] border-r border-blue-500 sticky top-13 z-20 bg-blue-200">
+          <th className="min-w-[70px] border-r border-white-500 sticky top-13 z-20 bg-blue-200">
             Likeyhood
           </th>
-          <th className="min-w-[70px] border-r border-blue-500 sticky top-13 z-20 bg-blue-200">
+          <th className="min-w-[70px] border-r border-white-500 sticky top-13 z-20 bg-blue-200">
             Level
           </th>
         </tr>
@@ -89,21 +89,21 @@ const HsHeaders = ({ activeHeader }) => {
         {/* First header row */}
         <tr className="w-full h-12">
           <th
-            className="min-w-35 border-r border-blue-500 sticky left-[-1px] top-0 z-21 bg-white -ml-px"
+            className="min-w-35 border-r border-white-500 sticky left-[-1px] top-0 z-21 bg-white -ml-px"
             rowSpan={2}
           >
             #
           </th>
 
           <th
-            className="min-w-15 border-r border-blue-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
             colSpan={11}
           >
             Action Plan
           </th>
 
           <th
-            className="min-w-15 border-r border-blue-500 sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white-500 sticky top-0 z-20 bg-blue-100"
             colSpan={12}
           >
             Monitoring
@@ -112,37 +112,37 @@ const HsHeaders = ({ activeHeader }) => {
 
         {/* Second header row */}
         <tr className="h-12">
-          <th className="min-w-15 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-15 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
             Action
           </th>
-          <th className="min-w-30 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
             Action Raise Date
           </th>
-          <th className="min-w-30 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
             Resources
           </th>
-          <th className="min-w-30 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
             Relactive Function
           </th>
-          <th className="min-w-30 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
             Responsible
           </th>
-          <th className="min-w-30 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
             Deadline
           </th>
-          <th className="min-w-30 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
             Action Confirmation
           </th>
-          <th className="min-w-30 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
             Action Status
           </th>
-          <th className="min-w-30 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
             Completion Date
           </th>
-          <th className="min-w-30 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
             Status Of Verification
           </th>
-          <th className="min-w-30 border-r border-blue-500 sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200">
             Comment
           </th>
 
@@ -163,7 +163,7 @@ const HsHeaders = ({ activeHeader }) => {
           ].map((month) => (
             <th
               key={month}
-              className="min-w-30 border-r border-blue-500 sticky top-12 z-20 bg-blue-200"
+              className="min-w-30 border-r border-white-500 sticky top-12 z-20 bg-blue-200"
             >
               {month}
             </th>
