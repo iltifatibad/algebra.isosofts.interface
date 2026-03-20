@@ -78,7 +78,7 @@ const TrHeaders = ({ activeHeader }) => {
           </th>
 
           <th
-            className="min-w-[150px] md:min-w-[300px] border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             colSpan={11}
           >
             Action Plan
@@ -94,7 +94,7 @@ const TrHeaders = ({ activeHeader }) => {
 
         {/* Second header row */}
         <tr className="h-12">
-          <th className="min-w-15 border-r border-white sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-[120px] md:min-w-[240px] border-r border-white sticky top-12 z-20 bg-blue-200">
             Action
           </th>
           <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
