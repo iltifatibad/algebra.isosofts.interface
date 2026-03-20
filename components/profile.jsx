@@ -1278,197 +1278,197 @@ const RisksAssessment = () => {
         </div>
 
         <div className="px-8 py-6">
-          <div className="grid md:grid-cols-2 gap-8">
+<div className="grid md:grid-cols-2 gap-8">
 
-            {/* Left Column */}
-            <div className="space-y-5">
-              <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Risk Details</p>
+  {/* Sağ taraf artık solda (eski sağ sütun) */}
+  <div className="space-y-6">
+    <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Risk Assessment</p>
 
-              {/* SWOT */}
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">SWOT</label>
-                <select
-                  value={formData.swot || ""}
-                  onChange={(e) => handleFormChange("swot", e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  {dropdownData?.swot?.map((item) => (
-                    <option key={item.id} value={item.id}>{item.value}</option>
-                  ))}
-                </select>
-              </div>
+    {/* Initial Risk */}
+    <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-4 space-y-3">
+      <p className="text-xs font-semibold text-emerald-600 uppercase tracking-wider">İnitial Risk/İnitial Opportunity Assessment</p>
+      <div className="grid grid-cols-2 gap-3">
+        <div className="group">
+          <label className="block text-xs font-medium text-gray-500 mb-1.5">Severity</label>
+          <select
+            value={formData.initialRiskSeverity}
+            onChange={(e) => handleFormChange("initialRiskSeverity", parseInt(e.target.value, 10) || 0)}
+            className="w-full px-3 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
+          >
+            <option value="">Select</option>
+            {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
+          </select>
+        </div>
+        <div className="group">
+          <label className="block text-xs font-medium text-gray-500 mb-1.5">Likelihood</label>
+          <select
+            value={formData.initialRiskLikelyhood}
+            onChange={(e) => handleFormChange("initialRiskLikelyhood", parseInt(e.target.value, 10) || 0)}
+            className="w-full px-3 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
+          >
+            <option value="">Select</option>
+            {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
+          </select>
+        </div>
+      </div>
+    </div>
 
-              {/* PESTLE */}
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">PESTLE</label>
-                <select
-                  value={formData.pestle || ""}
-                  onChange={(e) => handleFormChange("pestle", e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  {dropdownData?.pestle?.map((item) => (
-                    <option key={item.id} value={item.id}>{item.value}</option>
-                  ))}
-                </select>
-              </div>
+    {/* Residual Risk */}
+    <div className="bg-rose-50 border border-rose-100 rounded-2xl p-4 space-y-3">
+      <p className="text-xs font-semibold text-rose-500 uppercase tracking-wider">Residual Risk/Residual Opportunity Assessment</p>
+      <div className="grid grid-cols-2 gap-3">
+        <div className="group">
+          <label className="block text-xs font-medium text-gray-500 mb-1.5">Severity</label>
+          <select
+            value={formData.residualRiskSeverity}
+            onChange={(e) => handleFormChange("residualRiskSeverity", parseInt(e.target.value, 10) || 0)}
+            className="w-full px-3 py-2.5 bg-white border border-rose-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all"
+          >
+            <option value="">Select</option>
+            {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
+          </select>
+        </div>
+        <div className="group">
+          <label className="block text-xs font-medium text-gray-500 mb-1.5">Likelihood</label>
+          <select
+            value={formData.residualRiskLikelyhood}
+            onChange={(e) => handleFormChange("residualRiskLikelyhood", parseInt(e.target.value, 10) || 0)}
+            className="w-full px-3 py-2.5 bg-white border border-rose-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all"
+          >
+            <option value="">Select</option>
+            {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
 
-              {/* Interested Party */}
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Interested Party</label>
-                <select
-                  value={formData.interestedParty}
-                  onChange={(e) => handleFormChange("interestedParty", e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  {dropdownData?.interestedParty?.map((item) => (
-                    <option key={item.id} value={item.id}>{item.value}</option>
-                  ))}
-                </select>
-              </div>
+  {/* Sol taraf artık sağda (eski sol sütun) */}
+  <div className="space-y-5">
+    <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Risk Details</p>
 
-              {/* Risk / Opportunity */}
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Risk / Opportunity</label>
-                <input
-                  value={formData.riskOpportunity}
-                  onChange={(e) => handleFormChange("riskOpportunity", e.target.value)}
-                  type="text"
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  placeholder="Enter risk or opportunity..."
-                />
-              </div>
+    {/* SWOT */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">SWOT</label>
+      <select
+        value={formData.swot || ""}
+        onChange={(e) => handleFormChange("swot", e.target.value)}
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+      >
+        <option value="">Select</option>
+        {dropdownData?.swot?.map((item) => (
+          <option key={item.id} value={item.id}>{item.value}</option>
+        ))}
+      </select>
+    </div>
 
-              {/* Objective */}
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Objective</label>
-                <input
-                  value={formData.objective}
-                  onChange={(e) => handleFormChange("objective", e.target.value)}
-                  type="text"
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  placeholder="Enter objective..."
-                />
-              </div>
+    {/* PESTLE */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">PESTLE</label>
+      <select
+        value={formData.pestle || ""}
+        onChange={(e) => handleFormChange("pestle", e.target.value)}
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+      >
+        <option value="">Select</option>
+        {dropdownData?.pestle?.map((item) => (
+          <option key={item.id} value={item.id}>{item.value}</option>
+        ))}
+      </select>
+    </div>
 
-              {/* KPI */}
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">KPI</label>
-                <input
-                  value={formData.kpi}
-                  onChange={(e) => handleFormChange("kpi", e.target.value)}
-                  type="text"
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  placeholder="Enter KPI..."
-                />
-              </div>
+    {/* Interested Party */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Interested Party</label>
+      <select
+        value={formData.interestedParty}
+        onChange={(e) => handleFormChange("interestedParty", e.target.value)}
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+      >
+        <option value="">Select</option>
+        {dropdownData?.interestedParty?.map((item) => (
+          <option key={item.id} value={item.id}>{item.value}</option>
+        ))}
+      </select>
+    </div>
 
-              {/* Process */}
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Process</label>
-                <select
-                  value={formData.process}
-                  onChange={(e) => handleFormChange("process", e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  {dropdownData?.process?.map((item) => (
-                    <option key={item.id} value={item.id}>{item.value}</option>
-                  ))}
-                </select>
-              </div>
+    {/* Risk / Opportunity */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Risk / Opportunity</label>
+      <input
+        value={formData.riskOpportunity}
+        onChange={(e) => handleFormChange("riskOpportunity", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter risk or opportunity..."
+      />
+    </div>
 
-              {/* Existing Risk Mitigation */}
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Existing Risk Mitigation</label>
-                <input
-                  value={formData.ermeoa}
-                  onChange={(e) => handleFormChange("ermeoa", e.target.value)}
-                  type="text"
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  placeholder="Enter mitigation measures..."
-                />
-              </div>
-            </div>
+    {/* Objective */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Objective</label>
+      <input
+        value={formData.objective}
+        onChange={(e) => handleFormChange("objective", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter objective..."
+      />
+    </div>
 
-              {/* ACM */}
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> Additional Control Measures </label>
-                <input
-                  value={formData.acm}
-                  onChange={(e) => handleFormChange("acm", e.target.value)}
-                  type="text"
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  placeholder="Enter mitigation measures..."
-                />
-              </div>
+    {/* KPI */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">KPI</label>
+      <input
+        value={formData.kpi}
+        onChange={(e) => handleFormChange("kpi", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter KPI..."
+      />
+    </div>
 
-            {/* Right Column */}
-            <div className="space-y-6">
-              <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Risk Assessment</p>
+    {/* Process */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Process</label>
+      <select
+        value={formData.process}
+        onChange={(e) => handleFormChange("process", e.target.value)}
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+      >
+        <option value="">Select</option>
+        {dropdownData?.process?.map((item) => (
+          <option key={item.id} value={item.id}>{item.value}</option>
+        ))}
+      </select>
+    </div>
 
-              {/* Initial Risk */}
-              <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-4 space-y-3">
-                <p className="text-xs font-semibold text-emerald-600 uppercase tracking-wider">İnitial Risk/İnitial Opportunity Assessment</p>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="group">
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5">Severity</label>
-                    <select
-                      value={formData.initialRiskSeverity}
-                      onChange={(e) => handleFormChange("initialRiskSeverity", parseInt(e.target.value, 10) || 0)}
-                      className="w-full px-3 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
-                    >
-                      <option value="">Select</option>
-                      {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
-                    </select>
-                  </div>
-                  <div className="group">
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5">Likelihood</label>
-                    <select
-                      value={formData.initialRiskLikelyhood}
-                      onChange={(e) => handleFormChange("initialRiskLikelyhood", parseInt(e.target.value, 10) || 0)}
-                      className="w-full px-3 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
-                    >
-                      <option value="">Select</option>
-                      {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
-                    </select>
-                  </div>
-                </div>
-              </div>
+    {/* Existing Risk Mitigation */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Existing Risk Mitigation</label>
+      <input
+        value={formData.ermeoa}
+        onChange={(e) => handleFormChange("ermeoa", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter mitigation measures..."
+      />
+    </div>
 
-              {/* Residual Risk */}
-              <div className="bg-rose-50 border border-rose-100 rounded-2xl p-4 space-y-3">
-                <p className="text-xs font-semibold text-rose-500 uppercase tracking-wider">Residual Risk/Residual Opportunity Assessment</p>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="group">
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5">Severity</label>
-                    <select
-                      value={formData.residualRiskSeverity}
-                      onChange={(e) => handleFormChange("residualRiskSeverity", parseInt(e.target.value, 10) || 0)}
-                      className="w-full px-3 py-2.5 bg-white border border-rose-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all"
-                    >
-                      <option value="">Select</option>
-                      {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
-                    </select>
-                  </div>
-                  <div className="group">
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5">Likelihood</label>
-                    <select
-                      value={formData.residualRiskLikelyhood}
-                      onChange={(e) => handleFormChange("residualRiskLikelyhood", parseInt(e.target.value, 10) || 0)}
-                      className="w-full px-3 py-2.5 bg-white border border-rose-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all"
-                    >
-                      <option value="">Select</option>
-                      {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
+    {/* ACM */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Additional Control Measures</label>
+      <input
+        value={formData.acm}
+        onChange={(e) => handleFormChange("acm", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter mitigation measures..."
+      />
+    </div>
+  </div>
 
-          </div>
+</div>
         </div>
 
         {/* Footer */}
