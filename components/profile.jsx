@@ -1404,7 +1404,6 @@ const RisksAssessment = () => {
                   placeholder="Enter mitigation measures..."
                 />
               </div>
-            </div>
 
             {/* Right Column */}
             <div className="space-y-6">
