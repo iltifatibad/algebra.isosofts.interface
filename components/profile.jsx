@@ -264,7 +264,7 @@ const RisksAssessment = () => {
       {
         title: "",
         raiseDate: "",
-        resources: 0,
+        resources: "",
         currency: "",
         relativeFunction: "",
         responsible: "",
@@ -392,7 +392,7 @@ const RisksAssessment = () => {
       setActionData({
         title: "",
         raiseDate: "",
-        resources: 0,
+        resources: "",
         currency: "",
         relativeFunction: "",
         responsible: "",
@@ -443,7 +443,7 @@ const RisksAssessment = () => {
             title: row.title,
             raiseDate: row.raiseDate,
             resources:
-              parseInt(row.resources?.id) || parseInt(row.resources) || 0,
+              row.resources?.id || String(row.resources) || 0,
             currency: "",
             relativeFunction:
               row.relativeFunction?.id || String(row.relativeFunction) || "",
@@ -577,7 +577,7 @@ const RisksAssessment = () => {
           registerId: Array.from(selectedRows)[0],
           registerType: "br",
           title: actionData.actionPlan[0]?.title || "",
-          resources: parseInt(actionData.actionPlan[0]?.resources) || 0,
+          resources: actionData.actionPlan[0]?.resources || "",
           raiseDate: actionData.actionPlan[0]?.raiseDate || "",
           currency: actionData.actionPlan[0]?.currency || "",
           relativeFunction: actionData.actionPlan[0]?.relativeFunction || "",
@@ -664,7 +664,7 @@ const RisksAssessment = () => {
               id: [...selectedRowsForActions][0],
               title: actionData.actionPlan[0].title,
               raiseDate: actionData.raiseDate,
-              resources: parseInt(actionData.actionPlan[0].resources.id) || 0,
+              resources: actionData.actionPlan[0].resources.id || "",
               currency: "",
               relativeFunction: actionData.relativeFunction?.id || "",
               responsible: actionData.responsible?.id || "",
