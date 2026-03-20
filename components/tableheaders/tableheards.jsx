@@ -5,7 +5,7 @@ const BgHeaders = ({ activeHeader }) => {
     return (
       <thead>
         {/* First header row - fixed height for sticky positioning */}
-        <tr className="h-13">
+        <tr className="h-14">
           <th
             className="min-w-15 border-r border-white sticky left-[-1px] top-0 z-21 bg-white -ml-px"
             rowSpan={2}
@@ -67,7 +67,7 @@ const BgHeaders = ({ activeHeader }) => {
             Initial Risk / Initial Opportunity Assesment
           </th>
 
-          <th className="min-w-[120px] md:min-w-[200px] border-r border-white sticky top-12 z-20 bg-blue-200"
+          <th className="min-w-[120px] md:min-w-[240px] border-r border-white sticky top-12 z-20 bg-blue-200"
             
             rowSpan={2}
           >
