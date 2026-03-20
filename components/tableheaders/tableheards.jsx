@@ -67,8 +67,8 @@ const BgHeaders = ({ activeHeader }) => {
             Initial Risk / Initial Opportunity Assesment
           </th>
 
-          <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+          <th className="min-w-[120px] md:min-w-[200px] border-r border-white sticky top-12 z-20 bg-blue-200"
+            
             rowSpan={2}
           >
             Additional Control Measures

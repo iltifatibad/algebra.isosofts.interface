@@ -224,6 +224,7 @@ const RisksAssessment = () => {
     kpi: "",
     process: "",
     ermeoa: "",
+    acm: "",
     initialRiskSeverity: "",
     initialRiskLikelihood: "",
     residualRiskSeverity: "",
@@ -546,6 +547,7 @@ const RisksAssessment = () => {
           kpi: formData.kpi,
           process: formData.process,
           ermeoa: formData.ermeoa,
+          acm: formData.acm,
           initialRiskSeverity: formData.initialRiskSeverity,
           initialRiskLikelyhood: formData.initialRiskLikelyhood,
           residualRiskSeverity: formData.residualRiskSeverity,
@@ -628,6 +630,7 @@ const RisksAssessment = () => {
           kpi: formData.kpi,
           process: formData.process,
           ermeoa: formData.ermeoa,
+          acm: formData.acm,
           initialRiskSeverity: formData.initialRiskSeverity,
           initialRiskLikelyhood: formData.initialRiskLikelyhood,
           residualRiskSeverity: formData.residualRiskSeverity,
@@ -1383,6 +1386,19 @@ const RisksAssessment = () => {
                 <input
                   value={formData.ermeoa}
                   onChange={(e) => handleFormChange("ermeoa", e.target.value)}
+                  type="text"
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  placeholder="Enter mitigation measures..."
+                />
+              </div>
+            </div>
+
+              {/* ACM */}
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> Additional Control Measures </label>
+                <input
+                  value={formData.acm}
+                  onChange={(e) => handleFormChange("acm", e.target.value)}
                   type="text"
                   className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                   placeholder="Enter mitigation measures..."
