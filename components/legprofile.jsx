@@ -215,6 +215,7 @@ const LegProfile = () => {
     requirement: "",
     riskOfViolation: "",
     affectedPosition: "",
+    acm: "",
     initialRiskSeverity: 0,
     initialRiskLikelihood: 0,
     residualRiskSeverity: 0,
@@ -536,6 +537,7 @@ const saveRisk = () => {
                 affectedPositions: formData.affectedPosition,
                 requirement: formData.requirement,
                 riskOfViolation: formData.riskOfViolation,
+                acm: formData.acm,
                 initialRiskSeverity: formData.initialRiskSeverity, // Number
                 initialRiskLikelyhood: formData.initialRiskLikelyhood, // Number, spelling uyumlu
                 residualRiskSeverity: formData.residualRiskSeverity,
@@ -614,6 +616,7 @@ const saveRisk = () => {
                 affectedPosition: formData.affectedPosition,
                 requirement: formData.requirement,
                 riskOfViolation: formData.riskOfViolation,
+                acm: formData.acm,
                 initialRiskSeverity: formData.initialRiskSeverity, // Number
                 initialRiskLikelyhood: formData.initialRiskLikelyhood, // Number, spelling uyumlu
                 residualRiskSeverity: formData.residualRiskSeverity,
@@ -1303,6 +1306,18 @@ const archiveData = (id) => {
                     <option key={item.id} value={item.id}>{item.value}</option>
                   ))}
                 </select>
+              </div>
+
+              {/* ACM */}
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Additional Control Measures</label>
+                <input
+                  value={formData.acm}
+                  onChange={(e) => handleFormChange("acm", e.target.value)}
+                  type="text"
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  placeholder="Enter Additional Control Measures..."
+                />
               </div>
             </div>
 
