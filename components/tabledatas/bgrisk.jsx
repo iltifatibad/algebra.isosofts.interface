@@ -392,7 +392,7 @@ const MyTableBody = ({
 
 {/* ACM */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.kpi} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.acm} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* Residual Risk Severity */}
@@ -542,7 +542,7 @@ const MyTableBody = ({
 
 {/* ACM */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.kpi} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.acm} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* Residual Risk Severity */}
@@ -972,7 +972,7 @@ const MyTableBody = ({
 
 {/* ACM */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.kpi} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.acm} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* Residual Risk Severity */}
