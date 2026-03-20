@@ -378,6 +378,11 @@ console.log(url);
   })()}
 </td>
 
+{/* ACM */}
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.acm} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
+
 {/* Residual Risk Severity */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
   <SoftBadge value={row.residualRiskSeverity} color="bg-pink-100 text-pink-700 border border-pink-200" />
@@ -501,6 +506,11 @@ console.log(url);
     const risk = getRiskLevel(row.initialRiskSeverity, row.initialRiskLikelyhood);
     return <SoftBadge value={risk.label} color={risk.color} />;
   })()}
+</td>
+
+{/* ACM */}
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.acm} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* Residual Risk Severity */}
@@ -910,6 +920,11 @@ console.log(url);
     const risk = getRiskLevel(row.initialRiskSeverity, row.initialRiskLikelyhood);
     return <SoftBadge value={risk.label} color={risk.color} />;
   })()}
+</td>
+
+{/* ACM */}
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.acm} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* Residual Risk Severity */}
