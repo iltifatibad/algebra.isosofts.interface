@@ -37,9 +37,9 @@ const staticData = [
     process: { value: "IT" },
     ermeoa: { value: "ERP Failure" },
     initialRiskSeverity: 4,
-    initialRiskLikelyhood: 3,
+    initialRiskLikelihood: 3,
     residualRiskSeverity: 2,
-    residualRiskLikelyhood: 2
+    residualRiskLikelihood: 2
   },
   {
     id: 2,
@@ -53,9 +53,9 @@ const staticData = [
     process: { value: "Security" },
     ermeoa: { value: "Backup risk" },
     initialRiskSeverity: 5,
-    initialRiskLikelyhood: 4,
+    initialRiskLikelihood: 4,
     residualRiskSeverity: 2,
-    residualRiskLikelyhood: 1
+    residualRiskLikelihood: 1
   }
 ];
 
@@ -120,16 +120,16 @@ const staticData = [
 
             {/* Initial */}
             <td className="border px-2">{row.initialRiskSeverity}</td>
-            <td className="border px-2">{row.initialRiskLikelyhood}</td>
+            <td className="border px-2">{row.initialRiskLikelihood}</td>
             <td className="border px-2">
-              <SoftBadge {...getRiskLevel(row.initialRiskSeverity, row.initialRiskLikelyhood)} />
+              <SoftBadge {...getRiskLevel(row.initialRiskSeverity, row.initialRiskLikelihood)} />
             </td>
 
             {/* Residual */}
             <td className="border px-2">{row.residualRiskSeverity}</td>
-            <td className="border px-2">{row.residualRiskLikelyhood}</td>
+            <td className="border px-2">{row.residualRiskLikelihood}</td>
             <td className="border px-2">
-              <SoftBadge {...getRiskLevel(row.residualRiskSeverity, row.residualRiskLikelyhood)} />
+              <SoftBadge {...getRiskLevel(row.residualRiskSeverity, row.residualRiskLikelihood)} />
             </td>
           </tr>
         ))}

@@ -362,13 +362,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Initial Risk Likelihood */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.initialRiskLikelyhood} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.initialRiskLikelihood} color="bg-pink-100 text-pink-700 border border-pink-200" />
 </td>
 
 {/* Initial Risk Level */}
 <td className="border border-gray-200 px-2 py-1 w-20">
   {(() => {
-    const risk = getRiskLevel(row.initialRiskSeverity, row.initialRiskLikelyhood);
+    const risk = getRiskLevel(row.initialRiskSeverity, row.initialRiskLikelihood);
     return <SoftBadge value={risk.label} color={risk.color} />;
   })()}
 </td>
@@ -386,13 +386,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Residual Risk Likelihood */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.residualRiskLikelyhood} color="bg-lime-100 text-lime-700 border border-lime-200" />
+  <SoftBadge value={row.residualRiskLikelihood} color="bg-lime-100 text-lime-700 border border-lime-200" />
 </td>
 
 {/* Residual Risk Level */}
 <td className="border border-gray-200 px-2 py-1 w-20">
   {(() => {
-    const risk = getRiskLevel(row.residualRiskSeverity, row.residualRiskLikelyhood);
+    const risk = getRiskLevel(row.residualRiskSeverity, row.residualRiskLikelihood);
     return <SoftBadge value={risk.label} color={risk.color} />;
   })()}
 </td>
@@ -498,13 +498,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Initial Risk Likelihood */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.initialRiskLikelyhood} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.initialRiskLikelihood} color="bg-pink-100 text-pink-700 border border-pink-200" />
 </td>
 
 {/* Initial Risk Level */}
 <td className="border border-gray-200 px-2 py-1 w-20">
   {(() => {
-    const risk = getRiskLevel(row.initialRiskSeverity, row.initialRiskLikelyhood);
+    const risk = getRiskLevel(row.initialRiskSeverity, row.initialRiskLikelihood);
     return <SoftBadge value={risk.label} color={risk.color} />;
   })()}
 </td>
@@ -522,13 +522,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Residual Risk Likelihood */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.residualRiskLikelyhood} color="bg-lime-100 text-lime-700 border border-lime-200" />
+  <SoftBadge value={row.residualRiskLikelihood} color="bg-lime-100 text-lime-700 border border-lime-200" />
 </td>
 
 {/* Residual Risk Level */}
 <td className="border border-gray-200 px-2 py-1 w-20">
   {(() => {
-    const risk = getRiskLevel(row.residualRiskSeverity, row.residualRiskLikelyhood);
+    const risk = getRiskLevel(row.residualRiskSeverity, row.residualRiskLikelihood);
     return <SoftBadge value={risk.label} color={risk.color} />;
   })()}
 </td>
@@ -918,13 +918,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Initial Risk Likelihood */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.initialRiskLikelyhood} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.initialRiskLikelihood} color="bg-pink-100 text-pink-700 border border-pink-200" />
 </td>
 
 {/* Initial Risk Level */}
 <td className="border border-gray-200 px-2 py-1 w-20">
   {(() => {
-    const risk = getRiskLevel(row.initialRiskSeverity, row.initialRiskLikelyhood);
+    const risk = getRiskLevel(row.initialRiskSeverity, row.initialRiskLikelihood);
     return <SoftBadge value={risk.label} color={risk.color} />;
   })()}
 </td>
@@ -942,13 +942,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Residual Risk Likelihood */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.residualRiskLikelyhood} color="bg-lime-100 text-lime-700 border border-lime-200" />
+  <SoftBadge value={row.residualRiskLikelihood} color="bg-lime-100 text-lime-700 border border-lime-200" />
 </td>
 
 {/* Residual Risk Level */}
 <td className="border border-gray-200 px-2 py-1 w-20">
   {(() => {
-    const risk = getRiskLevel(row.residualRiskSeverity, row.residualRiskLikelyhood);
+    const risk = getRiskLevel(row.residualRiskSeverity, row.residualRiskLikelihood);
     return <SoftBadge value={risk.label} color={risk.color} />;
   })()}
 </td>

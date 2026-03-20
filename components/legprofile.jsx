@@ -422,9 +422,9 @@ async function getDefaultDropdownList() {
         riskOfViolation: row.riskOfViolation,
         acm: row.acm,
         initialRiskSeverity: row.initialRiskSeverity,
-        initialRiskLikelyhood: row.initialRiskLikelyhood,
+        initialRiskLikelihood: row.initialRiskLikelihood,
         residualRiskSeverity: row.residualRiskSeverity,
-        residualRiskLikelyhood: row.residualRiskLikelyhood,
+        residualRiskLikelihood: row.residualRiskLikelihood,
       });
     } else {
       setActionData({
@@ -541,9 +541,9 @@ const saveRisk = () => {
                 riskOfViolation: formData.riskOfViolation,
                 acm: formData.acm,
                 initialRiskSeverity: formData.initialRiskSeverity, // Number
-                initialRiskLikelyhood: formData.initialRiskLikelyhood, // Number, spelling uyumlu
+                initialRiskLikelihood: formData.initialRiskLikelihood, // Number, spelling uyumlu
                 residualRiskSeverity: formData.residualRiskSeverity,
-                residualRiskLikelyhood: formData.residualRiskLikelyhood,
+                residualRiskLikelihood: formData.residualRiskLikelihood,
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             fetch(`/api/register/leg/one?token=${token}`, {
@@ -620,9 +620,9 @@ const saveRisk = () => {
                 riskOfViolation: formData.riskOfViolation,
                 acm: formData.acm,
                 initialRiskSeverity: formData.initialRiskSeverity, // Number
-                initialRiskLikelyhood: formData.initialRiskLikelyhood, // Number, spelling uyumlu
+                initialRiskLikelihood: formData.initialRiskLikelihood, // Number, spelling uyumlu
                 residualRiskSeverity: formData.residualRiskSeverity,
-                residualRiskLikelyhood: formData.residualRiskLikelyhood,
+                residualRiskLikelihood: formData.residualRiskLikelihood,
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             const url = `/api/register/leg/one/${selectedTable[0].id}?token=${token}`;
@@ -1345,8 +1345,8 @@ const archiveData = (id) => {
                   <div className="group">
                     <label className="block text-xs font-medium text-gray-500 mb-1.5">Likelihood</label>
                     <select
-                      value={formData.initialRiskLikelyhood}
-                      onChange={(e) => handleFormChange("initialRiskLikelyhood", parseInt(e.target.value, 10) || 0)}
+                      value={formData.initialRiskLikelihood}
+                      onChange={(e) => handleFormChange("initialRiskLikelihood", parseInt(e.target.value, 10) || 0)}
                       className="w-full px-3 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
                     >
                       <option value="">Select</option>
@@ -1374,8 +1374,8 @@ const archiveData = (id) => {
                   <div className="group">
                     <label className="block text-xs font-medium text-gray-500 mb-1.5">Likelihood</label>
                     <select
-                      value={formData.residualRiskLikelyhood}
-                      onChange={(e) => handleFormChange("residualRiskLikelyhood", parseInt(e.target.value, 10) || 0)}
+                      value={formData.residualRiskLikelihood}
+                      onChange={(e) => handleFormChange("residualRiskLikelihood", parseInt(e.target.value, 10) || 0)}
                       className="w-full px-3 py-2.5 bg-white border border-rose-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all"
                     >
                       <option value="">Select</option>

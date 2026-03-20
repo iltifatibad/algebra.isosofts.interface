@@ -30,7 +30,7 @@
                     rowSpan={1}
                   >
                     <SoftBadge
-                      value={row.initialRiskLikelyhood}
+                      value={row.initialRiskLikelihood}
                       color="bg-emerald-100 text-emerald-700 border border-emerald-200"
                     />
                   </td>
@@ -40,7 +40,7 @@
                     {(() => {
                       const risk = getRiskLevel(
                         row.initialRiskSeverity,
-                        row.initialRiskLikelyhood
+                        row.initialRiskLikelihood
                       );
 
                       return <SoftBadge value={risk.label} color={risk.color} />;
@@ -64,7 +64,7 @@
                     rowSpan={1}
                   >
                     <SoftBadge
-                      value={row.residualRiskLikelyhood}
+                      value={row.residualRiskLikelihood}
                       color="bg-rose-100 text-rose-700 border border-rose-200"
                     />
                   </td>
@@ -72,7 +72,7 @@
                     {(() => {
                       const risk = getRiskLevel(
                         row.residualRiskSeverity,
-                        row.residualRiskLikelyhood
+                        row.residualRiskLikelihood
                       );
 
                       return <SoftBadge value={risk.label} color={risk.color} />;

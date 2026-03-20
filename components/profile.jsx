@@ -383,9 +383,9 @@ const RisksAssessment = () => {
         ermeoa: "",
         acm: "",
         initialRiskSeverity: 0,
-        initialRiskLikelyhood: 0,
+        initialRiskLikelihood: 0,
         residualRiskSeverity: 0,
-        residualRiskLikelyhood: 0,
+        residualRiskLikelihood: 0,
       });
       setShowModal(true);
     } else {
@@ -432,9 +432,9 @@ const RisksAssessment = () => {
         ermeoa: row.ermeoa,
         acm: row.acm,
         initialRiskSeverity: row.initialRiskSeverity,
-        initialRiskLikelyhood: row.initialRiskLikelyhood,
+        initialRiskLikelihood: row.initialRiskLikelihood,
         residualRiskSeverity: row.residualRiskSeverity,
-        residualRiskLikelyhood: row.residualRiskLikelyhood,
+        residualRiskLikelihood: row.residualRiskLikelihood,
       });
     } else {
       setActionData({
@@ -551,9 +551,9 @@ const RisksAssessment = () => {
           ermeoa: formData.ermeoa,
           acm: formData.acm,
           initialRiskSeverity: formData.initialRiskSeverity,
-          initialRiskLikelyhood: formData.initialRiskLikelyhood,
+          initialRiskLikelihood: formData.initialRiskLikelihood,
           residualRiskSeverity: formData.residualRiskSeverity,
-          residualRiskLikelyhood: formData.residualRiskLikelyhood,
+          residualRiskLikelihood: formData.residualRiskLikelihood,
         };
         console.log("Gönderilen body:", payload);
         const token = getToken();
@@ -634,9 +634,9 @@ const RisksAssessment = () => {
           ermeoa: formData.ermeoa,
           acm: formData.acm,
           initialRiskSeverity: formData.initialRiskSeverity,
-          initialRiskLikelyhood: formData.initialRiskLikelyhood,
+          initialRiskLikelihood: formData.initialRiskLikelihood,
           residualRiskSeverity: formData.residualRiskSeverity,
-          residualRiskLikelyhood: formData.residualRiskLikelyhood,
+          residualRiskLikelihood: formData.residualRiskLikelihood,
         };
         console.log("Gönderilen body:", payload);
         const token = getToken();
@@ -1427,8 +1427,8 @@ const RisksAssessment = () => {
         <div className="group">
           <label className="block text-xs font-medium text-gray-500 mb-1.5">Likelihood</label>
           <select
-            value={formData.initialRiskLikelyhood}
-            onChange={(e) => handleFormChange("initialRiskLikelyhood", parseInt(e.target.value, 10) || 0)}
+            value={formData.initialRiskLikelihood}
+            onChange={(e) => handleFormChange("initialRiskLikelihood", parseInt(e.target.value, 10) || 0)}
             className="w-full px-3 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
           >
             <option value="">Select</option>
@@ -1456,8 +1456,8 @@ const RisksAssessment = () => {
         <div className="group">
           <label className="block text-xs font-medium text-gray-500 mb-1.5">Likelihood</label>
           <select
-            value={formData.residualRiskLikelyhood}
-            onChange={(e) => handleFormChange("residualRiskLikelyhood", parseInt(e.target.value, 10) || 0)}
+            value={formData.residualRiskLikelihood}
+            onChange={(e) => handleFormChange("residualRiskLikelihood", parseInt(e.target.value, 10) || 0)}
             className="w-full px-3 py-2.5 bg-white border border-rose-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all"
           >
             <option value="">Select</option>

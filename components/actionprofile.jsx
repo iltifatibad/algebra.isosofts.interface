@@ -418,9 +418,9 @@ async function getDefaultDropdownList() {
           row.affectedPositions.id || String(row.affectedPosition),
         riskOfViolation: row.riskOfViolation,
         initialRiskSeverity: row.initialRiskSeverity,
-        initialRiskLikelyhood: row.initialRiskLikelyhood,
+        initialRiskLikelihood: row.initialRiskLikelihood,
         residualRiskSeverity: row.residualRiskSeverity,
-        residualRiskLikelyhood: row.residualRiskLikelyhood,
+        residualRiskLikelihood: row.residualRiskLikelihood,
       });
     } else {
       setActionData({
@@ -534,9 +534,9 @@ if (modalMode === "add") {
       requirement: formData.requirement,
       riskOfViolation: formData.riskOfViolation,
       initialRiskSeverity: formData.initialRiskSeverity,
-      initialRiskLikelyhood: formData.initialRiskLikelyhood,
+      initialRiskLikelihood: formData.initialRiskLikelihood,
       residualRiskSeverity: formData.residualRiskSeverity,
-      residualRiskLikelyhood: formData.residualRiskLikelyhood,
+      residualRiskLikelihood: formData.residualRiskLikelihood,
     };
     console.log("Gönderilen body:", payload);
     const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
@@ -612,9 +612,9 @@ if (modalMode === "add") {
       requirement: formData.requirement,
       riskOfViolation: formData.riskOfViolation,
       initialRiskSeverity: formData.initialRiskSeverity,
-      initialRiskLikelyhood: formData.initialRiskLikelyhood,
+      initialRiskLikelihood: formData.initialRiskLikelihood,
       residualRiskSeverity: formData.residualRiskSeverity,
-      residualRiskLikelyhood: formData.residualRiskLikelyhood,
+      residualRiskLikelihood: formData.residualRiskLikelihood,
     };
     console.log("Gönderilen body:", payload);
     const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
@@ -1282,14 +1282,14 @@ const archiveData = (id) => {
                           <option>5</option>
                         </select>
                         <select
-                          value={formData.initialRiskLikelyhood}
+                          value={formData.initialRiskLikelihood}
                           onChange={(e) => {
                             console.log(
                               "Select onChange tetiklendi! Yeni value:",
                               e.target.value,
                             ); // Debug: Bu çıkmıyorsa onChange patlıyor
                             const newValue = parseInt(e.target.value, 10) || 0;
-                            handleFormChange("initialRiskLikelyhood", newValue); // String path + value – obje değil!
+                            handleFormChange("initialRiskLikelihood", newValue); // String path + value – obje değil!
                           }}
                         >
                           <option value="">Select</option>
@@ -1324,14 +1324,14 @@ const archiveData = (id) => {
                         <option>5</option>
                       </select>
                       <select
-                        value={formData.residualRiskLikelyhood}
+                        value={formData.residualRiskLikelihood}
                         onChange={(e) => {
                           console.log(
                             "Select onChange tetiklendi! Yeni value:",
                             e.target.value,
                           ); // Debug: Bu çıkmıyorsa onChange patlıyor
                           const newValue = parseInt(e.target.value, 10) || 0;
-                          handleFormChange("residualRiskLikelyhood", newValue); // String path + value – obje değil!
+                          handleFormChange("residualRiskLikelihood", newValue); // String path + value – obje değil!
                         }}
                       >
                         <option value="">Select</option>

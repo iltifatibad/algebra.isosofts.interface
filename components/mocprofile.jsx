@@ -419,9 +419,9 @@ async function getDefaultDropdownList() {
         risks: row.risks,
         moc: row.moc,
         initialRiskSeverity: row.initialRiskSeverity,
-        initialRiskLikelyhood: row.initialRiskLikelyhood,
+        initialRiskLikelihood: row.initialRiskLikelihood,
         residualRiskSeverity: row.residualRiskSeverity,
-        residualRiskLikelyhood: row.residualRiskLikelyhood,
+        residualRiskLikelihood: row.residualRiskLikelihood,
       });
     } else {
       setActionData({
@@ -536,9 +536,9 @@ const saveRisk = () => {
                 action: formData.action,
                 risks: formData.risks,
                 initialRiskSeverity: formData.initialRiskSeverity, // Number
-                initialRiskLikelyhood: formData.initialRiskLikelyhood, // Number, spelling uyumlu
+                initialRiskLikelihood: formData.initialRiskLikelihood, // Number, spelling uyumlu
                 residualRiskSeverity: formData.residualRiskSeverity,
-                residualRiskLikelyhood: formData.residualRiskLikelyhood,
+                residualRiskLikelihood: formData.residualRiskLikelihood,
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             fetch(`/api/register/moc/one?token=${token}`, {
@@ -612,9 +612,9 @@ const saveRisk = () => {
                 action: formData.action,
                 risks: formData.risks,
                 initialRiskSeverity: formData.initialRiskSeverity, // Number
-                initialRiskLikelyhood: formData.initialRiskLikelyhood, // Number, spelling uyumlu
+                initialRiskLikelihood: formData.initialRiskLikelihood, // Number, spelling uyumlu
                 residualRiskSeverity: formData.residualRiskSeverity,
-                residualRiskLikelyhood: formData.residualRiskLikelyhood,
+                residualRiskLikelihood: formData.residualRiskLikelihood,
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             const url = `/api/register/moc/one/${selectedTable[0].id}?token=${token}`;
@@ -1338,11 +1338,11 @@ const archiveData = (id) => {
                   </select>
 
                   <select
-                    value={formData.initialRiskLikelyhood}
+                    value={formData.initialRiskLikelihood}
                     onChange={(e) => {
                       console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
                       const newValue = parseInt(e.target.value, 10) || 0;
-                      handleFormChange("initialRiskLikelyhood", newValue);
+                      handleFormChange("initialRiskLikelihood", newValue);
                     }}
                     className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                   >
@@ -1377,11 +1377,11 @@ const archiveData = (id) => {
                   </select>
 
                   <select
-                    value={formData.residualRiskLikelyhood}
+                    value={formData.residualRiskLikelihood}
                     onChange={(e) => {
                       console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
                       const newValue = parseInt(e.target.value, 10) || 0;
-                      handleFormChange("residualRiskLikelyhood", newValue);
+                      handleFormChange("residualRiskLikelihood", newValue);
                     }}
                     className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                   >
