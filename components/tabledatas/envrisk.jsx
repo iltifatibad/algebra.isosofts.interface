@@ -274,7 +274,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
         <SoftBadge value={row.affectedReceptors?.value ?? ""} color="bg-violet-100 text-violet-700 border border-violet-200" />
       </td>
 
-      {/* Existing Controls — backend'den string olarak geliyor */}
+      {/* Existing Control Measuress — backend'den string olarak geliyor */}
       <td className="border border-gray-200 px-2 py-1 w-48" rowSpan={1}>
         <SoftBadge value={typeof row.existingControls === "string" ? row.existingControls : (row.existingControls?.value ?? "")} color="bg-pink-100 text-pink-700 border border-pink-200" />
       </td>

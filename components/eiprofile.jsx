@@ -1317,7 +1317,7 @@ const archiveData = (id) => {
                 />
               </div>
 
-              {/* İstersen yorum satırındaki "Safe To Use" kısmını da aynı stilde ekleyebiliriz */}
+              {/* İstersen yorum satırındaki "Existing Control Measures" kısmını da aynı stilde ekleyebiliriz */}
             </div>
           </div>
         </div>

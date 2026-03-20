@@ -40,7 +40,7 @@ const EnvHeaders = ({ activeHeader }) => {
             rowSpan={2}
             className="min-w-[200px] border-r border-white sticky top-0 z-20 bg-blue-100"
           >
-            Existing Controls
+            Existing Control Measuress
           </th>
 
           <th

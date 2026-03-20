@@ -215,6 +215,7 @@ const LegProfile = () => {
     requirement: "",
     riskOfViolation: "",
     affectedPosition: "",
+    ecm: "",
     acm: "",
     initialRiskSeverity: 0,
     initialRiskLikelihood: 0,
@@ -372,6 +373,7 @@ async function getDefaultDropdownList() {
         requirement: "",
         riskOfViolation: "",
         affectedPosition: "",
+        ecm: "",
         acm: "",
         initialRiskSeverity: 0,
         initialRiskLikelihood: 0,
@@ -420,6 +422,7 @@ async function getDefaultDropdownList() {
         affectedPosition:
         row.affectedPositions.id || String(row.affectedPosition),
         riskOfViolation: row.riskOfViolation,
+        ecm: row.ecm,
         acm: row.acm,
         initialRiskSeverity: row.initialRiskSeverity,
         initialRiskLikelihood: row.initialRiskLikelihood,
@@ -539,6 +542,7 @@ const saveRisk = () => {
                 affectedPositions: formData.affectedPosition,
                 requirement: formData.requirement,
                 riskOfViolation: formData.riskOfViolation,
+                ecm: row.ecm,
                 acm: formData.acm,
                 initialRiskSeverity: formData.initialRiskSeverity, // Number
                 initialRiskLikelihood: formData.initialRiskLikelihood, // Number, spelling uyumlu
@@ -618,6 +622,7 @@ const saveRisk = () => {
                 affectedPosition: formData.affectedPosition,
                 requirement: formData.requirement,
                 riskOfViolation: formData.riskOfViolation,
+                ecm: formData.ecm,
                 acm: formData.acm,
                 initialRiskSeverity: formData.initialRiskSeverity, // Number
                 initialRiskLikelihood: formData.initialRiskLikelihood, // Number, spelling uyumlu

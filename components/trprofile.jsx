@@ -1251,9 +1251,9 @@ const archiveData = (id) => {
               />
             </div>
 
-            {/* Certificate / Licence Name */}
+            {/* Training / Certificate / License Name */}
             <div className="group">
-              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Certificate / Licence Name</label>
+              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Training / Certificate / License Name</label>
               <input
                 value={formData.clname}
                 onChange={(e) => handleFormChange("clname", e.target.value)}

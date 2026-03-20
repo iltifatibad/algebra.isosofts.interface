@@ -1377,9 +1377,9 @@ const archiveData = (id) => {
               />
             </div>
 
-            {/* Next Review Date */}
+            {/* Next Next Review Date */}
             <div className="group">
-              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Next Review Date</label>
+              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Next Next Review Date</label>
               <input
                 value={formData.nextReviewDate}
                 onChange={(e) => handleFormChange("nextReviewDate", e.target.value)}

@@ -337,7 +337,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   />
 </td>
 
-{/* Safe To Use */}
+{/* Equipment/Inventory Status */}
 <td className="border border-gray-200 px-3 py-2 w-24" rowSpan={1}>
   {(() => {
     if (!row.icd || !row.nvcd) return null;
@@ -454,7 +454,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   />
 </td>
 
-{/* Safe To Use */}
+{/* Equipment/Inventory Status */}
 <td className="border border-gray-200 px-3 py-2 w-24" rowSpan={1}>
   {(() => {
     if (!row.icd || !row.nvcd) return null;
@@ -855,7 +855,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   />
 </td>
 
-{/* Safe To Use */}
+{/* Equipment/Inventory Status */}
 <td className="border border-gray-200 px-3 py-2 w-24" rowSpan={1}>
   {(() => {
     if (!row.icd || !row.nvcd) return null;

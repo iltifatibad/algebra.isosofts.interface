@@ -355,6 +355,11 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.affectedPositions?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
+{/* Existing Control Measures */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.ecm?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
+
 {/* Initial Risk Severity */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.initialRiskSeverity} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
@@ -489,6 +494,11 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 {/* Affected Positions */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.affectedPositions?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
+
+{/* Existing Control Measures */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.ecm?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* Initial Risk Severity */}
@@ -909,6 +919,11 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 {/* Affected Positions */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.affectedPositions?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
+
+{/* Existing Control Measures */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.ecm?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* Initial Risk Severity */}

@@ -58,7 +58,7 @@ const EiHeaders = ({ activeHeader }) => {
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
-            Safe To Use
+            Equipment/Inventory Status
           </th>
         </tr>
 

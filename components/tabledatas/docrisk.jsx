@@ -328,7 +328,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.issueDate} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
 </td>
 
-{/* Next Review Date */}
+{/* Next Next Review Date */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge value={row.nextReviewDate} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
@@ -461,7 +461,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.issueDate} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
 </td>
 
-{/* Next Review Date */}
+{/* Next Next Review Date */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge value={row.nextReviewDate} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
@@ -866,7 +866,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.issueDate} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
 </td>
 
-{/* Next Review Date */}
+{/* Next Next Review Date */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge value={row.nextReviewDate} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
