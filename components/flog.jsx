@@ -254,7 +254,7 @@ const FProfile = () => {
       {
         title: "",
         raiseDate: "",
-        resources: 0,
+        resources: "",
         currency: "",
         relativeFunction: "",
         responsible: "",
@@ -382,7 +382,7 @@ async function getDefaultDropdownList() {
       setActionData({
         title: "",
         raiseDate: "",
-        resources: 0,
+        resources: "",
         currency: "",
         relativeFunction: "",
         responsible: "",
@@ -431,7 +431,7 @@ async function getDefaultDropdownList() {
             title: row.title,
             raiseDate: row.raiseDate,
             resources:
-              parseInt(row.resources?.id) || parseInt(row.resources) || 0,
+              row.resources?.id || row.resources || "",
             currency: "",
             relativeFunction:
               row.relativeFunction?.id || String(row.relativeFunction) || "",
@@ -562,7 +562,7 @@ const saveRisk = () => {
                 registerId: Array.from(selectedRows)[0],
                 regsiterType: "fin",
                 title: actionData.actionPlan[0]?.title || "",
-                resources: parseInt(actionData.actionPlan[0]?.resources) || 0,
+                resources: actionData.actionPlan[0]?.resources || "",
                 raiseDate: actionData.actionPlan[0]?.raiseDate || "",
                 currency: actionData.actionPlan[0]?.currency || "",
                 relativeFunction: actionData.actionPlan[0]?.relativeFunction || "",
@@ -645,7 +645,7 @@ const saveRisk = () => {
                         id: [...selectedRowsForActions][0],
                         title: actionData.actionPlan[0].title,
                         raiseDate: actionData.raiseDate,
-                        resources: parseInt(actionData.actionPlan[0].resources.id) || 0,
+                        resources: actionData.actionPlan[0].resources.id || "",
                         currency: "",
                         relativeFunction: actionData.relativeFunction?.id || "",
                         responsible: actionData.responsible?.id || "",
@@ -1475,7 +1475,7 @@ const archiveData = (id) => {
                   <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Resources</label>
                   <input
                     value={actionData?.actionPlan?.[0]?.resources || ""}
-                    onChange={(e) => handleFormChange("actionPlan[0].resources", parseInt(e.target.value))}
+                    onChange={(e) => handleFormChange("actionPlan[0].resources", e.target.value)}
                     type="text"
                     placeholder="Enter resources..."
                     className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
