@@ -372,6 +372,7 @@ async function getDefaultDropdownList() {
         requirement: "",
         riskOfViolation: "",
         affectedPosition: "",
+        acm: "",
         initialRiskSeverity: 0,
         initialRiskLikelihood: 0,
         residualRiskSeverity: 0,
@@ -417,8 +418,9 @@ async function getDefaultDropdownList() {
         section: row.section,
         requirement: row.requirement,
         affectedPosition:
-          row.affectedPositions.id || String(row.affectedPosition),
+        row.affectedPositions.id || String(row.affectedPosition),
         riskOfViolation: row.riskOfViolation,
+        acm: row.acm,
         initialRiskSeverity: row.initialRiskSeverity,
         initialRiskLikelyhood: row.initialRiskLikelyhood,
         residualRiskSeverity: row.residualRiskSeverity,
