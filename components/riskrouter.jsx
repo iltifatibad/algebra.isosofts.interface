@@ -55,7 +55,7 @@ const RiskRouter = () => {
             onClick={() => setIsOpenReg(!isOpenReg)} // Tıkla aç/kapat
           >
             <h2 className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent flex items-center justify-between">
-              <span>Risks</span> {/* Başlık metni */}
+              <span>Databases</span> {/* Başlık metni */}
               {/* Açma/Kapama İkonu */}
               <svg
                 className={`w-5 h-5 transition-transform duration-300 ${isOpenReg ? "rotate-180" : ""}`}
