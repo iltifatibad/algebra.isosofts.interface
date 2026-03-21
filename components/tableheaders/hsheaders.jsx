@@ -130,7 +130,7 @@ const HsHeaders = ({ activeHeader }) => {
             Resources
           </th>
           <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
-            Relactive Function
+            Relative Action
           </th>
           <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Responsible
