@@ -177,7 +177,7 @@ const CusProfile = () => {
     { id: "hs-reg", name: "Health & Safety Risks" },
     { id: "leg-reg", name: "Legislations" },
     { id: "env-reg", name: "Environmental Aspects & Impacts" },
-    { id: "eq-reg", name: "Equipment & Inventory" },
+    { id: "eq-reg", name: "Equipment & Inventories" },
     { id: "tr-reg", name: "Trainings" },
     { id: "doc-reg", name: "Documents" },
     { id: "ven-reg", name: "Vendors" },

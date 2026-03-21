@@ -64,7 +64,7 @@ const BgHeaders = ({ activeHeader }) => {
             className="min-w-[210px] border-r border-white sticky top-0 z-20 bg-blue-100"
             colSpan={3}
           >
-            Initial Risk / Initial Opportunity Assesment
+            Initial Risk / Initial Opportunity Assessment
           </th>
 
           <th
@@ -78,7 +78,7 @@ const BgHeaders = ({ activeHeader }) => {
             className="min-w-[210px] border-r border-white sticky top-0 z-20 bg-blue-100"
             colSpan={3}
           >
-            Residual Risk / Residual Opportunity Assesment
+            Residual Risk / Residual Opportunity Assessment
           </th>
         </tr>
         <tr className="h-[48px]">

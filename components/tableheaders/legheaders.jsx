@@ -72,7 +72,7 @@ const LegHeaders = ({ activeHeader }) => {
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             colSpan={3}
           >
-            Residual Risk/Opportunity Level
+            Residual Risk
           </th>
         </tr>
 

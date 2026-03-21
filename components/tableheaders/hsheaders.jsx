@@ -46,7 +46,7 @@ const HsHeaders = ({ activeHeader }) => {
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             colSpan={3}
           >
-            Initial Risk Assesment
+            Initial Risk Assessment
           </th>
 
           <th
@@ -61,7 +61,7 @@ const HsHeaders = ({ activeHeader }) => {
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             colSpan={3}
           >
-            Residual Risk Assesment
+            Residual Risk Assessment
           </th>
         </tr>
         <tr className="h-[48px]">
