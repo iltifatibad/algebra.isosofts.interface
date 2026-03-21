@@ -210,6 +210,7 @@ const FProfile = () => {
   const [formData, setFormData] = useState({
     id: 0,
     issuer: "",
+    findingDate: "",
     process: "",
     categoryOfFinding: "",
     typeOfFinding: "",
@@ -226,6 +227,7 @@ const FProfile = () => {
     process: "",
     hazard: "",
     risk: "",
+    findingDate: "",
     affectedPosition: "",
     ERMA: "",
     initialRiskSeverity: "",
@@ -367,6 +369,7 @@ async function getDefaultDropdownList() {
       setFormData({
         id: 0,
         issuer: "",
+        findingDate: "",
         process: "",
         categoryOfFinding: "",
         typeOfFinding: "",
@@ -413,6 +416,7 @@ async function getDefaultDropdownList() {
     if (activeHeader) {
       setFormData({
         issuer: row.issuer,
+        findingDate: row.findingDate,
         process: row.process.id || String(row.process),
         categoryOfFinding:
           row.categoryOfFinding.id || String(row.categoryOfFinding),
@@ -532,6 +536,7 @@ const saveRisk = () => {
         if (!showAction) {
             const payload = {
                 issuer: formData.issuer,
+                findingDate: formData.findingDate,
                 process: formData.process,
                 categoryOfFinding: formData.categoryOfFinding,
                 typeOfFinding: formData.typeOfFinding,
@@ -609,6 +614,7 @@ const saveRisk = () => {
             const payload = {
                 id: selectedTable[0].id,
                 issuer: formData.issuer,
+                findingDate: formData.findingDate,
                 process: formData.process,
                 categoryOfFinding: formData.categoryOfFinding,
                 typeOfFinding: formData.typeOfFinding,
@@ -1268,6 +1274,17 @@ const archiveData = (id) => {
                   onChange={(e) => handleFormChange("issuer", e.target.value)}
                   type="text"
                   placeholder="Enter issuer..."
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                />
+              </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Issuer</label>
+                <input
+                  value={formData.findingDate}
+                  onChange={(e) => handleFormChange("findingDate", e.target.value)}
+                  type="date"
+                  placeholder="Enter Finding Date..."
                   className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                 />
               </div>

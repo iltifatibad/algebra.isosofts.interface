@@ -213,6 +213,7 @@ const MocProfile = () => {
     reasonOfChange: "",
     process: "",
     action: "",
+    ecm:"",
     risks: "",
     approval: "",
     acm: "",
@@ -226,6 +227,7 @@ const MocProfile = () => {
     id: 0,
     process: "",
     hazard: "",
+    ecm:"",
     risk: "",
     approval: "",
     affectedPosition: "",
@@ -372,6 +374,7 @@ async function getDefaultDropdownList() {
         reasonOfChange: "",
         process: "",
         action: "",
+        ecm:"",
         risks: "",
         approval: "",
         acm: "",
@@ -419,6 +422,7 @@ async function getDefaultDropdownList() {
         reasonOfChange: row.reasonOfChange,
         process: row.process.id || String(row.process),
         action: row.action,
+        ecm: row.ecm,
         risks: row.risks,
         approval: "",
         moc: row.moc,
@@ -538,6 +542,7 @@ const saveRisk = () => {
                 reasonOfChange: formData.reasonOfChange,
                 process: formData.process,
                 action: formData.action,
+                ecm: formData.ecm,
                 risks: formData.risks,
                 approval: formData.approval,
                 initialRiskSeverity: formData.initialRiskSeverity, // Number
@@ -615,6 +620,7 @@ const saveRisk = () => {
                 reasonOfChange: formData.reasonOfChange,
                 process: formData.process,
                 action: formData.action,
+                ecm: formData.ecm,
                 risks: formData.risks,
                 approval: formData.approval,
                 initialRiskSeverity: formData.initialRiskSeverity, // Number
@@ -1305,6 +1311,17 @@ const archiveData = (id) => {
                   onChange={(e) => handleFormChange("action", e.target.value)}
                   type="text"
                   placeholder="Enter action..."
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                />
+              </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Risks</label>
+                <input
+                  value={formData.ecm}
+                  onChange={(e) => handleFormChange("ecm", e.target.value)}
+                  type="text"
+                  placeholder="Enter ECM..."
                   className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                 />
               </div>
