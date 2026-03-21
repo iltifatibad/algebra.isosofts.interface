@@ -91,7 +91,7 @@ const FbHeaders = ({ activeHeader }) => {
             className="min-w-[120px] border-r border-white sticky top-[52px] z-20 bg-blue-200"
             rowSpan={2}
           >
-            Final Score
+            Total Score
           </th>
         </tr>
 
@@ -184,7 +184,7 @@ const FbHeaders = ({ activeHeader }) => {
             className="min-w-[120px] border-r border-white sticky top-[52px] z-20 bg-blue-200"
             rowSpan={2}
           >
-            Final Score
+            Total Score
           </th>
         </tr>
 

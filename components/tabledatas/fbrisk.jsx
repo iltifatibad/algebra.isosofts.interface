@@ -407,7 +407,7 @@ data.map(async (item) => {
   <SoftBadge value={row.environment} color="bg-green-100 text-green-700 border border-green-200" />
 </td>
 
-{/* Final Score */}
+{/* Total Score */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge
     value={
@@ -561,7 +561,7 @@ data.map(async (item) => {
   <SoftBadge value={row.environment} color="bg-green-100 text-green-700 border border-green-200" />
 </td>
 
-{/* Final Score */}
+{/* Total Score */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge
     value={
@@ -719,7 +719,7 @@ data.map(async (item) => {
                     {row.environment}
                   </td>
 
-                  {/* Envinroment */}
+                  {/* Environment */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
@@ -867,7 +867,7 @@ data.map(async (item) => {
                     {row.actual?.value}
                   </td>
 
-                  {/* Envinroment */}
+                  {/* Environment */}
                   <td
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
@@ -1002,7 +1002,7 @@ data.map(async (item) => {
   <SoftBadge value={row.environment} color="bg-green-100 text-green-700 border border-green-200" />
 </td>
 
-{/* Final Score */}
+{/* Total Score */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge
     value={

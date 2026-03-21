@@ -214,6 +214,7 @@ const MocProfile = () => {
     process: "",
     action: "",
     risks: "",
+    approval: "",
     acm: "",
     initialRiskSeverity: 0,
     initialRiskLikelihood: 0,
@@ -226,6 +227,7 @@ const MocProfile = () => {
     process: "",
     hazard: "",
     risk: "",
+    approval: "",
     affectedPosition: "",
     ERMA: "",
     initialRiskSeverity: "",
@@ -371,6 +373,7 @@ async function getDefaultDropdownList() {
         process: "",
         action: "",
         risks: "",
+        approval: "",
         acm: "",
         initialRiskSeverity: 0,
         initialRiskLikelihood: 0,
@@ -417,6 +420,7 @@ async function getDefaultDropdownList() {
         process: row.process.id || String(row.process),
         action: row.action,
         risks: row.risks,
+        approval: "",
         moc: row.moc,
         initialRiskSeverity: row.initialRiskSeverity,
         initialRiskLikelihood: row.initialRiskLikelihood,
@@ -535,6 +539,7 @@ const saveRisk = () => {
                 process: formData.process,
                 action: formData.action,
                 risks: formData.risks,
+                approval: formData.approval,
                 initialRiskSeverity: formData.initialRiskSeverity, // Number
                 initialRiskLikelihood: formData.initialRiskLikelihood, // Number, spelling uyumlu
                 residualRiskSeverity: formData.residualRiskSeverity,
@@ -611,6 +616,7 @@ const saveRisk = () => {
                 process: formData.process,
                 action: formData.action,
                 risks: formData.risks,
+                approval: formData.approval,
                 initialRiskSeverity: formData.initialRiskSeverity, // Number
                 initialRiskLikelihood: formData.initialRiskLikelihood, // Number, spelling uyumlu
                 residualRiskSeverity: formData.residualRiskSeverity,
@@ -1313,6 +1319,19 @@ const archiveData = (id) => {
                   className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                 />
               </div>
+              
+                <div className="group md:col-span-2">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Approved</label>
+                  <select
+                    value={formData.approval}
+                    onChange={(e) => handleFormChange("approval", e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  >
+                    <option value={0}>No</option>
+                    <option value={1}>Yes</option>
+                  </select>
+                </div>
+
 
               <div className="group">
                 <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Risks</label>

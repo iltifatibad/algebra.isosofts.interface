@@ -43,6 +43,12 @@ const MocHeaders = ({ activeHeader }) => {
             Risks
           </th>
           <th
+            className="min-w-50 border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            Approval
+          </th>
+          <th
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             colSpan={3}
           >

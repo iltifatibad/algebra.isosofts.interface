@@ -352,6 +352,11 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.risks} color="bg-orange-100 text-orange-700 border border-orange-200" />
 </td>
 
+{/* Approval */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.approval} color="bg-orange-100 text-orange-700 border border-orange-200" />
+</td>
+
 {/* Initial Risk Severity */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.initialRiskSeverity} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
@@ -483,6 +488,11 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 {/* Risks */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.risks} color="bg-orange-100 text-orange-700 border border-orange-200" />
+</td>
+
+{/* Risks */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.approval} color="bg-orange-100 text-orange-700 border border-orange-200" />
 </td>
 
 {/* Initial Risk Severity */}
@@ -897,6 +907,11 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 {/* Risks */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.risks} color="bg-orange-100 text-orange-700 border border-orange-200" />
+</td>
+
+{/* Approval */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.approval} color="bg-orange-100 text-orange-700 border border-orange-200" />
 </td>
 
 {/* Initial Risk Severity */}

@@ -82,7 +82,7 @@ const CusHeaders = ({ activeHeader }) => {
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
-            Envinroment
+            Environment
           </th>
           <th
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
