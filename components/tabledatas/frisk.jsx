@@ -368,6 +368,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.findingDate} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.jobNumber} color="bg-rose-100 text-rose-700 border border-rose-200" />
+</td>
+
 {/* Process */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.process?.value} color="bg-blue-100 text-blue-700 border border-blue-200" />
@@ -486,6 +490,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.findingDate} color="bg-rose-100 text-rose-700 border border-rose-200" />
+</td>
+
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.jobNumber} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* Process */}
@@ -880,6 +888,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.findingDate} color="bg-rose-100 text-rose-700 border border-rose-200" />
+</td>
+
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
+  <SoftBadge value={row.jobNumber} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* Process */}

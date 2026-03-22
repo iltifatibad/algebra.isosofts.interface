@@ -251,6 +251,7 @@ async function getDefaultVendors() {
     id: 0,
     issuer: "",
     findingDate: "",
+    jobNumber: "",
     process: "",
     categoryOfFinding: "",
     typeOfFinding: "",
@@ -412,6 +413,7 @@ async function getDefaultDropdownList() {
         id: 0,
         issuer: "",
         findingDate: "",
+        jobNumber: "",
         process: "",
         categoryOfFinding: "",
         typeOfFinding: "",
@@ -459,6 +461,7 @@ async function getDefaultDropdownList() {
       setFormData({
         issuer: row.issuer,
         findingDate: row.findingDate,
+        jobNumber: row.jobNumber,
         process: row.process.id || String(row.process),
         categoryOfFinding:
           row.categoryOfFinding.id || String(row.categoryOfFinding),
@@ -581,6 +584,7 @@ const saveRisk = () => {
             const payload = {
                 issuer: formData.issuer,
                 findingDate: formData.findingDate,
+                jobNumber: formData.jobNumber,
                 process: formData.process,
                 categoryOfFinding: formData.categoryOfFinding,
                 typeOfFinding: formData.typeOfFinding,
@@ -659,6 +663,7 @@ const saveRisk = () => {
                 id: selectedTable[0].id,
                 issuer: formData.issuer,
                 findingDate: formData.findingDate,
+                jobNumber: formData.jobNumber,
                 process: formData.process,
                 categoryOfFinding: formData.categoryOfFinding,
                 typeOfFinding: formData.typeOfFinding,
@@ -1329,6 +1334,17 @@ const archiveData = (id) => {
                   onChange={(e) => handleFormChange("findingDate", e.target.value)}
                   type="date"
                   placeholder="Enter Finding Date..."
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                />
+              </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Job Number</label>
+                <input
+                  value={formData.jobNumber}
+                  onChange={(e) => handleFormChange("jobNumber", e.target.value)}
+                  type="date"
+                  placeholder="Enter Job Number..."
                   className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                 />
               </div>
