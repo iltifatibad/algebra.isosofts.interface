@@ -1,233 +1,345 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
-  LineChart, Line, BarChart, Bar, AreaChart, Area,
+  BarChart, Bar,
+  LineChart, Line,
+  AreaChart, Area,
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
-  ComposedChart, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-  ResponsiveContainer
+  PieChart, Pie, Cell,
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from "recharts";
 
-const KPI_DATA = {
-  "Objectives Completion Rate": { unit: "%", lastYear: 78, target: 100, monthly: [72,75,78,80,82,85,83,87,88,90,89,91] },
-  "HS Risk Actions Closure Rate": { unit: "%", lastYear: 65, target: 85, monthly: [60,63,67,70,72,74,73,76,79,81,83,85] },
-  "Legal Compliance Actions Closure Rate": { unit: "%", lastYear: 88, target: 95, monthly: [85,86,88,89,90,91,90,92,93,94,94,95] },
-  "Environmental Aspects Actions Closure Rate": { unit: "%", lastYear: 70, target: 88, monthly: [68,70,71,73,75,76,74,78,80,82,84,87] },
-  "Equipment Maintenance/Calibration Rate": { unit: "%", lastYear: 92, target: 98, monthly: [90,91,92,93,94,95,94,96,96,97,97,98] },
-  "Training Completion Rate": { unit: "%", lastYear: 80, target: 95, monthly: [75,78,80,82,84,86,85,88,90,92,93,94] },
-  "Documents Review Rate": { unit: "%", lastYear: 74, target: 90, monthly: [70,72,74,75,77,79,78,81,83,85,87,89] },
-  "Vendors Evaluation Rate": { unit: "%", lastYear: 60, target: 80, monthly: [55,58,60,62,65,67,66,69,71,74,76,79] },
-  "Customer Retention Rate": { unit: "%", lastYear: 85, target: 93, monthly: [83,84,85,86,87,88,87,89,90,91,92,93] },
-  "Number of New Customer": { unit: "", lastYear: 24, target: 40, monthly: [2,3,2,4,3,4,3,4,5,4,5,4] },
-  "Customer Satisfaction Rate": { unit: "%", lastYear: 82, target: 92, monthly: [80,81,82,83,84,85,84,86,87,89,90,91] },
-  "MOC Actions closure Rate": { unit: "%", lastYear: 68, target: 85, monthly: [64,66,68,70,72,74,73,75,77,80,82,84] },
-  "Finding Actions Closure Rate": { unit: "%", lastYear: 72, target: 88, monthly: [69,71,72,74,76,77,76,79,81,83,85,87] },
-  "Number of negative findings": { unit: "", lastYear: 18, target: 8, monthly: [20,18,17,16,15,14,13,12,11,10,9,8] },
-  "Number of improper product/service": { unit: "", lastYear: 12, target: 4, monthly: [14,13,12,11,10,9,8,7,6,5,5,4] },
-  "Assurance & Oversight Plan Execution rate": { unit: "%", lastYear: 76, target: 92, monthly: [72,74,76,78,79,81,80,83,85,87,89,91] },
-  "Management Review Actions Closure Rate": { unit: "%", lastYear: 80, target: 95, monthly: [77,79,80,82,84,86,85,87,89,91,92,94] },
+const MONTHS = ["january","february","march","april","may","june","july","august","september","october","november","december"];
+const MONTH_LABELS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+const CHART_TYPES = [
+  { value: "bar",   label: "Bar",   icon: "fa-chart-bar" },
+  { value: "line",  label: "Line",  icon: "fa-chart-line" },
+  { value: "area",  label: "Area",  icon: "fa-chart-area" },
+  { value: "radar", label: "Radar", icon: "fa-bullseye" },
+  { value: "pie",   label: "Pie",   icon: "fa-chart-pie" },
+];
+
+const PIE_COLORS = ["#3b82f6","#6366f1","#0ea5e9","#8b5cf6","#06b6d4","#60a5fa","#a78bfa","#38bdf8","#93c5fd","#c4b5fd","#7dd3fc","#ddd6fe"];
+
+function getMonthlyData(kpi) {
+  return MONTHS.map((m, i) => ({ month: MONTH_LABELS[i], value: kpi[m] ?? 0 }));
+}
+
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload?.length) {
+    return (
+      <div style={{ background:"#fff", borderRadius:12, boxShadow:"0 4px 20px rgba(59,130,246,0.15)", border:"1px solid #dbeafe", padding:"10px 16px" }}>
+        <p style={{ fontSize:11, fontWeight:600, color:"#3b82f6", textTransform:"uppercase", letterSpacing:"0.05em", margin:"0 0 4px" }}>{label}</p>
+        <p style={{ fontSize:18, fontWeight:700, color:"#1e293b", margin:0 }}>{payload[0].value}</p>
+      </div>
+    );
+  }
+  return null;
 };
 
-const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-const CHART_TYPES = ["Line Chart","Bar Chart","Area Chart","Radar Chart","Composed Chart"];
-const COLORS = { actual: "#3b82f6", target: "#f59e0b", lastYear: "#10b981" };
-
-const SIDEBAR_WIDTH = 280;
-const NAVBAR_HEIGHT = 72;
+const StatCard = ({ label, value, bgClass, textClass, icon }) => (
+  <div style={{ background:"#fff", borderRadius:16, border:"1px solid #eff6ff", boxShadow:"0 1px 4px rgba(59,130,246,0.07)", padding:"14px 18px", display:"flex", alignItems:"center", gap:14, flex:"1 1 140px" }}>
+    <div className={`${bgClass} w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0`}>
+      <i className={`fas ${icon} ${textClass} text-sm`}></i>
+    </div>
+    <div>
+      <p style={{ fontSize:11, fontWeight:500, color:"#94a3b8", margin:"0 0 2px", textTransform:"uppercase", letterSpacing:"0.05em" }}>{label}</p>
+      <p style={{ fontSize:20, fontWeight:700, color:"#1e293b", margin:0, lineHeight:1 }}>{value ?? "—"}</p>
+    </div>
+  </div>
+);
 
 export default function KPIDashboard() {
-  const [selectedKPI, setSelectedKPI] = useState("Vendors Evaluation Rate");
-  const [chartType, setChartType] = useState("Line Chart");
+  const [tableData, setTableData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
+  const [chartType, setChartType] = useState("bar");
 
-  const kpi = KPI_DATA[selectedKPI];
-  const chartData = MONTHS.map((m, i) => ({
-    month: m,
-    Actual: kpi.monthly[i],
-    Target: kpi.target,
-    "Last Year": kpi.lastYear,
-  }));
+  const getToken = () =>
+    document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
 
-  const radarData = MONTHS.map((m, i) => ({
-    month: m,
-    Actual: kpi.monthly[i],
-    Target: kpi.target,
-  }));
+  const getAll = () => {
+    setLoading(true);
+    const token = getToken();
+    fetch(`/api/dashboard/kpi?token=${token}`)
+      .then((res) => { if (!res.ok) throw new Error("Failed To Get Datas From Database"); return res.json(); })
+      .then((data) => { setTableData(data); if (data.length > 0) setSelectedId(data[0].id); setLoading(false); })
+      .catch((err) => { setError(err.message); setLoading(false); });
+  };
 
-  const latestActual = kpi.monthly[kpi.monthly.length - 1];
-  const progress = Math.min(100, Math.round((latestActual / kpi.target) * 100));
+  useEffect(() => { getAll(); }, []);
 
-  const tooltipStyle = {
-    contentStyle: {
-      background: "#ffffff",
-      border: "1px solid #bfdbfe",
-      borderRadius: 8,
-      color: "#1e3a5f",
-      fontSize: 13,
+  const selectedKPI = tableData.find((k) => k.id === selectedId) || null;
+  const monthlyData = selectedKPI ? getMonthlyData(selectedKPI) : [];
+  const nonZeroMonths = monthlyData.filter((d) => d.value > 0);
+  const vsTarget = selectedKPI?.annualTarget > 0
+    ? ((selectedKPI.actualKPI / selectedKPI.annualTarget) * 100).toFixed(1)
+    : null;
+
+  const renderChart = () => {
+    if (!selectedKPI) return null;
+    const common = { data: monthlyData, margin: { top: 10, right: 16, left: -10, bottom: 0 } };
+    const gridColor = "#e0f2fe";
+    const primary = "#3b82f6";
+    const tick = { fill: "#94a3b8", fontSize: 11 };
+
+    switch (chartType) {
+      case "bar":
+        return (
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart {...common}>
+              <CartesianGrid strokeDasharray="3 3" stroke={gridColor} vertical={false} />
+              <XAxis dataKey="month" tick={tick} axisLine={false} tickLine={false} />
+              <YAxis tick={tick} axisLine={false} tickLine={false} />
+              <Tooltip content={<CustomTooltip />} cursor={{ fill: "#eff6ff", radius: 6 }} />
+              <Bar dataKey="value" fill={primary} radius={[6, 6, 0, 0]} maxBarSize={48} />
+            </BarChart>
+          </ResponsiveContainer>
+        );
+      case "line":
+        return (
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart {...common}>
+              <CartesianGrid strokeDasharray="3 3" stroke={gridColor} vertical={false} />
+              <XAxis dataKey="month" tick={tick} axisLine={false} tickLine={false} />
+              <YAxis tick={tick} axisLine={false} tickLine={false} />
+              <Tooltip content={<CustomTooltip />} />
+              <Line type="monotone" dataKey="value" stroke={primary} strokeWidth={2.5}
+                dot={{ fill: primary, r: 4, strokeWidth: 2, stroke: "#fff" }}
+                activeDot={{ r: 6, stroke: "#fff", strokeWidth: 2 }} />
+            </LineChart>
+          </ResponsiveContainer>
+        );
+      case "area":
+        return (
+          <ResponsiveContainer width="100%" height={300}>
+            <AreaChart {...common}>
+              <defs>
+                <linearGradient id="ag" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor={primary} stopOpacity={0.18} />
+                  <stop offset="95%" stopColor={primary} stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke={gridColor} vertical={false} />
+              <XAxis dataKey="month" tick={tick} axisLine={false} tickLine={false} />
+              <YAxis tick={tick} axisLine={false} tickLine={false} />
+              <Tooltip content={<CustomTooltip />} />
+              <Area type="monotone" dataKey="value" stroke={primary} strokeWidth={2.5} fill="url(#ag)" />
+            </AreaChart>
+          </ResponsiveContainer>
+        );
+      case "radar":
+        return (
+          <ResponsiveContainer width="100%" height={320}>
+            <RadarChart data={monthlyData} margin={{ top: 10, right: 30, left: 30, bottom: 10 }}>
+              <PolarGrid stroke={gridColor} />
+              <PolarAngleAxis dataKey="month" tick={{ fill: "#94a3b8", fontSize: 11 }} />
+              <PolarRadiusAxis tick={{ fill: "#cbd5e1", fontSize: 10 }} />
+              <Radar name={selectedKPI.title} dataKey="value"
+                stroke={primary} fill={primary} fillOpacity={0.18} strokeWidth={2} />
+              <Tooltip content={<CustomTooltip />} />
+            </RadarChart>
+          </ResponsiveContainer>
+        );
+      case "pie": {
+        const pieData = nonZeroMonths.length > 0 ? nonZeroMonths : [{ month: "No Data", value: 1 }];
+        return (
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie data={pieData} dataKey="value" nameKey="month"
+                cx="50%" cy="50%" outerRadius={110} innerRadius={55}
+                paddingAngle={3}
+                label={({ month, percent }) => `${month} ${(percent * 100).toFixed(0)}%`}
+                labelLine={false}>
+                {pieData.map((_, i) => <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />)}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        );
+      }
+      default: return null;
     }
   };
 
-  const axes = (
-    <>
-      <CartesianGrid strokeDasharray="3 3" stroke="#dbeafe" />
-      <XAxis dataKey="month" tick={{ fill: "#64748b", fontSize: 12 }} />
-      <YAxis tick={{ fill: "#64748b", fontSize: 12 }} unit={kpi.unit} />
-      <Tooltip {...tooltipStyle} />
-      <Legend wrapperStyle={{ color: "#475569", fontSize: 13 }} />
-    </>
-  );
-
-  const renderChart = () => {
-    const common = { data: chartData, margin: { top: 10, right: 0, left: 0, bottom: 0 } };
-
-    if (chartType === "Line Chart") return (
-      <LineChart {...common}>
-        {axes}
-        <Line type="monotone" dataKey="Actual" stroke={COLORS.actual} strokeWidth={2.5} dot={{ r: 4 }} activeDot={{ r: 6 }} />
-        <Line type="monotone" dataKey="Target" stroke={COLORS.target} strokeWidth={2} strokeDasharray="5 5" dot={false} />
-        <Line type="monotone" dataKey="Last Year" stroke={COLORS.lastYear} strokeWidth={1.5} strokeDasharray="3 3" dot={false} />
-      </LineChart>
-    );
-    if (chartType === "Bar Chart") return (
-      <BarChart {...common}>
-        {axes}
-        <Bar dataKey="Actual" fill={COLORS.actual} radius={[4,4,0,0]} />
-        <Bar dataKey="Target" fill={COLORS.target} radius={[4,4,0,0]} />
-        <Bar dataKey="Last Year" fill={COLORS.lastYear} radius={[4,4,0,0]} />
-      </BarChart>
-    );
-    if (chartType === "Area Chart") return (
-      <AreaChart {...common}>
-        <defs>
-          <linearGradient id="gA" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor={COLORS.actual} stopOpacity={0.3} />
-            <stop offset="95%" stopColor={COLORS.actual} stopOpacity={0} />
-          </linearGradient>
-          <linearGradient id="gT" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor={COLORS.target} stopOpacity={0.2} />
-            <stop offset="95%" stopColor={COLORS.target} stopOpacity={0} />
-          </linearGradient>
-        </defs>
-        {axes}
-        <Area type="monotone" dataKey="Last Year" stroke={COLORS.lastYear} fill="none" strokeDasharray="3 3" strokeWidth={1.5} />
-        <Area type="monotone" dataKey="Target" stroke={COLORS.target} fill="url(#gT)" strokeWidth={2} strokeDasharray="5 5" />
-        <Area type="monotone" dataKey="Actual" stroke={COLORS.actual} fill="url(#gA)" strokeWidth={2.5} />
-      </AreaChart>
-    );
-    if (chartType === "Radar Chart") return (
-      <RadarChart data={radarData} margin={{ top: 10, right: 0, left: 0, bottom: 10 }}>
-        <PolarGrid stroke="#dbeafe" />
-        <PolarAngleAxis dataKey="month" tick={{ fill: "#64748b", fontSize: 11 }} />
-        <PolarRadiusAxis tick={{ fill: "#94a3b8", fontSize: 10 }} unit={kpi.unit} />
-        <Radar name="Actual" dataKey="Actual" stroke={COLORS.actual} fill={COLORS.actual} fillOpacity={0.3} />
-        <Radar name="Target" dataKey="Target" stroke={COLORS.target} fill={COLORS.target} fillOpacity={0.1} />
-        <Legend wrapperStyle={{ color: "#475569", fontSize: 13 }} />
-        <Tooltip {...tooltipStyle} />
-      </RadarChart>
-    );
-    if (chartType === "Composed Chart") return (
-      <ComposedChart {...common}>
-        {axes}
-        <Bar dataKey="Last Year" fill={COLORS.lastYear} opacity={0.4} radius={[3,3,0,0]} />
-        <Bar dataKey="Actual" fill={COLORS.actual} radius={[3,3,0,0]} />
-        <Line type="monotone" dataKey="Target" stroke={COLORS.target} strokeWidth={2.5} strokeDasharray="6 3" dot={false} />
-      </ComposedChart>
-    );
-  };
-
   return (
-    <div style={{
-      marginLeft: SIDEBAR_WIDTH,
-      marginTop: NAVBAR_HEIGHT,
-      minHeight: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
-      width: `calc(100vw - ${SIDEBAR_WIDTH}px)`,
-      background: "linear-gradient(135deg, #eff6ff 0%, #ffffff 100%)",
-      padding: "32px 28px",
-      color: "#1e3a5f",
-      fontFamily: "'Georgia', serif",
-      boxSizing: "border-box",
-      overflowX: "hidden",
-    }}>
+    <div className="pt-20 h-screen overflow-hidden">
+      <div className="flex h-full">
+        <div className="flex-1 ml-64 p-8 bg-gradient-to-br from-blue-50/50 to-white h-full overflow-y-auto">
 
-      {/* Header */}
-      <div style={{ marginBottom: 28 }}>
-        <p style={{ color: "#3b82f6", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 4px" }}>
-          Performance Intelligence
-        </p>
-        <h1 style={{ fontSize: 24, fontWeight: 700, color: "#1e3a5f", margin: 0 }}>KPI Dashboard</h1>
-      </div>
-
-      {/* Controls */}
-      <div style={{ display: "flex", gap: 16, marginBottom: 28, flexWrap: "wrap" }}>
-        <div style={{ flex: "2 1 280px" }}>
-          <label style={{ display: "block", fontSize: 11, color: "#3b82f6", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>
-            Select KPI
-          </label>
-          <select value={selectedKPI} onChange={e => setSelectedKPI(e.target.value)} style={{
-            width: "100%", background: "#f8fafc", border: "1px solid #bfdbfe",
-            color: "#1e3a5f", padding: "11px 16px", borderRadius: 10, fontSize: 14,
-            outline: "none", cursor: "pointer",
-          }}>
-            {Object.keys(KPI_DATA).map(k => <option key={k} value={k}>{k}</option>)}
-          </select>
-        </div>
-        <div style={{ flex: "1 1 180px" }}>
-          <label style={{ display: "block", fontSize: 11, color: "#3b82f6", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>
-            Type Of Chart
-          </label>
-          <select value={chartType} onChange={e => setChartType(e.target.value)} style={{
-            width: "100%", background: "#f8fafc", border: "1px solid #bfdbfe",
-            color: "#1e3a5f", padding: "11px 16px", borderRadius: 10, fontSize: 14,
-            outline: "none", cursor: "pointer",
-          }}>
-            {CHART_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
-          </select>
-        </div>
-      </div>
-
-      {/* Stats Cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 14, marginBottom: 28 }}>
-        {[
-          { label: "Last Year",     value: `${kpi.lastYear}${kpi.unit}`,  color: "#10b981" },
-          { label: "Annual Target", value: `${kpi.target}${kpi.unit}`,    color: "#f59e0b" },
-          { label: "Latest Actual", value: `${latestActual}${kpi.unit}`,  color: "#3b82f6" },
-          { label: "Progress",      value: `${progress}%`,                color: progress >= 90 ? "#10b981" : progress >= 70 ? "#f59e0b" : "#ef4444" },
-        ].map(s => (
-          <div key={s.label} style={{ background: "#ffffff", border: "1px solid #dbeafe", borderRadius: 12, padding: "18px 20px" }}>
-            <p style={{ fontSize: 11, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 6px" }}>{s.label}</p>
-            <p style={{ fontSize: 24, fontWeight: 700, color: s.color, margin: 0 }}>{s.value}</p>
+          {/* Page Header */}
+          <div className="mb-6">
+            <h3 className="text-2xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+              KPI Dashboard
+            </h3>
+            <p className="text-sm text-gray-400 mt-1">Monitor key performance indicators across all functions</p>
           </div>
-        ))}
-      </div>
 
-      {/* Progress Bar */}
-      <div style={{ background: "#ffffff", border: "1px solid #dbeafe", borderRadius: 12, padding: "14px 20px", marginBottom: 28 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-          <span style={{ fontSize: 13, color: "#6b7280" }}>Target Progress</span>
-          <span style={{ fontSize: 13, color: "#1e3a5f", fontWeight: 600 }}>{progress}%</span>
-        </div>
-        <div style={{ height: 6, background: "#dbeafe", borderRadius: 99 }}>
-          <div style={{
-            height: "100%",
-            width: `${progress}%`,
-            background: progress >= 90 ? "#10b981" : progress >= 70 ? "#f59e0b" : "#ef4444",
-            borderRadius: 99,
-            transition: "width 0.6s ease",
-          }} />
-        </div>
-      </div>
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
 
-      {/* Chart */}
-      <div style={{ background: "#ffffff", border: "1px solid #dbeafe", borderRadius: 16, padding: "24px 0 16px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20, paddingInline: 16 }}>
-          <div>
-            <h2 style={{ margin: 0, fontSize: 15, fontWeight: 600, color: "#1e3a5f" }}>{selectedKPI}</h2>
-            <p style={{ margin: "4px 0 0", fontSize: 12, color: "#6b7280" }}>Monthly Performance — {chartType}</p>
+            {/* Toolbar */}
+            <div className="p-6 border-b border-blue-100 flex flex-wrap items-center gap-3">
+
+              {/* KPI Dropdown */}
+              <div className="relative flex-1 min-w-[260px] max-w-sm">
+                <i className="fas fa-chart-bar absolute left-3.5 top-1/2 -translate-y-1/2 text-blue-400 text-xs pointer-events-none z-10"></i>
+                <select
+                  value={selectedId || ""}
+                  onChange={(e) => setSelectedId(e.target.value)}
+                  disabled={loading}
+                  className="w-full pl-9 pr-9 py-2.5 bg-blue-50/60 border border-blue-100 rounded-xl text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all cursor-pointer appearance-none"
+                >
+                  {tableData.map((kpi) => (
+                    <option key={kpi.id} value={kpi.id}>{kpi.no} — {kpi.title}</option>
+                  ))}
+                </select>
+                <i className="fas fa-chevron-down absolute right-3.5 top-1/2 -translate-y-1/2 text-blue-300 text-xs pointer-events-none"></i>
+              </div>
+
+              {/* Divider */}
+              <div className="w-px h-8 bg-blue-100 hidden sm:block"></div>
+
+              {/* Chart Type Buttons */}
+              <div className="flex items-center gap-2 flex-wrap">
+                {CHART_TYPES.map((ct) => (
+                  <button
+                    key={ct.value}
+                    onClick={() => setChartType(ct.value)}
+                    className={[
+                      "group relative overflow-hidden px-4 py-2.5 rounded-xl font-medium text-sm tracking-wide flex items-center gap-2 transition-all duration-300 ease-out active:scale-[0.97]",
+                      chartType === ct.value
+                        ? "bg-gradient-to-r from-indigo-600 to-blue-600 text-white shadow-lg shadow-indigo-500/30 hover:from-indigo-700 hover:to-blue-700"
+                        : "bg-white border border-slate-200 text-slate-600 hover:border-blue-200 hover:text-blue-600 hover:bg-blue-50/60 shadow-sm hover:shadow-md",
+                    ].join(" ")}
+                  >
+                    <i className={`fas ${ct.icon} text-xs`}></i>
+                    {ct.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Refresh */}
+              <button
+                onClick={getAll}
+                disabled={loading}
+                title="Refresh Data"
+                className="group ml-auto p-2.5 rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 shadow-sm hover:shadow-md transition-all duration-300 ease-out disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <i className={`fas fa-rotate-right text-sm transition-transform duration-500 group-hover:rotate-180 ${loading ? "animate-spin" : ""}`}></i>
+              </button>
+            </div>
+
+            {/* States */}
+            {loading && (
+              <div className="flex flex-col items-center justify-center gap-3 py-24">
+                <i className="fas fa-circle-notch animate-spin text-2xl text-blue-400"></i>
+                <span className="text-sm font-medium text-gray-400">Loading KPI data...</span>
+              </div>
+            )}
+
+            {error && (
+              <div className="mx-6 mt-4 flex items-center gap-3 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+                <i className="fas fa-triangle-exclamation text-red-400"></i>
+                <span className="text-sm text-red-600 font-medium">{error}</span>
+              </div>
+            )}
+
+            {/* Main Content */}
+            {selectedKPI && !loading && (
+              <div className="p-6 space-y-5">
+
+                {/* Stat Cards */}
+                <div className="flex flex-wrap gap-3">
+                  <StatCard label="KPI No"        value={selectedKPI.no}           bgClass="bg-blue-100"    textClass="text-blue-600"    icon="fa-hashtag" />
+                  <StatCard label="Last Year KPI" value={selectedKPI.lykpi}        bgClass="bg-indigo-100"  textClass="text-indigo-600"  icon="fa-clock-rotate-left" />
+                  <StatCard label="Actual KPI"    value={selectedKPI.actualKPI}    bgClass="bg-sky-100"     textClass="text-sky-600"     icon="fa-bullseye" />
+                  <StatCard label="Annual Target" value={selectedKPI.annualTarget} bgClass="bg-emerald-100" textClass="text-emerald-600" icon="fa-flag-checkered" />
+                  <StatCard
+                    label="vs Target"
+                    value={vsTarget !== null ? `${vsTarget}%` : "N/A"}
+                    bgClass={
+                      vsTarget === null              ? "bg-slate-100"
+                      : parseFloat(vsTarget) >= 100 ? "bg-emerald-100"
+                      : parseFloat(vsTarget) >= 60  ? "bg-amber-100"
+                      :                               "bg-red-100"
+                    }
+                    textClass={
+                      vsTarget === null              ? "text-slate-500"
+                      : parseFloat(vsTarget) >= 100 ? "text-emerald-600"
+                      : parseFloat(vsTarget) >= 60  ? "text-amber-600"
+                      :                               "text-red-500"
+                    }
+                    icon="fa-percent"
+                  />
+                </div>
+
+                {/* Chart */}
+                <div className="bg-white rounded-2xl border border-blue-50 shadow-sm overflow-hidden">
+                  <div className="px-6 py-4 border-b border-blue-50 flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-sm font-semibold text-gray-800">{selectedKPI.title}</p>
+                      <p className="text-xs text-gray-400 mt-0.5">Monthly distribution — {new Date().getFullYear()}</p>
+                    </div>
+                    <span className="text-xs font-semibold text-blue-500 bg-blue-50 px-3 py-1.5 rounded-full whitespace-nowrap flex-shrink-0">
+                      <i className={`fas ${CHART_TYPES.find(c => c.value === chartType)?.icon} mr-1.5`}></i>
+                      {CHART_TYPES.find(c => c.value === chartType)?.label} Chart
+                    </span>
+                  </div>
+                  <div className="p-6">
+                    {renderChart()}
+                  </div>
+                </div>
+
+                {/* Monthly Breakdown Table */}
+                <div className="bg-white rounded-2xl border border-blue-50 shadow-sm overflow-hidden">
+                  <div className="px-6 py-4 border-b border-blue-50">
+                    <p className="text-sm font-semibold text-gray-800">Monthly Breakdown</p>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="bg-gradient-to-r from-blue-50/60 to-indigo-50/40">
+                          {MONTH_LABELS.map((m) => (
+                            <th key={m} className="px-3 py-3 text-center text-xs font-semibold text-blue-400 uppercase tracking-wider border-b border-blue-100">
+                              {m}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          {MONTHS.map((m) => {
+                            const val = selectedKPI[m];
+                            return (
+                              <td key={m} className={`px-3 py-3 text-center text-sm font-semibold ${val > 0 ? "text-blue-600 bg-blue-50/50" : "text-gray-300"}`}>
+                                {val}
+                              </td>
+                            );
+                          })}
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              </div>
+            )}
+
+            {/* Empty State */}
+            {!loading && !error && tableData.length === 0 && (
+              <div className="flex flex-col items-center justify-center py-24 text-center">
+                <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center mb-4">
+                  <i className="fas fa-chart-bar text-2xl text-blue-300"></i>
+                </div>
+                <p className="text-base font-semibold text-gray-500 mb-1">No KPI data available</p>
+                <p className="text-sm text-gray-400">Data will appear here once loaded from the API.</p>
+              </div>
+            )}
+
           </div>
-          <span style={{ background: "#dbeafe", color: "#3b82f6", fontSize: 12, padding: "4px 12px", borderRadius: 99 }}>2024</span>
         </div>
-        <ResponsiveContainer width="100%" height={340}>
-          {renderChart()}
-        </ResponsiveContainer>
       </div>
-
     </div>
   );
 }
