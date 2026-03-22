@@ -159,14 +159,13 @@ export default function KPIDashboard() {
     <div style={{
       marginLeft:  SIDEBAR_WIDTH,
       marginTop:   NAVBAR_HEIGHT,
-      minHeight:   `calc(100vh - ${NAVBAR_HEIGHT}px)`,
+      height:      `calc(100vh - ${NAVBAR_HEIGHT}px)`,
       width:       `calc(100vw - ${SIDEBAR_WIDTH}px)`,
       background:  "linear-gradient(135deg, #eff6ff 0%, #ffffff 100%)",
-      padding:     "32px 28px",
+      padding:     "32px 28px 80px 28px",
       boxSizing:   "border-box",
-      overflowX:   "hidden",
       overflowY:   "auto",
-      paddingBottom: 60,
+      overflowX:   "hidden",
       fontFamily:  "'Inter', 'Segoe UI', sans-serif",
       color:       "#1e3a5f",
     }}>
