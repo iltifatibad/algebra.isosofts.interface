@@ -165,6 +165,8 @@ export default function KPIDashboard() {
       padding:     "32px 28px",
       boxSizing:   "border-box",
       overflowX:   "hidden",
+      overflowY:   "auto",
+      paddingBottom: 60,
       fontFamily:  "'Inter', 'Segoe UI', sans-serif",
       color:       "#1e3a5f",
     }}>
