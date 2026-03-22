@@ -397,8 +397,8 @@ async function getDefaultDropdownList() {
     if (activeHeader) {
       setFormData({
         function: row.function.id || String(row.function),
-        lykpi: lykpi,
-        annualTarget: annualTarget
+        lykpi: row.lykpi,
+        annualTarget: row.annualTarget
       });
     } else {
       setActionData({
@@ -1096,7 +1096,16 @@ const saveRisk = () => {
                 />
               </div>
 
-
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Last Year KPI</label>
+                <input
+                  value={formData.lykpi}
+                  onChange={(e) => handleFormChange("lykpi", e.target.value)}
+                  type="text"
+                  placeholder="Enter Last Year KPI..."
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                />
+              </div>
 
               <div className="group">
                 <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Annual Target</label>
