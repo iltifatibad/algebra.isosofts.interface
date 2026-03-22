@@ -166,7 +166,7 @@ export default function KPIDashboard() {
   return (
     <div className="pt-20 h-screen overflow-hidden">
       <div className="flex h-full">
-        <div className="flex-1 ml-64 p-8 bg-gradient-to-br from-blue-50/50 to-white h-full overflow-y-auto">
+        <div className="flex-1 ml-64 px-8 py-8 bg-gradient-to-br from-blue-50/50 to-white h-full overflow-y-auto w-0">
 
           {/* Page Header */}
           <div className="mb-6">
@@ -176,10 +176,10 @@ export default function KPIDashboard() {
             <p className="text-sm text-gray-400 mt-1">Monitor key performance indicators across all functions</p>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div className="bg-white rounded-2xl shadow-lg overflow-visible pb-6">
 
             {/* Toolbar */}
-            <div className="p-6 border-b border-blue-100 flex flex-wrap items-center gap-3">
+            <div className="p-6 border-b border-blue-100 flex flex-wrap items-center gap-3 rounded-t-2xl">
 
               {/* KPI Dropdown */}
               <div className="relative flex-1 min-w-[260px] max-w-sm">
@@ -247,7 +247,7 @@ export default function KPIDashboard() {
 
             {/* Main Content */}
             {selectedKPI && !loading && (
-              <div className="p-6 space-y-5">
+              <div className="p-6 space-y-5 pb-10">
 
                 {/* Stat Cards */}
                 <div className="flex flex-wrap gap-3">
