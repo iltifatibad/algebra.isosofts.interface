@@ -323,7 +323,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Appraisal Type */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.appraisalType} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.appraisalType?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* TCA */}
@@ -426,7 +426,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Appraisal Type */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.appraisalType} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.appraisalType?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* TCA */}
@@ -805,7 +805,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Appraisal Type */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.appraisalType} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.appraisalType?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* TCA */}
