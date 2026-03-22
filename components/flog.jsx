@@ -1431,7 +1431,7 @@ const archiveData = (id) => {
               {/* Sağ sütun */}
               
               <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Name Of Customer</label>
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Name Of Vendor</label>
                 <select
                   value={formData.vendorId}
                   onChange={(e) => handleFormChange("vendorId", e.target.value)}
