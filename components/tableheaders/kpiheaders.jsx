@@ -1,6 +1,6 @@
 import React from "react";
 
-const HsHeaders = ({ activeHeader }) => {
+const KpiHeaders = ({ activeHeader }) => {
   if (activeHeader) {
     return (
       <thead>
@@ -216,4 +216,4 @@ const HsHeaders = ({ activeHeader }) => {
   }
 };
 
-export default HsHeaders;
+export default KpiHeaders;

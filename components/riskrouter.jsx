@@ -17,10 +17,12 @@ import MRMProfile from "./mrmprofile.jsx";
 import CusProfile from "./customerprofile.jsx";
 import AcProfile from "./actionprofile.jsx";
 import KPIDashboard from "./kpi.jsx";
+import KpiProfile from "./kpiprofile.jsx";
 
 const RiskRouter = () => {
   // Sample data - gerçek projede API'den veya props'tan gelebilir
   const [risks, setRisks] = useState([
+    { id: "dashboard", name: "Dashboard" },
     { id: "kpi", name: "Key Performance Indicators" },
     { id: "bg-reg", name: "Business Risks" },
     { id: "hs-reg", name: "Health & Safety Risks" },
@@ -135,6 +137,8 @@ const RiskRouter = () => {
         ) : selectedRisk === "ac-reg" ? (
           <AcProfile />
         ) : selectedRisk === "kpi" ? (
+          <KpiProfile/>
+        ) : selectedRisk === "dashboard" ? (
           <KPIDashboard/>
         ) : null}
       </div>
