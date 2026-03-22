@@ -166,7 +166,7 @@ export default function KPIDashboard() {
   return (
     <div className="pt-20 h-screen overflow-hidden">
       <div className="flex h-full">
-        <div className="flex-1 ml-64 px-8 py-8 bg-gradient-to-br from-blue-50/50 to-white h-full overflow-y-auto w-0">
+        <div style={{ marginLeft: 256, flex: 1, minWidth: 0, padding: "32px", background: "linear-gradient(135deg, rgba(239,246,255,0.5) 0%, #fff 100%)", height: "100%", overflowY: "auto" }}>
 
           {/* Page Header */}
           <div className="mb-6">
@@ -176,7 +176,7 @@ export default function KPIDashboard() {
             <p className="text-sm text-gray-400 mt-1">Monitor key performance indicators across all functions</p>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg overflow-visible pb-6">
+          <div className="bg-white rounded-2xl shadow-lg" style={{ overflow: "visible" }}>
 
             {/* Toolbar */}
             <div className="p-6 border-b border-blue-100 flex flex-wrap items-center gap-3 rounded-t-2xl">
