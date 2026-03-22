@@ -411,7 +411,8 @@ async function getDefaultDropdownList() {
         lineManager: row.lineManager,
         esd: row.esd,
         appraisalDate: row.appraisalDate,
-        appraisalType: row.appraisalType,
+        // appraisalType: row.appraisalType,
+        swot: row.appraisalType.id || String(row.appraisalType),
         tca: row.tca,
         skillsAppraisal: row.skillsAppraisal,
       });
@@ -1278,6 +1279,26 @@ const archiveData = (id) => {
                 />
               </div>
 
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Apprisial Type</label>
+                <select
+                  value={formData.appraisalType || ""}
+                  onChange={(e) => {
+                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                    handleFormChange("appraisalType", e.target.value);
+                  }}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                >
+                  <option value="">Select</option>
+                  {dropdownData?.appraisalType?.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.value}
+                    </option>
+                  ))}
+                </select>
+              </div>
+{/* 
               <div className="group">
                 <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Appraisal Type</label>
                 <select
@@ -1289,7 +1310,7 @@ const archiveData = (id) => {
                   <option value="Probation">Probation</option>
                   <option value="Annual">Annual</option>
                 </select>
-              </div>
+              </div> */}
             </div>
 
             {/* Sağ sütun */}
