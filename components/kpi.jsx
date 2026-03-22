@@ -87,7 +87,7 @@ export default function KPIDashboard() {
     switch (chartType) {
       case "bar":
         return (
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={300} minWidth={0} debounce={50}>
             <BarChart {...common}>
               <CartesianGrid strokeDasharray="3 3" stroke={gridColor} vertical={false} />
               <XAxis dataKey="month" tick={tick} axisLine={false} tickLine={false} />
@@ -99,7 +99,7 @@ export default function KPIDashboard() {
         );
       case "line":
         return (
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={300} minWidth={0} debounce={50}>
             <LineChart {...common}>
               <CartesianGrid strokeDasharray="3 3" stroke={gridColor} vertical={false} />
               <XAxis dataKey="month" tick={tick} axisLine={false} tickLine={false} />
@@ -113,7 +113,7 @@ export default function KPIDashboard() {
         );
       case "area":
         return (
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={300} minWidth={0} debounce={50}>
             <AreaChart {...common}>
               <defs>
                 <linearGradient id="ag" x1="0" y1="0" x2="0" y2="1">
@@ -131,7 +131,7 @@ export default function KPIDashboard() {
         );
       case "radar":
         return (
-          <ResponsiveContainer width="100%" height={320}>
+          <ResponsiveContainer width="100%" height={320} minWidth={0} debounce={50}>
             <RadarChart data={monthlyData} margin={{ top: 10, right: 30, left: 30, bottom: 10 }}>
               <PolarGrid stroke={gridColor} />
               <PolarAngleAxis dataKey="month" tick={{ fill: "#94a3b8", fontSize: 11 }} />
@@ -145,7 +145,7 @@ export default function KPIDashboard() {
       case "pie": {
         const pieData = nonZeroMonths.length > 0 ? nonZeroMonths : [{ month: "No Data", value: 1 }];
         return (
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={300} minWidth={0} debounce={50}>
             <PieChart>
               <Pie data={pieData} dataKey="value" nameKey="month"
                 cx="50%" cy="50%" outerRadius={110} innerRadius={55}
@@ -275,7 +275,7 @@ export default function KPIDashboard() {
                 </div>
 
                 {/* Chart */}
-                <div className="bg-white rounded-2xl border border-blue-50 shadow-sm overflow-hidden">
+                <div className="bg-white rounded-2xl border border-blue-50 shadow-sm" style={{ overflow: "hidden", minWidth: 0 }}>
                   <div className="px-6 py-4 border-b border-blue-50 flex items-start justify-between gap-4">
                     <div>
                       <p className="text-sm font-semibold text-gray-800">{selectedKPI.title}</p>
@@ -286,8 +286,10 @@ export default function KPIDashboard() {
                       {CHART_TYPES.find(c => c.value === chartType)?.label} Chart
                     </span>
                   </div>
-                  <div className="p-6">
-                    {renderChart()}
+                  <div style={{ padding: "24px", width: "100%", boxSizing: "border-box" }}>
+                    <div style={{ width: "100%", display: "block" }}>
+                      {renderChart()}
+                    </div>
                   </div>
                 </div>
 
