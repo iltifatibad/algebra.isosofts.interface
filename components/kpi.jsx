@@ -8,6 +8,9 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip,
 } from "recharts";
 
+import { ResponsiveContainer } from "recharts";
+
+
 const MONTHS = ["january","february","march","april","may","june","july","august","september","october","november","december"];
 const MONTH_LABELS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
@@ -93,71 +96,98 @@ export default function KPIDashboard() {
   const mg = { top:10, right:8, left:-20, bottom:0 };
   const W = chartW, H = 300;
 
-  const Chart = () => {
-    if (!kpi) return null;
-    switch (chartType) {
-      case "bar": return (
-        <BarChart width={W} height={H} data={monthlyData} margin={mg}>
-          <CartesianGrid strokeDasharray="3 3" stroke={gc} vertical={false} />
-          <XAxis dataKey="month" tick={tick} axisLine={false} tickLine={false} />
-          <YAxis tick={tick} axisLine={false} tickLine={false} />
-          <Tooltip content={<CustomTooltip />} cursor={{ fill:"#eff6ff" }} />
-          <Bar dataKey="value" fill={pc} radius={[6,6,0,0]} maxBarSize={48} />
-        </BarChart>
-      );
-      case "line": return (
-        <LineChart width={W} height={H} data={monthlyData} margin={mg}>
-          <CartesianGrid strokeDasharray="3 3" stroke={gc} vertical={false} />
-          <XAxis dataKey="month" tick={tick} axisLine={false} tickLine={false} />
-          <YAxis tick={tick} axisLine={false} tickLine={false} />
-          <Tooltip content={<CustomTooltip />} />
-          <Line type="monotone" dataKey="value" stroke={pc} strokeWidth={2.5}
-            dot={{ fill:pc, r:4, strokeWidth:2, stroke:"#fff" }}
-            activeDot={{ r:6, stroke:"#fff", strokeWidth:2 }} />
-        </LineChart>
-      );
-      case "area": return (
-        <AreaChart width={W} height={H} data={monthlyData} margin={mg}>
-          <defs>
-            <linearGradient id="ag" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%"  stopColor={pc} stopOpacity={0.18} />
-              <stop offset="95%" stopColor={pc} stopOpacity={0} />
-            </linearGradient>
-          </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke={gc} vertical={false} />
-          <XAxis dataKey="month" tick={tick} axisLine={false} tickLine={false} />
-          <YAxis tick={tick} axisLine={false} tickLine={false} />
-          <Tooltip content={<CustomTooltip />} />
-          <Area type="monotone" dataKey="value" stroke={pc} strokeWidth={2.5} fill="url(#ag)" />
-        </AreaChart>
-      );
-      case "radar": return (
-        <RadarChart width={W} height={H+20} data={monthlyData} margin={{ top:10, right:30, left:30, bottom:10 }}>
-          <PolarGrid stroke={gc} />
-          <PolarAngleAxis dataKey="month" tick={{ fill:"#94a3b8", fontSize:11 }} />
-          <PolarRadiusAxis tick={{ fill:"#cbd5e1", fontSize:10 }} />
-          <Radar dataKey="value" stroke={pc} fill={pc} fillOpacity={0.18} strokeWidth={2} />
-          <Tooltip content={<CustomTooltip />} />
-        </RadarChart>
-      );
-      case "pie": {
-        const pd = nonZero.length > 0 ? nonZero : [{ month:"No Data", value:1 }];
-        return (
-          <PieChart width={W} height={H}>
-            <Pie data={pd} dataKey="value" nameKey="month"
-              cx="50%" cy="50%" outerRadius={110} innerRadius={55} paddingAngle={3}
-              label={({ month, percent }) => `${month} ${(percent*100).toFixed(0)}%`}
-              labelLine={false}>
-              {pd.map((_, i) => <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />)}
-            </Pie>
-            <Tooltip />
-          </PieChart>
-        );
-      }
-      default: return null;
-    }
-  };
+const Chart = () => {
+  if (!kpi) return null;
 
+  return (
+    <ResponsiveContainer width="100%" height={H}>
+      {(() => {
+        switch (chartType) {
+
+          case "bar": return (
+            <BarChart data={monthlyData} margin={mg}>
+              <CartesianGrid strokeDasharray="3 3" stroke={gc} vertical={false} />
+              <XAxis dataKey="month" tick={tick} axisLine={false} tickLine={false} />
+              <YAxis tick={tick} axisLine={false} tickLine={false} />
+              <Tooltip content={<CustomTooltip />} cursor={{ fill:"#eff6ff" }} />
+              <Bar dataKey="value" fill={pc} radius={[6,6,0,0]} maxBarSize={48} />
+            </BarChart>
+          );
+
+          case "line": return (
+            <LineChart data={monthlyData} margin={mg}>
+              <CartesianGrid strokeDasharray="3 3" stroke={gc} vertical={false} />
+              <XAxis dataKey="month" tick={tick} axisLine={false} tickLine={false} />
+              <YAxis tick={tick} axisLine={false} tickLine={false} />
+              <Tooltip content={<CustomTooltip />} />
+              <Line
+                type="monotone"
+                dataKey="value"
+                stroke={pc}
+                strokeWidth={2.5}
+                dot={{ fill:pc, r:4, strokeWidth:2, stroke:"#fff" }}
+                activeDot={{ r:6, stroke:"#fff", strokeWidth:2 }}
+              />
+            </LineChart>
+          );
+
+          case "area": return (
+            <AreaChart data={monthlyData} margin={mg}>
+              <defs>
+                <linearGradient id="ag" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%"  stopColor={pc} stopOpacity={0.18} />
+                  <stop offset="95%" stopColor={pc} stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke={gc} vertical={false} />
+              <XAxis dataKey="month" tick={tick} axisLine={false} tickLine={false} />
+              <YAxis tick={tick} axisLine={false} tickLine={false} />
+              <Tooltip content={<CustomTooltip />} />
+              <Area type="monotone" dataKey="value" stroke={pc} strokeWidth={2.5} fill="url(#ag)" />
+            </AreaChart>
+          );
+
+          case "radar": return (
+            <RadarChart data={monthlyData} margin={{ top:10, right:30, left:30, bottom:10 }}>
+              <PolarGrid stroke={gc} />
+              <PolarAngleAxis dataKey="month" tick={{ fill:"#94a3b8", fontSize:11 }} />
+              <PolarRadiusAxis tick={{ fill:"#cbd5e1", fontSize:10 }} />
+              <Radar dataKey="value" stroke={pc} fill={pc} fillOpacity={0.18} strokeWidth={2} />
+              <Tooltip content={<CustomTooltip />} />
+            </RadarChart>
+          );
+
+          case "pie": {
+            const pd = nonZero.length > 0 ? nonZero : [{ month:"No Data", value:1 }];
+            return (
+              <PieChart>
+                <Pie
+                  data={pd}
+                  dataKey="value"
+                  nameKey="month"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={110}
+                  innerRadius={55}
+                  paddingAngle={3}
+                  label={({ month, percent }) => `${month} ${(percent*100).toFixed(0)}%`}
+                  labelLine={false}
+                >
+                  {pd.map((_, i) => (
+                    <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            );
+          }
+
+          default: return null;
+        }
+      })()}
+    </ResponsiveContainer>
+  );
+};
   return (
     <div className="pt-20 h-screen overflow-hidden">
 
