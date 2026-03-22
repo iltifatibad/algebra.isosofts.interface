@@ -149,18 +149,81 @@ const getDeletedActionData = async () => {
   const [error, setError] = useState(null);
 
   const [tableData, setTableData] = useState([]);
+// const getAll = async () => {
+//   setLoading(true);
+//   const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+//   fetch(`/api/register/fin/all?token=${token}`)
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error("Failed To Get Datas From Database");
+//       }
+//       return response.json();
+//     })
+//     .then((fetchedData) => {
+//       setTableData(fetchedData);
+//       setLoading(false);
+//     })
+//     .catch((err) => {
+//       setError(err.message);
+//       setLoading(false);
+//     });
+// };
+
+  
 const getAll = async () => {
   setLoading(true);
   const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-  fetch(`/api/register/fin/all?token=${token}`)
+  fetch(`/api/register/fb/all?token=${token}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Failed To Get Datas From Database");
       }
       return response.json();
     })
-    .then((fetchedData) => {
-      setTableData(fetchedData);
+    .then(async (fetchedData) => {
+      console.log("FETCHEDDDDD", fetchedData);
+      const updatedData = await Promise.all(
+        fetchedData.map(async (item) => {
+          if (item.customerId) {
+            try {
+              const res = await fetch(`/api/register/cus/one/${item.customerId}?token=${token}`);
+              if (!res.ok) throw new Error("Customer fetch failed");
+              const customer = await res.json();
+              return {
+                ...item,
+                customerName: customer.Name || customer.name || item.customerId,
+              };
+            } catch (err) {
+              console.error(err);
+              return { ...item, customerName: item.customerId };
+            }
+          }
+          return { ...item, customerName: "" };
+        }),
+      );
+      return updatedData;
+    })
+    .then(async (updatedData) => {
+      const finalData = await Promise.all(
+        updatedData.map(async (item) => {
+          if (item.vendorId) {
+            try {
+              const res = await fetch(`/api/register/ven/one/${item.vendorId}?token=${token}`);
+              if (!res.ok) throw new Error("Vendor fetch failed");
+              const vendor = await res.json();
+              return {
+                ...item,
+                vendorName: vendor.Name || vendor.name || item.vendorId,
+              };
+            } catch (err) {
+              console.error(err);
+              return { ...item, vendorName: item.vendorId };
+            }
+          }
+          return { ...item, vendorName: "" };
+        }),
+      );
+      setTableData(finalData);
       setLoading(false);
     })
     .catch((err) => {

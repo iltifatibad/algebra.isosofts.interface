@@ -206,6 +206,46 @@ const FProfile = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalMode, setModalMode] = useState("add");
   const [editingRow, setEditingRow] = useState(null);
+  const [customers, setCustomers] = useState({});
+  const [vendors, setVendors] = useState({});
+
+  async function getDefaultCustomers() {
+    const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+    
+    const url = `/api/register/cus/all?status=active&token=${token}`;
+    
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const result = await response.json();
+        setCustomers(result);
+        console.log(result);
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+async function getDefaultVendors() {
+    const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+    
+    const url = `/api/register/ven/all?status=active&token=${token}`;
+    
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const result = await response.json();
+        setVendors(result);
+        console.log(result);
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+
   //////////////////////////////////////
   const [formData, setFormData] = useState({
     id: 0,
@@ -215,8 +255,8 @@ const FProfile = () => {
     categoryOfFinding: "",
     typeOfFinding: "",
     sourceOfFinding: "",
-    customer: "",
-    vendor: "",
+    customerId: "",
+    vendorId: "",
     description: "",
     containmentAction: "",
     rootCauses: "",
@@ -365,6 +405,8 @@ async function getDefaultDropdownList() {
     setModalMode("add");
     setEditingRow(null);
     const dropdownData = await getDefaultDropdownList();
+    const customerData = await getDefaultCustomers();
+    const vendorData = await getDefaultVendors();
     if (activeHeader) {
       setFormData({
         id: 0,
@@ -374,8 +416,8 @@ async function getDefaultDropdownList() {
         categoryOfFinding: "",
         typeOfFinding: "",
         sourceOfFinding: "",
-        customer: "",
-        vendor: "",
+        customerId: "",
+        vendorId: "",
         description: "",
         containmentAction: "",
         rootCauses: "",
@@ -422,8 +464,8 @@ async function getDefaultDropdownList() {
           row.categoryOfFinding.id || String(row.categoryOfFinding),
         typeOfFinding: row.typeOfFinding.id || String(row.typeOfFinding),
         sourceOfFinding: row.sourceOfFinding.id || String(row.sourceOfFinding),
-        customer: row.customer,
-        vendor: row.vendor,
+        customerId: row.customerId,
+        vendorId: row.vendorId,
         description: row.description,
         containmentAction: row.containmentAction,
         rootCauses: row.rootCauses,
@@ -467,6 +509,8 @@ async function getDefaultDropdownList() {
       });
     }
     const dropdownData = await getDefaultDropdownList();
+    const customerData = await getDefaultCustomers();
+    const vendorData = await getDefaultVendors();
     setModalMode("edit");
     setEditingRow(row);
 
@@ -541,8 +585,8 @@ const saveRisk = () => {
                 categoryOfFinding: formData.categoryOfFinding,
                 typeOfFinding: formData.typeOfFinding,
                 sourceOfFinding: formData.sourceOfFinding,
-                customer: formData.customer,
-                vendor: formData.vendor,
+                customerId: formData.customerId,
+                vendorId: formData.vendorId,
                 description: formData.description,
                 containmentAction: formData.containmentAction,
                 rootCauses: formData.rootCauses,
@@ -619,8 +663,8 @@ const saveRisk = () => {
                 categoryOfFinding: formData.categoryOfFinding,
                 typeOfFinding: formData.typeOfFinding,
                 sourceOfFinding: formData.sourceOfFinding,
-                customer: formData.customer,
-                vendor: formData.vendor,
+                customerId: formData.customerId,
+                vendorId: formData.vendorId,
                 description: formData.description,
                 containmentAction: formData.containmentAction,
                 rootCauses: formData.rootCauses,
@@ -1279,7 +1323,7 @@ const archiveData = (id) => {
               </div>
 
               <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Issuer</label>
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Finding Date</label>
                 <input
                   value={formData.findingDate}
                   onChange={(e) => handleFormChange("findingDate", e.target.value)}
@@ -1365,29 +1409,41 @@ const archiveData = (id) => {
                 </select>
               </div>
 
+
               <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Customer</label>
-                <input
-                  value={formData.customer}
-                  onChange={(e) => handleFormChange("customer", e.target.value)}
-                  type="text"
-                  placeholder="Enter customer..."
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Name Of Customer</label>
+                <select
+                  value={formData.customerId}
+                  onChange={(e) => handleFormChange("customerId", e.target.value)}
                   className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                />
+                >
+                  <option value="">Select</option>
+                  {customers?.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 
             <div className="space-y-6">
               {/* Sağ sütun */}
+              
               <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Vendor</label>
-                <input
-                  value={formData.vendor}
-                  onChange={(e) => handleFormChange("vendor", e.target.value)}
-                  type="text"
-                  placeholder="Enter vendor..."
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Name Of Customer</label>
+                <select
+                  value={formData.vendorId}
+                  onChange={(e) => handleFormChange("vendorId", e.target.value)}
                   className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                />
+                >
+                  <option value="">Select</option>
+                  {vendors?.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className="group">

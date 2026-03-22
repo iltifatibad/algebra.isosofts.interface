@@ -150,6 +150,7 @@ const getDeletedActionData = async () => {
   const [error, setError] = useState(null);
 
   const [tableData, setTableData] = useState([]);
+  
 const getAll = async () => {
   setLoading(true);
   const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
