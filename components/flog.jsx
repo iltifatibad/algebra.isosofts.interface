@@ -261,6 +261,7 @@ async function getDefaultVendors() {
     description: "",
     containmentAction: "",
     rootCauses: "",
+    findingStatus: "",
   });
 
   const [formDataHs, setFormDataHs] = useState({
@@ -423,6 +424,7 @@ async function getDefaultDropdownList() {
         description: "",
         containmentAction: "",
         rootCauses: "",
+        findingStatus: "",
       });
       setShowModal(true);
     } else {
@@ -472,6 +474,7 @@ async function getDefaultDropdownList() {
         description: row.description,
         containmentAction: row.containmentAction,
         rootCauses: row.rootCauses,
+        findingStatus: row.findingStatus
       });
     } else {
       setActionData({
@@ -594,6 +597,7 @@ const saveRisk = () => {
                 description: formData.description,
                 containmentAction: formData.containmentAction,
                 rootCauses: formData.rootCauses,
+                findingStatus: formData.findingStatus
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             fetch(`/api/register/fin/one?token=${token}`, {
@@ -673,6 +677,7 @@ const saveRisk = () => {
                 description: formData.description,
                 containmentAction: formData.containmentAction,
                 rootCauses: formData.rootCauses,
+                findingStatus: formData.findingStatus,
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             const url =
@@ -1343,7 +1348,7 @@ const archiveData = (id) => {
                 <input
                   value={formData.jobNumber}
                   onChange={(e) => handleFormChange("jobNumber", e.target.value)}
-                  type="date"
+                  type="text"
                   placeholder="Enter Job Number..."
                   className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                 />
@@ -1494,6 +1499,26 @@ const archiveData = (id) => {
                   className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                 />
               </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Finding Status</label>
+                <select
+                  value={formData.findingStatus || ""}
+                  onChange={(e) => {
+                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                    handleFormChange("findingStatus", e.target.value);
+                  }}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                >
+                  <option value="">Select</option>
+                  {dropdownData?.findingStatus?.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.value}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
             </div>
           </div>
         </div>
