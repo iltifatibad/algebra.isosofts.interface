@@ -586,8 +586,8 @@ const saveRisk = () => {
         if (!showAction) {
             const payload = {
                 function: formData.function,
-                lykpi: formData.lykpi,
-                annualTarget: formData.annualTarget
+                lykpi: Number(formData.lykpi),
+                annualTarget: Number(formData.annualTarget)
                 
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
