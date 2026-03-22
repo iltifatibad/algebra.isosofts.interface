@@ -79,7 +79,7 @@ export default function KPIDashboard() {
 
   const renderChart = () => {
     if (!selectedKPI) return null;
-    const common = { data: monthlyData, margin: { top: 10, right: 16, left: -10, bottom: 0 } };
+    const common = { data: monthlyData, margin: { top: 10, right: 0, left: -20, bottom: 0 } };
     const gridColor = "#e0f2fe";
     const primary = "#3b82f6";
     const tick = { fill: "#94a3b8", fontSize: 11 };
@@ -286,7 +286,7 @@ export default function KPIDashboard() {
                       {CHART_TYPES.find(c => c.value === chartType)?.label} Chart
                     </span>
                   </div>
-                  <div style={{ padding: "24px", width: "100%", boxSizing: "border-box" }}>
+                  <div style={{ padding: "24px 16px 24px 16px", width: "100%", boxSizing: "border-box" }}>
                     <div style={{ width: "100%", display: "block" }}>
                       {renderChart()}
                     </div>
