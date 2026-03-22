@@ -173,7 +173,7 @@ const getDeletedActionData = async () => {
 const getAll = async () => {
   setLoading(true);
   const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-  fetch(`/api/register/fb/all?token=${token}`)
+  fetch(`/api/register/fin/all?token=${token}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Failed To Get Datas From Database");
