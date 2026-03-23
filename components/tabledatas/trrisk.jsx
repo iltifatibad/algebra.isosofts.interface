@@ -347,7 +347,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Competency Status */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-  <SoftBadge value={row.competencyStatus} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.validityStatus} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
+
+
+{/* Competency Status */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.effectiveness} color="bg-violet-100 text-violet-700 border border-violet-200" />
 </td>
 
 {/* Effectiveness */}
@@ -479,7 +485,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Competency Status */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-  <SoftBadge value={row.competencyStatus} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.validityStatus} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
+
+
+{/* Competency Status */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.effectiveness} color="bg-violet-100 text-violet-700 border border-violet-200" />
 </td>
 
 {/* Effectiveness */}
@@ -887,7 +899,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Competency Status */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-  <SoftBadge value={row.competencyStatus} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.validityStatus} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
+
+
+{/* Competency Status */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.effectiveness} color="bg-violet-100 text-violet-700 border border-violet-200" />
 </td>
 
 {/* Effectiveness */}
