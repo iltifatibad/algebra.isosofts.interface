@@ -1254,7 +1254,7 @@ const archiveData = (id) => {
               <div className="group">
                 <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Employee Name</label>
                 <input
-                  value={formData.employee}
+                  value={formData.employeeName}
                   onChange={(e) => handleFormChange("employee", e.target.value)}
                   type="text"
                   placeholder="Enter employee name..."
