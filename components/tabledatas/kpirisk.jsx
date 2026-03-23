@@ -39,8 +39,8 @@ const KPIBody = ({
         const timer = setTimeout(() => {
           getAll();
           setRefresh(false);
-          setSelectedRows(new Set());  // ekle
-          setSelectedTable([]);   
+          setSelectedRows(new Set());
+          setSelectedTable([]);
         }, 500);
 
         return () => clearTimeout(timer); // cleanup

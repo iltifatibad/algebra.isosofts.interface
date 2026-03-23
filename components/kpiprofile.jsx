@@ -1,6 +1,4 @@
 import React, { useState, useEffect, act } from "react";
-import HsBody from "./tabledatas/hsrisk.jsx";
-import HsHeaders from "./tableheaders/hsheaders.jsx";
 
 import ReactECharts from "echarts-for-react";
 import KpiHeaders from "./tableheaders/kpiheaders.jsx";
@@ -8,33 +6,25 @@ import KPIBody from "./tabledatas/kpirisk.jsx";
 
 export const hCheckboxChange =
   (setSelectedRows, setSelectedTable) => (id, table) => {
-    // id'ye uygun objeyi bul
     const selectedItem = table.find((item) => item.id === id);
 
     setSelectedTable((prev) => {
       const exists = prev.find((item) => item.id === id);
-      let newTables;
       if (exists) {
-        // zaten varsa çıkar
-        newTables = prev.filter((item) => item.id !== id);
+        return prev.filter((item) => item.id !== id);
       } else {
-        // yoksa ekle
-        newTables = [...prev, selectedItem];
+        return [selectedItem]; // sadece son seçileni tut, eskiyi temizle
       }
-
-      console.log("Seçili tablolar (selectedTables):", newTables);
-      return newTables;
     });
 
-    // Seçili satırları update et
     setSelectedRows((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(id)) {
         newSet.delete(id);
       } else {
-        newSet.add(id);
+        newSet.clear();  // eskiyi temizle
+        newSet.add(id);  // sadece yeniyi ekle
       }
-      console.log("Seçili satırlar (selectedRows):", Array.from(newSet));
       return newSet;
     });
   };
@@ -191,8 +181,6 @@ const KpiProfile = () => {
     { id: "ao-reg", name: "Assurances & Oversights" },
     { id: "mr-reg", name: "Management Review" },
     { id: "ac-reg", name: "Action Logs" },
-
-    // Diğer risk kategorileri eklenebilir
   ]);
   const [refresh, setRefresh] = useState(false);
   const [logs, setLogs] = useState([{ id: "a-l", name: "Action Log" }]);
@@ -275,9 +263,9 @@ const KpiProfile = () => {
   });
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [isBulkDelete, setIsBulkDelete] = useState(false); // Bulk delete için yeni state
+  const [isBulkDelete, setIsBulkDelete] = useState(false);
   const [deletingId, setDeletingId] = useState(null);
-  const [selectedRows, setSelectedRows] = useState(new Set()); // Checkbox state'i ekle
+  const [selectedRows, setSelectedRows] = useState(new Set());
   const [dropdownData, setDropdownData] = useState({});
   const [selectedRowsForActions, setSelectedRowsForActions] = useState(
     new Set(),
@@ -291,30 +279,27 @@ const KpiProfile = () => {
     setSelectedRowsForActions,
     setSelectedTableForActions,
   );
-async function getDefaultDropdownList() {
-  const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-  const url = `/api/tablecomponent/dropdownlistitem?token=${token}`;
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
+  async function getDefaultDropdownList() {
+    const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+    const url = `/api/tablecomponent/dropdownlistitem?token=${token}`;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+      const result = await response.json();
+      setDropdownData(result);
+      console.log(result);
+    } catch (error) {
+      console.error(error.message);
     }
-    const result = await response.json();
-    setDropdownData(result);
-    console.log(result);
-  } catch (error) {
-    console.error(error.message);
   }
-}
 
-  // Filtered data based on archived
-
-  // Seçili row sayısı
   const selectedCount = selectedRows.size;
   const selectedCountForActions = selectedRowsForActions.size;
   const getSelectedRow = () => selectedTable[0];
   const getSelectedRowForAction = () => selectedTableForActions[0];
-  // Handlers
+
   const toggleArchiveView = () => {
     setShowArchived(!showArchived);
     selectedRows.clear();
@@ -328,6 +313,7 @@ async function getDefaultDropdownList() {
       setShowDeletedAction(false);
     }
   };
+
   const toggleDeleteView = () => {
     console.log("ACTIVE HEADERRRRR : ", activeHeader);
     if (activeHeader) {
@@ -396,7 +382,7 @@ async function getDefaultDropdownList() {
   const openEditModal = async (row) => {
     if (activeHeader) {
       setFormData({
-        function: row.function.id || String(row.function),
+        function: row.function?.id || String(row.function),
         lykpi: row.lykpi,
         annualTarget: row.annualTarget
       });
@@ -453,7 +439,6 @@ async function getDefaultDropdownList() {
         .map((p) => (isNaN(p) ? p : Number(p)));
 
     const updateNested = (obj, pathArr, val) => {
-      // Derin clone: array veya object
       const newObj = Array.isArray(obj) ? [...obj] : { ...obj };
       let current = newObj;
 
@@ -501,346 +486,137 @@ async function getDefaultDropdownList() {
 
   const closeModal = () => setShowModal(false);
 
-const saveRisk = () => {
+  const saveRisk = () => {
     const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
 
     if (modalMode === "add") {
-        if (!showAction) {
-            const payload = {
-                process: formData.process,
-                hazard: formData.hazard,
-                risk: formData.risk,
-                affectedPositions: formData.affectedPosition,
-                erma: formData.erma,
-                acm: formData.acm,
-                initialRiskSeverity: formData.initialRiskSeverity, // Number
-                initialRiskLikelihood: formData.initialRiskLikelihood, // Number, spelling uyumlu
-                residualRiskSeverity: formData.residualRiskSeverity,
-                residualRiskLikelihood: formData.residualRiskLikelihood,
-                
-                
-            };
-            console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-            fetch(`/api/register/hsr/one?token=${token}`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload),
-            })
-                .then((response) => {
-                    if (!response.ok) {
-                        console.error("Kaydetme başarısız:", response.statusText);
-                    } else {
-                        console.log("Kayıt başarıyla kaydedildi.");
-                    }
-                })
-                .catch((error) => console.error("Hata:", error));
-            setRefresh(true);
-        } else {
-            const payload = {
-                registerId: Array.from(selectedRows)[0],
-                registerType: "hsr",
-                title: actionData.actionPlan[0]?.title || "",
-                resources: actionData.actionPlan[0]?.resources || "",
-                raiseDate: actionData.actionPlan[0]?.raiseDate || "",
-                currency: actionData.actionPlan[0]?.currency || "",
-                relativeFunction: actionData.actionPlan[0]?.relativeFunction || "",
-                responsible: actionData.actionPlan[0]?.responsible || "",
-                deadline: actionData.actionPlan[0]?.deadline || "",
-                confirmation: actionData.actionPlan[0]?.confirmation || "",
-                status: actionData.actionPlan[0]?.status || "",
-                completionDate: actionData.actionPlan[0]?.completionDate || "",
-                verificationStatus:
-                    actionData.actionPlan[0]?.verificationStatus || "",
-                comment: actionData.actionPlan[0]?.comment || "",
-                january: actionData.actionPlan[0]?.january || "",
-                february: actionData.actionPlan[0]?.february || "",
-                march: actionData.actionPlan[0]?.march || "",
-                april: actionData.actionPlan[0]?.april || "",
-                may: actionData.actionPlan[0]?.may || "",
-                june: actionData.actionPlan[0]?.june || "",
-                july: actionData.actionPlan[0]?.july || "",
-                august: actionData.actionPlan[0]?.august || "",
-                september: actionData.actionPlan[0]?.september || "",
-                october: actionData.actionPlan[0]?.october || "",
-                november: actionData.actionPlan[0]?.november || "",
-                december: actionData.actionPlan[0]?.december || "",
-            };
-            console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-            fetch(`/api/register/component/action/one?token=${token}`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload),
-            })
-                .then((response) => {
-                    if (!response.ok) {
-                        console.error("Kaydetme başarısız:", response.statusText);
-                    } else {
-                        console.log("Kayıt başarıyla kaydedildi.");
-                    }
-                })
-                .catch((error) => console.error("Hata:", error));
-            setRefresh(true);
-        }
-        // Sadece backend beklediği alanları al (diğerlerini sil)
+      if (!showAction) {
+        const payload = {
+          process: formData.process,
+          hazard: formData.hazard,
+          risk: formData.risk,
+          affectedPositions: formData.affectedPosition,
+          erma: formData.erma,
+          acm: formData.acm,
+          initialRiskSeverity: formData.initialRiskSeverity,
+          initialRiskLikelihood: formData.initialRiskLikelihood,
+          residualRiskSeverity: formData.residualRiskSeverity,
+          residualRiskLikelihood: formData.residualRiskLikelihood,
+        };
+        console.log("Gönderilen body:", payload);
+        fetch(`/api/register/hsr/one?token=${token}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              console.error("Kaydetme başarısız:", response.statusText);
+            } else {
+              console.log("Kayıt başarıyla kaydedildi.");
+            }
+          })
+          .catch((error) => console.error("Hata:", error));
+        setRefresh(true);
+      } else {
+        const payload = {
+          registerId: Array.from(selectedRows)[0],
+          registerType: "hsr",
+          title: actionData.actionPlan[0]?.title || "",
+          resources: actionData.actionPlan[0]?.resources || "",
+          raiseDate: actionData.actionPlan[0]?.raiseDate || "",
+          currency: actionData.actionPlan[0]?.currency || "",
+          relativeFunction: actionData.actionPlan[0]?.relativeFunction || "",
+          responsible: actionData.actionPlan[0]?.responsible || "",
+          deadline: actionData.actionPlan[0]?.deadline || "",
+          confirmation: actionData.actionPlan[0]?.confirmation || "",
+          status: actionData.actionPlan[0]?.status || "",
+          completionDate: actionData.actionPlan[0]?.completionDate || "",
+          verificationStatus: actionData.actionPlan[0]?.verificationStatus || "",
+          comment: actionData.actionPlan[0]?.comment || "",
+          january: actionData.actionPlan[0]?.january || "",
+          february: actionData.actionPlan[0]?.february || "",
+          march: actionData.actionPlan[0]?.march || "",
+          april: actionData.actionPlan[0]?.april || "",
+          may: actionData.actionPlan[0]?.may || "",
+          june: actionData.actionPlan[0]?.june || "",
+          july: actionData.actionPlan[0]?.july || "",
+          august: actionData.actionPlan[0]?.august || "",
+          september: actionData.actionPlan[0]?.september || "",
+          october: actionData.actionPlan[0]?.october || "",
+          november: actionData.actionPlan[0]?.november || "",
+          december: actionData.actionPlan[0]?.december || "",
+        };
+        console.log("Gönderilen body:", payload);
+        fetch(`/api/register/component/action/one?token=${token}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              console.error("Kaydetme başarısız:", response.statusText);
+            } else {
+              console.log("Kayıt başarıyla kaydedildi.");
+            }
+          })
+          .catch((error) => console.error("Hata:", error));
+        setRefresh(true);
+      }
     } else {
-        if (!showAction) {
-            const payload = {
-                function: formData.function,
-                lykpi: Number(formData.lykpi),
-                annualTarget: Number(formData.annualTarget)
-                
-            };
-            console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-            const url = `/api/dashboard/kpi/${selectedTable[0].id}?token=${token}`;
-            fetch(url, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload),
-            })
-                .then((response) => {
-                    if (!response.ok) {
-                        console.error("Kaydetme başarısız:", response.statusText);
-                    } else {
-                        setSelectedTable([payload]);
-                        setFormData([payload]);
-                        console.log("Kayıt başarıyla kaydedildi. Yeni state:", [payload]);
-                    }
-                })
-                .catch((error) => console.error("Hata:", error));
-            setRefresh(true);
-        } 
-        //else {
-        //     setActionData({
-        //         actionPlan: [
-        //             {
-        //                 id: [...selectedRowsForActions][0],
-        //                 title: actionData.actionPlan[0].title,
-        //                 raiseDate: actionData.raiseDate,
-        //                 resources: actionData.actionPlan[0].resources.id || "",
-        //                 currency: "",
-        //                 relativeFunction: actionData.relativeFunction?.id || "",
-        //                 responsible: actionData.responsible?.id || "",
-        //                 deadline: actionData.deadline,
-        //                 confirmation: actionData.actionPlan[0].confirmation?.id || "",
-        //                 status: actionData.actionPlan[0].status?.id,
-        //                 completionDate: actionData.completionDate,
-        //                 verificationStatus: actionData.verificationStatus?.id,
-        //                 comment: actionData.comment?.id || "",
-        //                 january: actionData.january?.id || "",
-        //                 february: actionData.february?.id || "",
-        //                 march: actionData.march?.id || "",
-        //                 april: actionData.april?.id || "",
-        //                 may: actionData.may?.id || "",
-        //                 june: actionData.june?.id || "",
-        //                 july: actionData.july?.id || "",
-        //                 august: actionData.august?.id || "",
-        //                 september: actionData.september?.id || "",
-        //                 october: actionData.october?.id || "",
-        //                 november: actionData.november?.id || "",
-        //                 december: actionData.december?.id || "",
-        //             },
-        //         ],
-        //     });
-        //     const payload = { ...actionData.actionPlan[0] };
-        //     console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-        //     const url = `/api/register/component/action/one/${[...selectedRowsForActions][0]}?token=${token}`;
-        //     fetch(url, {
-        //         method: "PUT",
-        //         headers: { "Content-Type": "application/json" },
-        //         body: JSON.stringify(payload),
-        //     })
-        //         .then((response) => {
-        //             if (!response.ok) {
-        //                 console.error("Kaydetme başarısız:", response.statusText);
-        //             } else {
-        //                 console.log("SELECTED actionData ", actionData);
-        //                 console.log("SELECTED PAYLOAD ", payload);
-        //                 setActionData([payload]);
-        //                 setSelectedTableForActions([payload]);
-        //                 console.log("SELECTED actionData ", actionData);
-        //                 console.log("Kayıt başarıyla kaydedildi.");
-        //             }
-        //         })
-        //         .catch((error) => console.error("Hata:", error));
-        //     setRefresh(true);
-        // }
+      if (!showAction) {
+        const payload = {
+          function: formData.function,
+          lykpi: Number(formData.lykpi),
+          annualTarget: Number(formData.annualTarget)
+        };
+        console.log("Gönderilen body:", payload);
+        const url = `/api/dashboard/kpi/${selectedTable[0].id}?token=${token}`;
+        fetch(url, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              console.error("Kaydetme başarısız:", response.statusText);
+            } else {
+              setSelectedTable([payload]);
+              setFormData([payload]);
+              console.log("Kayıt başarıyla kaydedildi. Yeni state:", [payload]);
+            }
+          })
+          .catch((error) => console.error("Hata:", error));
+        setRefresh(true);
+      }
     }
     closeModal();
-};
-  // Bulk delete için confirm
+  };
+
   const confirmBulkDelete = () => {
     setIsBulkDelete(true);
     setShowDeleteModal(true);
   };
 
-  // Single delete için confirm
   const confirmSingleDelete = (id) => {
     setIsBulkDelete(false);
     setDeletingId(id);
     setShowDeleteModal(true);
   };
 
-  // Bulk delete handler
   const bulkDelete = () => {
-    setTableData((prev) => prev.filter((row) => !selectedRows.has(row.id)));
     setSelectedRows(new Set());
     setShowDeleteModal(false);
     setIsBulkDelete(false);
   };
 
-  // Single delete handler
   const singleDelete = () => {
-    setTableData((prev) => prev.filter((row) => row.id !== deletingId));
     setShowDeleteModal(false);
     setIsBulkDelete(false);
   };
 
-// Delete modal'da çağırma
-// const handleDeleteConfirm = () => {
-//   const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-
-//   if (activeHeader) {
-//     if (!showDeleted) {
-//       fetch(`/api/register/hsr/all/delete?token=${token}`, {
-//         method: "PUT",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({
-//           ids: [...selectedRows],
-//         }),
-//       })
-//         .then((response) => {
-//           if (!response.ok) {
-//             console.log(" Failed Deleting Registers ");
-//           } else {
-//             console.log(" Deleting Success");
-//             selectedRows.clear();
-//             setSelectedTable([]);
-//             setShowDeleteModal(false);
-//             setRefresh(true);
-//           }
-//         })
-//         .catch((error) => console.log(" Error While Deleting: ", error));
-//     } else {
-//       fetch(`/api/register/hsr/all/undelete?token=${token}`, {
-//         method: "PUT",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({
-//           ids: [...selectedRows],
-//         }),
-//       })
-//         .then((response) => {
-//           if (!response.ok) {
-//             console.log(" Failed Deleting Registers ");
-//           } else {
-//             console.log(" Deleting Success");
-//             selectedRows.clear();
-//             setSelectedTable([]);
-//             setShowDeleteModal(false);
-//           }
-//         })
-//         .catch((error) => console.log(" Error While Deleting: ", error));
-//       setRefresh(true);
-//     }
-//   } else {
-//     if (!showDeletedAction) {
-//       console.log("AAABBB: ", selectedRowsForActions);
-//       fetch(`/api/register/component/action/all/delete?token=${token}`, {
-//         method: "PUT",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({
-//           ids: [...selectedRowsForActions],
-//         }),
-//       })
-//         .then((response) => {
-//           if (!response.ok) {
-//             console.log(" Failed Deleting Registers ");
-//           } else {
-//             console.log(" Deleting Success");
-//             setSelectedTableForActions([]);
-//             setSelectedRowsForActions(new Set());
-//             setShowDeleteModal(false);
-//             setRefresh(true);
-//           }
-//         })
-//         .catch((error) => console.log(" Error While Deleting: ", error));
-//       setRefresh(true);
-//     } else {
-//       console.log("CCC: ", selectedRowsForActions);
-//       fetch(`/api/register/component/action/all/undelete?token=${token}`, {
-//         method: "PUT",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({
-//           ids: [...selectedRowsForActions],
-//         }),
-//       })
-//         .then((response) => {
-//           if (!response.ok) {
-//             console.log(" Failed Deleting Registers ");
-//           } else {
-//             console.log(" UnDeleting Successsss");
-//             setSelectedTableForActions([]);
-//             setSelectedRowsForActions(new Set());
-//             setRefresh(true);
-//             setShowDeleteModal(false);
-//           }
-//         })
-//         .catch((error) => console.log(" Error While Deleting: ", error));
-//       setRefresh(true);
-//     }
-//   }
-// };
-
-// const archiveData = (id) => {
-//   const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-
-//   if (showArchived) {
-//     fetch(`/api/register/hsr/all/unarchive?token=${token}`, {
-//       method: "PUT",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({
-//         ids: [...selectedRows],
-//       }),
-//     })
-//       .then((response) => {
-//         if (!response.ok) {
-//           console.log(" UnArchiving Failed ");
-//         } else {
-//           selectedRows.clear();
-//           setSelectedTable([]);
-//           console.log(" UnArchiving Success ");
-//         }
-//       })
-//       .catch((error) => console.log(" Error While UnArchiving : ", error));
-//     setRefresh(true);
-//   } else {
-//     fetch(`/api/register/hsr/all/archive?token=${token}`, {
-//       method: "PUT",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({ ids: [...selectedRows] }),
-//     })
-//       .then((response) => {
-//         if (!response.ok) {
-//           console.log(selectedRows);
-//           console.log(" Archiving Failed ");
-//         } else {
-//           selectedRows.clear();
-//           setSelectedTable([]);
-//           console.log(" Archiving Success ");
-//         }
-//       })
-//       .catch((error) => console.log(" Error While Archiving : ", error));
-//     setRefresh(true);
-//   }
-// };
-
-  // Bulk actions
   const bulkArchive = () => {
     const row = getSelectedRow();
-    setTableData((prev) =>
-      prev.map((row) =>
-        selectedRows.has(row.id) ? { ...row, archived: !row.archived } : row,
-      ),
-    );
     setSelectedRows(new Set());
   };
 
@@ -874,7 +650,7 @@ const saveRisk = () => {
                 <div className="flex space-x-3 items-center">
                   <button
                     onClick={() => {
-                      setSelectedOption("datas"); // selectedOption'ı "datas" yap
+                      setSelectedOption("datas");
                     }}
                     className={[
                       "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
@@ -889,10 +665,7 @@ const saveRisk = () => {
               <div className="overflow-x-auto max-h-[75vh] overflow-y-auto">
                 <div className="p-6">
                   <h4 className="text-lg font-medium mb-4">E-Chart View</h4>
-
-                  {/* düzgün chart grid */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* KPI Gauge */}
                     <div className="bg-white rounded-lg shadow p-4">
                       <h4 className="text-lg font-semibold mb-4 text-gray-700">
                         KPI Performance (ISO 9001)
@@ -900,29 +673,15 @@ const saveRisk = () => {
                       <ReactECharts
                         style={{ height: "300px", width: "100%" }}
                         option={{
-                          tooltip: {
-                            trigger: "axis",
-                          },
-                          legend: {
-                            data: ["KPI", "Target"],
-                            top: 10,
-                          },
-                          grid: {
-                            left: "5%",
-                            right: "5%",
-                            bottom: "8%",
-                            containLabel: true,
-                          },
+                          tooltip: { trigger: "axis" },
+                          legend: { data: ["KPI", "Target"], top: 10 },
+                          grid: { left: "5%", right: "5%", bottom: "8%", containLabel: true },
                           xAxis: {
                             type: "category",
                             data: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
                             axisLabel: { rotate: 30 },
                           },
-                          yAxis: {
-                            type: "value",
-                            min: 0,
-                            max: 100,
-                          },
+                          yAxis: { type: "value", min: 0, max: 100 },
                           series: [
                             {
                               name: "KPI",
@@ -937,45 +696,24 @@ const saveRisk = () => {
                               type: "line",
                               smooth: false,
                               symbol: "none",
-                              lineStyle: {
-                                width: 2,
-                                type: "dashed",
-                                color: "#ff4d4d",
-                              },
+                              lineStyle: { width: 2, type: "dashed", color: "#ff4d4d" },
                               data: [80, 80, 80, 80, 80, 80],
                             },
                           ],
                         }}
                       />{" "}
                     </div>
-
-                    {/* Risk Heatmap */}
                     <div className="bg-white rounded-lg shadow p-4">
                       <h4 className="text-md font-medium mb-2">Risk Heatmap</h4>
-                      <ReactECharts
-                        option={riskHeatmapOption}
-                        style={{ height: "350px" }}
-                      />
+                      <ReactECharts option={riskHeatmapOption} style={{ height: "350px" }} />
                     </div>
-
-                    {/* KPI Trend */}
                     <div className="bg-white rounded-lg shadow p-4">
                       <h4 className="text-md font-medium mb-2">KPI Trend</h4>
-                      <ReactECharts
-                        option={kpiTrendOption}
-                        style={{ height: "300px" }}
-                      />
+                      <ReactECharts option={kpiTrendOption} style={{ height: "300px" }} />
                     </div>
-
-                    {/* Risk Categories */}
                     <div className="bg-white rounded-lg shadow p-4">
-                      <h4 className="text-md font-medium mb-2">
-                        Risk Categories
-                      </h4>
-                      <ReactECharts
-                        option={riskPieOption}
-                        style={{ height: "350px" }}
-                      />
+                      <h4 className="text-md font-medium mb-2">Risk Categories</h4>
+                      <ReactECharts option={riskPieOption} style={{ height: "350px" }} />
                     </div>
                   </div>
                 </div>
@@ -985,41 +723,25 @@ const saveRisk = () => {
             <div className="bg-white !rounded-button shadow-lg overflow-hidden">
               {/* Header */}
               <div className="p-6 border-b border-blue-100 flex items-center">
-                {/* Başlık ve sol butonlar */}
-<div className="flex items-center gap-4 flex-wrap">
-  {/* Aksiyon ikon butonları grubu */}
-  <div className="flex items-center gap-2.5">
-    {/* Edit */}
-    <button
-      onClick={editSingle}
-      disabled={!(selectedCount === 1 || selectedCountForActions === 1)}
-      className={`
-        group p-3 rounded-xl
-        bg-white border border-slate-200 text-blue-600
-        disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
-        hover:bg-blue-50 hover:border-blue-200 hover:text-blue-700 hover:shadow-md
-        shadow-sm transition-all duration-300 ease-out
-      `}
-      title="Edit (Single Selection Only)"
-    >
-      <i className="fas fa-edit text-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" />
-    </button>
-  </div>
-</div>
-
-                {/* Sağdaki E-Chart butonu */}
-                {/* <div className="ml-auto">
-                  <button
-                    onClick={() => setSelectedOption("e-chart")}
-                    className={[
-                      "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
-                      selectedOption ? "" : "",
-                    ].join(" ")}
-                  >
-                    <i className="fas fa-archive mr-2 text-blue-600 hover:text-blue-700"></i>
-                    {selectedOption ? "E-Chart" : "Data"}
-                  </button>{" "}
-                </div> */}
+                <div className="flex items-center gap-4 flex-wrap">
+                  <div className="flex items-center gap-2.5">
+                    {/* Edit */}
+                    <button
+                      onClick={editSingle}
+                      disabled={!(selectedCount === 1 || selectedCountForActions === 1)}
+                      className={`
+                        group p-3 rounded-xl
+                        bg-white border border-slate-200 text-blue-600
+                        disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
+                        hover:bg-blue-50 hover:border-blue-200 hover:text-blue-700 hover:shadow-md
+                        shadow-sm transition-all duration-300 ease-out
+                      `}
+                      title="Edit (Single Selection Only)"
+                    >
+                      <i className="fas fa-edit text-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" />
+                    </button>
+                  </div>
+                </div>
               </div>
 
               {/* Tablo */}
@@ -1038,6 +760,8 @@ const saveRisk = () => {
                     selectedTable={selectedTable}
                     refresh={refresh}
                     setRefresh={setRefresh}
+                    setSelectedRows={setSelectedRows}
+                    setSelectedTable={setSelectedTable}
                   />
                 </table>
               </div>
@@ -1056,105 +780,89 @@ const saveRisk = () => {
           )}
         </div>
       </div>
+
       {/* Add/Edit Modal */}
-{showModal &&
-  (activeHeader ? (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-gray-100">
+      {showModal &&
+        (activeHeader ? (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-gray-100">
 
-        {/* Header */}
-        <div className="px-8 py-5 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-slate-50 to-blue-50 rounded-t-2xl">
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-blue-700 rounded-full" />
-            <h3 className="text-lg font-semibold text-gray-800">
-              {modalMode === "add" ? "Add New Risk" : "Edit Risk"}
-            </h3>
-          </div>
-          <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 transition-colors">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-
-        <div className="px-8 py-6">
-          <div className="grid md:grid-cols-2 gap-8">
-
-            {/* Left Column */}
-            <div className="space-y-5">
-              <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">KPI Details</p>
-
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Function</label>
-                <select
-                  value={formData.function || ""}
-                  onChange={(e) => handleFormChange("function", e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  {dropdownData?.relativeFunction?.map((item) => (
-                    <option key={item.id} value={item.id}>{item.value}</option>
-                  ))}
-                </select>
+              {/* Header */}
+              <div className="px-8 py-5 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-slate-50 to-blue-50 rounded-t-2xl">
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-blue-700 rounded-full" />
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    {modalMode === "add" ? "Add New Risk" : "Edit Risk"}
+                  </h3>
+                </div>
+                <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 transition-colors">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
               </div>
 
+              <div className="px-8 py-6">
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="space-y-5">
+                    <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">KPI Details</p>
 
-              {/* Existing Risk Mitigation */}
-              {/* <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Function</label>
-                <input
-                  value={formData.function}
-                  onChange={(e) => handleFormChange("function", e.target.value)}
-                  type="text"
-                  placeholder="Enter Function..."
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                />
-              </div> */}
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Function</label>
+                      <select
+                        value={formData.function || ""}
+                        onChange={(e) => handleFormChange("function", e.target.value)}
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                      >
+                        <option value="">Select</option>
+                        {dropdownData?.relativeFunction?.map((item) => (
+                          <option key={item.id} value={item.id}>{item.value}</option>
+                        ))}
+                      </select>
+                    </div>
 
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Last Year KPI</label>
-                <input
-                  value={formData.lykpi}
-                  onChange={(e) => handleFormChange("lykpi", e.target.value)}
-                  type="text"
-                  placeholder="Enter Last Year KPI..."
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                />
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Last Year KPI</label>
+                      <input
+                        value={formData.lykpi}
+                        onChange={(e) => handleFormChange("lykpi", e.target.value)}
+                        type="text"
+                        placeholder="Enter Last Year KPI..."
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                      />
+                    </div>
+
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Annual Target</label>
+                      <input
+                        value={formData.annualTarget}
+                        onChange={(e) => handleFormChange("annualTarget", e.target.value)}
+                        type="text"
+                        placeholder="Enter Annual Target..."
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Annual Target</label>
-                <input
-                  value={formData.annualTarget}
-                  onChange={(e) => handleFormChange("annualTarget", e.target.value)}
-                  type="text"
-                  placeholder="Enter Annual Target..."
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                />
+              {/* Footer */}
+              <div className="px-8 py-5 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50 rounded-b-2xl">
+                <button onClick={closeModal} className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all">
+                  Cancel
+                </button>
+                <button onClick={saveRisk} className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl hover:from-blue-600 hover:to-blue-800 shadow-sm shadow-blue-200 transition-all">
+                  {modalMode === "add" ? "Add Risk" : "Update Risk"}
+                </button>
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Footer */}
-        <div className="px-8 py-5 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50 rounded-b-2xl">
-          <button onClick={closeModal} className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all">
-            Cancel
-          </button>
-          <button onClick={saveRisk} className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl hover:from-blue-600 hover:to-blue-800 shadow-sm shadow-blue-200 transition-all">
-            {modalMode === "add" ? "Add Risk" : "Update Risk"}
-          </button>
-        </div>
-      </div>
-    </div>
-
-  ) : (
-
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <h1> Error </h1>
-    </div>
-  )
-  )}
+        ) : (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+            <h1> Error </h1>
+          </div>
+        )
+      )}
     </div>
   );
 };
