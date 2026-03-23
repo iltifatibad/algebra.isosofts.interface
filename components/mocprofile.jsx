@@ -1307,7 +1307,7 @@ const archiveData = (id) => {
               </div>
 
               <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Action</label>
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Change Description</label>
                 <input
                   value={formData.changeDescription}
                   onChange={(e) => handleFormChange("changeDescription", e.target.value)}
@@ -1353,7 +1353,7 @@ const archiveData = (id) => {
 
 
               <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Risks</label>
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Additional Control Measures</label>
                 <input
                   value={formData.acm}
                   onChange={(e) => handleFormChange("acm", e.target.value)}
