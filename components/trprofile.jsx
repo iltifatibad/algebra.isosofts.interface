@@ -215,9 +215,9 @@ const TrProfile = () => {
     nvcd: "",
     clnumber: "",
     ncd: "",
-    effectivness: 0,
+    effectiveness: 0,
     validityStatus: 0,
-    effectivness: "",
+    effectiveness: "",
   });
 
   const [formDataHs, setFormDataHs] = useState({
@@ -228,7 +228,7 @@ const TrProfile = () => {
     inspectionFrequency: "",
     icd: "",
     nvcd: "",
-    effectivness: 0,
+    effectiveness: 0,
     actionPlan: [
       {
         action: "",
@@ -371,9 +371,9 @@ async function getDefaultDropdownList() {
         inspectionFrequency: "",
         icd: "",
         nvcd: "",
-        effectivness: 0,
+        effectiveness: 0,
         validityStatus: 0,
-        effectivness: "",
+        effectiveness: "",
       });
       setShowModal(true);
     } else {
@@ -416,8 +416,8 @@ async function getDefaultDropdownList() {
         nvcd: row.nvcd,
         clnumber: row.clnumber,
         ncd: row.ncd,
-        effectivness: row.effectivness,
-        effectivness: row.effectivness,
+        validityStatus: row.validityStatus,
+        effectiveness: row.effectiveness,
       });
     } else {
       setActionData({
@@ -532,7 +532,7 @@ const saveRisk = () => {
                 ncd: formData.ncd,
                 nvcd: formData.nvcd,
                 validityStatus: parseInt(formData.validityStatus),
-                effectivness: parseInt(formData.effectivness),
+                effectiveness: parseInt(formData.effectiveness),
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             fetch(`/api/register/tra/one?token=${token}`, {
@@ -606,7 +606,7 @@ const saveRisk = () => {
                 clnumber: formData.clnumber,
                 ncd: formData.ncd,
                 validityStatus: parseInt(formData.validityStatus),
-                effectivness: parseInt(formData.effectivness),
+                effectiveness: parseInt(formData.effectiveness),
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             const url = `/api/register/tra/one/${selectedTable[0].id}?token=${token}`;
@@ -1299,7 +1299,7 @@ const archiveData = (id) => {
               />
             </div>
 
-            {/* Effectivness */}
+            {/* effectiveness */}
             <div className="group md:col-span-2">
               <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Effectiveness</label>
               <select
@@ -1313,12 +1313,12 @@ const archiveData = (id) => {
               </select>
             </div>
 
-            {/* Effectivness */}
+            {/* effectiveness */}
             <div className="group md:col-span-2">
               <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Effectiveness</label>
               <select
-                value={formData.effectivness}
-                onChange={(e) => handleFormChange("effectivness", e.target.value)}
+                value={formData.effectiveness}
+                onChange={(e) => handleFormChange("effectiveness", e.target.value)}
                 className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
               >
                 <option value="">Select</option>
