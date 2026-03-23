@@ -414,6 +414,7 @@ async function getDefaultDropdownList() {
 
   const openEditModal = async (row) => {
     if (activeHeader) {
+      console.log(row);
       setFormData({
         id: 0,
         employeeName: row.employeeName,
