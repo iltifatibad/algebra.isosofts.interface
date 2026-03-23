@@ -216,6 +216,7 @@ const TrProfile = () => {
     clnumber: "",
     ncd: "",
     competencyStatus: 0,
+    validityStatus: 0,
     effectivness: "",
   });
 
@@ -371,6 +372,7 @@ async function getDefaultDropdownList() {
         icd: "",
         nvcd: "",
         competencyStatus: 0,
+        validityStatus: 0,
         effectivness: "",
       });
       setShowModal(true);
@@ -529,8 +531,8 @@ const saveRisk = () => {
                 clnumber: formData.clnumber,
                 ncd: formData.ncd,
                 nvcd: formData.nvcd,
-                competencyStatus: parseInt(formData.competencyStatus),
-                competencyStatus: parseInt(formData.effectivness),
+                validityStatus: parseInt(formData.validityStatus),
+                effectivness: parseInt(formData.effectivness),
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             fetch(`/api/register/tra/one?token=${token}`, {
@@ -603,7 +605,7 @@ const saveRisk = () => {
                 nvcd: formData.nvcd,
                 clnumber: formData.clnumber,
                 ncd: formData.ncd,
-                competencyStatus: parseInt(formData.competencyStatus),
+                validityStatus: parseInt(formData.validityStatus),
                 effectivness: parseInt(formData.effectivness),
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
@@ -1295,6 +1297,20 @@ const archiveData = (id) => {
                 type="date"
                 className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
               />
+            </div>
+
+            {/* Effectivness */}
+            <div className="group md:col-span-2">
+              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Effectiveness</label>
+              <select
+                value={formData.validityStatus}
+                onChange={(e) => handleFormChange("validityStatus", e.target.value)}
+                className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+              >
+                <option value="">Select</option>
+                <option value="0">Valid</option>
+                <option value="1">Not Valid</option>
+              </select>
             </div>
 
             {/* Effectivness */}
