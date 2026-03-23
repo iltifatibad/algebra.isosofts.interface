@@ -597,7 +597,7 @@ const saveRisk = () => {
                 description: formData.description,
                 containmentAction: formData.containmentAction,
                 rootCauses: formData.rootCauses,
-                findingStatus: formData.findingStatus
+                findingStatus: formData.findingStatus.id
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             fetch(`/api/register/fin/one?token=${token}`, {
@@ -677,7 +677,7 @@ const saveRisk = () => {
                 description: formData.description,
                 containmentAction: formData.containmentAction,
                 rootCauses: formData.rootCauses,
-                findingStatus: formData.findingStatus,
+                findingStatus: formData.findingStatus.id,
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             const url =
