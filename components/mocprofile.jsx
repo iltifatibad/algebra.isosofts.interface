@@ -543,6 +543,7 @@ const saveRisk = () => {
                 process: formData.process,
                 action: formData.action,
                 ecm: formData.ecm,
+                acm: formData.acm,
                 risks: formData.risks,
                 approval: Number(formData.approval),
                 initialRiskSeverity: formData.initialRiskSeverity, // Number
@@ -621,6 +622,7 @@ const saveRisk = () => {
                 process: formData.process,
                 action: formData.action,
                 ecm: formData.ecm,
+                acm: formData.acm,
                 risks: formData.risks,
                 approval: Number(formData.approval),
                 initialRiskSeverity: formData.initialRiskSeverity, // Number
