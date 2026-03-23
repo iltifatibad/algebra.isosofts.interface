@@ -348,7 +348,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 {/* Effectiveness */}
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   <SoftBadge
-    value={row.validityStatus === 1 ? "Yes" : "No"}
+    value={row.validityStatus === 1 ? "Valid" : "Not Valid"}
     color={
       row.validityStatus === 1
         ? "bg-amber-100 text-amber-700 border border-amber-200"
@@ -487,7 +487,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 {/* Effectiveness */}
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   <SoftBadge
-    value={row.validityStatus === 1 ? "Yes" : "No"}
+    value={row.validityStatus === 1 ? "Valid" : "Not Valid"}
     color={
       row.validityStatus === 1
         ? "bg-amber-100 text-amber-700 border border-amber-200"
@@ -902,7 +902,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 {/* Effectiveness */}
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   <SoftBadge
-    value={row.validityStatus === 1 ? "Yes" : "No"}
+    value={row.validityStatus === 1 ? "Valid" : "Not Valid"}
     color={
       row.validityStatus === 1
         ? "bg-amber-100 text-amber-700 border border-amber-200"
