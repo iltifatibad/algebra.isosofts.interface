@@ -212,7 +212,7 @@ const MocProfile = () => {
     issuer: "",
     reasonOfChange: "",
     process: "",
-    action: "",
+    changeDescription: "",
     ecm:"",
     risks: "",
     approval: "",
@@ -373,7 +373,7 @@ async function getDefaultDropdownList() {
         issuer: "",
         reasonOfChange: "",
         process: "",
-        action: "",
+        changeDescription: "",
         ecm:"",
         risks: "",
         approval: "",
@@ -421,7 +421,7 @@ async function getDefaultDropdownList() {
         issuer: row.issuer,
         reasonOfChange: row.reasonOfChange,
         process: row.process.id || String(row.process),
-        action: row.action,
+        changeDescription: row.changeDescription,
         ecm: row.ecm,
         risks: row.risks,
         approval: "",
@@ -541,7 +541,7 @@ const saveRisk = () => {
                 issuer: formData.issuer,
                 reasonOfChange: formData.reasonOfChange,
                 process: formData.process,
-                action: formData.action,
+                changeDescription: formData.changeDescription,
                 ecm: formData.ecm,
                 acm: formData.acm,
                 risks: formData.risks,
@@ -620,7 +620,7 @@ const saveRisk = () => {
                 issuer: formData.issuer,
                 reasonOfChange: formData.reasonOfChange,
                 process: formData.process,
-                action: formData.action,
+                changeDescription: formData.changeDescription,
                 ecm: formData.ecm,
                 acm: formData.acm,
                 risks: formData.risks,
@@ -1305,17 +1305,17 @@ const archiveData = (id) => {
                   ))}
                 </select>
               </div>
-{/* 
+
               <div className="group">
                 <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Action</label>
                 <input
-                  value={formData.action}
-                  onChange={(e) => handleFormChange("action", e.target.value)}
+                  value={formData.changeDescription}
+                  onChange={(e) => handleFormChange("changeDescription", e.target.value)}
                   type="text"
                   placeholder="Enter action..."
                   className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                 />
-              </div> */}
+              </div>
 
               <div className="group">
                 <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Additional Control Measures</label>

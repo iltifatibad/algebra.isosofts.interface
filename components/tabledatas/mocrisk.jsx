@@ -343,9 +343,9 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Action */}
-{/* <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.action} color="bg-amber-100 text-amber-700 border border-amber-200" />
-</td> */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.changeDescription} color="bg-amber-100 text-amber-700 border border-amber-200" />
+</td>
 
 {/* Existing Control Measures */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
@@ -489,9 +489,9 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Action */}
-{/* <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.action} color="bg-amber-100 text-amber-700 border border-amber-200" />
-</td> */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.changeDescription} color="bg-amber-100 text-amber-700 border border-amber-200" />
+</td>
 
 {/* Existing Control Measures */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
@@ -915,9 +915,9 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Action */}
-{/* <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.action} color="bg-amber-100 text-amber-700 border border-amber-200" />
-</td> */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.changeDescription} color="bg-amber-100 text-amber-700 border border-amber-200" />
+</td>
 
 {/* Existing Control Measures */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
