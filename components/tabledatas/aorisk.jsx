@@ -333,20 +333,20 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Audit Date */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.AuditDate} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.aoaDate} color="bg-pink-100 text-pink-700 border border-pink-200" />
 </td>
 
 {/* Next Audit Date */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.nextAuditDate} color="bg-orange-100 text-orange-700 border border-orange-200" />
+  <SoftBadge value={row.nextAoaDate} color="bg-orange-100 text-orange-700 border border-orange-200" />
 </td>
 
 {/* Days Difference */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge
     value={(() => {
-      if (!row.AuditDate || !row.nextAuditDate) return "";
-      const diffInDays = Math.ceil((new Date(row.nextAuditDate) - new Date(row.AuditDate)) / (1000 * 60 * 60 * 24));
+      if (!row.aoaDate || !row.nextAoaDate) return "";
+      const diffInDays = Math.ceil((new Date(row.nextAoaDate) - new Date(row.aoaDate)) / (1000 * 60 * 60 * 24));
       return `${diffInDays} Days`;
     })()}
     color="bg-lime-100 text-lime-700 border border-lime-200"
@@ -355,7 +355,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Audit Status */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.auditStatus} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
+  <SoftBadge value={row.aoaStatus} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
 </td>
                 </tr>
 
@@ -461,20 +461,20 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Audit Date */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.AuditDate} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.aoaDate} color="bg-pink-100 text-pink-700 border border-pink-200" />
 </td>
 
 {/* Next Audit Date */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.nextAuditDate} color="bg-orange-100 text-orange-700 border border-orange-200" />
+  <SoftBadge value={row.nextAoaDate} color="bg-orange-100 text-orange-700 border border-orange-200" />
 </td>
 
 {/* Days Difference */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge
     value={(() => {
-      if (!row.AuditDate || !row.nextAuditDate) return "";
-      const diffInDays = Math.ceil((new Date(row.nextAuditDate) - new Date(row.AuditDate)) / (1000 * 60 * 60 * 24));
+      if (!row.aoaDate || !row.nextAoaDate) return "";
+      const diffInDays = Math.ceil((new Date(row.nextAoaDate) - new Date(row.aoaDate)) / (1000 * 60 * 60 * 24));
       return `${diffInDays} Days`;
     })()}
     color="bg-lime-100 text-lime-700 border border-lime-200"
@@ -483,7 +483,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Audit Status */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.auditStatus} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
+  <SoftBadge value={row.aoaStatus} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
 </td>
                 </tr>
 
@@ -862,20 +862,20 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Audit Date */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.AuditDate} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.aoaDate} color="bg-pink-100 text-pink-700 border border-pink-200" />
 </td>
 
 {/* Next Audit Date */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.nextAuditDate} color="bg-orange-100 text-orange-700 border border-orange-200" />
+  <SoftBadge value={row.nextAoaDate} color="bg-orange-100 text-orange-700 border border-orange-200" />
 </td>
 
 {/* Days Difference */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge
     value={(() => {
-      if (!row.AuditDate || !row.nextAuditDate) return "";
-      const diffInDays = Math.ceil((new Date(row.nextAuditDate) - new Date(row.AuditDate)) / (1000 * 60 * 60 * 24));
+      if (!row.aoaDate || !row.nextAoaDate) return "";
+      const diffInDays = Math.ceil((new Date(row.nextAoaDate) - new Date(row.aoaDate)) / (1000 * 60 * 60 * 24));
       return `${diffInDays} Days`;
     })()}
     color="bg-lime-100 text-lime-700 border border-lime-200"
@@ -884,7 +884,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Audit Status */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.auditStatus} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
+  <SoftBadge value={row.aoaStatus} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
 </td>
                 </tr>
               </React.Fragment>

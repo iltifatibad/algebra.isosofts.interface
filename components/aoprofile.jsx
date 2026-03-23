@@ -216,10 +216,10 @@ const AoProfile = () => {
     reviewedProcess: "",
     rtic: "",
     frequency: "",
-    auditDate: "",
+    aoaDate: "",
     inspectionFrequency: "",
-    nextAuditDate: "",
-    auditStatus: "",
+    nextAoaDate: "",
+    aoaStatus: "",
   });
 
   const [formDataHs, setFormDataHs] = useState({
@@ -372,10 +372,10 @@ async function getDefaultDropdownList() {
         reviewedProcess: "",
         rtic: "",
         frequency: "",
-        auditDate: "",
+        aoaDate: "",
         inspectionFrequency: "",
-        nextAuditDate: "",
-        auditStatus: "",
+        nextAoaDate: "",
+        aoaStatus: "",
       });
       setShowModal(true);
     } else {
@@ -422,11 +422,11 @@ async function getDefaultDropdownList() {
         reviewedPremises:
           row.reviewedPremises.id || String(row.reviewedPremises),
         reviewedProcess: row.reviewedProcess.id || String(row.reviewedProcess),
-        auditDate: row.auditDate,
+        aoaDate: row.aoaDate,
         inspectionFrequency:
           row.inspectionFrequency.id || String(row.inspectionFrequency),
-        nextAuditDate: row.nextAuditDate,
-        auditStatus: row.auditStatus.id || String(row.auditStatus),
+        nextAoaDate: row.nextAoaDate,
+        aoaStatus: row.aoaStatus.id || String(row.aoaStatus),
         rtic: row.rtic.id || String(row.rtic),
       });
     } else {
@@ -542,10 +542,10 @@ const saveRisk = () => {
         reviewedProcess: formData.reviewedProcess,
         rtic: formData.rtic,
         frequency: formData.frequency,
-        auditDate: formData.auditDate,
+        aoaDate: formData.aoaDate,
         inspectionFrequency: formData.inspectionFrequency,
-        nextAuditDate: formData.nextAuditDate,
-        auditStatus: formData.auditStatus,
+        nextAoaDate: formData.nextAoaDate,
+        aoaStatus: formData.aoaStatus,
       };
       console.log("Gönderilen body:", payload);
       fetch(`/api/register/aop/one?token=${token}`, {
@@ -619,10 +619,10 @@ const saveRisk = () => {
         reviewedProcess: formData.reviewedProcess,
         rtic: formData.rtic,
         frequency: formData.frequency,
-        auditDate: formData.auditDate,
+        aoaDate: formData.aoaDate,
         inspectionFrequency: formData.inspectionFrequency,
-        nextAuditDate: formData.nextAuditDate,
-        auditStatus: formData.auditStatus,
+        nextAoaDate: formData.nextAoaDate,
+        aoaStatus: formData.aoaStatus,
       };
       console.log("Gönderilen body:", payload);
       const url = `/api/register/aop/one/${selectedTable[0].id}?token=${token}`;
@@ -1318,8 +1318,8 @@ const archiveData = (id) => {
             <div className="group">
               <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">A&O Activity Date</label>
               <input
-                value={formData.auditDate}
-                onChange={(e) => handleFormChange("auditDate", e.target.value)}
+                value={formData.aoaDate}
+                onChange={(e) => handleFormChange("aoaDate", e.target.value)}
                 type="date"
                 className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
               />
@@ -1329,8 +1329,8 @@ const archiveData = (id) => {
             <div className="group">
               <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Next A&O Activity Date</label>
               <input
-                value={formData.nextAuditDate}
-                onChange={(e) => handleFormChange("nextAuditDate", e.target.value)}
+                value={formData.nextAoaDate}
+                onChange={(e) => handleFormChange("nextAoaDate", e.target.value)}
                 type="date"
                 className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
               />
@@ -1340,8 +1340,8 @@ const archiveData = (id) => {
             <div className="group">
               <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">A&O Activity Status</label>
               <select
-                value={formData.auditStatus || ""}
-                onChange={(e) => handleFormChange("auditStatus", e.target.value)}
+                value={formData.aoaStatus || ""}
+                onChange={(e) => handleFormChange("aoaStatus", e.target.value)}
                 className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
               >
                 <option value="">Select</option>
