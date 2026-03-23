@@ -1301,7 +1301,7 @@ const archiveData = (id) => {
 
             {/* effectiveness */}
             <div className="group md:col-span-2">
-              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Effectiveness</label>
+              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> Validity Status </label>
               <select
                 value={formData.validityStatus}
                 onChange={(e) => handleFormChange("validityStatus", e.target.value)}
