@@ -214,8 +214,8 @@ const VenProfile = () => {
     scope2: "",
     scope3: "",
     registrationDate: "",
-    reviewDate: "",
-    approved: 0,
+    nextReviewDate: "",
+    evaluationDone: 0,
   });
 
   const [formDataHs, setFormDataHs] = useState({
@@ -368,8 +368,8 @@ async function getDefaultDropdownList() {
         scope2: "",
         scope3: "",
         registrationDate: "",
-        reviewDate: "",
-        approved: 0,
+        nextReviewDate: "",
+        evaluationDone: 0,
       });
       setShowModal(true);
     } else {
@@ -413,8 +413,8 @@ async function getDefaultDropdownList() {
         scope2: row.scope2.id || String(row.scope2),
         scope3: row.scope3.id || String(row.scope3),
         registrationDate: row.registrationDate,
-        reviewDate: row.reviewDate,
-        approved: row.approved.id || String(row.approved),
+        nextReviewDate: row.nextReviewDate,
+        evaluationDone: row.evaluationDone.id || String(row.evaluationDone),
       });
     } else {
       setActionData({
@@ -529,8 +529,8 @@ const saveRisk = () => {
                 scope2: formData.scope2,
                 scope3: formData.scope3,
                 registrationDate: formData.registrationDate,
-                reviewDate: formData.reviewDate,
-                approved: parseInt(formData.approved),
+                nextReviewDate: formData.nextReviewDate,
+                evaluationDone: parseInt(formData.evaluationDone),
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             fetch(`/api/register/ven/one?token=${token}`, {
@@ -604,8 +604,8 @@ const saveRisk = () => {
                 scope2: formData.scope2.id || String(formData.scope2),
                 scope3: formData.scope3.id || String(formData.scope3),
                 registrationDate: formData.registrationDate,
-                reviewDate: formData.reviewDate,
-                approved: parseInt(formData.approved),
+                nextReviewDate: formData.nextReviewDate,
+                evaluationDone: parseInt(formData.evaluationDone),
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             const url = `/api/register/ven/one/${selectedTable[0].id}?token=${token}`;
@@ -1339,19 +1339,19 @@ const archiveData = (id) => {
             <div className="group">
               <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Next Review Date</label>
               <input
-                value={formData.reviewDate}
-                onChange={(e) => handleFormChange("reviewDate", e.target.value)}
+                value={formData.nextReviewDate}
+                onChange={(e) => handleFormChange("nextReviewDate", e.target.value)}
                 type="date"
                 className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
               />
             </div>
 
-            {/* Approved */}
+            {/* evaluationDone */}
             <div className="group md:col-span-2">
-              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Approved</label>
+              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Evalutaion Done</label>
               <select
-                value={formData.approved}
-                onChange={(e) => handleFormChange("approved", e.target.value)}
+                value={formData.evaluationDone}
+                onChange={(e) => handleFormChange("evaluationDone", e.target.value)}
                 className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
               >
                 <option value={0}>No</option>

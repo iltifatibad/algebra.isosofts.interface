@@ -214,7 +214,7 @@ const CusProfile = () => {
     scope3: "",
     registrationDate: "",
     reviewDate: "",
-    actual: 0,
+    evaluationDone: 0,
   });
 
   const [formDataHs, setFormDataHs] = useState({
@@ -366,7 +366,7 @@ async function getDefaultDropdownList() {
         scope3: "",
         registrationDate: "",
         reviewDate: "",
-        actual: 0,
+        evaluationDone: 0,
       });
       setShowModal(true);
     } else {
@@ -411,7 +411,7 @@ async function getDefaultDropdownList() {
         scope3: row.scope3.id || String(row.scope3),
         registrationDate: row.registrationDate,
         reviewDate: row.reviewDate,
-        actual: row.actual.id || String(row.actual),
+        evaluationDone: row.evaluationDone.id || String(row.evaluationDone),
       });
     } else {
       setActionData({
@@ -526,7 +526,7 @@ const saveRisk = () => {
         scope3: formData.scope3,
         registrationDate: formData.registrationDate,
         reviewDate: formData.reviewDate,
-        actual: parseInt(formData.actual),
+        evaluationDone: parseInt(formData.evaluationDone),
       };
       console.log("Gönderilen body:", payload);
       fetch(`/api/register/cus/one?token=${token}`, {
@@ -600,7 +600,7 @@ const saveRisk = () => {
         scope3: formData.scope3.id || String(formData.scope3),
         registrationDate: formData.registrationDate,
         reviewDate: formData.reviewDate,
-        actual: parseInt(formData.actual),
+        evaluationDone: parseInt(formData.evaluationDone),
       };
       console.log("Gönderilen body:", payload);
       const url = `/api/register/cus/one/${selectedTable[0].id}?token=${token}`;
@@ -1285,12 +1285,12 @@ const archiveData = (id) => {
               />
             </div>
 
-            {/* Actual */}
+            {/* evaluationDone */}
             <div className="group md:col-span-2">
-              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Actual</label>
+              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Evaluation Done</label>
               <select
-                value={formData.actual}
-                onChange={(e) => handleFormChange("actual", e.target.value)}
+                value={formData.evaluationDone}
+                onChange={(e) => handleFormChange("evaluationDone", e.target.value)}
                 className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
               >
                 <option value={0}>No</option>
