@@ -215,7 +215,7 @@ const TrProfile = () => {
     nvcd: "",
     clnumber: "",
     ncd: "",
-    competencyStatus: 0,
+    effectivness: 0,
     validityStatus: 0,
     effectivness: "",
   });
@@ -228,7 +228,7 @@ const TrProfile = () => {
     inspectionFrequency: "",
     icd: "",
     nvcd: "",
-    competencyStatus: 0,
+    effectivness: 0,
     actionPlan: [
       {
         action: "",
@@ -371,7 +371,7 @@ async function getDefaultDropdownList() {
         inspectionFrequency: "",
         icd: "",
         nvcd: "",
-        competencyStatus: 0,
+        effectivness: 0,
         validityStatus: 0,
         effectivness: "",
       });
@@ -416,7 +416,7 @@ async function getDefaultDropdownList() {
         nvcd: row.nvcd,
         clnumber: row.clnumber,
         ncd: row.ncd,
-        competencyStatus: row.competencyStatus,
+        effectivness: row.effectivness,
         effectivness: row.effectivness,
       });
     } else {
