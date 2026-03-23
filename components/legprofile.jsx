@@ -542,7 +542,7 @@ const saveRisk = () => {
                 affectedPositions: formData.affectedPosition,
                 requirement: formData.requirement,
                 riskOfViolation: formData.riskOfViolation,
-                ecm: row.ecm,
+                ecm: formData.ecm,
                 acm: formData.acm,
                 initialRiskSeverity: formData.initialRiskSeverity, // Number
                 initialRiskLikelihood: formData.initialRiskLikelihood, // Number, spelling uyumlu
