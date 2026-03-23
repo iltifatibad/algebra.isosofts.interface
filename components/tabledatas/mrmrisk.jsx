@@ -297,7 +297,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   </td>
                   {/* RISOS */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.risos?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.risos} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* Topic */}
@@ -376,7 +376,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
                 {/* RISOS */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.risos?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.risos} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* Topic */}
@@ -730,7 +730,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   </td>
                  {/* RISOS */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.risos?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.risos} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* Topic */}

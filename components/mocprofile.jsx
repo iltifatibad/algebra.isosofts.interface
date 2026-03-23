@@ -544,7 +544,7 @@ const saveRisk = () => {
                 action: formData.action,
                 ecm: formData.ecm,
                 risks: formData.risks,
-                approval: formData.approval,
+                approval: Number(formData.approval),
                 initialRiskSeverity: formData.initialRiskSeverity, // Number
                 initialRiskLikelihood: formData.initialRiskLikelihood, // Number, spelling uyumlu
                 residualRiskSeverity: formData.residualRiskSeverity,
@@ -622,7 +622,7 @@ const saveRisk = () => {
                 action: formData.action,
                 ecm: formData.ecm,
                 risks: formData.risks,
-                approval: formData.approval,
+                approval: Number(formData.approval),
                 initialRiskSeverity: formData.initialRiskSeverity, // Number
                 initialRiskLikelihood: formData.initialRiskLikelihood, // Number, spelling uyumlu
                 residualRiskSeverity: formData.residualRiskSeverity,

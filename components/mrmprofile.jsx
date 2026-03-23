@@ -1217,26 +1217,16 @@ const archiveData = (id) => {
           <div className="grid md:grid-cols-2 gap-6">
             {/* Sol sütun */}
             <div className="space-y-6">
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">RISOS</label>
-                <select
-                  value={formData.risos || ""}
-                  onChange={(e) => {
-                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
-                    handleFormChange("risos", e.target.value);
-                  }}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  {dropdownData?.risos?.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.value}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="group">
+            <div className="group">
+              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">RISOS</label>
+              <input
+                value={formData.risos}
+                onChange={(e) => handleFormChange("risos", e.target.value)}
+                type="date"
+                className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+              />
+            </div>
+             <div className="group">
                 <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Topic</label>
                 <select
                   value={formData.topic || ""}
