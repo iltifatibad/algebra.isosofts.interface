@@ -545,11 +545,11 @@ const saveRisk = () => {
         appraisalType: formData.appraisalType,
         tca: formData.tca,
         skillsAppraisal: formData.skillsAppraisal,
-        jobQuality: formData.jobQuality,
-        leadershipSkills: formData.leadershipSkills,
-        managementSkills: formData.managementSkills,
-        behavioralSkills: formData.behavioralSkills,
-        effectivenessOfTrainings: formData.effectivenessOfTrainings
+        jobQuality: Number(formData.jobQuality),
+        leadershipSkills: Number(formData.leadershipSkills),
+        managementSkills: Number(formData.managementSkills),
+        behavioralSkills: Number(formData.behavioralSkills),
+        effectivenessOfTrainings: Number(formData.effectivenessOfTrainings)
       };
       console.log("Gönderilen body:", payload);
       fetch(`/api/register/ea/one?token=${token}`, {
@@ -623,11 +623,11 @@ const saveRisk = () => {
         appraisalType: formData.appraisalType,
         tca: formData.tca,
         skillsAppraisal: formData.skillsAppraisal,
-        jobQuality: formData.jobQuality,
-        leadershipSkills: formData.leadershipSkills,
-        managementSkills: formData.managementSkills,
-        behavioralSkills: formData.behavioralSkills,
-        effectivenessOfTrainings: formData.effectivenessOfTrainings
+        jobQuality: Number(formData.jobQuality),
+        leadershipSkills: Number(formData.leadershipSkills),
+        managementSkills: Number(formData.managementSkills),
+        behavioralSkills: Number(formData.behavioralSkills),
+        effectivenessOfTrainings: Number(formData.effectivenessOfTrainings)
       };
       console.log("Gönderilen body:", payload);
       const url = `/api/register/ea/one/${selectedTable[0].id}?token=${token}`;
