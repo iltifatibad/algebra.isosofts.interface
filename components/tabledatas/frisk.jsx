@@ -394,12 +394,12 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Customer */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.customer} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.customerName} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* Vendor */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.vendor} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+  <SoftBadge value={row.vendorName} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
 </td>
 
 {/* Description */}
@@ -523,12 +523,12 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Customer */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.customer} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.customerName} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* Vendor */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.vendor} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+  <SoftBadge value={row.vendorName} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
 </td>
 
 {/* Description */}
@@ -926,12 +926,12 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Customer */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.customer} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.customerName} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* Vendor */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.vendor} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+  <SoftBadge value={row.vendorName} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
 </td>
 
 {/* Description */}
