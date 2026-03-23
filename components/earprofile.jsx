@@ -412,7 +412,7 @@ async function getDefaultDropdownList() {
         esd: row.esd,
         appraisalDate: row.appraisalDate,
         // appraisalType: row.appraisalType,
-        swot: row.appraisalType.id || String(row.appraisalType),
+        appraisalType: row.appraisalType.id || String(row.appraisalType),
         tca: row.tca,
         skillsAppraisal: row.skillsAppraisal,
       });
