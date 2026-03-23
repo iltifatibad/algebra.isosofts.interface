@@ -345,15 +345,16 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   })()}
 </td>
 
-{/* Competency Status */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-  <SoftBadge value={row.validityStatus} color="bg-violet-100 text-violet-700 border border-violet-200" />
-</td>
-
-
-{/* Competency Status */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-  <SoftBadge value={row.effectiveness} color="bg-violet-100 text-violet-700 border border-violet-200" />
+{/* Effectiveness */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge
+    value={row.validityStatus === 1 ? "Yes" : "No"}
+    color={
+      row.validityStatus === 1
+        ? "bg-amber-100 text-amber-700 border border-amber-200"
+        : "bg-orange-100 text-orange-700 border border-orange-200"
+    }
+  />
 </td>
 
 {/* Effectiveness */}
@@ -483,15 +484,16 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   })()}
 </td>
 
-{/* Competency Status */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-  <SoftBadge value={row.validityStatus} color="bg-violet-100 text-violet-700 border border-violet-200" />
-</td>
-
-
-{/* Competency Status */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-  <SoftBadge value={row.effectiveness} color="bg-violet-100 text-violet-700 border border-violet-200" />
+{/* Effectiveness */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge
+    value={row.validityStatus === 1 ? "Yes" : "No"}
+    color={
+      row.validityStatus === 1
+        ? "bg-amber-100 text-amber-700 border border-amber-200"
+        : "bg-orange-100 text-orange-700 border border-orange-200"
+    }
+  />
 </td>
 
 {/* Effectiveness */}
@@ -897,15 +899,16 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   })()}
 </td>
 
-{/* Competency Status */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-  <SoftBadge value={row.validityStatus} color="bg-violet-100 text-violet-700 border border-violet-200" />
-</td>
-
-
-{/* Competency Status */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-  <SoftBadge value={row.effectiveness} color="bg-violet-100 text-violet-700 border border-violet-200" />
+{/* Effectiveness */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge
+    value={row.validityStatus === 1 ? "Yes" : "No"}
+    color={
+      row.validityStatus === 1
+        ? "bg-amber-100 text-amber-700 border border-amber-200"
+        : "bg-orange-100 text-orange-700 border border-orange-200"
+    }
+  />
 </td>
 
 {/* Effectiveness */}
