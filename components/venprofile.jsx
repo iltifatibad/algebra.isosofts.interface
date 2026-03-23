@@ -214,7 +214,7 @@ const VenProfile = () => {
     scope2: "",
     scope3: "",
     registrationDate: "",
-    nextReviewDate: "",
+    nrd: "",
     evaluationDone: 0,
   });
 
@@ -368,7 +368,7 @@ async function getDefaultDropdownList() {
         scope2: "",
         scope3: "",
         registrationDate: "",
-        nextReviewDate: "",
+        nrd: "",
         evaluationDone: 0,
       });
       setShowModal(true);
@@ -413,7 +413,7 @@ async function getDefaultDropdownList() {
         scope2: row.scope2.id || String(row.scope2),
         scope3: row.scope3.id || String(row.scope3),
         registrationDate: row.registrationDate,
-        nextReviewDate: row.nextReviewDate,
+        nrd: row.nrd,
         evaluationDone: row.evaluationDone.id || String(row.evaluationDone),
       });
     } else {
@@ -529,7 +529,7 @@ const saveRisk = () => {
                 scope2: formData.scope2,
                 scope3: formData.scope3,
                 registrationDate: formData.registrationDate,
-                nextReviewDate: formData.nextReviewDate,
+                nrd: formData.nrd,
                 evaluationDone: parseInt(formData.evaluationDone),
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
@@ -604,7 +604,7 @@ const saveRisk = () => {
                 scope2: formData.scope2.id || String(formData.scope2),
                 scope3: formData.scope3.id || String(formData.scope3),
                 registrationDate: formData.registrationDate,
-                nextReviewDate: formData.nextReviewDate,
+                nrd: formData.nrd,
                 evaluationDone: parseInt(formData.evaluationDone),
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
@@ -1339,8 +1339,8 @@ const archiveData = (id) => {
             <div className="group">
               <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Next Review Date</label>
               <input
-                value={formData.nextReviewDate}
-                onChange={(e) => handleFormChange("nextReviewDate", e.target.value)}
+                value={formData.nrd}
+                onChange={(e) => handleFormChange("nrd", e.target.value)}
                 type="date"
                 className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
               />

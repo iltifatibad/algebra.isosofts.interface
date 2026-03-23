@@ -337,7 +337,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Valid Status */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+{/* <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
     if (!row.registrationDate || !row.nrd) return "";
     const diffInDays = Math.ceil((new Date(row.nrd) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
@@ -353,6 +353,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
       />
     );
   })()}
+</td> */}
+
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge
+    value={row.evaluationDone === 1 ? "Yes" : "No"}
+    color="bg-orange-100 text-orange-700 border border-orange-200"
+  />
 </td>
 
 {/* QGS */}
@@ -504,7 +511,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Valid Status */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+{/* <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
     if (!row.registrationDate || !row.nrd) return "";
     const diffInDays = Math.ceil((new Date(row.nrd) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
@@ -520,6 +527,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
       />
     );
   })()}
+</td> */}
+
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge
+    value={row.evaluationDone === 1 ? "Yes" : "No"}
+    color="bg-orange-100 text-orange-700 border border-orange-200"
+  />
 </td>
 
 {/* QGS */}
@@ -953,23 +967,12 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   })()}
 </td>
 
-{/* Valid Status */}
+{/* QGS */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-  {(() => {
-    if (!row.registrationDate || !row.nrd) return "";
-    const diffInDays = Math.ceil((new Date(row.nrd) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
-    const isValid = diffInDays > 0;
-    return (
-      <SoftBadge
-        value={isValid ? "Yes" : "No"}
-        color={
-          isValid
-            ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
-            : "bg-rose-100 text-rose-700 border border-rose-200"
-        }
-      />
-    );
-  })()}
+  <SoftBadge
+    value={row.evaluationDone === 1 ? "Yes" : "No"}
+    color="bg-orange-100 text-orange-700 border border-orange-200"
+  />
 </td>
 
 {/* QGS */}
