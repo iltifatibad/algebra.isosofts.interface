@@ -209,7 +209,7 @@ const EarProfile = () => {
   //////////////////////////////////////
   const [formData, setFormData] = useState({
     id: 0,
-    employee: "",
+    employeeName: "",
     position: "",
     lineManager: "",
     esd: "",
