@@ -335,7 +335,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Valid Status */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+{/* <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
     if (!row.registrationDate || !row.reviewDate) return "";
     const diffInDays = Math.ceil((new Date(row.reviewDate) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
@@ -351,6 +351,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
       />
     );
   })()}
+</td> */}
+
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge
+    value={row.evaluationDone === 1 ? "Yes" : "No"}
+    color="bg-orange-100 text-orange-700 border border-orange-200"
+  />
 </td>
 
 {/* QGS */}
@@ -511,7 +518,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Valid Status */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+{/* <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
     if (!row.registrationDate || !row.reviewDate) return "";
     const diffInDays = Math.ceil((new Date(row.reviewDate) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
@@ -527,6 +534,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
       />
     );
   })()}
+</td> */}
+
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge
+    value={row.evaluationDone === 1 ? "Yes" : "No"}
+    color="bg-orange-100 text-orange-700 border border-orange-200"
+  />
 </td>
 
 {/* QGS */}
@@ -961,7 +975,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Valid Status */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+{/* <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
     if (!row.registrationDate || !row.reviewDate) return "";
     const diffInDays = Math.ceil((new Date(row.reviewDate) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
@@ -977,6 +991,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
       />
     );
   })()}
+</td> */}
+
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge
+    value={row.evaluationDone === 1 ? "Yes" : "No"}
+    color="bg-orange-100 text-orange-700 border border-orange-200"
+  />
 </td>
 
 {/* QGS */}
