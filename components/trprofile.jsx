@@ -366,6 +366,7 @@ async function getDefaultDropdownList() {
       setFormData({
         name: "",
         serialNumber: "",
+        position: "",
         tcln: "",
         certificateNo: "",
         inspectionFrequency: "",
@@ -527,6 +528,7 @@ const saveRisk = () => {
             const payload = {
                 employeeName: formData.employeeName,
                 tcln: formData.tcln,
+                position: formData.position,
                 nvcd: formData.nvcd,
                 clnumber: formData.clnumber,
                 ncd: formData.ncd,
@@ -601,6 +603,7 @@ const saveRisk = () => {
             const payload = {
                 id: selectedTable[0].id,
                 employeeName: formData.employeeName,
+                position: formData.position,
                 tcln: formData.tcln,
                 nvcd: formData.nvcd,
                 clnumber: formData.clnumber,
@@ -1249,6 +1252,17 @@ const archiveData = (id) => {
                 onChange={(e) => handleFormChange("employeeName", e.target.value)}
                 type="text"
                 placeholder="Enter employee name..."
+                className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+              />
+            </div>
+
+            <div className="group">
+              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Position</label>
+              <input
+                value={formData.position}
+                onChange={(e) => handleFormChange("position", e.target.value)}
+                type="text"
+                placeholder="Enter position name..."
                 className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
               />
             </div>

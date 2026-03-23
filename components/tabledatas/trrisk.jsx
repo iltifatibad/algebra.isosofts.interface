@@ -300,6 +300,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.employeeName} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.position} color="bg-rose-100 text-rose-700 border border-rose-200" />
+</td>
+
 {/* CL Name */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge value={row.tcln} color="bg-blue-100 text-blue-700 border border-blue-200" />
@@ -437,6 +441,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                  {/* Employee Name */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge value={row.employeeName} color="bg-rose-100 text-rose-700 border border-rose-200" />
+</td>
+
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.position} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* CL Name */}
@@ -852,6 +860,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 {/* Employee Name */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge value={row.employeeName} color="bg-rose-100 text-rose-700 border border-rose-200" />
+</td>
+
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.position} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* CL Name */}
