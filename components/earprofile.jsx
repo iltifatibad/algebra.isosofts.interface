@@ -414,7 +414,6 @@ async function getDefaultDropdownList() {
 
   const openEditModal = async (row) => {
     if (activeHeader) {
-      console.log(row);
       setFormData({
         id: 0,
         employeeName: row.employeeName,
@@ -538,7 +537,7 @@ const saveRisk = () => {
   if (modalMode === "add") {
     if (!showAction) {
       const payload = {
-        employeeName: formData.employee,
+        employeeName: formData.employeeName,
         position: formData.position,
         lineManager: formData.lineManager,
         esd: formData.esd,
@@ -616,7 +615,7 @@ const saveRisk = () => {
     if (!showAction) {
       const payload = {
         id: selectedTable[0].id,
-        employeeName: formData.employee,
+        employeeName: formData.employeeName,
         position: formData.position,
         lineManager: formData.lineManager,
         esd: formData.esd,
