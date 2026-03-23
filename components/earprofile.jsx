@@ -217,6 +217,11 @@ const EarProfile = () => {
     appraisalType: "",
     tca: "",
     skillsAppraisal: "",
+    jobQuality: 0,
+    leadershipSkills: 0,
+    managementSkills: 0,
+    behavioralSkills: 0,
+    effectivenessOfTrainings: 0
   });
 
   const [formDataHs, setFormDataHs] = useState({
@@ -369,6 +374,11 @@ async function getDefaultDropdownList() {
         appraisalType: "",
         tca: "",
         skillsAppraisal: "",
+        jobQuality: 0,
+        leadershipSkills: 0,
+        managementSkills: 0,
+        behavioralSkills: 0,
+        effectivenessOfTrainings: 0
       });
       setShowModal(true);
     } else {
@@ -415,6 +425,11 @@ async function getDefaultDropdownList() {
         appraisalType: row.appraisalType.id || String(row.appraisalType),
         tca: row.tca,
         skillsAppraisal: row.skillsAppraisal,
+        jobQuality: row.jobQuality,
+        leadershipSkills: row.leadershipSkills,
+        managementSkills: row.managementSkills,
+        behavioralSkills: row.behavioralSkills,
+        effectivenessOfTrainings: row.effectivenessOfTrainings
       });
     } else {
       setActionData({
@@ -530,6 +545,11 @@ const saveRisk = () => {
         appraisalType: formData.appraisalType,
         tca: formData.tca,
         skillsAppraisal: formData.skillsAppraisal,
+        jobQuality: formData.jobQuality,
+        leadershipSkills: formData.leadershipSkills,
+        managementSkills: formData.managementSkills,
+        behavioralSkills: formData.behavioralSkills,
+        effectivenessOfTrainings: formData.effectivenessOfTrainings
       };
       console.log("Gönderilen body:", payload);
       fetch(`/api/register/ea/one?token=${token}`, {
@@ -603,6 +623,11 @@ const saveRisk = () => {
         appraisalType: formData.appraisalType,
         tca: formData.tca,
         skillsAppraisal: formData.skillsAppraisal,
+        jobQuality: formData.jobQuality,
+        leadershipSkills: formData.leadershipSkills,
+        managementSkills: formData.managementSkills,
+        behavioralSkills: formData.behavioralSkills,
+        effectivenessOfTrainings: formData.effectivenessOfTrainings
       };
       console.log("Gönderilen body:", payload);
       const url = `/api/register/ea/one/${selectedTable[0].id}?token=${token}`;
@@ -1358,6 +1383,116 @@ const archiveData = (id) => {
                   <option value="100">100</option>
                 </select>
               </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Job Quality</label>
+                <select
+                  value={formData.jobQuality || ""}
+                  onChange={(e) => handleFormChange("jobQuality", e.target.value)}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                >
+                  <option value="">Select</option>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+              
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Leadership Skills</label>
+                <select
+                  value={formData.leadershipSkills || ""}
+                  onChange={(e) => handleFormChange("leadershipSkills", e.target.value)}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                >
+                  <option value="">Select</option>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Management Skills</label>
+                <select
+                  value={formData.managementSkills || ""}
+                  onChange={(e) => handleFormChange("managementSkills", e.target.value)}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                >
+                  <option value="">Select</option>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Behavioral Skills</label>
+                <select
+                  value={formData.behavioralSkills || ""}
+                  onChange={(e) => handleFormChange("behavioralSkills", e.target.value)}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                >
+                  <option value="">Select</option>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Effectiveness Of Trainings</label>
+                <select
+                  value={formData.effectivenessOfTrainings || ""}
+                  onChange={(e) => handleFormChange("effectivenessOfTrainings", e.target.value)}
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                >
+                  <option value="">Select</option>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>                            
             </div>
           </div>
         </div>

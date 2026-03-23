@@ -61,7 +61,43 @@ const EarHeaders = ({ activeHeader }) => {
           >
             Skills Appraisal
           </th>
+          
+         <th
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            Job Quality
+          </th>
+
+         <th
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            Leadership Skills
+          </th>
+
+         <th
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            Management Skills
+          </th>
+
+         <th
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            Behavioral Skills
+          </th>
+
+         <th
+            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            Effectiveness Of Trainings
+          </th>
         </tr>
+        
 
         {/* Second header row - fixed height, sticky at top-12 (48px) */}
       </thead>

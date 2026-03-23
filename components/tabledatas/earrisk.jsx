@@ -335,6 +335,26 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
   <SoftBadge value={row.skillsAppraisal} color="bg-pink-100 text-pink-700 border border-pink-200" />
 </td>
+
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.jobQuality} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
+
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.leadershipSkills} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
+
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.managementSkills} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
+
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.behavioralSkills} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
+
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.effectivenessOfTrainings} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
                 </tr>
 
                 {/* Ek Actions */}
@@ -437,6 +457,26 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 {/* Skills Appraisal */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
   <SoftBadge value={row.skillsAppraisal} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
+
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.jobQuality} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
+
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.leadershipSkills} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
+
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.managementSkills} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
+
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.behavioralSkills} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
+
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.effectivenessOfTrainings} color="bg-pink-100 text-pink-700 border border-pink-200" />
 </td>
                 </tr>
 
@@ -816,6 +856,26 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 {/* Skills Appraisal */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
   <SoftBadge value={row.skillsAppraisal} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
+
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.jobQuality} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
+
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.leadershipSkills} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
+
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.managementSkills} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
+
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.behavioralSkills} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
+
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge value={row.effectivenessOfTrainings} color="bg-pink-100 text-pink-700 border border-pink-200" />
 </td>
                 </tr>
               </React.Fragment>
