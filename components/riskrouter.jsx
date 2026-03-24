@@ -44,7 +44,7 @@ const RiskRouter = () => {
     // Diğer risk kategorileri eklenebilir
   ]);
   const [selectedOption, setSelectedOption] = useState("e-chart");
-  const [selectedRisk, setSelectedRisk] = useState("kpi");
+  const [selectedRisk, setSelectedRisk] = useState("dashboard");
   const [isOpenReg, setIsOpenReg] = useState(true);
 
   return (
