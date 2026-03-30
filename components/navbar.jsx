@@ -11,7 +11,7 @@ const NavigationBar = ({ showProfile, setShowProfile }) => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-8">
             <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent animate-pulse">
-              Isosofts
+              Algebra
             </div>
             <div className="hidden md:flex space-x-6">
               <a

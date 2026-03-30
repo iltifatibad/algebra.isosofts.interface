@@ -261,7 +261,7 @@ const IsosoftsUIConcept = () => {
                     </span>
                     <br />
                     <span className="text-gray-800 drop-shadow-lg">
-                      Isosofts
+                      Algebra
                     </span>
                   </h1>
                   <p className="text-xl text-gray-600 leading-relaxed max-w-lg">
@@ -424,7 +424,7 @@ const IsosoftsUIConcept = () => {
             <div className="grid md:grid-cols-4 gap-8">
               <div className="space-y-4">
                 <h3 className="text-2xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
-                  Isosofts
+                  Algebra
                 </h3>
                 <p className="text-blue-200 leading-relaxed">
                   Empowering organizations with innovative ISO management
