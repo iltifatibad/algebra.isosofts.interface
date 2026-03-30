@@ -1260,7 +1260,7 @@ const archiveData = (id) => {
                   <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        İnitial Risk/İnitial Opportunity Assessment
+                        İnitial Risk
                       </label>
                       <div className="grid grid-cols-3 gap-2">
                         <select
@@ -1302,7 +1302,7 @@ const archiveData = (id) => {
                       </div>
                     </div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Residual Risk/Residual Opportunity Assessment
+                      Residual Risk
                     </label>
                     <div className="grid grid-cols-3 gap-2">
                       <select
