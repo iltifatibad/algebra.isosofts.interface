@@ -886,10 +886,10 @@ const archiveData = (id) => {
   };
 
   return (
-    <div className="pt-20 h-screen overflow-hidden">
+    <div className="h-full overflow-hidden">
       <div className="flex h-full">
         {/* Main Content Area */}
-        <div className="flex-1 ml-64 p-8 bg-gradient-to-br from-blue-50/50 to-white h-full overflow-y-auto">
+        <div className="flex-1 p-8 bg-gradient-to-br from-blue-50/50 to-white h-full overflow-y-auto">
           {selectedOption === "e-chart" ? (
             <div className="bg-white !rounded-button shadow-lg overflow-hidden">
               <div className="p-6 border-b border-blue-100 flex justify-between items-center">

@@ -43,7 +43,7 @@ const RiskRouter = () => {
   const [isOpenReg, setIsOpenReg] = useState(false);
 
   return (
-    <div className="pt-20 h-screen overflow-hidden">
+    <div className="h-full overflow-hidden">
       <div className="flex h-full">
         {/* Left Sidebar */}
         <div className="w-64 bg-white shadow-lg border-r border-blue-100 fixed left-0 top-20 h-full overflow-y-auto z-10">

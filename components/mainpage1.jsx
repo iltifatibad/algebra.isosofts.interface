@@ -493,7 +493,7 @@ const IsosoftsUIConcept = () => {
   }
 
   return (
-    <div className="pt-20 h-screen overflow-hidden">
+    <div className="h-full overflow-hidden">
       <div className="flex h-full">
         {/* Left Sidebar */}
         <div className="w-64 bg-white shadow-lg border-r border-blue-100 fixed left-0 top-20 h-full overflow-y-auto z-10">
@@ -523,7 +523,7 @@ const IsosoftsUIConcept = () => {
           </nav>
         </div>
         {/* Main Content Area */}
-        <div className="flex-1 ml-64 p-8 bg-gradient-to-br from-blue-50/50 to-white h-full overflow-y-auto">
+        <div className="flex-1 p-8 bg-gradient-to-br from-blue-50/50 to-white h-full overflow-y-auto">
           {selectedRisk === "bg-reg" ? (
             <div className="bg-white !rounded-button shadow-lg overflow-hidden">
               <div className="p-6 border-b border-blue-100 flex justify-between items-center">
