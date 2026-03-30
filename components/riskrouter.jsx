@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-// Bileşen Importları
+// Bileşen Importları (Aynı kalıyor)
 import RisksAssessment from "./profile.jsx";
 import HsProfile from "./hsprofile.jsx";
 import LegProfile from "./legprofile.jsx";
@@ -46,70 +46,47 @@ const RiskRouter = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
-    <div className="pt-20 h-screen overflow-hidden bg-gray-50 flex flex-col">
-      <div className="flex flex-1 h-full overflow-hidden">
+    // overflow-hidden sayesinde ekran dışına taşma olmaz
+    <div className="pt-20 h-screen w-full bg-gray-50 overflow-hidden">
+      <div className="flex h-full w-full">
         
-        {/* SIDEBAR */}
+        {/* SIDEBAR - Flex-Shrink-0 sayesinde içeriği asla ezmez */}
         <aside 
-          className={`bg-white shadow-2xl border-r border-blue-100 transition-all duration-300 ease-in-out flex flex-col z-20
+          className={`bg-white shadow-xl border-r border-blue-100 transition-all duration-300 ease-in-out flex flex-col flex-shrink-0
             ${isSidebarOpen ? "w-72" : "w-20"}`}
         >
-          {/* Burger Header */}
+          {/* Header / Burger */}
           <div 
-            className="h-16 flex items-center justify-between px-6 border-b border-blue-50 cursor-pointer hover:bg-gray-50 transition-colors"
+            className="h-14 flex items-center justify-between px-5 border-b border-blue-50 cursor-pointer hover:bg-gray-50 transition-colors"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           >
             {isSidebarOpen && (
-              <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent truncate">
-                DATABASES
-              </span>
+              <span className="text-sm font-bold text-blue-800 tracking-wider">DATABASES</span>
             )}
-            
-            {/* Burger Icon */}
-            <div className="flex items-center justify-center">
-              <svg 
-                className={`w-6 h-6 text-blue-600 transition-transform duration-300 ${!isSidebarOpen ? "rotate-180" : ""}`} 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                {isSidebarOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-                ) : (
+            <div className="flex items-center justify-center w-full md:w-auto">
+                <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
+                </svg>
             </div>
           </div>
 
-          {/* Navigation Items */}
-          <nav className="flex-1 overflow-y-auto py-4 px-3 custom-scrollbar">
+          {/* Nav List */}
+          <nav className="flex-1 overflow-y-auto overflow-x-hidden p-2 custom-scrollbar">
             <ul className="space-y-1">
               {risks.map((risk) => (
                 <li key={risk.id}>
                   <button
                     onClick={() => setSelectedRisk(risk.id)}
-                    title={!isSidebarOpen ? risk.name : ""}
-                    className={`w-full flex items-center p-3 rounded-xl transition-all duration-200 group
+                    className={`w-full flex items-center p-3 rounded-lg transition-all duration-200
                       ${selectedRisk === risk.id 
-                        ? "bg-blue-600 text-white shadow-lg shadow-blue-200" 
+                        ? "bg-blue-600 text-white shadow-md" 
                         : "text-gray-600 hover:bg-blue-50 hover:text-blue-700"}`}
                   >
-                    <span className="text-xl min-w-[32px] flex justify-center">
-                      {risk.icon}
-                    </span>
-                    
-                    <span className={`ml-4 font-medium transition-all duration-300 whitespace-nowrap overflow-hidden
-                      ${isSidebarOpen ? "opacity-100 w-auto" : "opacity-0 w-0"}`}>
+                    <span className="text-xl min-w-[24px] flex justify-center">{risk.icon}</span>
+                    <span className={`ml-4 text-sm font-medium transition-opacity duration-200 whitespace-nowrap
+                      ${isSidebarOpen ? "opacity-100" : "opacity-0 w-0 hidden"}`}>
                       {risk.name}
                     </span>
-
-                    {/* Tooltip for closed state (CSS only fallback) */}
-                    {!isSidebarOpen && (
-                        <div className="absolute left-20 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity">
-                            {risk.name}
-                        </div>
-                    )}
                   </button>
                 </li>
               ))}
@@ -117,9 +94,10 @@ const RiskRouter = () => {
           </nav>
         </aside>
 
-        {/* MAIN CONTENT */}
-        <main className="flex-1 h-full overflow-y-auto bg-gray-50 relative p-4 md:p-8">
-          <div className="max-w-7xl mx-auto h-full">
+        {/* ANA İÇERİK - min-w-0 ve flex-1 kritik önemde */}
+        <main className="flex-1 h-full min-w-0 bg-gray-50 overflow-auto">
+          <div className="p-4 md:p-6 min-h-full">
+             {/* Tabloların olduğu alan */}
             {selectedRisk === "bg-reg" ? <RisksAssessment /> : 
              selectedRisk === "hs-reg" ? <HsProfile /> : 
              selectedRisk === "leg-reg" ? <LegProfile /> : 
@@ -140,6 +118,7 @@ const RiskRouter = () => {
              selectedRisk === "dashboard" ? <KPIDashboard /> : null}
           </div>
         </main>
+
       </div>
     </div>
   );
