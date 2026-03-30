@@ -40,7 +40,7 @@ const EnvHeaders = ({ activeHeader }) => {
             rowSpan={2}
             className="min-w-[200px] border-r border-white sticky top-0 z-20 bg-blue-100"
           >
-            Existing Control Measuress
+            Existing Control Measures
           </th>
 
           <th
@@ -144,7 +144,7 @@ const EnvHeaders = ({ activeHeader }) => {
             Resources
           </th>
           <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
-            Relactive Function
+            Relative Function
           </th>
           <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Responsible

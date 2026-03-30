@@ -792,7 +792,7 @@ const KpiProfile = () => {
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-blue-700 rounded-full" />
                   <h3 className="text-lg font-semibold text-gray-800">
-                    {modalMode === "add" ? "Add New Risk" : "Edit Risk"}
+                    {modalMode === "add" ? "Add New KPI" : "Edit KPI"}
                   </h3>
                 </div>
                 <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 transition-colors">
@@ -852,7 +852,7 @@ const KpiProfile = () => {
                   Cancel
                 </button>
                 <button onClick={saveRisk} className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl hover:from-blue-600 hover:to-blue-800 shadow-sm shadow-blue-200 transition-all">
-                  {modalMode === "add" ? "Add Risk" : "Update Risk"}
+                  {modalMode === "add" ? "Add KPI" : "Update KPI"}
                 </button>
               </div>
             </div>

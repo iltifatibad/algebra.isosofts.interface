@@ -487,7 +487,7 @@ console.log(url);
 
 {/* ecm */}
 <td className="border border-gray-200 px-2 py-1 w-48" rowSpan={1}>
-  <SoftBadge value={row.ecm || `${row.ecm}`} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+  <SoftBadge value={row.ecm} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
 {/* Initial Risk Severity */}
