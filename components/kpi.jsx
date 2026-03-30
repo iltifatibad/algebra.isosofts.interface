@@ -23,9 +23,6 @@ const CHART_TYPES = [
 const COLORS = { actual: "#3b82f6", target: "#f59e0b", lastYear: "#10b981" };
 const PIE_COLORS = ["#3b82f6","#6366f1","#0ea5e9","#8b5cf6","#06b6d4","#60a5fa","#a78bfa","#38bdf8"];
 
-const SIDEBAR_WIDTH = 256;
-const NAVBAR_HEIGHT = 80;
-
 const tooltipStyle = {
   contentStyle: {
     background: "#ffffff",
@@ -157,10 +154,10 @@ export default function KPIDashboard() {
 
   return (
     <div style={{
-      marginLeft:  SIDEBAR_WIDTH,
-      marginTop:   NAVBAR_HEIGHT,
-      height:      `calc(100vh - ${NAVBAR_HEIGHT}px)`,
-      width:       `calc(100vw - ${SIDEBAR_WIDTH}px)`,
+      // marginLeft ve marginTop tamamen kaldır
+      // height ve width da flex ile otomatik dolacak
+      height:      "100%",
+      width:       "100%",
       background:  "linear-gradient(135deg, #eff6ff 0%, #ffffff 100%)",
       padding:     "32px 28px 80px 28px",
       boxSizing:   "border-box",
@@ -169,7 +166,6 @@ export default function KPIDashboard() {
       fontFamily:  "'Inter', 'Segoe UI', sans-serif",
       color:       "#1e3a5f",
     }}>
-
       {/* Header */}
       <div style={{ marginBottom: 28 }}>
         <p style={{ color:"#3b82f6", fontSize:11, letterSpacing:"0.2em", textTransform:"uppercase", margin:"0 0 4px" }}>
