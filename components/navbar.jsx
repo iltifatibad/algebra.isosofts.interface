@@ -15,26 +15,26 @@ const NavigationBar = ({ showProfile, setShowProfile }) => {
             </div>
             <div className="hidden md:flex space-x-6">
               <a
-                href="/"
+                href="www.isosofts.com"
                 className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
               >
                 Home
               </a>
               <a
-                href=""
+                href="www.isosofts.com"
                 data-readdy="true"
                 className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
               >
                 Services
               </a>
               <a
-                href="#"
+                href="www.isosofts.com"
                 className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
               >
                 About
               </a>
               <a
-                href="#"
+                href="www.isosofts.com"
                 className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
               >
                 Contact
