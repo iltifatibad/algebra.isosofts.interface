@@ -298,6 +298,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.name} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.type?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
+</td>
+
 {/* Origin */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge value={row.origin?.value} color="bg-blue-100 text-blue-700 border border-blue-200" />
@@ -429,6 +433,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                {/* Name */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge value={row.name} color="bg-rose-100 text-rose-700 border border-rose-200" />
+</td>
+
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.type?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* Origin */}
@@ -834,6 +842,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                  {/* Name */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge value={row.name} color="bg-rose-100 text-rose-700 border border-rose-200" />
+</td>
+
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.type?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* Origin */}
