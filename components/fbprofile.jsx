@@ -977,7 +977,7 @@ const archiveData = (id) => {
   >
     <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-400 rounded-xl" />
     <i className="fas fa-plus text-base transition-transform duration-300 group-hover:rotate-90 group-hover:scale-110" />
-    {!showAction ? "Add Feedback" : "Add Action"}
+    {!showAction ? "Add Feedback" : "Add Feedback For Vendor"}
   </button>
 
   {/* Archive Butonu */}
@@ -1029,8 +1029,8 @@ const archiveData = (id) => {
         ? "Hide Deleted"
         : "Show Deleted"
       : showDeletedAction
-        ? "Hide Deleted Feedback"
-        : "Show Deleted Feedback"}
+        ? "Hide Deleted Feedback For Vendor"
+        : "Show Deleted Feedback For Vendor"}
   </button>
 
   {/* Show/Hide Action Butonu */}
@@ -1054,7 +1054,7 @@ const archiveData = (id) => {
         group-hover:scale-110 group-hover:rotate-6
       `}
     />
-    {showAction ? "Hide Feedback" : "Show Feedback"}
+    {showAction ? "Hide Feedback Hor Vendor" : "Show Feedback For Vendor"}
   </button>
 
   {/* Aksiyon ikon butonları grubu */}
@@ -1463,7 +1463,7 @@ const archiveData = (id) => {
           <div className="flex items-center gap-3">
             <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-blue-700 rounded-full" />
             <h3 className="text-lg font-semibold text-gray-800">
-              {modalMode === "add" ? "Add New Action" : "Edit Action"}
+              {modalMode === "add" ? "Add New Feedback For Vendor" : "Edit Action"}
             </h3>
           </div>
           <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 transition-colors">
