@@ -16,7 +16,7 @@ const EiHeaders = ({ activeHeader }) => {
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
-            Equipment Name
+            Equipment & Inventory Name
           </th>
           <th
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
@@ -28,7 +28,7 @@ const EiHeaders = ({ activeHeader }) => {
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
-            Certificate No
+            Certificate Number
           </th>
           <th
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
@@ -40,19 +40,19 @@ const EiHeaders = ({ activeHeader }) => {
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
-            Inspection / Calibration Date
+            Inspection Date
           </th>
           <th
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
-            Next Verification / Calibration Date
+            Next Inspection Date
           </th>
           <th
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
-            Days Left To Next Examination
+            Days Left to Next Inspection
           </th>
           <th
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"

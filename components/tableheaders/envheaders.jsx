@@ -63,7 +63,7 @@ const EnvHeaders = ({ activeHeader }) => {
             className="border-r border-white sticky top-0 z-20 bg-blue-100"
             style={{ minWidth: 600 }}
           >
-            Residual significance
+            Residual Significance
           </th>
         </tr>
 
@@ -83,7 +83,7 @@ const EnvHeaders = ({ activeHeader }) => {
             Scale
           </th>
           <th className="min-w-[120px] border-r border-white sticky top-[52px] z-20 bg-blue-200">
-            Risk Level
+            Risk
           </th>
 
           {/* Residual */}
@@ -100,7 +100,7 @@ const EnvHeaders = ({ activeHeader }) => {
             Scale
           </th>
           <th className="min-w-[120px] border-r border-white sticky top-[52px] z-20 bg-blue-200">
-            Risk Level
+            Risk
           </th>
         </tr>
       </thead>

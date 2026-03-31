@@ -28,13 +28,13 @@ const TrHeaders = ({ activeHeader }) => {
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
-            Training / Certificate / License Name
+            Training Name
           </th>
           <th
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
-            Training Certificate / Licence Issue Date
+            Certificate / License Issue Date
           </th>
           <th
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"

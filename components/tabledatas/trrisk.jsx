@@ -315,7 +315,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Up To Date Status */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+{/* <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   {(() => {
     if (!row.nvcd || !row.ncd) return null;
     const diffInDays = Math.ceil((new Date(row.ncd) - new Date(row.nvcd)) / (1000 * 60 * 60 * 24));
@@ -331,6 +331,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
       />
     );
   })()}
+</td> */}
+
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.clnumber} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
 {/* NCD */}
@@ -458,7 +462,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Up To Date Status */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+{/* <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   {(() => {
     if (!row.nvcd || !row.ncd) return null;
     const diffInDays = Math.ceil((new Date(row.ncd) - new Date(row.nvcd)) / (1000 * 60 * 60 * 24));
@@ -474,6 +478,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
       />
     );
   })()}
+</td> */}
+
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.clnumber} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
 {/* NCD */}
@@ -877,7 +885,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Up To Date Status */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+{/* <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   {(() => {
     if (!row.nvcd || !row.ncd) return null;
     const diffInDays = Math.ceil((new Date(row.ncd) - new Date(row.nvcd)) / (1000 * 60 * 60 * 24));
@@ -893,6 +901,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
       />
     );
   })()}
+</td> */}
+
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.clnumber} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
 {/* NCD */}
