@@ -155,7 +155,7 @@ const MyTableBody = ({
   const renderRegisterBody = (data, onCheck) => (
     <tbody className="text-sm">
       {!data || data.length === 0 ? (
-        <tr><td colSpan={25} className="text-center py-4 text-gray-500">No Data</td></tr>
+        <tr><td colSpan={26} className="text-center py-4 text-gray-500">No Data</td></tr>
       ) : data.map((row, i) => (
         <React.Fragment key={row.id}>
           <tr className={rowClass(i)}>
