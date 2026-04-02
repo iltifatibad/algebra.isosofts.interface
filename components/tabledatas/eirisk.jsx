@@ -329,8 +329,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge
     value={(() => {
-      if (!row.icd || !row.nvcd) return "";
-      const diffInDays = Math.ceil((new Date(row.nvcd) - new Date(row.icd)) / (1000 * 60 * 60 * 24));
+      if (!row.nvcd) return "";
+      const diffInDays = Math.ceil((new Date(row.nvcd) - new Date()) / (1000 * 60 * 60 * 24));
       return `${diffInDays} Days`;
     })()}
     color="bg-indigo-100 text-indigo-700 border border-indigo-200"
@@ -341,7 +341,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-3 py-2 w-24" rowSpan={1}>
   {(() => {
     if (!row.icd || !row.nvcd) return null;
-    const diffInDays = Math.ceil((new Date(row.nvcd) - new Date(row.icd)) / (1000 * 60 * 60 * 24));
+    const diffInDays = Math.ceil((new Date(row.nvcd) - new Date()) / (1000 * 60 * 60 * 24));
     const isSafe = diffInDays > 0;
     return (
       <SoftBadge
@@ -446,19 +446,18 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge
     value={(() => {
-      if (!row.icd || !row.nvcd) return "";
-      const diffInDays = Math.ceil((new Date(row.nvcd) - new Date(row.icd)) / (1000 * 60 * 60 * 24));
+      if (!row.nvcd) return "";
+      const diffInDays = Math.ceil((new Date(row.nvcd) - new Date()) / (1000 * 60 * 60 * 24));
       return `${diffInDays} Days`;
     })()}
     color="bg-indigo-100 text-indigo-700 border border-indigo-200"
   />
 </td>
-
 {/* Equipment/Inventory Status */}
 <td className="border border-gray-200 px-3 py-2 w-24" rowSpan={1}>
   {(() => {
     if (!row.icd || !row.nvcd) return null;
-    const diffInDays = Math.ceil((new Date(row.nvcd) - new Date(row.icd)) / (1000 * 60 * 60 * 24));
+    const diffInDays = Math.ceil((new Date(row.nvcd) - new Date()) / (1000 * 60 * 60 * 24));
     const isSafe = diffInDays > 0;
     return (
       <SoftBadge
@@ -848,7 +847,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge
     value={(() => {
       if (!row.icd || !row.nvcd) return "";
-      const diffInDays = Math.ceil((new Date(row.nvcd) - new Date(row.icd)) / (1000 * 60 * 60 * 24));
+      const diffInDays = Math.ceil((new Date(row.nvcd) - new Date()) / (1000 * 60 * 60 * 24));
       return `${diffInDays} Days`;
     })()}
     color="bg-indigo-100 text-indigo-700 border border-indigo-200"
@@ -859,7 +858,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-3 py-2 w-24" rowSpan={1}>
   {(() => {
     if (!row.icd || !row.nvcd) return null;
-    const diffInDays = Math.ceil((new Date(row.nvcd) - new Date(row.icd)) / (1000 * 60 * 60 * 24));
+    const diffInDays = Math.ceil((new Date(row.nvcd) - new Date()) / (1000 * 60 * 60 * 24));
     const isSafe = diffInDays > 0;
     return (
       <SoftBadge
