@@ -38,7 +38,7 @@ const RiskRouter = () => {
     { id: "fl-reg", name: "Findings", icon: "🔍" },
     { id: "ao-reg", name: "Assurances & Oversights", icon: "📋" },
     { id: "mr-reg", name: "Management Review", icon: "📝" },
-    { id: "ac-reg", name: "Action Logs", icon: "✅" },
+    { id: "ac-reg", name: "Action Log", icon: "✅" },
   ]);
 
   const [selectedRisk, setSelectedRisk] = useState("dashboard");

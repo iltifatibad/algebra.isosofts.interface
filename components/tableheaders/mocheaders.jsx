@@ -40,13 +40,13 @@ const MocHeaders = ({ activeHeader }) => {
             className="min-w-50 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
-            Existing Control Measures
+            Risks
           </th>
-          <th
+         <th
             className="min-w-50 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
-            Risks
+            Existing Control Measures
           </th>
           <th
             className="min-w-50 border-r border-white sticky top-0 z-20 bg-blue-100"

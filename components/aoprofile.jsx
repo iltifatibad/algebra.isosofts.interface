@@ -1301,7 +1301,7 @@ const archiveData = (id) => {
 
             {/* Inspection Frequency */}
             <div className="group">
-              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Inspection Frequency</label>
+              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">A&O Activity Frequency</label>
               <select
                 value={formData.inspectionFrequency || ""}
                 onChange={(e) => handleFormChange("inspectionFrequency", e.target.value)}

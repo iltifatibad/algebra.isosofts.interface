@@ -347,14 +347,14 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.changeDescription} color="bg-amber-100 text-amber-700 border border-amber-200" />
 </td>
 
-{/* Existing Control Measures */}
-<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.ecm} color="bg-orange-100 text-orange-700 border border-orange-200" />
-</td>
-
 {/* Risks */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.risks} color="bg-orange-100 text-orange-700 border border-orange-200" />
+</td>
+
+{/* Existing Control Measures */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.ecm} color="bg-orange-100 text-orange-700 border border-orange-200" />
 </td>
 
 {/* Approval */}
@@ -493,14 +493,14 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.changeDescription} color="bg-amber-100 text-amber-700 border border-amber-200" />
 </td>
 
-{/* Existing Control Measures */}
-<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.ecm} color="bg-orange-100 text-orange-700 border border-orange-200" />
-</td>
-
 {/* Risks */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.risks} color="bg-orange-100 text-orange-700 border border-orange-200" />
+</td>
+
+{/* Existing Control Measures */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.ecm} color="bg-orange-100 text-orange-700 border border-orange-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
@@ -919,14 +919,14 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.changeDescription} color="bg-amber-100 text-amber-700 border border-amber-200" />
 </td>
 
-{/* Existing Control Measures */}
-<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.ecm} color="bg-orange-100 text-orange-700 border border-orange-200" />
-</td>
-
 {/* Risks */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.risks} color="bg-orange-100 text-orange-700 border border-orange-200" />
+</td>
+
+{/* Existing Control Measures */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.ecm} color="bg-orange-100 text-orange-700 border border-orange-200" />
 </td>
 
 {/* Approval */}

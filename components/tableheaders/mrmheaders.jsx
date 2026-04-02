@@ -16,14 +16,16 @@ const MRMHeaders = ({ activeHeader }) => {
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
-            Relevant ISO Standart
+            MRM Topic
           </th>
+
           <th
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
-            MRM Topic
+            Relevant ISO Standart
           </th>
+
           <th
             className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
