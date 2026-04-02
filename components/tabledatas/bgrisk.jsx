@@ -46,6 +46,7 @@ const RegisterCols = ({ row }) => {
       <td className="border border-gray-200 px-2 py-1 w-20"><SoftBadge value={row.acm}                   color="bg-teal-100 text-teal-700 border border-teal-200" /></td>
       <td className="border border-gray-200 px-2 py-1 w-24"><SoftBadge value={row.residualRiskSeverity}  color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" /></td>
       <td className="border border-gray-200 px-2 py-1 w-24"><SoftBadge value={row.residualRiskLikelihood} color="bg-sky-100 text-sky-700 border border-sky-200" /></td>
+      <td className="border border-gray-200 px-2 py-1 w-24"><SoftBadge value={row.residualRiskLikelihood} color="bg-sky-100 text-sky-700 border border-sky-200" /></td>
       <td className="border border-gray-200 px-2 py-1 w-20"><SoftBadge value={residualRisk.label}        color={residualRisk.color} /></td>
     </>
   );
