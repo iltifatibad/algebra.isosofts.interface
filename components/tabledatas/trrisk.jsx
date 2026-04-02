@@ -309,6 +309,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.tcln} color="bg-blue-100 text-blue-700 border border-blue-200" />
 </td>
 
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.clnumber} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
 {/* NVCD */}
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   <SoftBadge value={row.nvcd} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
@@ -333,10 +337,6 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   })()}
 </td> */}
 
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
-  <SoftBadge value={row.clnumber} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
-</td>
-
 {/* NCD */}
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   <SoftBadge value={row.ncd} color="bg-teal-100 text-teal-700 border border-teal-200" />
@@ -346,7 +346,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   {(() => {
     if (!row.nvcd || !row.ncd) return "";
-    const diffInDays = Math.ceil((new Date(row.ncd) - new Date(row.nvcd)) / (1000 * 60 * 60 * 24));
+    const diffInDays = Math.ceil((new Date() - new Date(row.nvcd)) / (1000 * 60 * 60 * 24));
     return (
       <SoftBadge value={`${diffInDays} Days`} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
     );
@@ -456,6 +456,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.tcln} color="bg-blue-100 text-blue-700 border border-blue-200" />
 </td>
 
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.clnumber} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
 {/* NVCD */}
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   <SoftBadge value={row.nvcd} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
@@ -480,10 +484,6 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   })()}
 </td> */}
 
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
-  <SoftBadge value={row.clnumber} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
-</td>
-
 {/* NCD */}
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   <SoftBadge value={row.ncd} color="bg-teal-100 text-teal-700 border border-teal-200" />
@@ -493,7 +493,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   {(() => {
     if (!row.nvcd || !row.ncd) return "";
-    const diffInDays = Math.ceil((new Date(row.ncd) - new Date(row.nvcd)) / (1000 * 60 * 60 * 24));
+    const diffInDays = Math.ceil((new Date() - new Date(row.nvcd)) / (1000 * 60 * 60 * 24));
     return (
       <SoftBadge value={`${diffInDays} Days`} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
     );
@@ -879,6 +879,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.tcln} color="bg-blue-100 text-blue-700 border border-blue-200" />
 </td>
 
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.clnumber} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
 {/* NVCD */}
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   <SoftBadge value={row.nvcd} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
@@ -903,10 +907,6 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   })()}
 </td> */}
 
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
-  <SoftBadge value={row.clnumber} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
-</td>
-
 {/* NCD */}
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   <SoftBadge value={row.ncd} color="bg-teal-100 text-teal-700 border border-teal-200" />
@@ -916,7 +916,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   {(() => {
     if (!row.nvcd || !row.ncd) return "";
-    const diffInDays = Math.ceil((new Date(row.ncd) - new Date(row.nvcd)) / (1000 * 60 * 60 * 24));
+    const diffInDays = Math.ceil((new Date() - new Date(row.nvcd)) / (1000 * 60 * 60 * 24));
     return (
       <SoftBadge value={`${diffInDays} Days`} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
     );
