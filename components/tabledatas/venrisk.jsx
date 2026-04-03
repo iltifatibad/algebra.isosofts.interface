@@ -329,7 +329,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
     if (!row.registrationDate || !row.nrd) return "";
-    const diffInDays = Math.ceil((new Date(row.nrd) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
+    const diffInDays = Math.ceil((new Date(row.nrd) - new Date()) / (1000 * 60 * 60 * 24));
     return (
       <SoftBadge value={`${diffInDays} Days`} color="bg-sky-100 text-sky-700 border border-sky-200" />
     );
@@ -503,7 +503,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
     if (!row.registrationDate || !row.nrd) return "";
-    const diffInDays = Math.ceil((new Date(row.nrd) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
+    const diffInDays = Math.ceil((new Date(row.nrd) - new Date()) / (1000 * 60 * 60 * 24));
     return (
       <SoftBadge value={`${diffInDays} Days`} color="bg-sky-100 text-sky-700 border border-sky-200" />
     );
@@ -960,7 +960,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   {(() => {
     if (!row.registrationDate || !row.nrd) return "";
-    const diffInDays = Math.ceil((new Date(row.nrd) - new Date(row.registrationDate)) / (1000 * 60 * 60 * 24));
+    const diffInDays = Math.ceil((new Date(row.nrd) - new Date()) / (1000 * 60 * 60 * 24));
     return (
       <SoftBadge value={`${diffInDays} Days`} color="bg-sky-100 text-sky-700 border border-sky-200" />
     );

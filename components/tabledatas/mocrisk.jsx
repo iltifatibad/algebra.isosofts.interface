@@ -357,14 +357,6 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.ecm} color="bg-orange-100 text-orange-700 border border-orange-200" />
 </td>
 
-{/* Approval */}
-<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge
-    value={row.approval === 1 ? "Yes" : "No"}
-    color="bg-orange-100 text-orange-700 border border-orange-200"
-  />
-</td>
-
 {/* Initial Risk Severity */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.initialRiskSeverity} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
@@ -406,6 +398,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   })()}
 </td>
 
+{/* Approval */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge
+    value={row.approval === 1 ? "Yes" : "No"}
+    color="bg-orange-100 text-orange-700 border border-orange-200"
+  />
+</td>
                   {/* İlk Action */}
                 </tr>
                 {/* Ek Actions */}
@@ -549,6 +548,14 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
     const risk = getRiskLevel(row.residualRiskSeverity, row.residualRiskLikelihood);
     return <SoftBadge value={risk.label} color={risk.color} />;
   })()}
+</td>
+
+{/* Approval */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge
+    value={row.approval === 1 ? "Yes" : "No"}
+    color="bg-orange-100 text-orange-700 border border-orange-200"
+  />
 </td>
                 </tr>
 
@@ -976,6 +983,14 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
     const risk = getRiskLevel(row.residualRiskSeverity, row.residualRiskLikelihood);
     return <SoftBadge value={risk.label} color={risk.color} />;
   })()}
+</td>
+
+{/* Approval */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge
+    value={row.approval === 1 ? "Yes" : "No"}
+    color="bg-orange-100 text-orange-700 border border-orange-200"
+  />
 </td>
                   {/* İlk Action */}
                 </tr>

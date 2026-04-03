@@ -316,14 +316,14 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.esd} color="bg-amber-100 text-amber-700 border border-amber-200" />
 </td>
 
-{/* Appraisal Date */}
-<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.appraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
-</td>
-
 {/* Appraisal Type */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.appraisalType?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
+
+{/* Appraisal Date */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.appraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
 {/* TCA */}
@@ -439,14 +439,14 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.esd} color="bg-amber-100 text-amber-700 border border-amber-200" />
 </td>
 
-{/* Appraisal Date */}
-<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.appraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
-</td>
-
 {/* Appraisal Type */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.appraisalType?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
+
+{/* Appraisal Date */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.appraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
 {/* TCA */}
@@ -838,14 +838,14 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.esd} color="bg-amber-100 text-amber-700 border border-amber-200" />
 </td>
 
-{/* Appraisal Date */}
-<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.appraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
-</td>
-
 {/* Appraisal Type */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.appraisalType?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
+</td>
+
+{/* Appraisal Date */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.appraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
 {/* TCA */}

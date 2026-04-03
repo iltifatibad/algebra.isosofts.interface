@@ -131,7 +131,7 @@ const FbHeaders = ({ activeHeader }) => {
             className="border-r border-white sticky top-0 z-20 bg-blue-100 text-center"
             colSpan={10}
           >
-            SelectVendor
+            Feedback For Vendor
           </th>
         </tr>
 

@@ -1027,7 +1027,7 @@ const archiveData = (id) => {
   >
     <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-400 rounded-xl" />
     <i className="fas fa-plus text-base transition-transform duration-300 group-hover:rotate-90 group-hover:scale-110" />
-    {!showAction ? "Add Employee Appraisal" : "Add Action"}
+    {!showAction ? "Add Performance Appraisal" : "Add Action"}
   </button>
 
   {/* Archive Butonu */}
@@ -1236,7 +1236,7 @@ const archiveData = (id) => {
           <div className="flex items-center gap-3">
             <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-blue-700 rounded-full" />
             <h3 className="text-lg font-semibold text-gray-800">
-              {modalMode === "add" ? "Add New Employee Appraisal" : "Edit Employee Appraisal"}
+              {modalMode === "add" ? "Add New Performance Appraisal" : "Edit Performance Appraisal"}
             </h3>
           </div>
           <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 transition-colors">
@@ -1247,7 +1247,7 @@ const archiveData = (id) => {
         </div>
 
         <div className="px-8 py-6 space-y-6">
-          <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Employee Appraisal Details</p>
+          <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Performance Appraisal Details</p>
           <div className="grid md:grid-cols-2 gap-6">
             {/* Sol sütun */}
             <div className="space-y-6">
@@ -1341,7 +1341,7 @@ const archiveData = (id) => {
             {/* Sağ sütun */}
             <div className="space-y-6">
               <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Task Completion Appraisal (%)</label>
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Task Completion Appraisal</label>
                 <select
                   value={formData.tca || ""}
                   onChange={(e) => handleFormChange("tca", e.target.value)}
@@ -1349,21 +1349,21 @@ const archiveData = (id) => {
                 >
                   <option value="">Select</option>
                   <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
                   <option value="10">10</option>
-                  <option value="20">20</option>
-                  <option value="30">30</option>
-                  <option value="40">40</option>
-                  <option value="50">50</option>
-                  <option value="60">60</option>
-                  <option value="70">70</option>
-                  <option value="80">80</option>
-                  <option value="90">90</option>
-                  <option value="100">100</option>
                 </select>
               </div>
 
               <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Skills Appraisal (%)</label>
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Skills Appraisal</label>
                 <select
                   value={formData.skillsAppraisal || ""}
                   onChange={(e) => handleFormChange("skillsAppraisal", e.target.value)}
@@ -1371,16 +1371,16 @@ const archiveData = (id) => {
                 >
                   <option value="">Select</option>
                   <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
                   <option value="10">10</option>
-                  <option value="20">20</option>
-                  <option value="30">30</option>
-                  <option value="40">40</option>
-                  <option value="50">50</option>
-                  <option value="60">60</option>
-                  <option value="70">70</option>
-                  <option value="80">80</option>
-                  <option value="90">90</option>
-                  <option value="100">100</option>
                 </select>
               </div>
 
@@ -1509,7 +1509,7 @@ const archiveData = (id) => {
             onClick={saveRisk}
             className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl hover:from-blue-600 hover:to-blue-800 shadow-sm shadow-blue-200 transition-all"
           >
-            {modalMode === "add" ? "Add Employee Appraisal" : "Update Employee Appraisal"}
+            {modalMode === "add" ? "Add Performance Appraisal" : "Update Performance Appraisal"}
           </button>
         </div>
       </div>
