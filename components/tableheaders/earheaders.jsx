@@ -5,98 +5,92 @@ const EarHeaders = ({ activeHeader }) => {
     return (
       <thead>
         {/* First header row - fixed height for sticky positioning */}
-        <tr className="h-13">
-          <th
-            className="min-w-max border-r border-white sticky left-[-1px] top-0 z-21 bg-white -ml-px"
-            rowSpan={2}
-          >
-            #
-          </th>
-          <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
-            rowSpan={2}
-          >
-            Employee
-          </th>
-          <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
-            rowSpan={2}
-          >
-            Position
-          </th>
-          <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
-            rowSpan={2}
-          >
-            Line Manager
-          </th>
-          <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
-            rowSpan={2}
-          >
-            Employment Start Date
-          </th>
-          <th
-            className="min-w-50 border-r border-white sticky top-0 z-20 bg-blue-100"
-            rowSpan={2}
-          >
-            Appraisal Type
-          </th>
-          <th
-            className="min-w-50 border-r border-white sticky top-0 z-20 bg-blue-100"
-            rowSpan={2}
-          >
-            Appraisal Date
-          </th>
-          <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
-            rowSpan={2}
-          >
-            Tasks Completion Appraisal
-          </th>
-
-          <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
-            rowSpan={2}
-          >
-            Skills Appraisal
-          </th>
-          
-         <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
-            rowSpan={2}
-          >
-            Job Quality
-          </th>
-
-         <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
-            rowSpan={2}
-          >
-            Leadership Skills
-          </th>
-
-         <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
-            rowSpan={2}
-          >
-            Management Skills
-          </th>
-
-         <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
-            rowSpan={2}
-          >
-            Behavioral Skills
-          </th>
-
-         <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
-            rowSpan={2}
-          >
-            Effectiveness Of Trainings
-          </th>
-        </tr>
+<tr className="h-13">
+    <th
+      className="min-w-max whitespace-nowrap border-r border-white sticky left-[-1px] top-0 z-21 bg-white -ml-px px-4"
+      rowSpan={2}
+    >
+      #
+    </th>
+    <th
+      className="min-w-max whitespace-nowrap border-r border-white sticky top-0 z-20 bg-blue-100 px-4"
+      rowSpan={2}
+    >
+      Employee
+    </th>
+    <th
+      className="min-w-max whitespace-nowrap border-r border-white sticky top-0 z-20 bg-blue-100 px-4"
+      rowSpan={2}
+    >
+      Position
+    </th>
+    <th
+      className="min-w-max whitespace-nowrap border-r border-white sticky top-0 z-20 bg-blue-100 px-4"
+      rowSpan={2}
+    >
+      Line Manager
+    </th>
+    <th
+      className="min-w-max whitespace-nowrap border-r border-white sticky top-0 z-20 bg-blue-100 px-4"
+      rowSpan={2}
+    >
+      Employment Start Date
+    </th>
+    <th
+      className="min-w-max whitespace-nowrap border-r border-white sticky top-0 z-20 bg-blue-100 px-4"
+      rowSpan={2}
+    >
+      Appraisal Type
+    </th>
+    <th
+      className="min-w-max whitespace-nowrap border-r border-white sticky top-0 z-20 bg-blue-100 px-4"
+      rowSpan={2}
+    >
+      Appraisal Date
+    </th>
+    <th
+      className="min-w-max whitespace-nowrap border-r border-white sticky top-0 z-20 bg-blue-100 px-4"
+      rowSpan={2}
+    >
+      Tasks Completion Appraisal
+    </th>
+    <th
+      className="min-w-max whitespace-nowrap border-r border-white sticky top-0 z-20 bg-blue-100 px-4"
+      rowSpan={2}
+    >
+      Skills Appraisal
+    </th>
+    <th
+      className="min-w-max whitespace-nowrap border-r border-white sticky top-0 z-20 bg-blue-100 px-4"
+      rowSpan={2}
+    >
+      Job Quality
+    </th>
+    <th
+      className="min-w-max whitespace-nowrap border-r border-white sticky top-0 z-20 bg-blue-100 px-4"
+      rowSpan={2}
+    >
+      Leadership Skills
+    </th>
+    <th
+      className="min-w-max whitespace-nowrap border-r border-white sticky top-0 z-20 bg-blue-100 px-4"
+      rowSpan={2}
+    >
+      Management Skills
+    </th>
+    <th
+      className="min-w-max whitespace-nowrap border-r border-white sticky top-0 z-20 bg-blue-100 px-4"
+      rowSpan={2}
+    >
+      Behavioral Skills
+    </th>
+    <th
+      className="min-w-max whitespace-nowrap border-r border-white sticky top-0 z-20 bg-blue-100 px-4"
+      rowSpan={2}
+    >
+      Effectiveness Of Trainings
+    </th>
+  </tr>
         
 
         {/* Second header row - fixed height, sticky at top-12 (48px) */}
