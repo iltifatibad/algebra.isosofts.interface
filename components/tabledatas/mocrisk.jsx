@@ -992,6 +992,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
     color="bg-orange-100 text-orange-700 border border-orange-200"
   />
 </td>
+
                   {/* İlk Action */}
                 </tr>
               </React.Fragment>
