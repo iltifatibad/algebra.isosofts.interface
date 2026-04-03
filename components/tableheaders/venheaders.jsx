@@ -7,85 +7,85 @@ const VenHeaders = ({ activeHeader }) => {
         {/* First header row - fixed height for sticky positioning */}
         <tr className="h-13">
           <th
-            className="min-w-15 border-r border-white sticky left-[-1px] top-0 z-21 bg-white -ml-px"
+            className="min-w-max border-r border-white sticky left-[-1px] top-0 z-21 bg-white -ml-px"
             rowSpan={2}
           >
             #
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Vendor Name
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             VOEN/Reg Number
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Scope 1
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Scope 2
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Scope 3
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Registration Date
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Next Review Date
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Days Left To Next Review
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Evaluation Status
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             colSpan={4}
           >
             Quality
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Health & Safety
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Environment
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Total Score
@@ -123,14 +123,14 @@ const VenHeaders = ({ activeHeader }) => {
           </th>
 
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             colSpan={11}
           >
             Action Plan
           </th>
 
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             colSpan={12}
           >
             Monitoring

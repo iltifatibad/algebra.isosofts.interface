@@ -7,31 +7,31 @@ const AoHeaders = ({ activeHeader }) => {
         {/* First header row - fixed height for sticky positioning */}
         <tr className="h-13">
           <th
-            className="min-w-15 border-r border-white sticky left-[-1px] top-0 z-21 bg-white -ml-px"
+            className="min-w-max border-r border-white sticky left-[-1px] top-0 z-21 bg-white -ml-px"
             rowSpan={2}
           >
             #
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             A&O Activity Description
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Auditor / Inspector
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Auditee / Inspectee
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Reviewed Premises
@@ -49,35 +49,35 @@ const AoHeaders = ({ activeHeader }) => {
             A&O Criteria
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Frequency
           </th>
 
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             A&O Activity Date
           </th>
 
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Next A&O Activity Date
           </th>
 
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Days Left to next A&O activity
           </th>
 
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             A&O Activity Status
@@ -100,14 +100,14 @@ const AoHeaders = ({ activeHeader }) => {
           </th>
 
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             colSpan={11}
           >
             Action Plan
           </th>
 
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             colSpan={12}
           >
             Monitoring

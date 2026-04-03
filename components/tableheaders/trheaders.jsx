@@ -7,61 +7,61 @@ const TrHeaders = ({ activeHeader }) => {
         {/* First header row - fixed height for sticky positioning */}
         <tr className="h-13">
           <th
-            className="min-w-15 border-r border-white sticky left-[-1px] top-0 z-21 bg-white -ml-px"
+            className="min-w-max border-r border-white sticky left-[-1px] top-0 z-21 bg-white -ml-px"
             rowSpan={2}
           >
             #
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Employee Name
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Position
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Training Name
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Certificate / Licence Number
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Certificate / License Issue Date
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Next Certification Date
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Days Left To Next Certification
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Training Validity Status
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Training Effectiveness Status
@@ -84,14 +84,14 @@ const TrHeaders = ({ activeHeader }) => {
           </th>
 
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             colSpan={11}
           >
             Action Plan
           </th>
 
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             colSpan={12}
           >
             Monitoring

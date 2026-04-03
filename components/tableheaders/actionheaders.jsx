@@ -13,14 +13,14 @@ const ActionHeaders = ({ activeHeader }) => {
         </th>
 
         <th
-          className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+          className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
           colSpan={11}
         >
           Action Plan
         </th>
 
         <th
-          className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+          className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
           colSpan={12}
         >
           Monitoring

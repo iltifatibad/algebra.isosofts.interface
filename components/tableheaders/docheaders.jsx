@@ -7,73 +7,73 @@ const DocHeaders = ({ activeHeader }) => {
         {/* First header row - fixed height for sticky positioning */}
         <tr className="h-13">
           <th
-            className="min-w-15 border-r border-white sticky left-[-1px] top-0 z-21 bg-white -ml-px"
+            className="min-w-max border-r border-white sticky left-[-1px] top-0 z-21 bg-white -ml-px"
             rowSpan={2}
           >
             #
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Document Name
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Document Type
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Origin
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Document Number
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Revision Number
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Issuer
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Approver
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Issue Date
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Next Next Review Date
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Days Left To Next Review
           </th>
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Actual
@@ -96,14 +96,14 @@ const DocHeaders = ({ activeHeader }) => {
           </th>
 
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             colSpan={11}
           >
             Action Plan
           </th>
 
           <th
-            className="min-w-15 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             colSpan={12}
           >
             Monitoring
