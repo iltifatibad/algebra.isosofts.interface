@@ -314,9 +314,11 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.certificateNo} color="bg-violet-100 text-violet-700 border border-violet-200" />
 </td>
 
-{/* Certificate No */}
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
-  <SoftBadge value={row.calibrationRequired} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge
+    value={Number(row.calibrationRequired) === 1 ? "Yes" : "No"}
+    color="bg-violet-100 text-violet-700 border border-violet-200"
+  />
 </td>
 
 {/* Inspection Frequency */}
@@ -440,9 +442,11 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.certificateNo} color="bg-violet-100 text-violet-700 border border-violet-200" />
 </td>
 
-{/* Certificate No */}
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
-  <SoftBadge value={row.calibrationRequired} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge
+    value={Number(row.calibrationRequired) === 1 ? "Yes" : "No"}
+    color="bg-violet-100 text-violet-700 border border-violet-200"
+  />
 </td>
 
 {/* Inspection Frequency */}
@@ -849,9 +853,11 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.certificateNo} color="bg-violet-100 text-violet-700 border border-violet-200" />
 </td>
 
-{/* Certificate No */}
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
-  <SoftBadge value={row.calibrationRequired} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge
+    value={Number(row.calibrationRequired) === 1 ? "Yes" : "No"}
+    color="bg-violet-100 text-violet-700 border border-violet-200"
+  />
 </td>
 
 {/* Inspection Frequency */}
