@@ -209,8 +209,10 @@ const EiProfile = () => {
   const [formData, setFormData] = useState({
     id: 0,
     name: "",
+    type: "",
     serialNumber: "",
     certificateNo: "",
+    calibrationRequired: 0,
     inspectionFrequency: "",
     icd: "",
     nvcd: "",
@@ -362,8 +364,10 @@ async function getDefaultDropdownList() {
     if (activeHeader) {
       setFormData({
         name: "",
+        type: "",
         serialNumber: "",
         certificateNo: "",
+        calibrationRequired: 0,
         inspectionFrequency: "",
         icd: "",
         nvcd: "",
@@ -405,8 +409,10 @@ async function getDefaultDropdownList() {
     if (activeHeader) {
       setFormData({
         name: row.name,
+        type: row.type.id || String(row.type),
         serialNumber: row.serialNumber,
         certificateNo: row.certificateNo,
+        calibrationRequired: row.calibrationRequired,
         inspectionFrequency:
           row.inspectionFrequency.id || String(row.inspectionFrequency),
         icd: row.icd,
@@ -521,8 +527,10 @@ const saveRisk = () => {
         if (!showAction) {
             const payload = {
                 name: formData.name,
+                type: formData.type,
                 serialNumber: formData.serialNumber,
                 certificateNo: formData.certificateNo,
+                calibrationRequired: row.calibrationRequired,
                 inspectionFrequency: formData.inspectionFrequency,
                 icd: formData.icd,
                 nvcd: formData.nvcd,
@@ -595,8 +603,10 @@ const saveRisk = () => {
             const payload = {
                 id: selectedTable[0].id,
                 name: formData.name,
+                type: formData.type,
                 serialNumber: formData.serialNumber,
                 certificateNo: formData.certificateNo,
+                calibrationRequired: row.calibrationRequired,
                 inspectionFrequency: formData.inspectionFrequency,
                 icd: formData.icd,
                 nvcd: formData.nvcd,
@@ -1220,374 +1230,405 @@ const archiveData = (id) => {
           )}
         </div>
       </div>
-{/* Add/Edit Modal */}
-{showModal &&
-  (activeHeader ? (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-gray-100">
-        {/* Header */}
-        <div className="px-8 py-5 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-slate-50 to-blue-50 rounded-t-2xl">
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-blue-700 rounded-full" />
-            <h3 className="text-lg font-semibold text-gray-800">
-              {modalMode === "add" ? "Add New Equipment / Inventory" : "Edit Equipment / Inventory"}
-            </h3>
-          </div>
-          <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 transition-colors">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-
-        <div className="px-8 py-6 space-y-6">
-          <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Equipment / Inventory Details</p>
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Sol sütun */}
-            <div className="space-y-6">
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Equipment Name</label>
-                <input
-                  value={formData.name}
-                  onChange={(e) => handleFormChange("name", e.target.value)}
-                  type="text"
-                  placeholder="Enter equipment name..."
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                />
+    {/* Add/Edit Modal */}
+    {showModal &&
+      (activeHeader ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-gray-100">
+            {/* Header */}
+            <div className="px-8 py-5 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-slate-50 to-blue-50 rounded-t-2xl">
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-blue-700 rounded-full" />
+                <h3 className="text-lg font-semibold text-gray-800">
+                  {modalMode === "add" ? "Add New Equipment / Inventory" : "Edit Equipment / Inventory"}
+                </h3>
               </div>
-
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Serial Number</label>
-                <input
-                  value={formData.serialNumber}
-                  onChange={(e) => handleFormChange("serialNumber", e.target.value)}
-                  type="text"
-                  placeholder="Enter serial number..."
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                />
-              </div>
-
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Certificate No</label>
-                <input
-                  value={formData.certificateNo}
-                  onChange={(e) => handleFormChange("certificateNo", e.target.value)}
-                  type="text"
-                  placeholder="Enter certificate number..."
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                />
-              </div>
-
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Inspection Frequency</label>
-                <select
-                  value={formData.inspectionFrequency}
-                  onChange={(e) => {
-                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
-                    handleFormChange("inspectionFrequency", e.target.value);
-                  }}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  {dropdownData?.inspectionFrequency?.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.value}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Inspection / Calibration Date</label>
-                <input
-                  value={formData.icd}
-                  onChange={(e) => handleFormChange("icd", e.target.value)}
-                  type="date"
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                />
-              </div>
-
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Next Verification / Calibration Date</label>
-                <input
-                  value={formData.nvcd}
-                  onChange={(e) => handleFormChange("nvcd", e.target.value)}
-                  type="date"
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                />
-              </div>
-
-              {/* İstersen yorum satırındaki "Existing Control Measures" kısmını da aynı stilde ekleyebiliriz */}
+              <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 transition-colors">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
             </div>
-          </div>
-        </div>
 
-        {/* Footer */}
-        <div className="px-8 py-5 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50 rounded-b-2xl">
-          <button
-            onClick={closeModal}
-            className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={saveRisk}
-            className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl hover:from-blue-600 hover:to-blue-800 shadow-sm shadow-blue-200 transition-all"
-          >
-            {modalMode === "add" ? "Add Equipment / Inventory" : "Update Equipment / Inventory"}
-          </button>
-        </div>
-      </div>
-    </div>
-  ) : (
-    // Action modalı – öncekiyle tamamen aynı stil
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-gray-100">
-        {/* Header */}
-        <div className="px-8 py-5 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-slate-50 to-blue-50 rounded-t-2xl">
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-blue-700 rounded-full" />
-            <h3 className="text-lg font-semibold text-gray-800">
-              {modalMode === "add" ? "Add New Action" : "Edit Action"}
-            </h3>
-          </div>
-          <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 transition-colors">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
+            <div className="px-8 py-6 space-y-6">
+              <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Equipment / Inventory Details</p>
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Sol sütun */}
+                <div className="space-y-6">
+                  <div className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Equipment Name</label>
+                    <input
+                      value={formData.name}
+                      onChange={(e) => handleFormChange("name", e.target.value)}
+                      type="text"
+                      placeholder="Enter equipment name..."
+                      className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                    />
+                  </div>
 
-        <div className="px-8 py-6 space-y-8">
-          {/* Action Plan Section */}
-          <div>
-            <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest mb-4">Action Plan</p>
-            <div className="space-y-6">
-              {/* Row 1 */}
-              <div className="grid grid-cols-3 gap-4">
-                <div className="group">
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Action</label>
-                  <input
-                    value={actionData?.actionPlan?.[0]?.title || ""}
-                    onChange={(e) => handleFormChange("actionPlan[0].title", e.target.value)}
-                    type="text"
-                    placeholder="Enter action..."
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  />
-                </div>
-                <div className="group">
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Raise Date</label>
-                  <input
-                    value={actionData?.actionPlan?.[0]?.raiseDate || ""}
-                    onChange={(e) => handleFormChange("actionPlan[0].raiseDate", e.target.value)}
-                    type="date"
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  />
-                </div>
-                <div className="group">
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Resources</label>
-                  <input
-                    value={actionData?.actionPlan?.[0]?.resources || ""}
-                    onChange={(e) => handleFormChange("actionPlan[0].resources", e.target.value)}
-                    type="text"
-                    placeholder="Enter resources..."
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  />
-                </div>
-              </div>
-
-              {/* Row 2 */}
-              <div className="grid grid-cols-3 gap-4">
-                <div className="group">
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Relative Function</label>
-                  <select
-                    value={actionData?.actionPlan?.[0]?.relativeFunction || ""}
-                    onChange={(e) => handleFormChange("actionPlan[0].relativeFunction", e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  >
-                    <option value="">Select</option>
-                    {dropdownData?.relativeFunction?.map((item) => (
-                      <option key={item.id} value={item.id}>{item.value}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="group">
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Responsible</label>
-                  <select
-                    value={actionData?.actionPlan?.[0]?.responsible || ""}
-                    onChange={(e) => handleFormChange("actionPlan[0].responsible", e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  >
-                    <option value="">Select</option>
-                    {dropdownData?.affectedPosition?.map((item) => (
-                      <option key={item.id} value={item.id}>{item.value}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="group">
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Deadline</label>
-                  <input
-                    value={actionData?.actionPlan?.[0]?.deadline || ""}
-                    onChange={(e) => handleFormChange("actionPlan[0].deadline", e.target.value)}
-                    type="date"
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  />
-                </div>
-              </div>
-
-              {/* Row 3 */}
-              <div className="grid grid-cols-3 gap-4">
-                <div className="group">
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Action Confirmation</label>
-                  <select
-                    value={actionData?.actionPlan?.[0]?.confirmation || ""}
-                    onChange={(e) => handleFormChange("actionPlan[0].confirmation", e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  >
-                    <option value="">Select</option>
-                    {dropdownData?.confirmation?.map((item) => (
-                      <option key={item.id} value={item.id}>{item.value}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="group">
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Action Status</label>
-                  <select
-                    value={actionData?.actionPlan?.[0]?.status || ""}
-                    onChange={(e) => handleFormChange("actionPlan[0].status", e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  >
-                    <option value="">Select</option>
-                    {dropdownData?.status?.map((item) => (
-                      <option key={item.id} value={item.id}>{item.value}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="group">
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Completion Date</label>
-                  <input
-                    value={actionData?.actionPlan?.[0]?.completionDate || ""}
-                    onChange={(e) => handleFormChange("actionPlan[0].completionDate", e.target.value)}
-                    type="date"
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  />
-                </div>
-              </div>
-
-              {/* Row 4 */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="group">
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Verification Status</label>
-                  <select
-                    value={actionData?.actionPlan?.[0]?.verificationStatus || ""}
-                    onChange={(e) => handleFormChange("actionPlan[0].verificationStatus", e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  >
-                    <option value="">Select</option>
-                    {dropdownData?.verificationStatus?.map((item) => (
-                      <option key={item.id} value={item.id}>{item.value}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="group">
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Comment</label>
-                  <input
-                    value={actionData?.actionPlan?.[0]?.comment || ""}
-                    onChange={(e) => handleFormChange("actionPlan[0].comment", e.target.value)}
-                    type="text"
-                    placeholder="Enter comment..."
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Monthly Status Section */}
-          <div>
-            <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest mb-4">Monthly Action Status</p>
-            <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5">
-              <div className="grid grid-cols-4 gap-4">
-                {["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"].map((month) => (
-                  <div key={month} className="group">
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5 capitalize group-focus-within:text-blue-500 transition-colors">
-                      {month.charAt(0).toUpperCase() + month.slice(1)}
-                    </label>
+                  <div className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Equipment Type</label>
                     <select
-                      value={actionData?.actionPlan?.[0]?.[month] || ""}
-                      onChange={(e) => handleFormChange(`actionPlan[0].${month}`, e.target.value)}
-                      className="w-full px-3.5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                      value={formData.type}
+                      onChange={(e) => {
+                        console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                        handleFormChange("type", e.target.value);
+                      }}
+                      className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                     >
                       <option value="">Select</option>
-                      {dropdownData?.status?.map((item) => (
-                        <option key={item.id} value={item.id}>{item.value}</option>
+                      {dropdownData?.type?.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.value}
+                        </option>
                       ))}
                     </select>
                   </div>
-                ))}
+
+                  <div className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Serial Number</label>
+                    <input
+                      value={formData.serialNumber}
+                      onChange={(e) => handleFormChange("serialNumber", e.target.value)}
+                      type="text"
+                      placeholder="Enter serial number..."
+                      className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                    />
+                  </div>
+
+                  <div className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Certificate No</label>
+                    <input
+                      value={formData.certificateNo}
+                      onChange={(e) => handleFormChange("certificateNo", e.target.value)}
+                      type="text"
+                      placeholder="Enter certificate number..."
+                      className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                    />
+                  </div>
+
+                  <div className="group md:col-span-2">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Calibration Required</label>
+                  <select
+                    value={formData.calibrationRequired}
+                    onChange={(e) => handleFormChange("calibrationRequired", e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  >
+                    <option value={0}>No</option>
+                    <option value={1}>Yes</option>
+                  </select>
+                </div>
+
+                  <div className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Inspection Frequency</label>
+                    <select
+                      value={formData.inspectionFrequency}
+                      onChange={(e) => {
+                        console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
+                        handleFormChange("inspectionFrequency", e.target.value);
+                      }}
+                      className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                    >
+                      <option value="">Select</option>
+                      {dropdownData?.inspectionFrequency?.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.value}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Inspection / Calibration Date</label>
+                    <input
+                      value={formData.icd}
+                      onChange={(e) => handleFormChange("icd", e.target.value)}
+                      type="date"
+                      className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                    />
+                  </div>
+
+                  <div className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Next Verification / Calibration Date</label>
+                    <input
+                      value={formData.nvcd}
+                      onChange={(e) => handleFormChange("nvcd", e.target.value)}
+                      type="date"
+                      className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                    />
+                  </div>
+
+                  {/* İstersen yorum satırındaki "Existing Control Measures" kısmını da aynı stilde ekleyebiliriz */}
+                </div>
               </div>
+            </div>
+
+            {/* Footer */}
+            <div className="px-8 py-5 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50 rounded-b-2xl">
+              <button
+                onClick={closeModal}
+                className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={saveRisk}
+                className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl hover:from-blue-600 hover:to-blue-800 shadow-sm shadow-blue-200 transition-all"
+              >
+                {modalMode === "add" ? "Add Equipment / Inventory" : "Update Equipment / Inventory"}
+              </button>
             </div>
           </div>
         </div>
+      ) : (
+        // Action modalı – öncekiyle tamamen aynı stil
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-gray-100">
+            {/* Header */}
+            <div className="px-8 py-5 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-slate-50 to-blue-50 rounded-t-2xl">
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-blue-700 rounded-full" />
+                <h3 className="text-lg font-semibold text-gray-800">
+                  {modalMode === "add" ? "Add New Action" : "Edit Action"}
+                </h3>
+              </div>
+              <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 transition-colors">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
 
-        {/* Footer */}
-        <div className="px-8 py-5 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50 rounded-b-2xl">
-          <button
-            onClick={closeModal}
-            className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={saveRisk}
-            className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl hover:from-blue-600 hover:to-blue-800 shadow-sm shadow-blue-200 transition-all"
-          >
-            {modalMode === "add" ? "Add Action" : "Update Action"}
-          </button>
+            <div className="px-8 py-6 space-y-8">
+              {/* Action Plan Section */}
+              <div>
+                <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest mb-4">Action Plan</p>
+                <div className="space-y-6">
+                  {/* Row 1 */}
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Action</label>
+                      <input
+                        value={actionData?.actionPlan?.[0]?.title || ""}
+                        onChange={(e) => handleFormChange("actionPlan[0].title", e.target.value)}
+                        type="text"
+                        placeholder="Enter action..."
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                      />
+                    </div>
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Raise Date</label>
+                      <input
+                        value={actionData?.actionPlan?.[0]?.raiseDate || ""}
+                        onChange={(e) => handleFormChange("actionPlan[0].raiseDate", e.target.value)}
+                        type="date"
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                      />
+                    </div>
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Resources</label>
+                      <input
+                        value={actionData?.actionPlan?.[0]?.resources || ""}
+                        onChange={(e) => handleFormChange("actionPlan[0].resources", e.target.value)}
+                        type="text"
+                        placeholder="Enter resources..."
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Row 2 */}
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Relative Function</label>
+                      <select
+                        value={actionData?.actionPlan?.[0]?.relativeFunction || ""}
+                        onChange={(e) => handleFormChange("actionPlan[0].relativeFunction", e.target.value)}
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                      >
+                        <option value="">Select</option>
+                        {dropdownData?.relativeFunction?.map((item) => (
+                          <option key={item.id} value={item.id}>{item.value}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Responsible</label>
+                      <select
+                        value={actionData?.actionPlan?.[0]?.responsible || ""}
+                        onChange={(e) => handleFormChange("actionPlan[0].responsible", e.target.value)}
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                      >
+                        <option value="">Select</option>
+                        {dropdownData?.affectedPosition?.map((item) => (
+                          <option key={item.id} value={item.id}>{item.value}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Deadline</label>
+                      <input
+                        value={actionData?.actionPlan?.[0]?.deadline || ""}
+                        onChange={(e) => handleFormChange("actionPlan[0].deadline", e.target.value)}
+                        type="date"
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Row 3 */}
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Action Confirmation</label>
+                      <select
+                        value={actionData?.actionPlan?.[0]?.confirmation || ""}
+                        onChange={(e) => handleFormChange("actionPlan[0].confirmation", e.target.value)}
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                      >
+                        <option value="">Select</option>
+                        {dropdownData?.confirmation?.map((item) => (
+                          <option key={item.id} value={item.id}>{item.value}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Action Status</label>
+                      <select
+                        value={actionData?.actionPlan?.[0]?.status || ""}
+                        onChange={(e) => handleFormChange("actionPlan[0].status", e.target.value)}
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                      >
+                        <option value="">Select</option>
+                        {dropdownData?.status?.map((item) => (
+                          <option key={item.id} value={item.id}>{item.value}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Completion Date</label>
+                      <input
+                        value={actionData?.actionPlan?.[0]?.completionDate || ""}
+                        onChange={(e) => handleFormChange("actionPlan[0].completionDate", e.target.value)}
+                        type="date"
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Row 4 */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Verification Status</label>
+                      <select
+                        value={actionData?.actionPlan?.[0]?.verificationStatus || ""}
+                        onChange={(e) => handleFormChange("actionPlan[0].verificationStatus", e.target.value)}
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                      >
+                        <option value="">Select</option>
+                        {dropdownData?.verificationStatus?.map((item) => (
+                          <option key={item.id} value={item.id}>{item.value}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Comment</label>
+                      <input
+                        value={actionData?.actionPlan?.[0]?.comment || ""}
+                        onChange={(e) => handleFormChange("actionPlan[0].comment", e.target.value)}
+                        type="text"
+                        placeholder="Enter comment..."
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Monthly Status Section */}
+              <div>
+                <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest mb-4">Monthly Action Status</p>
+                <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5">
+                  <div className="grid grid-cols-4 gap-4">
+                    {["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"].map((month) => (
+                      <div key={month} className="group">
+                        <label className="block text-xs font-medium text-gray-500 mb-1.5 capitalize group-focus-within:text-blue-500 transition-colors">
+                          {month.charAt(0).toUpperCase() + month.slice(1)}
+                        </label>
+                        <select
+                          value={actionData?.actionPlan?.[0]?.[month] || ""}
+                          onChange={(e) => handleFormChange(`actionPlan[0].${month}`, e.target.value)}
+                          className="w-full px-3.5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                        >
+                          <option value="">Select</option>
+                          {dropdownData?.status?.map((item) => (
+                            <option key={item.id} value={item.id}>{item.value}</option>
+                          ))}
+                        </select>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="px-8 py-5 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50 rounded-b-2xl">
+              <button
+                onClick={closeModal}
+                className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={saveRisk}
+                className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl hover:from-blue-600 hover:to-blue-800 shadow-sm shadow-blue-200 transition-all"
+              >
+                {modalMode === "add" ? "Add Action" : "Update Action"}
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
+
+    {/* Delete Confirmation Modal */}
+    {showDeleteModal && (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+        <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 border border-gray-100">
+          <div className="p-6">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-base font-semibold text-gray-800 mb-1">Confirm Delete</h3>
+                <p className="text-sm text-gray-500">
+                  {isBulkDelete
+                    ? `Are you sure you want to delete ${selectedCount} selected item(s)? This action can be undone.`
+                    : "Are you sure you want to delete this item? This action can be undone."}
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-end gap-3 mt-6">
+              <button
+                onClick={() => setShowDeleteModal(false)}
+                className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDeleteConfirm}
+                className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-red-500 to-red-600 rounded-xl hover:from-red-600 hover:to-red-700 shadow-sm shadow-red-200 transition-all"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  ))}
-
-{/* Delete Confirmation Modal */}
-{showDeleteModal && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-    <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 border border-gray-100">
-      <div className="p-6">
-        <div className="flex items-start gap-4">
-          <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
-            <svg className="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-            </svg>
-          </div>
-          <div>
-            <h3 className="text-base font-semibold text-gray-800 mb-1">Confirm Delete</h3>
-            <p className="text-sm text-gray-500">
-              {isBulkDelete
-                ? `Are you sure you want to delete ${selectedCount} selected item(s)? This action can be undone.`
-                : "Are you sure you want to delete this item? This action can be undone."}
-            </p>
-          </div>
+    )}
         </div>
-        <div className="flex justify-end gap-3 mt-6">
-          <button
-            onClick={() => setShowDeleteModal(false)}
-            className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={handleDeleteConfirm}
-            className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-red-500 to-red-600 rounded-xl hover:from-red-600 hover:to-red-700 shadow-sm shadow-red-200 transition-all"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-)}
-    </div>
   );
 };
 

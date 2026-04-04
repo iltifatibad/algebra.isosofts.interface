@@ -313,6 +313,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.clnumber} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.trainingFrequency.value} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
 {/* NVCD */}
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   <SoftBadge value={row.nvcd} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
@@ -458,6 +462,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   <SoftBadge value={row.clnumber} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.trainingFrequency.value} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
 {/* NVCD */}
@@ -881,6 +889,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   <SoftBadge value={row.clnumber} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  <SoftBadge value={row.trainingFrequency.value} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
 {/* NVCD */}

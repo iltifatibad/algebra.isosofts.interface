@@ -22,6 +22,12 @@ const EiHeaders = ({ activeHeader }) => {
             className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
+            Equipment Type
+          </th>
+          <th
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
             Serial Number
           </th>
           <th
@@ -29,6 +35,12 @@ const EiHeaders = ({ activeHeader }) => {
             rowSpan={2}
           >
             Certificate Number
+          </th>
+          <th
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            Calibration Required
           </th>
           <th
             className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"

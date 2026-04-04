@@ -214,6 +214,7 @@ const TrProfile = () => {
     tcln: "",
     nvcd: "",
     clnumber: "",
+    trainingFrequency: "",
     ncd: "",
     effectiveness: 0,
     validityStatus: "",
@@ -369,6 +370,7 @@ async function getDefaultDropdownList() {
         position: "",
         tcln: "",
         certificateNo: "",
+        trainingFrequency: "",
         inspectionFrequency: "",
         icd: "",
         nvcd: "",
@@ -416,6 +418,7 @@ async function getDefaultDropdownList() {
         tcln: row.tcln,
         nvcd: row.nvcd,
         clnumber: row.clnumber,
+        trainingFrequency: row.trainingFrequency.id || String(row.trainingFrequency),
         ncd: row.ncd,
         validityStatus: row.validityStatus,
         effectiveness: row.effectiveness,
@@ -531,6 +534,7 @@ const saveRisk = () => {
                 position: formData.position,
                 nvcd: formData.nvcd,
                 clnumber: formData.clnumber,
+                trainingFrequency: formData.trainingFrequency,
                 ncd: formData.ncd,
                 nvcd: formData.nvcd,
                 validityStatus: parseInt(formData.validityStatus),
@@ -607,6 +611,7 @@ const saveRisk = () => {
                 tcln: formData.tcln,
                 nvcd: formData.nvcd,
                 clnumber: formData.clnumber,
+                trainingFrequency: formData.trainingFrequency,
                 ncd: formData.ncd,
                 validityStatus: parseInt(formData.validityStatus),
                 effectiveness: parseInt(formData.effectiveness),
@@ -1300,6 +1305,20 @@ const archiveData = (id) => {
                 placeholder="Enter certificate number..."
                 className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
               />
+            </div>
+
+            <div className="group">
+              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> Training Frequency</label>
+              <select
+                value={formData.trainingFrequency || ""}
+                onChange={(e) => handleFormChange("trainingFrequency", e.target.value)}
+                className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+              >
+                <option value="">Select</option>
+                {dropdownData?.inspectionFrequency?.map((item) => (
+                  <option key={item.id} value={item.id}>{item.value}</option>
+                ))}
+              </select>
             </div>
 
             {/* Next Certification Date */}

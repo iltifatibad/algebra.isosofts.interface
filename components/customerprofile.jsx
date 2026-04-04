@@ -1285,7 +1285,7 @@ const archiveData = (id) => {
               />
             </div>
 
-            {/* evaluationDone */}
+            {/* Evaluation Done */}
             <div className="group md:col-span-2">
               <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Evaluation Status</label>
               <select
