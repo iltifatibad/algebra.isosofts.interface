@@ -414,7 +414,7 @@ async function getDefaultDropdownList() {
         certificateNo: row.certificateNo,
         calibrationRequired: row.calibrationRequired,
         inspectionFrequency:
-          row.inspectionFrequency.id || String(row.inspectionFrequency),
+        row.inspectionFrequency.id || String(row.inspectionFrequency),
         icd: row.icd,
         nvcd: row.nvcd,
         eis: row.eis,
@@ -1269,7 +1269,7 @@ const archiveData = (id) => {
                   <div className="group">
                     <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Equipment Type</label>
                     <select
-                      value={formData.type}
+                      value={formData.type || ""}
                       onChange={(e) => {
                         console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
                         handleFormChange("type", e.target.value);
