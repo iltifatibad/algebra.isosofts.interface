@@ -411,14 +411,16 @@ data.map(async (item) => {
 {/* Total Score */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge
-    value={
-      (Number(row.qgs) || 0) +
-      (Number(row.communication) || 0) +
-      (Number(row.otd) || 0) +
-      (Number(row.documentation) || 0) +
-      (Number(row.hs) || 0) +
-      (Number(row.environment) || 0)
-    }
+value={
+  (
+    (Number(row.qgs) || 0) +
+    (Number(row.communication) || 0) +
+    (Number(row.otd) || 0) +
+    (Number(row.documentation) || 0) +
+    (Number(row.hs) || 0) +
+    (Number(row.environment) || 0)
+  ) / 6
+}
     color="bg-slate-100 text-slate-700 border border-slate-200"
   />
 </td>
@@ -565,14 +567,16 @@ data.map(async (item) => {
 {/* Total Score */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge
-    value={
-      (Number(row.qgs) || 0) +
-      (Number(row.communication) || 0) +
-      (Number(row.otd) || 0) +
-      (Number(row.documentation) || 0) +
-      (Number(row.hs) || 0) +
-      (Number(row.environment) || 0)
-    }
+value={
+  (
+    (Number(row.qgs) || 0) +
+    (Number(row.communication) || 0) +
+    (Number(row.otd) || 0) +
+    (Number(row.documentation) || 0) +
+    (Number(row.hs) || 0) +
+    (Number(row.environment) || 0)
+  ) / 6
+}
     color="bg-slate-100 text-slate-700 border border-slate-200"
   />
 </td>
@@ -1006,14 +1010,16 @@ data.map(async (item) => {
 {/* Total Score */}
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
   <SoftBadge
-    value={
-      (Number(row.qgs) || 0) +
-      (Number(row.communication) || 0) +
-      (Number(row.otd) || 0) +
-      (Number(row.documentation) || 0) +
-      (Number(row.hs) || 0) +
-      (Number(row.environment) || 0)
-    }
+value={
+  (
+    (Number(row.qgs) || 0) +
+    (Number(row.communication) || 0) +
+    (Number(row.otd) || 0) +
+    (Number(row.documentation) || 0) +
+    (Number(row.hs) || 0) +
+    (Number(row.environment) || 0)
+  ) / 6
+}
     color="bg-slate-100 text-slate-700 border border-slate-200"
   />
 </td>

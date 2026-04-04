@@ -169,7 +169,7 @@ const getAll = async () => {
     });
 };
 
-    const getRiskLevel = (severity, likelihood) => {
+  const getRiskLevel = (severity, likelihood) => {
   const score = Number(severity) * Number(likelihood);
 
   if (score >= 1 && score <= 6) {
@@ -179,14 +179,14 @@ const getAll = async () => {
     };
   }
 
-  if (score > 6 && score <= 12) {
+  if (score > 8 && score <= 10) {
     return {
       label: "Medium",
       color: "bg-yellow-100 text-yellow-700 border border-yellow-200",
     };
   }
 
-  if (score > 12 && score <= 25) {
+  if (score >= 12 && score <= 25) {
     return {
       label: "High",
       color: "bg-rose-100 text-rose-700 border border-rose-200",
