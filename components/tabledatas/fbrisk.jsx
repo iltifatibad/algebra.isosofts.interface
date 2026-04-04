@@ -724,13 +724,32 @@ value={
                     {row.environment}
                   </td>
 
-                  {/* Environment */}
+                  <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+                    {(() => {
+                      const values = [row.qgs, row.communication, row.otd, row.documentation, row.hs, row.environment];
+                      const valid = values.filter(v => v !== null && v !== undefined && v !== "");
+                      if (valid.length === 0) return "";
+                      const avg = (valid.reduce((sum, v) => sum + Number(v), 0) / 6).toFixed(2);
+                      return (
+                        <SoftBadge
+                          value={avg}
+                          color={
+                            avg >= 4 ? "bg-green-100 text-green-700 border border-green-200" :
+                            avg >= 2.5 ? "bg-amber-100 text-amber-700 border border-amber-200" :
+                                        "bg-red-100 text-red-700 border border-red-200"
+                          }
+                        />
+                      );
+                    })()}
+                  </td>
+
+                  {/* Environment
                   <td
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
                   >
                     {row.actual?.value}
-                  </td>
+                  </td> */}
                 </tr>
               </React.Fragment>
             );
@@ -872,13 +891,32 @@ value={
                     {row.actual?.value}
                   </td>
 
-                  {/* Environment */}
+                  <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+                    {(() => {
+                      const values = [row.qgs, row.communication, row.otd, row.documentation, row.hs, row.environment];
+                      const valid = values.filter(v => v !== null && v !== undefined && v !== "");
+                      if (valid.length === 0) return "";
+                      const avg = (valid.reduce((sum, v) => sum + Number(v), 0) / 6).toFixed(2);
+                      return (
+                        <SoftBadge
+                          value={avg}
+                          color={
+                            avg >= 4 ? "bg-green-100 text-green-700 border border-green-200" :
+                            avg >= 2.5 ? "bg-amber-100 text-amber-700 border border-amber-200" :
+                                        "bg-red-100 text-red-700 border border-red-200"
+                          }
+                        />
+                      );
+                    })()}
+                  </td>
+                  
+                  {/* Environment
                   <td
                     className="border border-gray-200 px-3 py-2 w-20"
                     rowSpan={1}
                   >
                     {row.actual?.value}
-                  </td>
+                  </td> */}
                 </tr>
               </React.Fragment>
             );
