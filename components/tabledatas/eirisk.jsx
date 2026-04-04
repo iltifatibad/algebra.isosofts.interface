@@ -301,7 +301,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-  <SoftBadge value={row.type} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.type.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* Serial Number */}
@@ -427,7 +427,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-  <SoftBadge value={row.type} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.type.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* Serial Number */}
@@ -836,7 +836,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-  <SoftBadge value={row.type} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.type.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* Serial Number */}
