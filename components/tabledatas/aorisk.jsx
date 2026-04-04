@@ -355,7 +355,23 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Audit Status */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.aoaStatus} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
+  {(() => {
+    if (!row.nextAoaDate) return (
+      <SoftBadge value="Overdue" color="bg-red-100 text-red-700 border border-red-200" />
+    );
+    const diffInDays = Math.ceil((new Date(row.nextAoaDate) - new Date()) / (1000 * 60 * 60 * 24));
+    const isValid = diffInDays >= 0;
+    return (
+      <SoftBadge
+        value={isValid ? "On Schedule" : "Overdue"}
+        color={
+          isValid
+            ? "bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200"
+            : "bg-red-100 text-red-700 border border-red-200"
+        }
+      />
+    );
+  })()}
 </td>
                 </tr>
 
@@ -483,7 +499,23 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Audit Status */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.aoaStatus} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
+  {(() => {
+    if (!row.nextAoaDate) return (
+      <SoftBadge value="Overdue" color="bg-red-100 text-red-700 border border-red-200" />
+    );
+    const diffInDays = Math.ceil((new Date(row.nextAoaDate) - new Date()) / (1000 * 60 * 60 * 24));
+    const isValid = diffInDays >= 0;
+    return (
+      <SoftBadge
+        value={isValid ? "On Schedule" : "Overdue"}
+        color={
+          isValid
+            ? "bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200"
+            : "bg-red-100 text-red-700 border border-red-200"
+        }
+      />
+    );
+  })()}
 </td>
                 </tr>
 
@@ -874,8 +906,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge
     value={(() => {
-      if (!row.aoaDate || !row.nextAoaDate) return "";
-      const diffInDays = Math.ceil((new Date(row.nextAoaDate) - new Date(row.aoaDate)) / (1000 * 60 * 60 * 24));
+      if (!row.nextAoaDate) return "";
+      const diffInDays = Math.ceil((new Date(row.nextAoaDate) - new Date()) / (1000 * 60 * 60 * 24));
       return `${diffInDays} Days`;
     })()}
     color="bg-lime-100 text-lime-700 border border-lime-200"
@@ -884,7 +916,23 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Audit Status */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.aoaStatus} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
+  {(() => {
+    if (!row.nextAoaDate) return (
+      <SoftBadge value="Overdue" color="bg-red-100 text-red-700 border border-red-200" />
+    );
+    const diffInDays = Math.ceil((new Date(row.nextAoaDate) - new Date()) / (1000 * 60 * 60 * 24));
+    const isValid = diffInDays >= 0;
+    return (
+      <SoftBadge
+        value={isValid ? "On Schedule" : "Overdue"}
+        color={
+          isValid
+            ? "bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200"
+            : "bg-red-100 text-red-700 border border-red-200"
+        }
+      />
+    );
+  })()}
 </td>
                 </tr>
               </React.Fragment>
