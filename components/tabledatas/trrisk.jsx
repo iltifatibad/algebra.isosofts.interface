@@ -349,8 +349,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 {/* Days Difference */}
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   {(() => {
-    if (!row.nvcd || !row.ncd) return "";
-    const diffInDays = Math.ceil((new Date() - new Date(row.nvcd)) / (1000 * 60 * 60 * 24));
+    if (!row.ncd) return "";
+    const diffInDays = Math.ceil((new Date(row.ncd) - new Date()) / (1000 * 60 * 60 * 24));
     return (
       <SoftBadge value={`${diffInDays} Days`} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
     );
@@ -359,14 +359,23 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* Effectiveness */}
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
-  <SoftBadge
-    value={row.validityStatus === 1 ? "Valid" : "Not Valid"}
-    color={
-      row.validityStatus === 1
-        ? "bg-amber-100 text-amber-700 border border-amber-200"
-        : "bg-orange-100 text-orange-700 border border-orange-200"
-    }
-  />
+  {(() => {
+    if (!row.ncd) return (
+      <SoftBadge value="Not Valid" color="bg-orange-100 text-orange-700 border border-orange-200" />
+    );
+    const diffInDays = Math.ceil((new Date(row.ncd) - new Date()) / (1000 * 60 * 60 * 24));
+    const isValid = diffInDays >= 0;
+    return (
+      <SoftBadge
+        value={isValid ? "Valid" : "Not Valid"}
+        color={
+          isValid
+            ? "bg-amber-100 text-amber-700 border border-amber-200"
+            : "bg-orange-100 text-orange-700 border border-orange-200"
+        }
+      />
+    );
+  })()}
 </td>
 
 {/* Effectiveness */}
