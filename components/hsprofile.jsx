@@ -36,6 +36,35 @@ export const hCheckboxChange =
       return newSet;
     });
   };
+  const getRiskLevel = (severity, likelihood) => {
+  const score = Number(severity) * Number(likelihood);
+
+  if (score >= 1 && score <= 6) {
+    return {
+      label: "Low",
+      color: "bg-emerald-100 text-emerald-700 border border-emerald-200",
+    };
+  }
+
+  if (score > 8 && score <= 10) {
+    return {
+      label: "Medium",
+      color: "bg-yellow-100 text-yellow-700 border border-yellow-200",
+    };
+  }
+
+  if (score >= 12 && score <= 25) {
+    return {
+      label: "High",
+      color: "bg-rose-100 text-rose-700 border border-rose-200",
+    };
+  }
+
+  return {
+    label: "-",
+    color: "bg-gray-100 text-gray-500 border border-gray-200",
+  };
+};
 
 export const hCheckboxChangeForActions =
   (setSelectedRowsForActions, setSelectedTableForActions) => (id, table) => {
@@ -1309,62 +1338,154 @@ const archiveData = (id) => {
               <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Risk Assessment</p>
 
               {/* Initial Risk */}
-              <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-4 space-y-3">
-                <p className="text-xs font-semibold text-emerald-600 uppercase tracking-wider">İnitial Risk</p>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="group">
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5">Severity</label>
-                    <select
-                      value={formData.initialRiskSeverity}
-                      onChange={(e) => handleFormChange("initialRiskSeverity", parseInt(e.target.value, 10) || 0)}
-                      className="w-full px-3 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
-                    >
-                      <option value="">Select</option>
-                      {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
-                    </select>
-                  </div>
-                  <div className="group">
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5">Likelihood</label>
-                    <select
-                      value={formData.initialRiskLikelihood}
-                      onChange={(e) => handleFormChange("initialRiskLikelihood", parseInt(e.target.value, 10) || 0)}
-                      className="w-full px-3 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
-                    >
-                      <option value="">Select</option>
-                      {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
-                    </select>
-                  </div>
-                </div>
-              </div>
+<div className="bg-rose-50 border border-rose-100 rounded-2xl p-4 space-y-3">
+  <p className="text-xs font-semibold text-rose-600 uppercase tracking-wider">
+    İnitial Risk
+  </p>
+
+  <div className="grid grid-cols-3 gap-3">
+    {/* Severity */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5">
+        Severity
+      </label>
+      <select
+        value={formData.initialRiskSeverity}
+        onChange={(e) =>
+          handleFormChange(
+            "initialRiskSeverity",
+            parseInt(e.target.value, 10) || 0
+          )
+        }
+        className="w-full px-3 py-2.5 bg-white border border-rose-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all"
+      >
+        <option value="">Select</option>
+        {[1, 2, 3, 4, 5].map((n) => (
+          <option key={n}>{n}</option>
+        ))}
+      </select>
+    </div>
+
+    {/* Likelihood */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5">
+        Likelihood
+      </label>
+      <select
+        value={formData.initialRiskLikelihood}
+        onChange={(e) =>
+          handleFormChange(
+            "initialRiskLikelihood",
+            parseInt(e.target.value, 10) || 0
+          )
+        }
+        className="w-full px-3 py-2.5 bg-white border border-rose-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all"
+      >
+        <option value="">Select</option>
+        {[1, 2, 3, 4, 5].map((n) => (
+          <option key={n}>{n}</option>
+        ))}
+      </select>
+    </div>
+
+    {/* Risk Level Box */}
+    <div className="group flex flex-col justify-end">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5">
+        Risk Level
+      </label>
+
+      {(() => {
+        const risk = getRiskLevel(
+          formData.initialRiskSeverity,
+          formData.initialRiskLikelihood
+        );
+
+        return (
+          <div
+            className={`w-full px-3 py-2.5 rounded-xl text-sm font-medium text-center ${risk.color}`}
+          >
+            {risk.label}
+          </div>
+        );
+      })()}
+    </div>
+  </div>
+</div>
 
               {/* Residual Risk */}
-              <div className="bg-rose-50 border border-rose-100 rounded-2xl p-4 space-y-3">
-                <p className="text-xs font-semibold text-rose-500 uppercase tracking-wider">Residual Risk</p>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="group">
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5">Severity</label>
-                    <select
-                      value={formData.residualRiskSeverity}
-                      onChange={(e) => handleFormChange("residualRiskSeverity", parseInt(e.target.value, 10) || 0)}
-                      className="w-full px-3 py-2.5 bg-white border border-rose-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all"
-                    >
-                      <option value="">Select</option>
-                      {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
-                    </select>
-                  </div>
-                  <div className="group">
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5">Likelihood</label>
-                    <select
-                      value={formData.residualRiskLikelihood}
-                      onChange={(e) => handleFormChange("residualRiskLikelihood", parseInt(e.target.value, 10) || 0)}
-                      className="w-full px-3 py-2.5 bg-white border border-rose-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all"
-                    >
-                      <option value="">Select</option>
-                      {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
-                    </select>
-                  </div>
-                </div>
-              </div>
+<div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-4 space-y-3">
+  <p className="text-xs font-semibold text-emerald-600 uppercase tracking-wider">
+    Residual Risk
+  </p>
+
+  <div className="grid grid-cols-3 gap-3">
+    {/* Severity */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5">
+        Severity
+      </label>
+      <select
+        value={formData.residualRiskSeverity}
+        onChange={(e) =>
+          handleFormChange(
+            "residualRiskSeverity",
+            parseInt(e.target.value, 10) || 0
+          )
+        }
+        className="w-full px-3 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
+      >
+        <option value="">Select</option>
+        {[1, 2, 3, 4, 5].map((n) => (
+          <option key={n}>{n}</option>
+        ))}
+      </select>
+    </div>
+
+    {/* Likelihood */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5">
+        Likelihood
+      </label>
+      <select
+        value={formData.residualRiskLikelihood}
+        onChange={(e) =>
+          handleFormChange(
+            "residualRiskLikelihood",
+            parseInt(e.target.value, 10) || 0
+          )
+        }
+        className="w-full px-3 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
+      >
+        <option value="">Select</option>
+        {[1, 2, 3, 4, 5].map((n) => (
+          <option key={n}>{n}</option>
+        ))}
+      </select>
+    </div>
+
+    {/* Risk Level */}
+    <div className="group flex flex-col justify-end">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5">
+        Risk Level
+      </label>
+
+      {(() => {
+        const risk = getRiskLevel(
+          formData.residualRiskSeverity,
+          formData.residualRiskLikelihood
+        );
+
+        return (
+          <div
+            className={`w-full px-3 py-2.5 rounded-xl text-sm font-medium text-center ${risk.color}`}
+          >
+            {risk.label}
+          </div>
+        );
+      })()}
+    </div>
+  </div>
+</div>
             </div>
 
           </div>

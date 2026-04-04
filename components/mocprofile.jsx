@@ -37,6 +37,37 @@ export const hCheckboxChange =
     });
   };
 
+    const getRiskLevel = (severity, likelihood) => {
+  const score = Number(severity) * Number(likelihood);
+
+  if (score >= 1 && score <= 6) {
+    return {
+      label: "Low",
+      color: "bg-emerald-100 text-emerald-700 border border-emerald-200",
+    };
+  }
+
+  if (score > 8 && score <= 10) {
+    return {
+      label: "Medium",
+      color: "bg-yellow-100 text-yellow-700 border border-yellow-200",
+    };
+  }
+
+  if (score >= 12 && score <= 25) {
+    return {
+      label: "High",
+      color: "bg-rose-100 text-rose-700 border border-rose-200",
+    };
+  }
+
+  return {
+    label: "-",
+    color: "bg-gray-100 text-gray-500 border border-gray-200",
+  };
+};
+
+
 export const hCheckboxChangeForActions =
   (setSelectedRowsForActions, setSelectedTableForActions) => (id, table) => {
     const selectedItem = table.find((item) => item.id === id);
@@ -1368,81 +1399,107 @@ const archiveData = (id) => {
             {/* Sağ sütun */}
             <div className="space-y-6">
               <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">İnitial Risk</label>
-                <div className="grid grid-cols-2 gap-4">
-                  <select
-                    value={formData.initialRiskSeverity}
-                    onChange={(e) => {
-                      console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
-                      const newValue = parseInt(e.target.value, 10) || 0;
-                      handleFormChange("initialRiskSeverity", newValue);
-                    }}
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  >
-                    <option value="">Severity</option>
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                    <option value={4}>4</option>
-                    <option value={5}>5</option>
-                  </select>
+<div className="group bg-rose-50 border border-rose-100 rounded-2xl p-4">
+  <label className="block text-xs font-medium text-rose-600 mb-1.5 group-focus-within:text-rose-500 transition-colors">
+    İnitial Risk
+  </label>
 
-                  <select
-                    value={formData.initialRiskLikelihood}
-                    onChange={(e) => {
-                      console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
-                      const newValue = parseInt(e.target.value, 10) || 0;
-                      handleFormChange("initialRiskLikelihood", newValue);
-                    }}
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  >
-                    <option value="">Likelihood</option>
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                    <option value={4}>4</option>
-                    <option value={5}>5</option>
-                  </select>
-                </div>
+  <div className="grid grid-cols-3 gap-4">
+    {/* Severity */}
+    <select
+      value={formData.initialRiskSeverity}
+      onChange={(e) => {
+        const newValue = parseInt(e.target.value, 10) || 0;
+        handleFormChange("initialRiskSeverity", newValue);
+      }}
+      className="w-full px-3.5 py-2.5 bg-white border border-rose-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all"
+    >
+      <option value="">Severity</option>
+      {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
+    </select>
+
+    {/* Likelihood */}
+    <select
+      value={formData.initialRiskLikelihood}
+      onChange={(e) => {
+        const newValue = parseInt(e.target.value, 10) || 0;
+        handleFormChange("initialRiskLikelihood", newValue);
+      }}
+      className="w-full px-3.5 py-2.5 bg-white border border-rose-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all"
+    >
+      <option value="">Likelihood</option>
+      {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
+    </select>
+
+    {/* Risk Level */}
+    {(() => {
+      const risk = getRiskLevel(
+        formData.initialRiskSeverity,
+        formData.initialRiskLikelihood
+      );
+
+      return (
+        <div
+          className={`flex items-center justify-center px-3.5 py-2.5 rounded-xl text-sm font-medium ${risk.color}`}
+        >
+          {risk.label}
+        </div>
+      );
+    })()}
+  </div>
+</div>
               </div>
 
               <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Residual Risk</label>
-                <div className="grid grid-cols-2 gap-4">
-                  <select
-                    value={formData.residualRiskSeverity}
-                    onChange={(e) => {
-                      console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
-                      const newValue = parseInt(e.target.value, 10) || 0;
-                      handleFormChange("residualRiskSeverity", newValue);
-                    }}
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  >
-                    <option value="">Severity</option>
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                    <option value={4}>4</option>
-                    <option value={5}>5</option>
-                  </select>
+<div className="group bg-emerald-50 border border-emerald-100 rounded-2xl p-4">
+  <label className="block text-xs font-medium text-emerald-600 mb-1.5 group-focus-within:text-emerald-500 transition-colors">
+    Residual Risk
+  </label>
 
-                  <select
-                    value={formData.residualRiskLikelihood}
-                    onChange={(e) => {
-                      console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
-                      const newValue = parseInt(e.target.value, 10) || 0;
-                      handleFormChange("residualRiskLikelihood", newValue);
-                    }}
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  >
-                    <option value="">Likelihood</option>
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                    <option value={4}>4</option>
-                    <option value={5}>5</option>
-                  </select>
-                </div>
+  <div className="grid grid-cols-3 gap-4">
+    {/* Severity */}
+    <select
+      value={formData.residualRiskSeverity}
+      onChange={(e) => {
+        const newValue = parseInt(e.target.value, 10) || 0;
+        handleFormChange("residualRiskSeverity", newValue);
+      }}
+      className="w-full px-3.5 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
+    >
+      <option value="">Severity</option>
+      {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
+    </select>
+
+    {/* Likelihood */}
+    <select
+      value={formData.residualRiskLikelihood}
+      onChange={(e) => {
+        const newValue = parseInt(e.target.value, 10) || 0;
+        handleFormChange("residualRiskLikelihood", newValue);
+      }}
+      className="w-full px-3.5 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
+    >
+      <option value="">Likelihood</option>
+      {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
+    </select>
+
+    {/* Risk Level */}
+    {(() => {
+      const risk = getRiskLevel(
+        formData.residualRiskSeverity,
+        formData.residualRiskLikelihood
+      );
+
+      return (
+        <div
+          className={`flex items-center justify-center px-3.5 py-2.5 rounded-xl text-sm font-medium ${risk.color}`}
+        >
+          {risk.label}
+        </div>
+      );
+    })()}
+  </div>
+</div>
               </div>
             </div>
           </div>
