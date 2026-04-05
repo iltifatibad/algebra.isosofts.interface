@@ -400,6 +400,11 @@ console.log(url);
     return <SoftBadge value={risk.label} color={risk.color} />;
   })()}
 </td>
+
+{/* Comment */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
+</td>
                 </tr>
 
                 {/* Ek Actions */}
@@ -529,6 +534,11 @@ console.log(url);
     const risk = getRiskLevel(row.residualRiskSeverity, row.residualRiskLikelihood);
     return <SoftBadge value={risk.label} color={risk.color} />;
   })()}
+</td>
+
+{/* Comment */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
 </td>
                 </tr>
 
@@ -943,6 +953,11 @@ console.log(url);
     const risk = getRiskLevel(row.residualRiskSeverity, row.residualRiskLikelihood);
     return <SoftBadge value={risk.label} color={risk.color} />;
   })()}
+</td>
+
+{/* Comment */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
 </td>
                 </tr>
               </React.Fragment>

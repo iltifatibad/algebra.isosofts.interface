@@ -419,6 +419,10 @@ value={
     color="bg-slate-100 text-slate-700 border border-slate-200"
   />
 </td>
+
+    <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+      <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
+    </td>
                 </tr>
 
                 {/* Ek Actions */}
@@ -617,6 +621,10 @@ value={
     color="bg-slate-100 text-slate-700 border border-slate-200"
   />
 </td>
+
+    <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+      <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
+    </td>
                 </tr>
 
                 {/* Ek Actions */}
@@ -1089,6 +1097,10 @@ value={
     color="bg-slate-100 text-slate-700 border border-slate-200"
   />
 </td>
+
+    <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+      <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
+    </td>
                 </tr>
               </React.Fragment>
             );

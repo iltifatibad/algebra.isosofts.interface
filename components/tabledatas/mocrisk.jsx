@@ -405,6 +405,11 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
     color="bg-orange-100 text-orange-700 border border-orange-200"
   />
 </td>
+
+{/* Comment */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
+</td>
                   {/* İlk Action */}
                 </tr>
                 {/* Ek Actions */}
@@ -549,6 +554,11 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
     value={row.approval === 1 ? "Yes" : "No"}
     color="bg-orange-100 text-orange-700 border border-orange-200"
   />
+</td>
+
+{/* Comment */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
 </td>
                 </tr>
 
@@ -976,6 +986,11 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
     value={row.approval === 1 ? "Yes" : "No"}
     color="bg-orange-100 text-orange-700 border border-orange-200"
   />
+</td>
+
+{/* Comment */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
 </td>
 
                   {/* İlk Action */}

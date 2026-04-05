@@ -355,6 +355,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
   <SoftBadge value={row.effectivenessOfTrainings} color="bg-pink-100 text-pink-700 border border-pink-200" />
 </td>
+
+    <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+      <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
+    </td>
                 </tr>
 
                 {/* Ek Actions */}
@@ -478,6 +482,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
   <SoftBadge value={row.effectivenessOfTrainings} color="bg-pink-100 text-pink-700 border border-pink-200" />
 </td>
+
+    <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+      <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
+    </td>
                 </tr>
 
                 {/* Ek Actions */}
@@ -877,6 +885,10 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
   <SoftBadge value={row.effectivenessOfTrainings} color="bg-pink-100 text-pink-700 border border-pink-200" />
 </td>
+
+    <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+      <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
+    </td>
                 </tr>
               </React.Fragment>
             );

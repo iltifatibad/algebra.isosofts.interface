@@ -310,6 +310,11 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.process?.value} color="bg-violet-100 text-violet-700 border border-violet-200" />
 </td>
+
+{/* Comment */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
+</td>
                 </tr>
 
                 {/* Ek Actions */}
@@ -388,6 +393,11 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 {/* Process */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.process?.value} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
+
+{/* Comment */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
 </td>
                 </tr>
 
@@ -743,6 +753,11 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 {/* Process */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.process?.value} color="bg-violet-100 text-violet-700 border border-violet-200" />
+</td>
+
+{/* Comment */}
+<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+  <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
 </td>
                 </tr>
               </React.Fragment>
