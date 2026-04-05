@@ -1382,165 +1382,203 @@ const archiveData = (id) => {
 
             {/* Sağ sütun */}
             <div className="space-y-6">
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Initial Probability</label>
-                <select
-                  value={formData.idosProbability}
-                  onChange={(e) => {
-                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
-                    const newValue = parseInt(e.target.value, 10) || 0;
-                    handleFormChange("idosProbability", newValue);
-                  }}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-                </select>
+            {/* Initial Risk */}
+              <div className="bg-red-50 border border-red-100 rounded-2xl p-4 space-y-3">
+                <p className="text-xs font-semibold text-red-600 uppercase tracking-wider">
+                  Initial Risk
+                </p>
+
+                <div className="grid grid-cols-4 gap-3">
+
+                  {/* Probability */}
+                  <div className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5">
+                      Initial Probability
+                    </label>
+                    <select
+                      value={formData.idosProbability}
+                      onChange={(e) =>
+                        handleFormChange(
+                          "idosProbability",
+                          parseInt(e.target.value, 10) || 0
+                        )
+                      }
+                      className="w-full px-3 py-2.5 bg-white border border-red-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all"
+                    >
+                      <option value="">Select</option>
+                      {[1, 2, 3, 4, 5].map((n) => (
+                        <option key={n}>{n}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Severity */}
+                  <div className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5">
+                      Initial Severity
+                    </label>
+                    <select
+                      value={formData.idosSeverity}
+                      onChange={(e) =>
+                        handleFormChange(
+                          "idosSeverity",
+                          parseInt(e.target.value, 10) || 0
+                        )
+                      }
+                      className="w-full px-3 py-2.5 bg-white border border-red-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all"
+                    >
+                      <option value="">Select</option>
+                      {[1, 2, 3, 4, 5].map((n) => (
+                        <option key={n}>{n}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Duration */}
+                  <div className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5">
+                      Initial Duration
+                    </label>
+                    <select
+                      value={formData.idosDuration}
+                      onChange={(e) =>
+                        handleFormChange(
+                          "idosDuration",
+                          parseInt(e.target.value, 10) || 0
+                        )
+                      }
+                      className="w-full px-3 py-2.5 bg-white border border-red-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all"
+                    >
+                      <option value="">Select</option>
+                      {[1, 2, 3, 4, 5].map((n) => (
+                        <option key={n}>{n}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Scale */}
+                  <div className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5">
+                      Initial Scale
+                    </label>
+                    <select
+                      value={formData.idosScale}
+                      onChange={(e) =>
+                        handleFormChange(
+                          "idosScale",
+                          parseInt(e.target.value, 10) || 0
+                        )
+                      }
+                      className="w-full px-3 py-2.5 bg-white border border-red-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all"
+                    >
+                      <option value="">Select</option>
+                      {[1, 2, 3, 4, 5].map((n) => (
+                        <option key={n}>{n}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                </div>
               </div>
 
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Initial Severity</label>
-                <select
-                  value={formData.idosSeverity}
-                  onChange={(e) => {
-                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
-                    const newValue = parseInt(e.target.value, 10) || 0;
-                    handleFormChange("idosSeverity", newValue);
-                  }}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-                </select>
-              </div>
+              {/* Residual Risk */}
+                <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-4 space-y-3">
+                  <p className="text-xs font-semibold text-emerald-600 uppercase tracking-wider">
+                    Residual Risk
+                  </p>
 
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Initial Duration</label>
-                <select
-                  value={formData.idosDuration}
-                  onChange={(e) => {
-                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
-                    const newValue = parseInt(e.target.value, 10) || 0;
-                    handleFormChange("idosDuration", newValue);
-                  }}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-                </select>
-              </div>
+                  <div className="grid grid-cols-4 gap-3">
 
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Initial Scale</label>
-                <select
-                  value={formData.idosScale}
-                  onChange={(e) => {
-                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
-                    const newValue = parseInt(e.target.value, 10) || 0;
-                    handleFormChange("idosScale", newValue);
-                  }}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-                </select>
-              </div>
+                    {/* Probability */}
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5">
+                        Residual Probability
+                      </label>
+                      <select
+                        value={formData.rdosProbability}
+                        onChange={(e) =>
+                          handleFormChange(
+                            "rdosProbability",
+                            parseInt(e.target.value, 10) || 0
+                          )
+                        }
+                        className="w-full px-3 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
+                      >
+                        <option value="">Select</option>
+                        {[1, 2, 3, 4, 5].map((n) => (
+                          <option key={n}>{n}</option>
+                        ))}
+                      </select>
+                    </div>
 
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Residual Probability</label>
-                <select
-                  value={formData.rdosProbability}
-                  onChange={(e) => {
-                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
-                    const newValue = parseInt(e.target.value, 10) || 0;
-                    handleFormChange("rdosProbability", newValue);
-                  }}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-                </select>
-              </div>
+                    {/* Severity */}
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5">
+                        Residual Severity
+                      </label>
+                      <select
+                        value={formData.rdosSeverity}
+                        onChange={(e) =>
+                          handleFormChange(
+                            "rdosSeverity",
+                            parseInt(e.target.value, 10) || 0
+                          )
+                        }
+                        className="w-full px-3 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
+                      >
+                        <option value="">Select</option>
+                        {[1, 2, 3, 4, 5].map((n) => (
+                          <option key={n}>{n}</option>
+                        ))}
+                      </select>
+                    </div>
 
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Residual Severity</label>
-                <select
-                  value={formData.rdosSeverity}
-                  onChange={(e) => {
-                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
-                    const newValue = parseInt(e.target.value, 10) || 0;
-                    handleFormChange("rdosSeverity", newValue);
-                  }}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-                </select>
-              </div>
+                    {/* Duration */}
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5">
+                        Residual Duration
+                      </label>
+                      <select
+                        value={formData.rdosDuration}
+                        onChange={(e) =>
+                          handleFormChange(
+                            "rdosDuration",
+                            parseInt(e.target.value, 10) || 0
+                          )
+                        }
+                        className="w-full px-3 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
+                      >
+                        <option value="">Select</option>
+                        {[1, 2, 3, 4, 5].map((n) => (
+                          <option key={n}>{n}</option>
+                        ))}
+                      </select>
+                    </div>
 
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Residual Duration</label>
-                <select
-                  value={formData.rdosDuration}
-                  onChange={(e) => {
-                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
-                    const newValue = parseInt(e.target.value, 10) || 0;
-                    handleFormChange("rdosDuration", newValue);
-                  }}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-                </select>
-              </div>
+                    {/* Scale */}
+                    <div className="group">
+                      <label className="block text-xs font-medium text-gray-500 mb-1.5">
+                        Residual Scale
+                      </label>
+                      <select
+                        value={formData.rdosScale}
+                        onChange={(e) =>
+                          handleFormChange(
+                            "rdosScale",
+                            parseInt(e.target.value, 10) || 0
+                          )
+                        }
+                        className="w-full px-3 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
+                      >
+                        <option value="">Select</option>
+                        {[1, 2, 3, 4, 5].map((n) => (
+                          <option key={n}>{n}</option>
+                        ))}
+                      </select>
+                    </div>
 
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Residual Scale</label>
-                <select
-                  value={formData.rdosScale}
-                  onChange={(e) => {
-                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
-                    const newValue = parseInt(e.target.value, 10) || 0;
-                    handleFormChange("rdosScale", newValue);
-                  }}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-                </select>
-              </div>
+                  </div>
+                </div>
 
                           <div className="group">
               <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Comment</label>
