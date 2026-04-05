@@ -1438,9 +1438,93 @@ const archiveData = (id) => {
                 </div>
               </div>
 
-              {/* Diğer action plan satırları aynı şekilde devam eder – önceki dönüşümdeki gibi */}
-              {/* ... (kısalttım ama tam hali önceki cevapta var, aynı className'lerle devam eder) ... */}
+              <div className="grid grid-cols-3 gap-4">
+                {[
+                  { label: "Relative Function", field: "relativeFunction", options: dropdownData?.relativeFunction },
+                  { label: "Responsible", field: "responsible", options: dropdownData?.affectedPosition },
+                  { label: "Deadline", field: "deadline", type: "date" },
+                ].map(({ label, field, options, type = "select" }) => (
+                  <div key={field} className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">{label}</label>
+                    {type === "date" ? (
+                      <input
+                        value={actionData?.actionPlan?.[0]?.[field] || ""}
+                        onChange={(e) => handleFormChange(`actionPlan[0].${field}`, e.target.value)}
+                        type="date"
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                      />
+                    ) : (
+                      <select
+                        value={actionData?.actionPlan?.[0]?.[field] || ""}
+                        onChange={(e) => handleFormChange(`actionPlan[0].${field}`, e.target.value)}
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                      >
+                        <option value="">Select</option>
+                        {options?.map((item) => (
+                          <option key={item.id} value={item.id}>{item.value}</option>
+                        ))}
+                      </select>
+                    )}
+                  </div>
+                ))}
+              </div>
 
+              <div className="grid grid-cols-3 gap-4">
+                {[
+                  { label: "Action Confirmation", field: "confirmation", options: dropdownData?.confirmation },
+                  { label: "Action Status", field: "status", options: dropdownData?.status },
+                  { label: "Completion Date", field: "completionDate", type: "date" },
+                ].map(({ label, field, options, type = "select" }) => (
+                  <div key={field} className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">{label}</label>
+                    {type === "date" ? (
+                      <input
+                        value={actionData?.actionPlan?.[0]?.[field] || ""}
+                        onChange={(e) => handleFormChange(`actionPlan[0].${field}`, e.target.value)}
+                        type="date"
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                      />
+                    ) : (
+                      <select
+                        value={actionData?.actionPlan?.[0]?.[field] || ""}
+                        onChange={(e) => handleFormChange(`actionPlan[0].${field}`, e.target.value)}
+                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                      >
+                        <option value="">Select</option>
+                        {options?.map((item) => (
+                          <option key={item.id} value={item.id}>{item.value}</option>
+                        ))}
+                      </select>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Verification Status</label>
+                  <select
+                    value={actionData?.actionPlan?.[0]?.verificationStatus || ""}
+                    onChange={(e) => handleFormChange("actionPlan[0].verificationStatus", e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  >
+                    <option value="">Select</option>
+                    {dropdownData?.verificationStatus?.map((item) => (
+                      <option key={item.id} value={item.id}>{item.value}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Comment</label>
+                  <input
+                    value={actionData?.actionPlan?.[0]?.comment || ""}
+                    onChange={(e) => handleFormChange("actionPlan[0].comment", e.target.value)}
+                    type="text"
+                    placeholder="Enter comment..."
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1449,7 +1533,11 @@ const archiveData = (id) => {
             <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest mb-4">Monthly Action Status</p>
             <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5">
               <div className="grid grid-cols-4 gap-4">
-                {["january","february","march","april","may","june","july","august","september","october","november","december"].map((month) => (
+                {[
+                  "january", "february", "march", "april",
+                  "may", "june", "july", "august",
+                  "september", "october", "november", "december"
+                ].map((month) => (
                   <div key={month} className="group">
                     <label className="block text-xs font-medium text-gray-500 mb-1.5 capitalize group-focus-within:text-blue-500 transition-colors">
                       {month.charAt(0).toUpperCase() + month.slice(1)}
