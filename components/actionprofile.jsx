@@ -648,7 +648,7 @@ if (modalMode === "add") {
           responsible: actionData.responsible?.id || "",
           deadline: actionData.deadline,
           confirmation: actionData.actionPlan[0].confirmation?.id || "",
-          status: actionData.actionPlan[0].status?.id,
+          status: actionData.actionPlan[0].status?.id || "",
           completionDate: actionData.completionDate,
           verificationStatus: actionData.verificationStatus?.id,
           comment: actionData.comment?.id || "",
