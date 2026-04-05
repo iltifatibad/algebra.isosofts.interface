@@ -1382,105 +1382,104 @@ const archiveData = (id) => {
 
             {/* Sağ sütun */}
             <div className="space-y-6">
-            {/* Initial Risk */}
-              <div className="bg-red-50 border border-red-100 rounded-2xl p-4 space-y-3">
-                <p className="text-xs font-semibold text-red-600 uppercase tracking-wider">
-                  Initial Risk
-                </p>
+{/* Initial Risk */}
+<div className="bg-red-50 border border-red-100 rounded-2xl p-4 space-y-3">
+  <p className="text-xs font-semibold text-red-600 uppercase tracking-wider">
+    Initial Risk
+  </p>
 
-                <div className="grid grid-cols-4 gap-3">
+  <div className="grid grid-cols-4 gap-3">
 
-                  {/* Probability */}
-                  <div className="group">
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5">
-                      Initial Probability
-                    </label>
-                    <select
-                      value={formData.idosProbability}
-                      onChange={(e) =>
-                        handleFormChange(
-                          "idosProbability",
-                          parseInt(e.target.value, 10) || 0
-                        )
-                      }
-                      className="w-full px-3 py-2.5 bg-white border border-red-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all"
-                    >
-                      <option value="">Select</option>
-                      {[1, 2, 3, 4, 5].map((n) => (
-                        <option key={n}>{n}</option>
-                      ))}
-                    </select>
-                  </div>
+    {/* Probability */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 h-8 flex items-end">
+        Initial Probability
+      </label>
+      <select
+        value={formData.idosProbability}
+        onChange={(e) =>
+          handleFormChange(
+            "idosProbability",
+            parseInt(e.target.value, 10) || 0
+          )
+        }
+        className="w-full px-3 py-2.5 bg-white border border-red-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all"
+      >
+        <option value="">Select</option>
+        {[1, 2, 3, 4, 5].map((n) => (
+          <option key={n}>{n}</option>
+        ))}
+      </select>
+    </div>
 
-                  {/* Severity */}
-                  <div className="group">
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5">
-                      Initial Severity
-                    </label>
-                    <select
-                      value={formData.idosSeverity}
-                      onChange={(e) =>
-                        handleFormChange(
-                          "idosSeverity",
-                          parseInt(e.target.value, 10) || 0
-                        )
-                      }
-                      className="w-full px-3 py-2.5 bg-white border border-red-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all"
-                    >
-                      <option value="">Select</option>
-                      {[1, 2, 3, 4, 5].map((n) => (
-                        <option key={n}>{n}</option>
-                      ))}
-                    </select>
-                  </div>
+    {/* Severity */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 h-8 flex items-end">
+        Initial Severity
+      </label>
+      <select
+        value={formData.idosSeverity}
+        onChange={(e) =>
+          handleFormChange(
+            "idosSeverity",
+            parseInt(e.target.value, 10) || 0
+          )
+        }
+        className="w-full px-3 py-2.5 bg-white border border-red-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all"
+      >
+        <option value="">Select</option>
+        {[1, 2, 3, 4, 5].map((n) => (
+          <option key={n}>{n}</option>
+        ))}
+      </select>
+    </div>
 
-                  {/* Duration */}
-                  <div className="group">
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5">
-                      Initial Duration
-                    </label>
-                    <select
-                      value={formData.idosDuration}
-                      onChange={(e) =>
-                        handleFormChange(
-                          "idosDuration",
-                          parseInt(e.target.value, 10) || 0
-                        )
-                      }
-                      className="w-full px-3 py-2.5 bg-white border border-red-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all"
-                    >
-                      <option value="">Select</option>
-                      {[1, 2, 3, 4, 5].map((n) => (
-                        <option key={n}>{n}</option>
-                      ))}
-                    </select>
-                  </div>
+    {/* Duration */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 h-8 flex items-end">
+        Initial Duration
+      </label>
+      <select
+        value={formData.idosDuration}
+        onChange={(e) =>
+          handleFormChange(
+            "idosDuration",
+            parseInt(e.target.value, 10) || 0
+          )
+        }
+        className="w-full px-3 py-2.5 bg-white border border-red-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all"
+      >
+        <option value="">Select</option>
+        {[1, 2, 3, 4, 5].map((n) => (
+          <option key={n}>{n}</option>
+        ))}
+      </select>
+    </div>
 
-                  {/* Scale */}
-                  <div className="group">
-                    <label className="block text-xs font-medium text-gray-500 mb-1.5">
-                      Initial Scale
-                    </label>
-                    <select
-                      value={formData.idosScale}
-                      onChange={(e) =>
-                        handleFormChange(
-                          "idosScale",
-                          parseInt(e.target.value, 10) || 0
-                        )
-                      }
-                      className="w-full px-3 py-2.5 bg-white border border-red-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all"
-                    >
-                      <option value="">Select</option>
-                      {[1, 2, 3, 4, 5].map((n) => (
-                        <option key={n}>{n}</option>
-                      ))}
-                    </select>
-                  </div>
+    {/* Scale */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 h-8 flex items-end">
+        Initial Scale
+      </label>
+      <select
+        value={formData.idosScale}
+        onChange={(e) =>
+          handleFormChange(
+            "idosScale",
+            parseInt(e.target.value, 10) || 0
+          )
+        }
+        className="w-full px-3 py-2.5 bg-white border border-red-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all"
+      >
+        <option value="">Select</option>
+        {[1, 2, 3, 4, 5].map((n) => (
+          <option key={n}>{n}</option>
+        ))}
+      </select>
+    </div>
 
-                </div>
-              </div>
-
+  </div>
+</div>
               {/* Residual Risk */}
                 <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-4 space-y-3">
                   <p className="text-xs font-semibold text-emerald-600 uppercase tracking-wider">
