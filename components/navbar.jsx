@@ -2,6 +2,7 @@
 // Bu, Isosofts projesindeki navigation bar component'i. Tailwind CSS ve Font Awesome gerektirir.
 // Kullanım: <NavigationBar showProfile={showProfile} setShowProfile={setShowProfile} />
 
+
 import React from "react";
 
 const NavigationBar = ({ showProfile, setShowProfile }) => {
