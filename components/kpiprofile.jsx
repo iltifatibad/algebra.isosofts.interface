@@ -401,11 +401,11 @@ const KpiProfile = () => {
             deadline: row.deadline,
             confirmation:
               row.confirmation?.id || String(row.confirmation) || "",
-            status: row.status?.id || parseInt(row.status) || "",
+            status: row.status || parseInt(row.status) || "",
             completionDate: row.completionDate || "",
             verificationStatus:
               row.verificationStatus?.id ||
-              parseInt(row.verificationStatus) ||
+              String(row.verificationStatus) ||
               "",
             comment: row.comment || "",
             january: row.january?.id || String(row.january) || "",
