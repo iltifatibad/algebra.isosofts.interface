@@ -246,7 +246,7 @@ const MyTableBody = ({
     };
   }
 
-  if (score > 8 && score <= 10) {
+  if (score >= 8 && score <= 10) {
     return {
       label: "Medium",
       color: "bg-yellow-100 text-yellow-700 border border-yellow-200",
@@ -277,7 +277,7 @@ const MyTableBody = ({
   if (loading) return;
   if (error) return;
 
-  if (showDeleted) {
+if (showDeleted) {
     return (
       <tbody className="text-sm">
         {loading ? (
@@ -302,7 +302,7 @@ const MyTableBody = ({
             const SoftBadge = ({ value, color }) =>
               value ? (
                 <span
-                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
+                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm whitespace-normal break-words ${color}`}
                 >
                   {value}
                 </span>
@@ -312,14 +312,14 @@ const MyTableBody = ({
               <React.Fragment key={row.id}>
                 {/* Ana row */}
                 <tr
-                  className={`border-b h-16 min-h-16 align-middle border-gray-200 ${
+                  className={`border-b align-middle border-gray-200 ${
                     index % 2 === 0
                       ? "bg-white hover:bg-gray-200"
                       : "bg-green-100 hover:bg-green-200"
                   }`}
                 >
                   <td
-                    className="border border-gray-200 px-2 py-1 w-16 sticky left-0 top-0 z-10 bg-white"
+                    className="border border-gray-200 px-2 py-1 min-w-[4rem] sticky left-0 top-0 z-10 bg-white"
                     rowSpan={1}
                   >
                     <div className="flex items-center gap-1">
@@ -332,58 +332,59 @@ const MyTableBody = ({
                       />
                     </div>
                   </td>
+
 {/* SWOT */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.swot?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]" rowSpan={1}>
+  <SoftBadge value={row.swot?.value} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* PESTLE */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.pestle?.value} color="bg-blue-100 text-blue-700 border border-blue-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]" rowSpan={1}>
+  <SoftBadge value={row.pestle?.value} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Interested Party */}
-<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.interestedParty?.value} color="bg-violet-100 text-violet-700 border border-violet-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[8rem] max-w-[14rem]" rowSpan={1}>
+  <SoftBadge value={row.interestedParty?.value} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Risk Opportunity */}
-<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.riskOpportunity} color="bg-amber-100 text-amber-700 border border-amber-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[8rem] max-w-[14rem]" rowSpan={1}>
+  <SoftBadge value={row.riskOpportunity} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Objective */}
-<td className="border border-gray-200 px-2 py-1 w-28" rowSpan={1}>
-  <SoftBadge value={row.objective} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[7rem] max-w-[14rem]" rowSpan={1}>
+  <SoftBadge value={row.objective} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* KPI */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.kpi} color="bg-teal-100 text-teal-700 border border-teal-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]" rowSpan={1}>
+  <SoftBadge value={row.kpi} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Process */}
-<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.process?.value} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]" rowSpan={1}>
+  <SoftBadge value={row.process?.value} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* ecm */}
-<td className="border border-gray-200 px-2 py-1 w-48" rowSpan={1}>
-  <SoftBadge value={row.ecm?.value || `${row.ecm}`} color="bg-pink-100 text-pink-700 border border-pink-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[8rem] max-w-[16rem]" rowSpan={1}>
+  <SoftBadge value={row.ecm?.value || `${row.ecm}`} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Initial Risk Severity */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.initialRiskSeverity} color="bg-orange-100 text-orange-700 border border-orange-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]" rowSpan={1}>
+  <SoftBadge value={row.initialRiskSeverity} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Initial Risk Likelihood */}
-<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.initialRiskLikelihood} color="bg-lime-100 text-lime-700 border border-lime-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]" rowSpan={1}>
+  <SoftBadge value={row.initialRiskLikelihood} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Initial Risk Level */}
-<td className="border border-gray-200 px-2 py-1 w-20">
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]">
   {(() => {
     const risk = getRiskLevel(row.initialRiskSeverity, row.initialRiskLikelihood);
     return <SoftBadge value={risk.label} color={risk.color} />;
@@ -391,31 +392,31 @@ const MyTableBody = ({
 </td>
 
 {/* ACM */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.acm} color="bg-teal-100 text-teal-700 border border-teal-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]" rowSpan={1}>
+  <SoftBadge value={row.acm} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Residual Risk Severity */}
-<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.residualRiskSeverity} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]" rowSpan={1}>
+  <SoftBadge value={row.residualRiskSeverity} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Residual Risk Likelihood */}
-<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]" rowSpan={1}>
   <SoftBadge value={row.residualRiskLikelihood} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Residual Risk Level */}
-<td className="border border-gray-200 px-2 py-1 w-20">
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]">
   {(() => {
     const risk = getRiskLevel(row.residualRiskSeverity, row.residualRiskLikelihood);
     return <SoftBadge value={risk.label} color={risk.color} />;
   })()}
 </td>
 
-    <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-      <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
-    </td>
+<td className="border border-gray-200 px-3 py-2 min-w-[5rem] max-w-[14rem]" rowSpan={1}>
+  <SoftBadge value={row.comment} color="bg-sky-100 text-sky-700 border border-sky-200" />
+</td>
                 </tr>
 
                 {/* Ek Actions */}
@@ -450,7 +451,7 @@ const MyTableBody = ({
             const SoftBadge = ({ value, color }) =>
               value ? (
                 <span
-                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
+                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm whitespace-normal break-words ${color}`}
                 >
                   {value}
                 </span>
@@ -460,16 +461,15 @@ const MyTableBody = ({
               <React.Fragment key={row.id}>
                 {/* Ana row */}
                 <tr
-                  className={`border-b h-16 min-h-16 align-middle border-gray-200 ${
+                  className={`border-b align-middle border-gray-200 ${
                     index % 2 === 0
                       ? "bg-white hover:bg-gray-200"
                       : "bg-green-100 hover:bg-green-200"
                   }`}
                 >
-
-                                    {/* ID + Checkbox */}
+                  {/* ID + Checkbox */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-16 sticky left-[-1px] top-0 z-10 bg-white"
+                    className="border border-gray-200 px-3 py-2 min-w-[4rem] sticky left-[-1px] top-0 z-10 bg-white"
                     rowSpan={1}
                   >
                     <div className="flex items-center gap-2">
@@ -485,59 +485,58 @@ const MyTableBody = ({
                     </div>
                   </td>
 
-                  
-                  {/* SWOT */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.swot?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
+{/* SWOT */}
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]" rowSpan={1}>
+  <SoftBadge value={row.swot?.value} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* PESTLE */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.pestle?.value} color="bg-blue-100 text-blue-700 border border-blue-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]" rowSpan={1}>
+  <SoftBadge value={row.pestle?.value} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Interested Party */}
-<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.interestedParty?.value} color="bg-violet-100 text-violet-700 border border-violet-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[8rem] max-w-[14rem]" rowSpan={1}>
+  <SoftBadge value={row.interestedParty?.value} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Risk Opportunity */}
-<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.riskOpportunity} color="bg-amber-100 text-amber-700 border border-amber-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[8rem] max-w-[14rem]" rowSpan={1}>
+  <SoftBadge value={row.riskOpportunity} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Objective */}
-<td className="border border-gray-200 px-2 py-1 w-28" rowSpan={1}>
-  <SoftBadge value={row.objective} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[7rem] max-w-[14rem]" rowSpan={1}>
+  <SoftBadge value={row.objective} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* KPI */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.kpi} color="bg-teal-100 text-teal-700 border border-teal-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]" rowSpan={1}>
+  <SoftBadge value={row.kpi} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Process */}
-<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.process?.value} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]" rowSpan={1}>
+  <SoftBadge value={row.process?.value} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* ecm */}
-<td className="border border-gray-200 px-2 py-1 w-48" rowSpan={1}>
-  <SoftBadge value={row.ecm?.value || `${row.ecm}`} color="bg-pink-100 text-pink-700 border border-pink-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[8rem] max-w-[16rem]" rowSpan={1}>
+  <SoftBadge value={row.ecm?.value || `${row.ecm}`} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Initial Risk Severity */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.initialRiskSeverity} color="bg-orange-100 text-orange-700 border border-orange-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]" rowSpan={1}>
+  <SoftBadge value={row.initialRiskSeverity} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Initial Risk Likelihood */}
-<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.initialRiskLikelihood} color="bg-lime-100 text-lime-700 border border-lime-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]" rowSpan={1}>
+  <SoftBadge value={row.initialRiskLikelihood} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Initial Risk Level */}
-<td className="border border-gray-200 px-2 py-1 w-20">
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]">
   {(() => {
     const risk = getRiskLevel(row.initialRiskSeverity, row.initialRiskLikelihood);
     return <SoftBadge value={risk.label} color={risk.color} />;
@@ -545,31 +544,31 @@ const MyTableBody = ({
 </td>
 
 {/* ACM */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.acm} color="bg-teal-100 text-teal-700 border border-teal-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]" rowSpan={1}>
+  <SoftBadge value={row.acm} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Residual Risk Severity */}
-<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.residualRiskSeverity} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]" rowSpan={1}>
+  <SoftBadge value={row.residualRiskSeverity} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Residual Risk Likelihood */}
-<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]" rowSpan={1}>
   <SoftBadge value={row.residualRiskLikelihood} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Residual Risk Level */}
-<td className="border border-gray-200 px-2 py-1 w-20">
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]">
   {(() => {
     const risk = getRiskLevel(row.residualRiskSeverity, row.residualRiskLikelihood);
     return <SoftBadge value={risk.label} color={risk.color} />;
   })()}
 </td>
 
-    <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-      <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
-    </td>
+<td className="border border-gray-200 px-3 py-2 min-w-[5rem] max-w-[14rem]" rowSpan={1}>
+  <SoftBadge value={row.comment} color="bg-sky-100 text-sky-700 border border-sky-200" />
+</td>
                 </tr>
 
                 {/* Ek Actions */}
@@ -592,10 +591,9 @@ const MyTableBody = ({
           actionData.map((row, index) => {
             const numActions = row.actionPlan ? row.actionPlan.length : 1;
 
-            // Soft badge
             const SoftBadge = ({ value }) =>
               value ? (
-                <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
+                <span className="px-2 py-1 rounded-full bg-sky-100 text-sky-700 text-xs font-medium whitespace-normal break-words">
                   {value}
                 </span>
               ) : null;
@@ -603,7 +601,7 @@ const MyTableBody = ({
             return (
               <React.Fragment key={row.id}>
                 <tr
-                  className={`border-b h-16 min-h-16 align-middle border-gray-200 ${
+                  className={`border-b align-middle border-gray-200 ${
                     index % 2 === 0
                       ? "bg-white hover:bg-gray-200"
                       : "bg-green-100 hover:bg-green-200"
@@ -611,7 +609,7 @@ const MyTableBody = ({
                 >
                   {/* # column */}
                   <td
-                    className="border-b border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px"
+                    className="border-b border-gray-200 px-2 py-1 min-w-[4rem] sticky left-[-1px] top-0 z-10 bg-white -ml-px"
                     rowSpan={numActions}
                   >
                     {selectedTable[0].no}
@@ -628,49 +626,49 @@ const MyTableBody = ({
                     />
                   </td>
                   {/* FIRST ACTION PLAN FIELDS */}
-                  <td className="border-b border-gray-200 px-2 py-1 w-32">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[8rem] max-w-[14rem]">
                     <SoftBadge value={actionData?.[index]?.title} />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-32">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[8rem] max-w-[12rem]">
                     <SoftBadge value={actionData?.[index]?.raiseDate} />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-24">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]">
                     <SoftBadge
                       value={actionData?.[index]?.resources?.toString() || ""}
                     />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-28">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[7rem] max-w-[14rem]">
                     <SoftBadge
                       value={actionData?.[index]?.relativeFunction?.value}
                     />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-28">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[7rem] max-w-[14rem]">
                     <SoftBadge
                       value={actionData?.[index]?.responsible?.value}
                     />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-24">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]">
                     <SoftBadge value={actionData?.[index]?.deadline} />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-36">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[9rem] max-w-[16rem]">
                     <SoftBadge
                       value={actionData?.[index]?.confirmation?.value}
                     />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-24">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]">
                     <SoftBadge
                       value={actionData?.[index]?.status?.value?.toString()}
                     />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-24">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]">
                     <SoftBadge value={actionData?.[index]?.completionDate} />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-32">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[8rem] max-w-[14rem]">
                     <SoftBadge
                       value={actionData?.[index]?.verificationStatus?.value}
                     />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-40">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[8rem] max-w-[16rem]">
                     <SoftBadge value={actionData?.[index]?.comment} />
                   </td>
                   {/* MONITORING MONTH COLUMNS */}
@@ -690,7 +688,7 @@ const MyTableBody = ({
                   ].map((month) => (
                     <td
                       key={`${actionData?.[index]?.id}-${month}`}
-                      className="border-b border-gray-200 px-2 py-1 w-24"
+                      className="border-b border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]"
                     >
                       <SoftBadge
                         value={
@@ -726,10 +724,10 @@ const MyTableBody = ({
           deletedActionData.map((row, index) => {
             const numActions = row.actionPlan ? row.actionPlan.length : 1;
             console.log("WORKINGGGGG !!!");
-            // Soft badge
+
             const SoftBadge = ({ value }) =>
               value ? (
-                <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
+                <span className="px-2 py-1 rounded-full bg-sky-100 text-sky-700 text-xs font-medium whitespace-normal break-words">
                   {value}
                 </span>
               ) : null;
@@ -737,7 +735,7 @@ const MyTableBody = ({
             return (
               <React.Fragment key={row.id}>
                 <tr
-                  className={`border-b h-16 min-h-16 align-middle border-gray-200 ${
+                  className={`border-b align-middle border-gray-200 ${
                     index % 2 === 0
                       ? "bg-white hover:bg-gray-200"
                       : "bg-green-100 hover:bg-green-200"
@@ -745,7 +743,7 @@ const MyTableBody = ({
                 >
                   {/* # column */}
                   <td
-                    className="border-b border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px"
+                    className="border-b border-gray-200 px-2 py-1 min-w-[4rem] sticky left-[-1px] top-0 z-10 bg-white -ml-px"
                     rowSpan={numActions}
                   >
                     {selectedTable[0].no}
@@ -764,59 +762,59 @@ const MyTableBody = ({
                     />
                   </td>
                   {/* FIRST ACTION PLAN FIELDS */}
-                  <td className="border-b border-gray-200 px-2 py-1 w-32">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[8rem] max-w-[14rem]">
                     <SoftBadge value={deletedActionData?.[index]?.title} />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-32">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[8rem] max-w-[12rem]">
                     <SoftBadge value={deletedActionData?.[index]?.raiseDate} />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-24">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]">
                     <SoftBadge
                       value={
                         deletedActionData?.[index]?.resources?.toString() || ""
                       }
                     />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-28">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[7rem] max-w-[14rem]">
                     <SoftBadge
                       value={
                         deletedActionData?.[index]?.relativeFunction?.value
                       }
                     />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-28">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[7rem] max-w-[14rem]">
                     <SoftBadge
                       value={deletedActionData?.[index]?.responsible?.value}
                     />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-24">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]">
                     <SoftBadge value={deletedActionData?.[index]?.deadline} />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-36">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[9rem] max-w-[16rem]">
                     <SoftBadge
                       value={deletedActionData?.[index]?.confirmation?.value}
                     />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-24">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]">
                     <SoftBadge
                       value={deletedActionData?.[
                         index
                       ]?.status?.value?.toString()}
                     />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-24">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]">
                     <SoftBadge
                       value={deletedActionData?.[index]?.completionDate}
                     />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-32">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[8rem] max-w-[14rem]">
                     <SoftBadge
                       value={
                         deletedActionData?.[index]?.verificationStatus?.value
                       }
                     />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-40">
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[8rem] max-w-[16rem]">
                     <SoftBadge value={deletedActionData?.[index]?.comment} />
                   </td>
                   {/* MONITORING MONTH COLUMNS */}
@@ -836,7 +834,7 @@ const MyTableBody = ({
                   ].map((month) => (
                     <td
                       key={`${deletedActionData?.[index]?.id}-${month}`}
-                      className="border-b border-gray-200 px-2 py-1 w-24"
+                      className="border-b border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]"
                     >
                       <SoftBadge
                         value={
@@ -885,18 +883,16 @@ const MyTableBody = ({
             const SoftBadge = ({ value, color }) =>
               value ? (
                 <span
-                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
+                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm whitespace-normal break-words ${color}`}
                 >
                   {value}
                 </span>
               ) : null;
 
-
-
             return (
               <React.Fragment key={row.id}>
                 <tr
-                  className={`border-b h-16 min-h-16 align-middle border-gray-200 ${
+                  className={`border-b align-middle border-gray-200 ${
                     index % 2 === 0
                       ? "bg-white hover:bg-gray-200"
                       : "bg-green-100 hover:bg-green-200"
@@ -904,7 +900,7 @@ const MyTableBody = ({
                 >
                   {/* ID + Checkbox */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-16 sticky left-[-1px] top-0 z-10 bg-white"
+                    className="border border-gray-200 px-3 py-2 min-w-[4rem] sticky left-[-1px] top-0 z-10 bg-white"
                     rowSpan={1}
                   >
                     <div className="flex items-center gap-2">
@@ -920,58 +916,58 @@ const MyTableBody = ({
                     </div>
                   </td>
 
-                 {/* SWOT */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.swot?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
+{/* SWOT */}
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]" rowSpan={1}>
+  <SoftBadge value={row.swot?.value} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* PESTLE */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.pestle?.value} color="bg-blue-100 text-blue-700 border border-blue-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]" rowSpan={1}>
+  <SoftBadge value={row.pestle?.value} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Interested Party */}
-<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.interestedParty?.value} color="bg-violet-100 text-violet-700 border border-violet-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[8rem] max-w-[14rem]" rowSpan={1}>
+  <SoftBadge value={row.interestedParty?.value} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Risk Opportunity */}
-<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.riskOpportunity} color="bg-amber-100 text-amber-700 border border-amber-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[8rem] max-w-[14rem]" rowSpan={1}>
+  <SoftBadge value={row.riskOpportunity} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Objective */}
-<td className="border border-gray-200 px-2 py-1 w-28" rowSpan={1}>
-  <SoftBadge value={row.objective} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[7rem] max-w-[14rem]" rowSpan={1}>
+  <SoftBadge value={row.objective} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* KPI */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.kpi} color="bg-teal-100 text-teal-700 border border-teal-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]" rowSpan={1}>
+  <SoftBadge value={row.kpi} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Process */}
-<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.process?.value} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]" rowSpan={1}>
+  <SoftBadge value={row.process?.value} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* ecm */}
-<td className="border border-gray-200 px-2 py-1 w-48" rowSpan={1}>
-  <SoftBadge value={row.ecm?.value || `${row.ecm}`} color="bg-pink-100 text-pink-700 border border-pink-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[8rem] max-w-[16rem]" rowSpan={1}>
+  <SoftBadge value={row.ecm?.value || `${row.ecm}`} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Initial Risk Severity */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.initialRiskSeverity} color="bg-orange-100 text-orange-700 border border-orange-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]" rowSpan={1}>
+  <SoftBadge value={row.initialRiskSeverity} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Initial Risk Likelihood */}
-<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.initialRiskLikelihood} color="bg-lime-100 text-lime-700 border border-lime-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]" rowSpan={1}>
+  <SoftBadge value={row.initialRiskLikelihood} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Initial Risk Level */}
-<td className="border border-gray-200 px-2 py-1 w-20">
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]">
   {(() => {
     const risk = getRiskLevel(row.initialRiskSeverity, row.initialRiskLikelihood);
     return <SoftBadge value={risk.label} color={risk.color} />;
@@ -979,31 +975,31 @@ const MyTableBody = ({
 </td>
 
 {/* ACM */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.acm} color="bg-teal-100 text-teal-700 border border-teal-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]" rowSpan={1}>
+  <SoftBadge value={row.acm} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Residual Risk Severity */}
-<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.residualRiskSeverity} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]" rowSpan={1}>
+  <SoftBadge value={row.residualRiskSeverity} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Residual Risk Likelihood */}
-<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]" rowSpan={1}>
   <SoftBadge value={row.residualRiskLikelihood} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Residual Risk Level */}
-<td className="border border-gray-200 px-2 py-1 w-20">
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[10rem]">
   {(() => {
     const risk = getRiskLevel(row.residualRiskSeverity, row.residualRiskLikelihood);
     return <SoftBadge value={risk.label} color={risk.color} />;
   })()}
 </td>
 
-    <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
-      <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
-    </td>
+<td className="border border-gray-200 px-3 py-2 min-w-[5rem] max-w-[14rem]" rowSpan={1}>
+  <SoftBadge value={row.comment} color="bg-sky-100 text-sky-700 border border-sky-200" />
+</td>
                 </tr>
               </React.Fragment>
             );

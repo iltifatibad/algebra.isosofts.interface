@@ -241,7 +241,7 @@ console.log(url);
     };
   }
 
-  if (score > 8 && score <= 10) {
+  if (score >= 8 && score <= 10) {
     return {
       label: "Medium",
       color: "bg-yellow-100 text-yellow-700 border border-yellow-200",
