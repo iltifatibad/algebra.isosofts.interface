@@ -546,6 +546,7 @@ const saveRisk = () => {
         issueDate: formData.issueDate,
         nextReviewDate: formData.nextReviewDate,
         actual: parseInt(formData.actual),
+        comment: formData.comment
       };
       console.log("Gönderilen body:", payload);
       fetch(`/api/register/doc/one?token=${token}`, {
@@ -624,6 +625,7 @@ const saveRisk = () => {
         issueDate: formData.issueDate,
         nextReviewDate: formData.nextReviewDate,
         actual: parseInt(formData.actual),
+        comment: formData.comment
       };
       console.log("Gönderilen body:", payload);
       const url = `/api/register/doc/one/${selectedTable[0].id}?token=${token}`;
@@ -1391,20 +1393,7 @@ const archiveData = (id) => {
               />
             </div>
 
-            {/* Actual */}
-            <div className="group md:col-span-2">
-              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Actual</label>
-              <select
-                value={formData.actual}
-                onChange={(e) => handleFormChange("actual", e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-              >
-                <option value={0}>No</option>
-                <option value={1}>Yes</option>
-              </select>
-            </div>
-
-                        <div className="group">
+            <div className="group">
               <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Comment</label>
               <input
                 value={formData.comment}
