@@ -667,7 +667,6 @@ if (modalMode === "add") {
         },
       ],
     });
-    console.log(actionData);
     const payload = { ...actionData.actionPlan[0] };
     console.log("Gönderilen body:", payload);
     const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";

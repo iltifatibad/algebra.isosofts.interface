@@ -471,7 +471,7 @@ async function getDefaultDropdownList() {
             deadline: row.deadline,
             confirmation:
               row.confirmation?.id || String(row.confirmation) || "",
-            status: row.status || parseInt(row.status) || "",
+            status: String(actionData.actionPlan[0].status?.id) || "",
             completionDate: row.completionDate || "",
             verificationStatus:
               row.verificationStatus?.id ||
