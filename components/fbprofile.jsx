@@ -1439,6 +1439,17 @@ const archiveData = (id) => {
                   <option value={10}>10</option>
                 </select>
               </div>
+
+                                            <div className="group">
+              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Comment</label>
+              <input
+                value={formData.comment}
+                onChange={(e) => handleFormChange("comment", e.target.value)}
+                type="text"
+                placeholder="Enter comment..."
+                className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+              />
+            </div>
             </div>
           </div>
         </div>
@@ -1666,17 +1677,6 @@ const archiveData = (id) => {
                     <option value={5}>5</option>
                   </select>
                 </div>
-
-                            <div className="group">
-              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Comment</label>
-              <input
-                value={formData.comment}
-                onChange={(e) => handleFormChange("comment", e.target.value)}
-                type="text"
-                placeholder="Enter comment..."
-                className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-              />
-            </div>
               </div>
             </div>
           </div>
