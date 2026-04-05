@@ -1288,7 +1288,6 @@ const archiveData = (id) => {
             </div>
 
             {/* Conditional: Department / Function Name */}
-            {formData.origin === "15P2nF34w390AI0RA40md0K179FG91" && (
               <div className="group">
                 <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Department / Function Name</label>
                 <select
@@ -1302,10 +1301,8 @@ const archiveData = (id) => {
                   ))}
                 </select>
               </div>
-            )}
 
             {/* Conditional: Type */}
-            {formData.origin === "15P2nF34w390AI0RA40md0K179FG91" && (
               <div className="group">
                 <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Type</label>
                 <select
@@ -1319,10 +1316,8 @@ const archiveData = (id) => {
                   ))}
                 </select>
               </div>
-            )}
 
             {/* Conditional: Number */}
-            {formData.origin === "p4aI8818h82IC2Hn307h3qFO80748g" && (
               <div className="group">
                 <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Number</label>
                 <input
@@ -1333,7 +1328,6 @@ const archiveData = (id) => {
                   className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                 />
               </div>
-            )}
 
             {/* Revision Number */}
             <div className="group">
