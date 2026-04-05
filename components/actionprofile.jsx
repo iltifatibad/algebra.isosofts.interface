@@ -648,7 +648,7 @@ if (modalMode === "add") {
           responsible: actionData.responsible?.id || "",
           deadline: actionData.deadline,
           confirmation: actionData.actionPlan[0].confirmation?.id || "",
-          status: actionData.actionPlan[0].status?.id || "",
+          status: String(actionData.actionPlan[0].status?.id) || "",
           completionDate: actionData.completionDate,
           verificationStatus: actionData.verificationStatus?.id,
           comment: actionData.comment?.id || "",
@@ -667,6 +667,7 @@ if (modalMode === "add") {
         },
       ],
     });
+    console.log(actionData);
     const payload = { ...actionData.actionPlan[0] };
     console.log("Gönderilen body:", payload);
     const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
