@@ -215,6 +215,7 @@ const CusProfile = () => {
     registrationDate: "",
     reviewDate: "",
     evaluationDone: 0,
+    comment: ""
   });
 
   const [formDataHs, setFormDataHs] = useState({
@@ -412,6 +413,7 @@ async function getDefaultDropdownList() {
         registrationDate: row.registrationDate,
         reviewDate: row.reviewDate,
         evaluationDone: row.evaluationDone.id || String(row.evaluationDone),
+        comment: row.comment
       });
     } else {
       setActionData({
@@ -527,6 +529,7 @@ const saveRisk = () => {
         registrationDate: formData.registrationDate,
         reviewDate: formData.reviewDate,
         evaluationDone: parseInt(formData.evaluationDone),
+        comment: formData.comment
       };
       console.log("Gönderilen body:", payload);
       fetch(`/api/register/cus/one?token=${token}`, {
@@ -601,6 +604,7 @@ const saveRisk = () => {
         registrationDate: formData.registrationDate,
         reviewDate: formData.reviewDate,
         evaluationDone: parseInt(formData.evaluationDone),
+        comment: formData.comment
       };
       console.log("Gönderilen body:", payload);
       const url = `/api/register/cus/one/${selectedTable[0].id}?token=${token}`;
@@ -1281,6 +1285,17 @@ const archiveData = (id) => {
                 value={formData.reviewDate}
                 onChange={(e) => handleFormChange("reviewDate", e.target.value)}
                 type="date"
+                className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+              />
+            </div>
+
+                        <div className="group">
+              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Comment</label>
+              <input
+                value={formData.comment}
+                onChange={(e) => handleFormChange("comment", e.target.value)}
+                type="text"
+                placeholder="Enter comment..."
                 className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
               />
             </div>

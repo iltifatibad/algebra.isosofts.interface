@@ -217,6 +217,7 @@ const EiProfile = () => {
     icd: "",
     nvcd: "",
     eis: 0,
+    comment: ""
   });
 
   const [formDataHs, setFormDataHs] = useState({
@@ -372,6 +373,7 @@ async function getDefaultDropdownList() {
         icd: "",
         nvcd: "",
         eis: 0,
+        comment: ""
       });
       setShowModal(true);
     } else {
@@ -418,6 +420,7 @@ async function getDefaultDropdownList() {
         icd: row.icd,
         nvcd: row.nvcd,
         eis: row.eis,
+        comment: row.comment
       });
     } else {
       setActionData({
@@ -535,6 +538,7 @@ const saveRisk = () => {
                 icd: formData.icd,
                 nvcd: formData.nvcd,
                 eis: parseInt(formData.eis),
+                comment: formData.comment
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             fetch(`/api/register/ei/one?token=${token}`, {
@@ -611,6 +615,7 @@ const saveRisk = () => {
                 icd: formData.icd,
                 nvcd: formData.nvcd,
                 eis: parseInt(formData.eis),
+                comment: formData.comment
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             const url =
@@ -1357,6 +1362,17 @@ const archiveData = (id) => {
                       className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                     />
                   </div>
+
+                              <div className="group">
+              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Comment</label>
+              <input
+                value={formData.comment}
+                onChange={(e) => handleFormChange("comment", e.target.value)}
+                type="text"
+                placeholder="Enter comment..."
+                className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+              />
+            </div>
 
                   {/* İstersen yorum satırındaki "Existing Control Measures" kısmını da aynı stilde ekleyebiliriz */}
                 </div>

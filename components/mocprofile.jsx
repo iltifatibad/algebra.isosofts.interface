@@ -252,6 +252,7 @@ const MocProfile = () => {
     initialRiskLikelihood: 0,
     residualRiskSeverity: 0,
     residualRiskLikelihood: 0,
+    comment: ""
   });
 
   const [formDataHs, setFormDataHs] = useState({
@@ -413,6 +414,7 @@ async function getDefaultDropdownList() {
         initialRiskLikelihood: 0,
         residualRiskSeverity: 0,
         residualRiskLikelihood: 0,
+        comment: ""
       });
       setShowModal(true);
     } else {
@@ -462,6 +464,7 @@ async function getDefaultDropdownList() {
         initialRiskLikelihood: row.initialRiskLikelihood,
         residualRiskSeverity: row.residualRiskSeverity,
         residualRiskLikelihood: row.residualRiskLikelihood,
+        comment: row.comment
       });
     } else {
       setActionData({
@@ -582,6 +585,7 @@ const saveRisk = () => {
                 initialRiskLikelihood: formData.initialRiskLikelihood, // Number, spelling uyumlu
                 residualRiskSeverity: formData.residualRiskSeverity,
                 residualRiskLikelihood: formData.residualRiskLikelihood,
+                comment: formData.comment
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             fetch(`/api/register/moc/one?token=${token}`, {
@@ -661,6 +665,7 @@ const saveRisk = () => {
                 initialRiskLikelihood: formData.initialRiskLikelihood, // Number, spelling uyumlu
                 residualRiskSeverity: formData.residualRiskSeverity,
                 residualRiskLikelihood: formData.residualRiskLikelihood,
+                comment: formData.comment
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             const url = `/api/register/moc/one/${selectedTable[0].id}?token=${token}`;
@@ -1451,55 +1456,66 @@ const archiveData = (id) => {
               </div>
 
               <div className="group">
-<div className="group bg-emerald-50 border border-emerald-100 rounded-2xl p-4">
-  <label className="block text-xs font-medium text-emerald-600 mb-1.5 group-focus-within:text-emerald-500 transition-colors">
-    Residual Risk
-  </label>
+                  <div className="group bg-emerald-50 border border-emerald-100 rounded-2xl p-4">
+                    <label className="block text-xs font-medium text-emerald-600 mb-1.5 group-focus-within:text-emerald-500 transition-colors">
+                      Residual Risk
+                    </label>
 
-  <div className="grid grid-cols-3 gap-4">
-    {/* Severity */}
-    <select
-      value={formData.residualRiskSeverity}
-      onChange={(e) => {
-        const newValue = parseInt(e.target.value, 10) || 0;
-        handleFormChange("residualRiskSeverity", newValue);
-      }}
-      className="w-full px-3.5 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
-    >
-      <option value="">Severity</option>
-      {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
-    </select>
+                    <div className="grid grid-cols-3 gap-4">
+                      {/* Severity */}
+                      <select
+                        value={formData.residualRiskSeverity}
+                        onChange={(e) => {
+                          const newValue = parseInt(e.target.value, 10) || 0;
+                          handleFormChange("residualRiskSeverity", newValue);
+                        }}
+                        className="w-full px-3.5 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
+                      >
+                        <option value="">Severity</option>
+                        {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
+                      </select>
 
-    {/* Likelihood */}
-    <select
-      value={formData.residualRiskLikelihood}
-      onChange={(e) => {
-        const newValue = parseInt(e.target.value, 10) || 0;
-        handleFormChange("residualRiskLikelihood", newValue);
-      }}
-      className="w-full px-3.5 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
-    >
-      <option value="">Likelihood</option>
-      {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
-    </select>
+                      {/* Likelihood */}
+                      <select
+                        value={formData.residualRiskLikelihood}
+                        onChange={(e) => {
+                          const newValue = parseInt(e.target.value, 10) || 0;
+                          handleFormChange("residualRiskLikelihood", newValue);
+                        }}
+                        className="w-full px-3.5 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
+                      >
+                        <option value="">Likelihood</option>
+                        {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
+                      </select>
 
-    {/* Risk Level */}
-    {(() => {
-      const risk = getRiskLevel(
-        formData.residualRiskSeverity,
-        formData.residualRiskLikelihood
-      );
+                      {/* Risk Level */}
+                      {(() => {
+                        const risk = getRiskLevel(
+                          formData.residualRiskSeverity,
+                          formData.residualRiskLikelihood
+                        );
 
-      return (
-        <div
-          className={`flex items-center justify-center px-3.5 py-2.5 rounded-xl text-sm font-medium ${risk.color}`}
-        >
-          {risk.label}
-        </div>
-      );
-    })()}
-  </div>
-</div>
+                        return (
+                          <div
+                            className={`flex items-center justify-center px-3.5 py-2.5 rounded-xl text-sm font-medium ${risk.color}`}
+                          >
+                            {risk.label}
+                          </div>
+                        );
+                      })()}
+
+                                  <div className="group">
+              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Comment</label>
+              <input
+                value={formData.comment}
+                onChange={(e) => handleFormChange("comment", e.target.value)}
+                type="text"
+                placeholder="Enter comment..."
+                className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+              />
+            </div>
+                    </div>
+                  </div>
               </div>
             </div>
           </div>

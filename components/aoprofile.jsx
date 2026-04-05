@@ -220,6 +220,7 @@ const AoProfile = () => {
     inspectionFrequency: "",
     nextAoaDate: "",
     aoaStatus: "",
+    comment: "",
   });
 
   const [formDataHs, setFormDataHs] = useState({
@@ -376,6 +377,7 @@ async function getDefaultDropdownList() {
         inspectionFrequency: "",
         nextAoaDate: "",
         aoaStatus: "",
+        comment: ""
       });
       setShowModal(true);
     } else {
@@ -428,6 +430,7 @@ async function getDefaultDropdownList() {
         nextAoaDate: row.nextAoaDate,
         aoaStatus: row.aoaStatus.id || String(row.aoaStatus),
         rtic: row.rtic.id || String(row.rtic),
+        comment: row.comment
       });
     } else {
       setActionData({
@@ -546,6 +549,7 @@ const saveRisk = () => {
         inspectionFrequency: formData.inspectionFrequency,
         nextAoaDate: formData.nextAoaDate,
         aoaStatus: formData.aoaStatus,
+        comment: formData.comment
       };
       console.log("Gönderilen body:", payload);
       fetch(`/api/register/aop/one?token=${token}`, {
@@ -623,6 +627,7 @@ const saveRisk = () => {
         inspectionFrequency: formData.inspectionFrequency,
         nextAoaDate: formData.nextAoaDate,
         aoaStatus: formData.aoaStatus,
+        comment: formData.comment
       };
       console.log("Gönderilen body:", payload);
       const url = `/api/register/aop/one/${selectedTable[0].id}?token=${token}`;
@@ -1358,6 +1363,17 @@ const archiveData = (id) => {
                 onChange={(e) => handleFormChange("rtic", e.target.value)}
                 type="text"
                 placeholder="Enter criteria..."
+                className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+              />
+            </div>
+
+                        <div className="group">
+              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Comment</label>
+              <input
+                value={formData.comment}
+                onChange={(e) => handleFormChange("comment", e.target.value)}
+                type="text"
+                placeholder="Enter comment..."
                 className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
               />
             </div>

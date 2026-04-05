@@ -249,6 +249,7 @@ const HsProfile = () => {
     initialRiskLikelihood: "",
     residualRiskSeverity: "",
     residualRiskLikelihood: "",
+    comment: ""
   });
 
   const [formDataHs, setFormDataHs] = useState({
@@ -404,6 +405,7 @@ async function getDefaultDropdownList() {
         initialRiskLikelihood: 0,
         residualRiskSeverity: 0,
         residualRiskLikelihood: 0,
+        comment: ""
       });
       setShowModal(true);
     } else {
@@ -452,6 +454,7 @@ async function getDefaultDropdownList() {
         initialRiskLikelihood: row.initialRiskLikelihood,
         residualRiskSeverity: row.residualRiskSeverity,
         residualRiskLikelihood: row.residualRiskLikelihood,
+        comment: row.comment
       });
     } else {
       setActionData({
@@ -570,6 +573,7 @@ const saveRisk = () => {
                 initialRiskLikelihood: formData.initialRiskLikelihood, // Number, spelling uyumlu
                 residualRiskSeverity: formData.residualRiskSeverity,
                 residualRiskLikelihood: formData.residualRiskLikelihood,
+                comment: formData.comment
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             fetch(`/api/register/hsr/one?token=${token}`, {
@@ -648,6 +652,7 @@ const saveRisk = () => {
                 initialRiskLikelihood: formData.initialRiskLikelihood, // Number, spelling uyumlu
                 residualRiskSeverity: formData.residualRiskSeverity,
                 residualRiskLikelihood: formData.residualRiskLikelihood,
+                comment: formData.comment
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             const url = `/api/register/hsr/one/${selectedTable[0].id}?token=${token}`;
@@ -1484,6 +1489,17 @@ const archiveData = (id) => {
         );
       })()}
     </div>
+
+                <div className="group">
+              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Comment</label>
+              <input
+                value={formData.comment}
+                onChange={(e) => handleFormChange("comment", e.target.value)}
+                type="text"
+                placeholder="Enter comment..."
+                className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+              />
+            </div>
   </div>
 </div>
             </div>

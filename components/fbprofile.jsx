@@ -219,6 +219,7 @@ const FbProfile = () => {
     communication: "",
     hs: "",
     environment: "",
+    comment: ""
   });
 
   const [actionData, setActionData] = useState({
@@ -377,6 +378,7 @@ async function getDefaultVendors() {
         communication: "",
         hs: "",
         environment: "",
+        comment: ""
       });
       setShowModal(true);
     } else {
@@ -410,6 +412,7 @@ async function getDefaultVendors() {
         documentation: row.documentation,
         hs: row.hs,
         environment: row.environment,
+        comment: row.comment
       });
     } else {
       setActionData({
@@ -511,6 +514,7 @@ const saveRisk = () => {
                 documentation: parseInt(formData.documentation),
                 hs: parseInt(formData.hs),
                 environment: parseInt(formData.environment),
+                comment: formData.comment
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             fetch(`/api/register/fb/one?token=${token}`, {
@@ -573,6 +577,7 @@ const saveRisk = () => {
                 communication: parseInt(formData.communication),
                 hs: parseInt(formData.hs),
                 environment: parseInt(formData.environment),
+                comment: formData.comment
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             const url =
@@ -1661,6 +1666,17 @@ const archiveData = (id) => {
                     <option value={5}>5</option>
                   </select>
                 </div>
+
+                            <div className="group">
+              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Comment</label>
+              <input
+                value={formData.comment}
+                onChange={(e) => handleFormChange("comment", e.target.value)}
+                type="text"
+                placeholder="Enter comment..."
+                className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+              />
+            </div>
               </div>
             </div>
           </div>

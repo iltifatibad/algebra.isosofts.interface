@@ -219,6 +219,7 @@ const TrProfile = () => {
     effectiveness: 0,
     validityStatus: "",
     effectiveness: "",
+    comment: "",
   });
 
   const [formDataHs, setFormDataHs] = useState({
@@ -377,6 +378,7 @@ async function getDefaultDropdownList() {
         effectiveness: 0,
         validityStatus: "",
         effectiveness: "",
+        comment: "",
       });
       setShowModal(true);
     } else {
@@ -422,6 +424,7 @@ async function getDefaultDropdownList() {
         ncd: row.ncd,
         validityStatus: row.validityStatus,
         effectiveness: row.effectiveness,
+        comment: row.comment,
       });
     } else {
       setActionData({
@@ -539,6 +542,7 @@ const saveRisk = () => {
                 nvcd: formData.nvcd,
                 validityStatus: parseInt(formData.validityStatus),
                 effectiveness: parseInt(formData.effectiveness),
+                comment: formData.comment
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             fetch(`/api/register/tra/one?token=${token}`, {
@@ -615,6 +619,7 @@ const saveRisk = () => {
                 ncd: formData.ncd,
                 validityStatus: parseInt(formData.validityStatus),
                 effectiveness: parseInt(formData.effectiveness),
+                comment: formData.comment
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
             const url = `/api/register/tra/one/${selectedTable[0].id}?token=${token}`;
@@ -1357,6 +1362,17 @@ const archiveData = (id) => {
                 <option value={0}>No</option>
                 <option value={1}>Yes</option>
               </select>
+            </div>
+
+            <div className="group">
+              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Comment</label>
+              <input
+                value={formData.comment}
+                onChange={(e) => handleFormChange("comment", e.target.value)}
+                type="text"
+                placeholder="Enter comment..."
+                className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+              />
             </div>
           </div>
         </div>
