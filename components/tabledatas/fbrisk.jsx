@@ -23,17 +23,51 @@ const FbBody = ({
   const [deletedActionData, setDeletedActionData] = useState([]);
   const [actionData, setActionData] = useState([]);
   const [editData, setEditData] = useState([]);
+// const getArchivedData = async () => {
+//   setLoading(true);
+//   try {
+//     const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+//     const response = await fetch(`/api/register/fb/all?status=archived&token=${token}`);
+//     if (!response.ok) {
+//       throw new Error("Failed To Get Datas From Archived DataBase");
+//     }
+//     const fetchedData = await response.json();
+//     setArchivedData(fetchedData || []);
+//     console.log("Arşiv verileri:", fetchedData);
+//   } catch (err) {
+//     console.error("Error While Fetching Archived Datas:", err);
+//     setArchivedData([]);
+//   } finally {
+//     setLoading(false);
+//   }
+// };
+
 const getArchivedData = async () => {
   setLoading(true);
   try {
     const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
     const response = await fetch(`/api/register/fb/all?status=archived&token=${token}`);
-    if (!response.ok) {
-      throw new Error("Failed To Get Datas From Archived DataBase");
-    }
+    if (!response.ok) throw new Error("Failed To Get Datas From Archived DataBase");
     const fetchedData = await response.json();
-    setArchivedData(fetchedData || []);
-    console.log("Arşiv verileri:", fetchedData);
+
+    // customerName fetch et
+    const updatedData = await Promise.all(
+      fetchedData.map(async (item) => {
+        if (item.customerId) {
+          try {
+            const res = await fetch(`/api/register/cus/one/${item.customerId}?token=${token}`);
+            if (!res.ok) throw new Error("Customer fetch failed");
+            const customer = await res.json();
+            return { ...item, customerName: customer.Name || customer.name || item.customerId };
+          } catch {
+            return { ...item, customerName: item.customerId };
+          }
+        }
+        return { ...item, customerName: "" };
+      })
+    );
+
+    setArchivedData(updatedData);
   } catch (err) {
     console.error("Error While Fetching Archived Datas:", err);
     setArchivedData([]);
@@ -41,6 +75,7 @@ const getArchivedData = async () => {
     setLoading(false);
   }
 };
+
 
   useEffect(() => {
     if (refresh) {
@@ -330,7 +365,7 @@ data.map(async (item) => {
                       <input
                         type="checkbox"
                         checked={selectedRows.has(row.id)}
-                        onChange={() => onCheckboxChange(row.id, tableData)}
+                        onChange={() => onCheckboxChange(row.id, deletedData)}
                         className="h-4 w-4 text-blue-600 rounded"
                       />
                     </div>
@@ -489,7 +524,7 @@ value={
                       <input
                         type="checkbox"
                         checked={selectedRows.has(row.id)}
-                        onChange={() => onCheckboxChange(row.id, tableData)}
+                        onChange={() => onCheckboxChange(row.id, archivedData)}
                         className="h-4 w-4 text-blue-600 rounded"
                       />
                     </div>
