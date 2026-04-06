@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import RisksAssessment from "./profile.jsx";
 import HsProfile from "./hsprofile.jsx";
@@ -45,6 +45,39 @@ const RiskRouter = () => {
 
   const [selectedRisk, setSelectedRisk] = useState("dashboard");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [companyName, setCompanyName] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token =
+          document.cookie
+            .split("; ")
+            .find((r) => r.startsWith("auth_token="))
+            ?.split("=")
+            .slice(1)
+            .join("=") ?? "";
+
+        // 1. Account al
+        const accRes = await fetch(
+          `http://localhost:7777/api/account/self?token=${token}`
+        );
+        const accData = await accRes.json();
+
+        // 2. Company al
+        const compRes = await fetch(
+          `http://localhost:7777/api/company/self?token=${token}`
+        );
+        const compData = await compRes.json();
+
+        setCompanyName(compData.name || "");
+      } catch (err) {
+        console.error("Error fetching company info:", err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className="pt-20 h-screen w-full bg-gray-50 overflow-hidden flex flex-col font-sans">
@@ -61,7 +94,9 @@ const RiskRouter = () => {
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           >
             {isSidebarOpen && (
-              <span className="text-[11px] font-bold text-blue-800 tracking-[0.2em] uppercase">Databases</span>
+              <span className="text-[11px] font-bold text-blue-800 tracking-[0.2em] uppercase">
+                {companyName ? `${companyName} Databases` : "Databases"}
+              </span>
             )}
             <div className={`flex items-center justify-center ${!isSidebarOpen ? 'w-full' : ''}`}>
                <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
