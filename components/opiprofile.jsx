@@ -1403,7 +1403,6 @@ const OPIProfile = () => {
       <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">
         MONTHLY VALUES
       </p>
-
       <div className="grid grid-cols-2 gap-4">
         {[
           "january","february","march","april",
@@ -1414,16 +1413,20 @@ const OPIProfile = () => {
             <label className="block text-xs text-gray-500 mb-1 capitalize">
               {month}
             </label>
-            <select
+            <input
+              type="number"
+              step="1"
               value={formData[month] || ""}
-              onChange={(e) => handleFormChange(month, e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value;
+
+                // sadece integer
+                if (value === "" || /^-?\d+$/.test(value)) {
+                  handleFormChange(month, value);
+                }
+              }}
               className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-400"
-            >
-              <option value="">Select</option>
-              {[0,10,20,30,40,50,60,70,80,90,100].map((val) => (
-                <option key={val} value={val}>{val}</option>
-              ))}
-            </select>
+            />
           </div>
         ))}
       </div>
