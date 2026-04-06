@@ -60,13 +60,13 @@ const RiskRouter = () => {
 
         // 1. Account al
         const accRes = await fetch(
-          `http://localhost:7777/api/account/self?token=${token}`
+          `http://isosofts.com/api/account/self?token=${token}`
         );
         const accData = await accRes.json();
 
         // 2. Company al
         const compRes = await fetch(
-          `http://localhost:7777/api/company/self?token=${token}`
+          `http://isosofts.com/api/company/self?token=${token}`
         );
         const compData = await compRes.json();
 
