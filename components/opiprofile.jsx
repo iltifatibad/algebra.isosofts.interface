@@ -1321,7 +1321,7 @@ const OPIProfile = () => {
           <div className="flex items-center gap-3">
             <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-blue-700 rounded-full" />
             <h3 className="text-lg font-semibold text-gray-800">
-              {modalMode === "add" ? "Add New Risk" : "Edit Risk"}
+              {modalMode === "add" ? "Add New OPI" : "Edit OPI"}
             </h3>
           </div>
           <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 transition-colors">
@@ -1335,17 +1335,17 @@ const OPIProfile = () => {
 <div className="grid md:grid-cols-2 gap-8">
 
   <div className="space-y-5">
-    <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Risk Details</p>
+    <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Title</p>
 
     {/* Objective */}
     <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">KPI</label>
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Title</label>
       <input
-        value={formData.kpi}
-        onChange={(e) => handleFormChange("kpi", e.target.value)}
+        value={formData.title}
+        onChange={(e) => handleFormChange("title", e.target.value)}
         type="text"
         className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter KPI..."
+        placeholder="Enter Title..."
       />
     </div>
 
@@ -1362,72 +1362,6 @@ const OPIProfile = () => {
           <option key={item.id} value={item.id}>{item.value}</option>
         ))}
       </select>
-    </div>
-
-    {/* PESTLE */}
-    <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">PESTLE</label>
-      <select
-        value={formData.pestle || ""}
-        onChange={(e) => handleFormChange("pestle", e.target.value)}
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-      >
-        <option value="">Select</option>
-        {dropdownData?.pestle?.map((item) => (
-          <option key={item.id} value={item.id}>{item.value}</option>
-        ))}
-      </select>
-    </div>
-
-    {/* Interested Party */}
-    <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Interested Party</label>
-      <select
-        value={formData.interestedParty}
-        onChange={(e) => handleFormChange("interestedParty", e.target.value)}
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-      >
-        <option value="">Select</option>
-        {dropdownData?.interestedParty?.map((item) => (
-          <option key={item.id} value={item.id}>{item.value}</option>
-        ))}
-      </select>
-    </div>
-
-    {/* Risk / Opportunity */}
-    <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Risk / Opportunity</label>
-      <input
-        value={formData.riskOpportunity}
-        onChange={(e) => handleFormChange("riskOpportunity", e.target.value)}
-        type="text"
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter risk or opportunity..."
-      />
-    </div>
-
-    {/* Objective */}
-    <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Objective</label>
-      <input
-        value={formData.objective}
-        onChange={(e) => handleFormChange("objective", e.target.value)}
-        type="text"
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter objective..."
-      />
-    </div>
-
-    {/* KPI */}
-    <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">KPI</label>
-      <input
-        value={formData.kpi}
-        onChange={(e) => handleFormChange("kpi", e.target.value)}
-        type="text"
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter KPI..."
-      />
     </div>
 
     {/* Existing Risk Mitigation */}
