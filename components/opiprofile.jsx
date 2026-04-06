@@ -1332,29 +1332,34 @@ const OPIProfile = () => {
         </div>
 
         <div className="px-8 py-6">
-<div className="grid lg:grid-cols-3 gap-6">
+<div className="grid md:grid-cols-2 gap-10">
 
-  <div className="space-y-4">
-    <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Title</p>
+  <div className="space-y-6">
+    <p className="text-sm font-semibold text-blue-500 uppercase tracking-widest">Title</p>
 
     {/* Title */}
     <div className="group">
-      <label className="block text-xs text-gray-500 mb-1">Title</label>
+      <label className="block text-sm font-medium text-gray-600 mb-2 group-focus-within:text-blue-500 transition-colors">
+        Title
+      </label>
       <input
         value={formData.title}
         onChange={(e) => handleFormChange("title", e.target.value)}
         type="text"
-        className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-400 focus:bg-white"
+        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-base text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter Title..."
       />
     </div>
 
     {/* Function */}
     <div className="group">
-      <label className="block text-xs text-gray-500 mb-1">Function</label>
+      <label className="block text-sm font-medium text-gray-600 mb-2 group-focus-within:text-blue-500 transition-colors">
+        Function
+      </label>
       <select
         value={formData.function || ""}
         onChange={(e) => handleFormChange("function", e.target.value)}
-        className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-400"
+        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-base text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
       >
         <option value="">Select</option>
         {dropdownData?.relativeFunction?.map((item) => (
@@ -1363,49 +1368,59 @@ const OPIProfile = () => {
       </select>
     </div>
 
-    {/* KPIs */}
-    <div className="grid grid-cols-3 gap-2">
+    {/* KPI Inputs */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       {[
-        { key: "lykpi", label: "LY KPI" },
-        { key: "actualKPI", label: "Actual" },
-        { key: "annualTarget", label: "Target" }
+        { key: "lykpi", label: "Last Year KPI" },
+        { key: "actualKPI", label: "Actual KPI" },
+        { key: "annualTarget", label: "Annual Target" }
       ].map((item) => (
-        <div key={item.key}>
-          <label className="text-[10px] text-gray-500">{item.label}</label>
+        <div key={item.key} className="group">
+          <label className="block text-sm font-medium text-gray-600 mb-2">
+            {item.label}
+          </label>
           <input
             value={formData[item.key]}
             onChange={(e) => handleFormChange(item.key, e.target.value)}
-            className="w-full px-2 py-1.5 text-xs bg-gray-50 border border-gray-200 rounded-md focus:ring-1 focus:ring-blue-400"
+            type="text"
+            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-base focus:ring-2 focus:ring-blue-400 focus:bg-white"
+            placeholder="Enter..."
           />
         </div>
       ))}
     </div>
-  </div>
 
-  {/* MONTHS */}
-  <div className="lg:col-span-2">
-    <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest mb-3">
-      Monthly Values
-    </p>
+    {/* MONTHS */}
+    <div className="mt-4">
+      <p className="text-sm font-semibold text-blue-500 uppercase tracking-widest mb-3">
+        Monthly Values
+      </p>
 
-    <div className="grid grid-cols-3 md:grid-cols-4 gap-2">
-      {[
-        "january","february","march","april",
-        "may","june","july","august",
-        "september","october","november","december"
-      ].map((month) => (
-        <div key={month}>
-          <label className="text-[10px] text-gray-500 capitalize">
-            {month.slice(0,3)}
-          </label>
-          <input
-            value={formData[month]}
-            onChange={(e) => handleFormChange(month, e.target.value)}
-            className="w-full px-2 py-1.5 text-xs bg-gray-50 border border-gray-200 rounded-md focus:ring-1 focus:ring-blue-400"
-          />
-        </div>
-      ))}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {[
+          "january","february","march","april",
+          "may","june","july","august",
+          "september","october","november","december"
+        ].map((month) => (
+          <div key={month} className="group">
+            <label className="block text-sm font-medium text-gray-600 mb-1 capitalize">
+              {month}
+            </label>
+            <select
+              value={formData[month] || ""}
+              onChange={(e) => handleFormChange(month, e.target.value)}
+              className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white transition-all"
+            >
+              <option value="">Select</option>
+              {[0,10,20,30,40,50,60,70,80,90,100].map((val) => (
+                <option key={val} value={val}>{val}</option>
+              ))}
+            </select>
+          </div>
+        ))}
+      </div>
     </div>
+
   </div>
 
 </div>
