@@ -93,9 +93,8 @@ const getArchivedData = async () => {
 const getDeletedData = async () => {
     setLoading(true); // Loading başla
 try {
-const response = await fetch(
-"/api/register/fb/all?status=deleted",
-      );
+const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+const response = await fetch(`/api/register/fb/all?status=deleted&token=${token}`);
 if (!response.ok) {
 throw new Error("Failed To Get Datas From Deleted DataBase");
       }
