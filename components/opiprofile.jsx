@@ -246,20 +246,24 @@ const OPIProfile = () => {
   const [editingRow, setEditingRow] = useState(null);
   const [formData, setFormData] = useState({
     id: 0,
-    swot: "",
-    pestle: "",
-    interestedParty: "",
-    riskOpportunity: "",
-    objective: "",
-    kpi: "",
-    process: "",
-    ecm: "",
-    acm: "",
-    initialRiskSeverity: "",
-    initialRiskLikelihood: "",
-    residualRiskSeverity: "",
-    residualRiskLikelihood: "",
-    comment: ""
+    title: "",
+    function: "",
+    lykpi: "",
+    actualKPI: "",
+    annualTarget: "",
+    january: 0,
+    february: 0,
+    march: 0,
+    april: 0,
+    may: 0,
+    june: 0,
+    july: 0,
+    august: 0,
+    september: 0,
+    october: 0,
+    november: 0,
+    december: 0,
+
   });
 
   const [formDataHs, setFormDataHs] = useState({
@@ -404,20 +408,24 @@ const OPIProfile = () => {
     const dropdownData = await getDefaultDropdownList();
     if (activeHeader) {
       setFormData({
-        swot: "",
-        pestle: "",
-        interestedParty: "",
-        riskOpportunity: "",
-        objective: "",
-        kpi: "",
-        process: "",
-        ecm: "",
-        acm: "",
-        initialRiskSeverity: 0,
-        initialRiskLikelihood: 0,
-        residualRiskSeverity: 0,
-        residualRiskLikelihood: 0,
-        comment: "",
+    title: "",
+    function: "",
+    lykpi: "",
+    actualKPI: "",
+    annualTarget: "",
+    january: 0,
+    february: 0,
+    march: 0,
+    april: 0,
+    may: 0,
+    june: 0,
+    july: 0,
+    august: 0,
+    september: 0,
+    october: 0,
+    november: 0,
+    december: 0,
+
       });
       setShowModal(true);
     } else {
@@ -454,20 +462,23 @@ const OPIProfile = () => {
   const openEditModal = async (row) => {
     if (activeHeader) {
       setFormData({
-        swot: row.swot.id || String(row.swot),
-        pestle: row.pestle.id || String(row.pestle),
-        interestedParty: row.interestedParty.id || String(row.interestedParty),
-        process: row.process.id || String(row.process),
-        riskOpportunity: row.riskOpportunity,
-        objective: row.objective,
-        kpi: row.kpi,
-        ecm: row.ecm,
-        acm: row.acm,
-        initialRiskSeverity: row.initialRiskSeverity,
-        initialRiskLikelihood: row.initialRiskLikelihood,
-        residualRiskSeverity: row.residualRiskSeverity,
-        residualRiskLikelihood: row.residualRiskLikelihood,
-        comment: row.comment
+        title: row.title,
+        function: row.function.id || String(row.function),
+        lykpi: row.lykpi,
+        actualKPI: row.actualKPI,
+        annualTarget: row.annualTarget,
+        january: row.january,
+        february: row.february,
+        march: row.march,
+        april: row.april,
+        may: row.may,
+        june: row.june,
+        july: row.july,
+        august: row.august,
+        september: row.august,
+        october: row.october,
+        november: row.november,
+        december: row.december
       });
     } else {
       setActionData({
@@ -552,7 +563,7 @@ const OPIProfile = () => {
     let setter;
     if (showAction) {
       setter = setActionData;
-    } else if (selectedRisk === "bg-reg") {
+    } else if (selectedRisk === "opi") {
       setter = setFormData;
     } else {
       setter = setFormData;
@@ -574,24 +585,27 @@ const OPIProfile = () => {
     if (modalMode === "add") {
       if (!showAction) {
         const payload = {
-          swot: formData.swot,
-          pestle: formData.pestle,
-          interestedParty: formData.interestedParty,
-          riskOpportunity: formData.riskOpportunity,
-          objective: formData.objective,
-          kpi: formData.kpi,
-          process: formData.process,
-          ecm: formData.ecm,
-          acm: formData.acm,
-          initialRiskSeverity: formData.initialRiskSeverity,
-          initialRiskLikelihood: formData.initialRiskLikelihood,
-          residualRiskSeverity: formData.residualRiskSeverity,
-          residualRiskLikelihood: formData.residualRiskLikelihood,
-          comment: formData.comment
+        title: formData.title,
+        function: formData.function,
+        lykpi: formData.lykpi,
+        actualKPI: formData.actualKPI,
+        annualTarget: formData.annualTarget,
+        january: formData.january,
+        february: formData.february,
+        march: formData.march,
+        april: formData.april,
+        may: formData.may,
+        june: formData.june,
+        july: formData.july,
+        august: formData.august,
+        september: formData.august,
+        october: formData.october,
+        november: formData.november,
+        december: formData.december
         };
         console.log("Gönderilen body:", payload);
         const token = getToken();
-        const url = `/api/register/br/one?token=${token}`;
+        const url = `/api/dashboard/opi/one?token=${token}`;
         fetch(url, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -658,24 +672,27 @@ const OPIProfile = () => {
       if (!showAction) {
         const payload = {
           id: selectedTable[0].id,
-          swot: formData.swot,
-          pestle: formData.pestle,
-          interestedParty: formData.interestedParty,
-          riskOpportunity: formData.riskOpportunity,
-          objective: formData.objective,
-          kpi: formData.kpi,
-          process: formData.process,
-          ecm: formData.ecm,
-          acm: formData.acm,
-          initialRiskSeverity: formData.initialRiskSeverity,
-          initialRiskLikelihood: formData.initialRiskLikelihood,
-          residualRiskSeverity: formData.residualRiskSeverity,
-          residualRiskLikelihood: formData.residualRiskLikelihood,
-          comment: formData.comment
+          title: formData.title,
+          function: formData.function,
+          lykpi: formData.lykpi,
+          actualKPI: formData.actualKPI,
+          annualTarget: formData.annualTarget,
+          january: formData.january,
+          february: formData.february,
+          march: formData.march,
+          april: formData.april,
+          may: formData.may,
+          june: formData.june,
+          july: formData.july,
+          august: formData.august,
+          september: formData.august,
+          october: formData.october,
+          november: formData.november,
+          december: formData.december
         };
         console.log("Gönderilen body:", payload);
         const token = getToken();
-        const url = `/api/register/br/one/${selectedTable[0].id}?token=${token}`;
+        const url = `/api/dashboard/opi/one/${selectedTable[0].id}?token=${token}`;
         fetch(url, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -784,7 +801,7 @@ const OPIProfile = () => {
     if (activeHeader) {
       if (!showDeleted) {
         const token = getToken();
-        const url = `/api/register/br/all/delete?token=${token}`;
+        const url = `/api/dashboard/opi/all/delete?token=${token}`;
         fetch(url, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -806,7 +823,7 @@ const OPIProfile = () => {
           .catch((error) => console.log(" Error While Deleting: ", error));
       } else {
         const token = getToken();
-        const url = `/api/register/br/all/undelete?token=${token}`;
+        const url = `/api/dashboard/opi/all/undelete?token=${token}`;
         fetch(url, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -883,7 +900,7 @@ const OPIProfile = () => {
   const archiveData = (id) => {
     if (showArchived) {
       const token = getToken();
-      const url = `/api/register/br/all/unarchive?token=${token}`;
+      const url = `/api/dashboard/opi/all/unarchive?token=${token}`;
       fetch(url, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -904,7 +921,7 @@ const OPIProfile = () => {
       setRefresh(true);
     } else {
       const token = getToken();
-      const url = `/api/register/br/all/archive?token=${token}`;
+      const url = `/api/dashboard/opi/all/archive?token=${token}`;
       fetch(url, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -1151,7 +1168,7 @@ const OPIProfile = () => {
   </button>
 
   {/* Show/Hide Action Butonu */}
-  <button
+  {/* <button
     onClick={toggleActionView}
     disabled={selectedCount !== 1}
     className={`
@@ -1172,7 +1189,7 @@ const OPIProfile = () => {
       `}
     />
     {showAction ? "Hide Action" : "Show Action"}
-  </button>
+  </button> */}
 
   {/* Aksiyon ikon butonları grubu */}
   <div className="flex items-center gap-2.5">
@@ -1320,16 +1337,28 @@ const OPIProfile = () => {
   <div className="space-y-5">
     <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Risk Details</p>
 
+    {/* Objective */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">KPI</label>
+      <input
+        value={formData.kpi}
+        onChange={(e) => handleFormChange("kpi", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter KPI..."
+      />
+    </div>
+
     {/* SWOT */}
     <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">SWOT</label>
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Function</label>
       <select
-        value={formData.swot || ""}
-        onChange={(e) => handleFormChange("swot", e.target.value)}
+        value={formData.function || ""}
+        onChange={(e) => handleFormChange("function", e.target.value)}
         className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
       >
         <option value="">Select</option>
-        {dropdownData?.swot?.map((item) => (
+        {dropdownData?.function?.map((item) => (
           <option key={item.id} value={item.id}>{item.value}</option>
         ))}
       </select>
@@ -1401,211 +1430,174 @@ const OPIProfile = () => {
       />
     </div>
 
-    {/* Process */}
-    <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Process</label>
-      <select
-        value={formData.process}
-        onChange={(e) => handleFormChange("process", e.target.value)}
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-      >
-        <option value="">Select</option>
-        {dropdownData?.process?.map((item) => (
-          <option key={item.id} value={item.id}>{item.value}</option>
-        ))}
-      </select>
-    </div>
-
     {/* Existing Risk Mitigation */}
     <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Existing Risk Mitigation</label>
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> LYKPI </label>
       <input
-        value={formData.ecm}
-        onChange={(e) => handleFormChange("ecm", e.target.value)}
+        value={formData.lykpi}
+        onChange={(e) => handleFormChange("lykpi", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter Last Year KPI..."
+      />
+    </div>
+    
+        <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> Actual KPI </label>
+      <input
+        value={formData.actualKPI}
+        onChange={(e) => handleFormChange("actualKPI", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter Actual KPI..."
+      />
+    </div>
+    
+        <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> Annual Target </label>
+      <input
+        value={formData.annualTarget}
+        onChange={(e) => handleFormChange("annualTarget", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter Annual Target..."
+      />
+    </div>
+
+        <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> January </label>
+      <input
+        value={formData.january}
+        onChange={(e) => handleFormChange("january", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter ..."
+      />
+    </div>
+
+        <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> February </label>
+      <input
+        value={formData.february}
+        onChange={(e) => handleFormChange("february", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter ..."
+      />
+    </div>
+
+        <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> March </label>
+      <input
+        value={formData.march}
+        onChange={(e) => handleFormChange("march", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter ..."
+      />
+    </div>
+
+        <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> April </label>
+      <input
+        value={formData.april}
+        onChange={(e) => handleFormChange("april", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter ..."
+      />
+    </div>
+    
+        <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> May </label>
+      <input
+        value={formData.may}
+        onChange={(e) => handleFormChange("may", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter ..."
+      />
+    </div>
+
+        <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> June </label>
+      <input
+        value={formData.june}
+        onChange={(e) => handleFormChange("june", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter ..."
+      />
+    </div>
+
+        <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> July </label>
+      <input
+        value={formData.july}
+        onChange={(e) => handleFormChange("july", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter ..."
+      />
+    </div>
+
+        <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> August </label>
+      <input
+        value={formData.august}
+        onChange={(e) => handleFormChange("august", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter ..."
+      />
+    </div>
+
+        <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> September </label>
+      <input
+        value={formData.september}
+        onChange={(e) => handleFormChange("september", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter ..."
+      />
+    </div>
+
+        <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> October </label>
+      <input
+        value={formData.october}
+        onChange={(e) => handleFormChange("october", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter ..."
+      />
+    </div>
+
+        <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> November </label>
+      <input
+        value={formData.november}
+        onChange={(e) => handleFormChange("november", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter ..."
+      />
+    </div>
+
+        <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> December </label>
+      <input
+        value={formData.december}
+        onChange={(e) => handleFormChange("december", e.target.value)}
         type="text"
         className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
         placeholder="Enter mitigation measures..."
       />
     </div>
 
-    {/* ACM */}
-    <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Additional Control Measures</label>
-      <input
-        value={formData.acm}
-        onChange={(e) => handleFormChange("acm", e.target.value)}
-        type="text"
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter Additional Control Measures..."
-      />
-    </div>
+    
 
-                    <div className="group">
-              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Comment</label>
-              <input
-                value={formData.comment}
-                onChange={(e) => handleFormChange("comment", e.target.value)}
-                type="text"
-                placeholder="Enter comment..."
-                className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-              />
-            </div>
-  </div>
-
-  <div className="space-y-6">
-    <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Risk Assessment</p>
-
-    {/* Initial Risk */}
-<div className="bg-rose-50 border border-rose-100 rounded-2xl p-4 space-y-3">
-  <p className="text-xs font-semibold text-rose-600 uppercase tracking-wider">
-    İnitial Risk
-  </p>
-
-  <div className="grid grid-cols-3 gap-3">
-    {/* Severity */}
-    <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5">
-        Severity
-      </label>
-      <select
-        value={formData.initialRiskSeverity}
-        onChange={(e) =>
-          handleFormChange(
-            "initialRiskSeverity",
-            parseInt(e.target.value, 10) || 0
-          )
-        }
-        className="w-full px-3 py-2.5 bg-white border border-rose-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all"
-      >
-        <option value="">Select</option>
-        {[1, 2, 3, 4, 5].map((n) => (
-          <option key={n}>{n}</option>
-        ))}
-      </select>
-    </div>
-
-    {/* Likelihood */}
-    <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5">
-        Likelihood
-      </label>
-      <select
-        value={formData.initialRiskLikelihood}
-        onChange={(e) =>
-          handleFormChange(
-            "initialRiskLikelihood",
-            parseInt(e.target.value, 10) || 0
-          )
-        }
-        className="w-full px-3 py-2.5 bg-white border border-rose-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all"
-      >
-        <option value="">Select</option>
-        {[1, 2, 3, 4, 5].map((n) => (
-          <option key={n}>{n}</option>
-        ))}
-      </select>
-    </div>
-
-    {/* Risk Level Box */}
-    <div className="group flex flex-col justify-end">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5">
-        Risk Level
-      </label>
-
-      {(() => {
-        const risk = getRiskLevel(
-          formData.initialRiskSeverity,
-          formData.initialRiskLikelihood
-        );
-
-        return (
-          <div
-            className={`w-full px-3 py-2.5 rounded-xl text-sm font-medium text-center ${risk.color}`}
-          >
-            {risk.label}
-          </div>
-        );
-      })()}
-    </div>
-  </div>
-</div>
-
-    {/* Residual Risk */}
-<div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-4 space-y-3">
-  <p className="text-xs font-semibold text-emerald-600 uppercase tracking-wider">
-    Residual Risk
-  </p>
-
-  <div className="grid grid-cols-3 gap-3">
-    {/* Severity */}
-    <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5">
-        Severity
-      </label>
-      <select
-        value={formData.residualRiskSeverity}
-        onChange={(e) =>
-          handleFormChange(
-            "residualRiskSeverity",
-            parseInt(e.target.value, 10) || 0
-          )
-        }
-        className="w-full px-3 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
-      >
-        <option value="">Select</option>
-        {[1, 2, 3, 4, 5].map((n) => (
-          <option key={n}>{n}</option>
-        ))}
-      </select>
-    </div>
-
-    {/* Likelihood */}
-    <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5">
-        Likelihood
-      </label>
-      <select
-        value={formData.residualRiskLikelihood}
-        onChange={(e) =>
-          handleFormChange(
-            "residualRiskLikelihood",
-            parseInt(e.target.value, 10) || 0
-          )
-        }
-        className="w-full px-3 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
-      >
-        <option value="">Select</option>
-        {[1, 2, 3, 4, 5].map((n) => (
-          <option key={n}>{n}</option>
-        ))}
-      </select>
-    </div>
-
-    {/* Risk Level */}
-    <div className="group flex flex-col justify-end">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5">
-        Risk Level
-      </label>
-
-      {(() => {
-        const risk = getRiskLevel(
-          formData.residualRiskSeverity,
-          formData.residualRiskLikelihood
-        );
-
-        return (
-          <div
-            className={`w-full px-3 py-2.5 rounded-xl text-sm font-medium text-center ${risk.color}`}
-          >
-            {risk.label}
-          </div>
-        );
-      })()}
-    </div>
-
-
-  </div>
-</div>
   </div>
 
 </div>

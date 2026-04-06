@@ -16,7 +16,7 @@ const OpiHeaders = ({ activeHeader }) => {
             className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
-            KPI
+            Title
           </th>
           <th
             className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
