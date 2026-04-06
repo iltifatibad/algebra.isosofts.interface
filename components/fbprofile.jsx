@@ -496,7 +496,155 @@ async function getDefaultVendors() {
 
   const closeModal = () => setShowModal(false);
 
-const saveRisk = () => {
+// const saveRisk = () => {
+//     const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+
+//     if (modalMode === "add") {
+//         if (!showAction) {
+//             const payload = {
+//                 jobNumber: formData.jobNumber,
+//                 jobStartDate: formData.jobStartDate,
+//                 jobCompletionDate: formData.jobCompletionDate,
+//                 scope: formData.scope,
+//                 customerId: formData.customerId,
+//                 typeOfFinding: formData.typeOfFinding,
+//                 qgs: parseInt(formData.qgs),
+//                 communication: parseInt(formData.communication),
+//                 otd: parseInt(formData.otd),
+//                 documentation: parseInt(formData.documentation),
+//                 hs: parseInt(formData.hs),
+//                 environment: parseInt(formData.environment),
+//                 comment: formData.comment
+//             };
+//             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
+//             fetch(`/api/register/fb/one?token=${token}`, {
+//                 method: "POST",
+//                 headers: { "Content-Type": "application/json" },
+//                 body: JSON.stringify(payload), // Direkt obje – array yapma!
+//             })
+//                 .then((response) => {
+//                     if (!response.ok) {
+//                         console.error("Kaydetme başarısız:", response.statusText);
+//                     } else {
+//                         console.log("Kayıt başarıyla kaydedildi.");
+//                     }
+//                 })
+//                 .catch((error) => console.error("Hata:", error));
+//             setRefresh(true);
+//         } else {
+//             const payload = {
+//                 registerId: Array.from(selectedRows)[0],
+//                 scope: actionData.actionPlan[0].scope,
+//                 registerType: "fb",
+//                 vendorId: actionData.actionPlan[0].vendorId,
+//                 typeOfFinding: actionData.actionPlan[0].typeOfFinding,
+//                 qgs: parseInt(actionData.actionPlan[0].qgs),
+//                 communication: parseInt(actionData.actionPlan[0].communication),
+//                 otd: parseInt(actionData.actionPlan[0].otd),
+//                 documentation: parseInt(actionData.actionPlan[0].documentation),
+//                 hs: parseInt(actionData.actionPlan[0].hs),
+//                 environment: parseInt(actionData.actionPlan[0].environment),
+//             };
+//             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
+//             fetch(`/api/register/component/vendorFeedback/one?token=${token}`, {
+//                 method: "POST",
+//                 headers: { "Content-Type": "application/json" },
+//                 body: JSON.stringify(payload), // Direkt obje – array yapma!
+//             })
+//                 .then((response) => {
+//                     if (!response.ok) {
+//                         console.error("Kaydetme başarısız:", response.statusText);
+//                     } else {
+//                         console.log("Kayıt başarıyla kaydedildi.");
+//                     }
+//                 })
+//                 .catch((error) => console.error("Hata:", error));
+//             setRefresh(true);
+//         }
+//         // Sadece backend beklediği alanları al (diğerlerini sil)
+//     } else {
+//         if (!showAction) {
+//             const payload = {
+//                 id: selectedTable[0].id,
+//                 jobNumber: formData.jobNumber,
+//                 jobStartDate: formData.jobStartDate,
+//                 jobCompletionDate: formData.jobCompletionDate,
+//                 scope: formData.scope,
+//                 customerId: formData.customerId,
+//                 typeOfFinding: formData.typeOfFinding,
+//                 qgs: parseInt(formData.qgs),
+//                 otd: parseInt(formData.otd),
+//                 documentation: parseInt(formData.documentation),
+//                 communication: parseInt(formData.communication),
+//                 hs: parseInt(formData.hs),
+//                 environment: parseInt(formData.environment),
+//                 comment: formData.comment
+//             };
+//             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
+//             const url =
+//                 `/api/register/fb/one/${selectedTable[0].id}?token=${token}`;
+//             fetch(url, {
+//                 method: "PUT",
+//                 headers: { "Content-Type": "application/json" },
+//                 body: JSON.stringify(payload), // Direkt obje – array yapma!
+//             })
+//                 .then((response) => {
+//                     if (!response.ok) {
+//                         console.error("Kaydetme başarısız:", response.statusText);
+//                     } else {
+//                         setSelectedTable([payload]);
+//                         setFormData([payload]);
+//                         console.log("Kayıt başarıyla kaydedildi. Yeni state:", [payload]);
+//                     }
+//                 })
+//                 .catch((error) => console.error("Hata:", error));
+//             setRefresh(true);
+//         } else {
+//             setActionData({
+//                 actionPlan: [
+//                     {
+//                         id: [...selectedRowsForActions][0],
+//                         scope: actionData.actionPlan[0].scope?.id || "",
+//                         vendorId: actionData.actionPlan[0].vendorId,
+//                         typeOfFinding: actionData.actionPlan[0].typeOfFinding?.id || "",
+//                         qgs: actionData.actionPlan[0].qgs?.id || "",
+//                         communication: actionData.communication?.id || "",
+//                         otd: actionData.actionPlan[0].otd?.id || "",
+//                         documentation: actionData.actionPlan[0].documentation?.id,
+//                         hs: actionData.actionPlan[0].hs,
+//                         environment: actionData.actionPlan[0].environment?.id,
+//                     },
+//                 ],
+//             });
+//             const payload = { ...actionData.actionPlan[0] };
+//             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
+//             const url =
+//                 `/api/register/component/vendorFeedback/one/${[...selectedRowsForActions][0]}?token=${token}`;
+//             fetch(url, {
+//                 method: "PUT",
+//                 headers: { "Content-Type": "application/json" },
+//                 body: JSON.stringify(payload), // Direkt obje – array yapma!
+//             })
+//                 .then((response) => {
+//                     if (!response.ok) {
+//                         console.error("Kaydetme başarısız:", response.statusText);
+//                     } else {
+//                         console.log("SELECTED actionData ", actionData);
+//                         console.log("SELECTED PAYLOAD ", payload);
+//                         setActionData([payload]);
+//                         setSelectedTableForActions([payload]);
+//                         console.log("SELECTED actionData ", actionData);
+//                         console.log("Kayıt başarıyla kaydedildi.");
+//                     }
+//                 })
+//                 .catch((error) => console.error("Hata:", error));
+//             setRefresh(true);
+//         }
+//     }
+//     closeModal();
+// };
+  // Bulk delete için confirm
+  const saveRisk = () => {
     const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
 
     if (modalMode === "add") {
@@ -516,21 +664,22 @@ const saveRisk = () => {
                 environment: parseInt(formData.environment),
                 comment: formData.comment
             };
-            console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
+            console.log("Gönderilen body:", payload);
             fetch(`/api/register/fb/one?token=${token}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload), // Direkt obje – array yapma!
+                body: JSON.stringify(payload),
             })
                 .then((response) => {
                     if (!response.ok) {
                         console.error("Kaydetme başarısız:", response.statusText);
                     } else {
                         console.log("Kayıt başarıyla kaydedildi.");
+                        setRefresh(true);
+                        closeModal();
                     }
                 })
                 .catch((error) => console.error("Hata:", error));
-            setRefresh(true);
         } else {
             const payload = {
                 registerId: Array.from(selectedRows)[0],
@@ -545,23 +694,23 @@ const saveRisk = () => {
                 hs: parseInt(actionData.actionPlan[0].hs),
                 environment: parseInt(actionData.actionPlan[0].environment),
             };
-            console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
+            console.log("Gönderilen body:", payload);
             fetch(`/api/register/component/vendorFeedback/one?token=${token}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload), // Direkt obje – array yapma!
+                body: JSON.stringify(payload),
             })
                 .then((response) => {
                     if (!response.ok) {
                         console.error("Kaydetme başarısız:", response.statusText);
                     } else {
                         console.log("Kayıt başarıyla kaydedildi.");
+                        setRefresh(true);
+                        closeModal();
                     }
                 })
                 .catch((error) => console.error("Hata:", error));
-            setRefresh(true);
         }
-        // Sadece backend beklediği alanları al (diğerlerini sil)
     } else {
         if (!showAction) {
             const payload = {
@@ -580,13 +729,12 @@ const saveRisk = () => {
                 environment: parseInt(formData.environment),
                 comment: formData.comment
             };
-            console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-            const url =
-                `/api/register/fb/one/${selectedTable[0].id}?token=${token}`;
+            console.log("Gönderilen body:", payload);
+            const url = `/api/register/fb/one/${selectedTable[0].id}?token=${token}`;
             fetch(url, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload), // Direkt obje – array yapma!
+                body: JSON.stringify(payload),
             })
                 .then((response) => {
                     if (!response.ok) {
@@ -594,11 +742,12 @@ const saveRisk = () => {
                     } else {
                         setSelectedTable([payload]);
                         setFormData([payload]);
-                        console.log("Kayıt başarıyla kaydedildi. Yeni state:", [payload]);
+                        console.log("Kayıt başarıyla kaydedildi.");
+                        setRefresh(true);
+                        closeModal();
                     }
                 })
                 .catch((error) => console.error("Hata:", error));
-            setRefresh(true);
         } else {
             setActionData({
                 actionPlan: [
@@ -617,33 +766,28 @@ const saveRisk = () => {
                 ],
             });
             const payload = { ...actionData.actionPlan[0] };
-            console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
-            const url =
-                `/api/register/component/vendorFeedback/one/${[...selectedRowsForActions][0]}?token=${token}`;
+            console.log("Gönderilen body:", payload);
+            const url = `/api/register/component/vendorFeedback/one/${[...selectedRowsForActions][0]}?token=${token}`;
             fetch(url, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload), // Direkt obje – array yapma!
+                body: JSON.stringify(payload),
             })
                 .then((response) => {
                     if (!response.ok) {
                         console.error("Kaydetme başarısız:", response.statusText);
                     } else {
-                        console.log("SELECTED actionData ", actionData);
-                        console.log("SELECTED PAYLOAD ", payload);
+                        console.log("Kayıt başarıyla kaydedildi.");
                         setActionData([payload]);
                         setSelectedTableForActions([payload]);
-                        console.log("SELECTED actionData ", actionData);
-                        console.log("Kayıt başarıyla kaydedildi.");
+                        setRefresh(true);
+                        closeModal();
                     }
                 })
                 .catch((error) => console.error("Hata:", error));
-            setRefresh(true);
         }
     }
-    closeModal();
 };
-  // Bulk delete için confirm
   const confirmBulkDelete = () => {
     setIsBulkDelete(true);
     setShowDeleteModal(true);
