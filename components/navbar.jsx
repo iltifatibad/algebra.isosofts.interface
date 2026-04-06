@@ -14,42 +14,39 @@ const NavigationBar = ({ showProfile, setShowProfile }) => {
             <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent animate-pulse">
               Algebra
             </div>
-            <div className="hidden md:flex space-x-6">
-              <a
-                href="http://www.isosofts.com"
-                className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
-              >
-                Home
-              </a>
-              <a
-                href="http://www.isosofts.com"
-                data-readdy="true"
-                className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
-              >
-                Services
-              </a>
-              <a
-                href="http://www.isosofts.com"
-                className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
-              >
-                About
-              </a>
-              <a
-                href="http://www.isosofts.com"
-                className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
-              >
-                Contact
-              </a>
-            </div>
+              <div className="hidden md:flex space-x-6">
+                <span
+                  onClick={() => { window.location.href = "http://www.isosofts.com"; }}
+                  className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
+                >
+                  Home
+                </span>
+                <span
+                  onClick={() => { window.location.href = "http://www.isosofts.com"; }}
+                  className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
+                >
+                  Services
+                </span>
+                <span
+                  onClick={() => { window.location.href = "http://www.isosofts.com"; }}
+                  className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
+                >
+                  About
+                </span>
+                <span
+                  onClick={() => { window.location.href = "http://www.isosofts.com"; }}
+                  className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
+                >
+                  Contact
+                </span>
+              </div>
           </div>
-          <a href="http://www.isosofts.com/profile">
-            <button
-              // onClick={() => setShowProfile(!showProfile)}
-              className="rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 hover:from-blue-600 hover:to-blue-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-            >
-              <i className="fas fa-user mr-2"></i> Account
-            </button>
-          </a>
+          <button
+            onClick={() => { window.location.href = "http://www.isosofts.com/profile"; }}
+            className="rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 hover:from-blue-600 hover:to-blue-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+          >
+            <i className="fas fa-user mr-2"></i> Account
+          </button>
         </div>
       </div>
     </nav>
