@@ -1332,206 +1332,80 @@ const OPIProfile = () => {
         </div>
 
         <div className="px-8 py-6">
-<div className="grid md:grid-cols-2 gap-8">
+<div className="grid lg:grid-cols-3 gap-6">
 
-  <div className="space-y-5">
+  <div className="space-y-4">
     <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Title</p>
 
-    {/* Objective */}
+    {/* Title */}
     <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Title</label>
+      <label className="block text-xs text-gray-500 mb-1">Title</label>
       <input
         value={formData.title}
         onChange={(e) => handleFormChange("title", e.target.value)}
         type="text"
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter Title..."
+        className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-400 focus:bg-white"
       />
     </div>
 
-    {/* SWOT */}
+    {/* Function */}
     <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Function</label>
+      <label className="block text-xs text-gray-500 mb-1">Function</label>
       <select
         value={formData.function || ""}
         onChange={(e) => handleFormChange("function", e.target.value)}
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-400"
       >
         <option value="">Select</option>
-        {dropdownData?.function?.map((item) => (
+        {dropdownData?.relativeFunction?.map((item) => (
           <option key={item.id} value={item.id}>{item.value}</option>
         ))}
       </select>
     </div>
 
-    {/* Existing Risk Mitigation */}
-    <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> LYKPI </label>
-      <input
-        value={formData.lykpi}
-        onChange={(e) => handleFormChange("lykpi", e.target.value)}
-        type="text"
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter Last Year KPI..."
-      />
+    {/* KPIs */}
+    <div className="grid grid-cols-3 gap-2">
+      {[
+        { key: "lykpi", label: "LY KPI" },
+        { key: "actualKPI", label: "Actual" },
+        { key: "annualTarget", label: "Target" }
+      ].map((item) => (
+        <div key={item.key}>
+          <label className="text-[10px] text-gray-500">{item.label}</label>
+          <input
+            value={formData[item.key]}
+            onChange={(e) => handleFormChange(item.key, e.target.value)}
+            className="w-full px-2 py-1.5 text-xs bg-gray-50 border border-gray-200 rounded-md focus:ring-1 focus:ring-blue-400"
+          />
+        </div>
+      ))}
     </div>
-    
-        <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> Actual KPI </label>
-      <input
-        value={formData.actualKPI}
-        onChange={(e) => handleFormChange("actualKPI", e.target.value)}
-        type="text"
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter Actual KPI..."
-      />
-    </div>
-    
-        <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> Annual Target </label>
-      <input
-        value={formData.annualTarget}
-        onChange={(e) => handleFormChange("annualTarget", e.target.value)}
-        type="text"
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter Annual Target..."
-      />
-    </div>
+  </div>
 
-        <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> January </label>
-      <input
-        value={formData.january}
-        onChange={(e) => handleFormChange("january", e.target.value)}
-        type="text"
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter ..."
-      />
-    </div>
+  {/* MONTHS */}
+  <div className="lg:col-span-2">
+    <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest mb-3">
+      Monthly Values
+    </p>
 
-        <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> February </label>
-      <input
-        value={formData.february}
-        onChange={(e) => handleFormChange("february", e.target.value)}
-        type="text"
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter ..."
-      />
+    <div className="grid grid-cols-3 md:grid-cols-4 gap-2">
+      {[
+        "january","february","march","april",
+        "may","june","july","august",
+        "september","october","november","december"
+      ].map((month) => (
+        <div key={month}>
+          <label className="text-[10px] text-gray-500 capitalize">
+            {month.slice(0,3)}
+          </label>
+          <input
+            value={formData[month]}
+            onChange={(e) => handleFormChange(month, e.target.value)}
+            className="w-full px-2 py-1.5 text-xs bg-gray-50 border border-gray-200 rounded-md focus:ring-1 focus:ring-blue-400"
+          />
+        </div>
+      ))}
     </div>
-
-        <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> March </label>
-      <input
-        value={formData.march}
-        onChange={(e) => handleFormChange("march", e.target.value)}
-        type="text"
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter ..."
-      />
-    </div>
-
-        <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> April </label>
-      <input
-        value={formData.april}
-        onChange={(e) => handleFormChange("april", e.target.value)}
-        type="text"
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter ..."
-      />
-    </div>
-    
-        <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> May </label>
-      <input
-        value={formData.may}
-        onChange={(e) => handleFormChange("may", e.target.value)}
-        type="text"
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter ..."
-      />
-    </div>
-
-        <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> June </label>
-      <input
-        value={formData.june}
-        onChange={(e) => handleFormChange("june", e.target.value)}
-        type="text"
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter ..."
-      />
-    </div>
-
-        <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> July </label>
-      <input
-        value={formData.july}
-        onChange={(e) => handleFormChange("july", e.target.value)}
-        type="text"
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter ..."
-      />
-    </div>
-
-        <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> August </label>
-      <input
-        value={formData.august}
-        onChange={(e) => handleFormChange("august", e.target.value)}
-        type="text"
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter ..."
-      />
-    </div>
-
-        <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> September </label>
-      <input
-        value={formData.september}
-        onChange={(e) => handleFormChange("september", e.target.value)}
-        type="text"
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter ..."
-      />
-    </div>
-
-        <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> October </label>
-      <input
-        value={formData.october}
-        onChange={(e) => handleFormChange("october", e.target.value)}
-        type="text"
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter ..."
-      />
-    </div>
-
-        <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> November </label>
-      <input
-        value={formData.november}
-        onChange={(e) => handleFormChange("november", e.target.value)}
-        type="text"
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter ..."
-      />
-    </div>
-
-        <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> December </label>
-      <input
-        value={formData.december}
-        onChange={(e) => handleFormChange("december", e.target.value)}
-        type="text"
-        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-        placeholder="Enter mitigation measures..."
-      />
-    </div>
-
-    
-
   </div>
 
 </div>
