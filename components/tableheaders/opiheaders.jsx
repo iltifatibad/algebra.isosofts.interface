@@ -1,6 +1,6 @@
 import React from "react";
 
-const MocHeaders = ({ activeHeader }) => {
+const OpiHeaders = ({ activeHeader }) => {
   if (activeHeader) {
     return (
       <thead>
@@ -16,97 +16,105 @@ const MocHeaders = ({ activeHeader }) => {
             className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
-            Issuer
+            KPI
           </th>
           <th
             className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
-            MoC Issue Date
+            Function the KPI applied to
           </th>
           <th
             className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
-            Reason Of Change
+            Last Year KPI
           </th>
           <th
             className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
-            Process
-          </th>
-          <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
-            rowSpan={2}
-          >
-            Change Description
+            Actual KPI
           </th>
           <th
             className="min-w-50 border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
-            Risks
-          </th>
-         <th
-            className="min-w-50 border-r border-white sticky top-0 z-20 bg-blue-100"
-            rowSpan={2}
-          >
-            Existing Control Measures
-          </th>
-          <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
-            colSpan={3}
-          >
-            Initial Risk
-          </th>
-          <th
-            className="min-w-[120px] md:min-w-[240px] border-r border-white sticky top-0 z-20 bg-blue-100"
-            rowSpan={2}
-          >
-            Additional Control Measures
-          </th>
-           <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
-            colSpan={3}
-          >
-            Residual Risk
-          </th>
-          <th
-            className="min-w-50 border-r border-white sticky top-0 z-20 bg-blue-100"
-            rowSpan={2}
-          >
-            Approval
+            Annual Target 
           </th>
           <th
             className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
-            Comment
+            January
+          </th>
+                    <th
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            February
+          </th>
+                    <th
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            March
+          </th>
+                    <th
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            April
+          </th>
+                    <th
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            May
+          </th>
+                    <th
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            June
+          </th>
+                    <th
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            July
+          </th>
+                    <th
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            August
+          </th>
+                    <th
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            September
+          </th>
+                    <th
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            October
+          </th>
+                    <th
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            November
+          </th>
+                    <th
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            December
           </th>
         </tr>
-        <tr className="h-[48px]">
-          <th className="min-w-[70px] border-r border-white sticky top-13 z-20 bg-blue-200">
-            Severity
-          </th>
-          <th className="min-w-[70px] border-r border-white sticky top-13 z-20 bg-blue-200">
-            Likelihood
-          </th>
-          <th className="min-w-[70px] border-r border-white sticky top-13 z-20 bg-blue-200">
-            Level
-          </th>
-
-          <th className="min-w-[70px] border-r border-white sticky top-13 z-20 bg-blue-200">
-            Severity
-          </th>
-          <th className="min-w-[70px] border-r border-white sticky top-13 z-20 bg-blue-200">
-            Likeyhood
-          </th>
-          <th className="min-w-[70px] border-r border-white sticky top-13 z-20 bg-blue-200">
-            Level
-          </th>
-        </tr>
-
         {/* Second header row - fixed height, sticky at top-12 (48px) */}
       </thead>
     );
@@ -149,7 +157,7 @@ const MocHeaders = ({ activeHeader }) => {
             Resources
           </th>
           <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
-            Relative Function
+            Relative Action
           </th>
           <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
             Responsible
@@ -201,4 +209,4 @@ const MocHeaders = ({ activeHeader }) => {
   }
 };
 
-export default MocHeaders;
+export default OpiHeaders;

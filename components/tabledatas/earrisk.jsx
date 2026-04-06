@@ -326,6 +326,32 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.appraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
+{/* Next Appraisal Date */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.nextAppraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
+{/* Evaulation Done */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  {(() => {
+    if (!row.nextAppraisalDate) return (
+      <SoftBadge value="No" color="bg-orange-100 text-orange-700 border border-orange-200" />
+    );
+    const diffInDays = Math.ceil((new Date(row.nextAppraisalDate) - new Date()) / (1000 * 60 * 60 * 24));
+    const isValid = diffInDays >= 0;
+    return (
+      <SoftBadge
+        value={isValid ? "Valid" : "Not Valid"}
+        color={
+          isValid
+            ? "bg-amber-100 text-amber-700 border border-amber-200"
+            : "bg-orange-100 text-orange-700 border border-orange-200"
+        }
+      />
+    );
+  })()}
+</td>
+
 {/* TCA */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.tca} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
@@ -451,6 +477,32 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 {/* Appraisal Date */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.appraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
+{/* Next Appraisal Date */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.nextAppraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
+{/* Evaulation Done */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  {(() => {
+    if (!row.nextAppraisalDate) return (
+      <SoftBadge value="No" color="bg-orange-100 text-orange-700 border border-orange-200" />
+    );
+    const diffInDays = Math.ceil((new Date(row.nextAppraisalDate) - new Date()) / (1000 * 60 * 60 * 24));
+    const isValid = diffInDays >= 0;
+    return (
+      <SoftBadge
+        value={isValid ? "Valid" : "Not Valid"}
+        color={
+          isValid
+            ? "bg-amber-100 text-amber-700 border border-amber-200"
+            : "bg-orange-100 text-orange-700 border border-orange-200"
+        }
+      />
+    );
+  })()}
 </td>
 
 {/* TCA */}
@@ -854,6 +906,32 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 {/* Appraisal Date */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.appraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
+{/* Next Appraisal Date */}
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
+  <SoftBadge value={row.nextAppraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+</td>
+
+{/* Evaulation Done */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  {(() => {
+    if (!row.nextAppraisalDate) return (
+      <SoftBadge value="No" color="bg-orange-100 text-orange-700 border border-orange-200" />
+    );
+    const diffInDays = Math.ceil((new Date(row.nextAppraisalDate) - new Date()) / (1000 * 60 * 60 * 24));
+    const isValid = diffInDays >= 0;
+    return (
+      <SoftBadge
+        value={isValid ? "Valid" : "Not Valid"}
+        color={
+          isValid
+            ? "bg-amber-100 text-amber-700 border border-amber-200"
+            : "bg-orange-100 text-orange-700 border border-orange-200"
+        }
+      />
+    );
+  })()}
 </td>
 
 {/* TCA */}

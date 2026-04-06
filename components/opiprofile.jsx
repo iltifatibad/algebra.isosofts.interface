@@ -1,8 +1,16 @@
 import React, { useState, useEffect, act } from "react";
-import EarBody from "./tabledatas/earrisk.jsx";
-import EarHeaders from "./tableheaders/earheaders.jsx";
+import OPI from "./tabledatas/opirisk.jsx";
+import OpiHeaders from "./tableheaders/opiheaders.jsx";
 
 import ReactECharts from "echarts-for-react";
+
+const getToken = () =>
+  document.cookie
+    .split("; ")
+    .find((r) => r.startsWith("auth_token="))
+    ?.split("=")
+    .slice(1)
+    .join("=") ?? "";
 
 export const hCheckboxChange =
   (setSelectedRows, setSelectedTable) => (id, table) => {
@@ -64,7 +72,37 @@ export const hCheckboxChangeForActions =
     });
   };
 
-const EarProfile = () => {
+  const getRiskLevel = (severity, likelihood) => {
+  const score = Number(severity) * Number(likelihood);
+
+  if (score >= 1 && score <= 6) {
+    return {
+      label: "Low",
+      color: "bg-emerald-100 text-emerald-700 border border-emerald-200",
+    };
+  }
+
+  if (score >= 8 && score <= 10) {
+    return {
+      label: "Medium",
+      color: "bg-yellow-100 text-yellow-700 border border-yellow-200",
+    };
+  }
+
+  if (score >= 12 && score <= 25) {
+    return {
+      label: "High",
+      color: "bg-rose-100 text-rose-700 border border-rose-200",
+    };
+  }
+
+  return {
+    label: "-",
+    color: "bg-gray-100 text-gray-500 border border-gray-200",
+  };
+};
+
+const OPIProfile = () => {
   const kpiGaugeOption = {
     tooltip: { formatter: "{a}<br/>{c}%" },
     series: [
@@ -206,24 +244,22 @@ const EarProfile = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalMode, setModalMode] = useState("add");
   const [editingRow, setEditingRow] = useState(null);
-  //////////////////////////////////////
   const [formData, setFormData] = useState({
     id: 0,
-    employeeName: "",
-    position: "",
-    lineManager: "",
-    esd: "",
-    appraisalDate: "",
-    nextAppraisalDate: "",
-    appraisalType: "",
-    tca: "",
-    skillsAppraisal: "",
-    jobQuality: 0,
-    leadershipSkills: 0,
-    managementSkills: 0,
-    behavioralSkills: 0,
-    effectivenessOfTrainings: 0,
-    comment: "",
+    swot: "",
+    pestle: "",
+    interestedParty: "",
+    riskOpportunity: "",
+    objective: "",
+    kpi: "",
+    process: "",
+    ecm: "",
+    acm: "",
+    initialRiskSeverity: "",
+    initialRiskLikelihood: "",
+    residualRiskSeverity: "",
+    residualRiskLikelihood: "",
+    comment: ""
   });
 
   const [formDataHs, setFormDataHs] = useState({
@@ -231,7 +267,7 @@ const EarProfile = () => {
     process: "",
     hazard: "",
     risk: "",
-    affectedPosition: "",
+    affectedPositions: "",
     ERMA: "",
     initialRiskSeverity: "",
     initialRiskLikelihood: "",
@@ -302,21 +338,22 @@ const EarProfile = () => {
     setSelectedRowsForActions,
     setSelectedTableForActions,
   );
-async function getDefaultDropdownList() {
-  const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-  const url = `/api/tablecomponent/dropdownlistitem?token=${token}`;
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
+  async function getDefaultDropdownList() {
+    const token = getToken();
+    const url = `/api/tablecomponent/dropdownlistitem?token=${token}`;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+      const result = await response.json();
+      setDropdownData(result);
+      console.log(result);
+    } catch (error) {
+      console.error(error.message);
     }
-    const result = await response.json();
-    setDropdownData(result);
-    console.log(result);
-  } catch (error) {
-    console.error(error.message);
   }
-}
+
   // Filtered data based on archived
 
   // Seçili row sayısı
@@ -367,22 +404,20 @@ async function getDefaultDropdownList() {
     const dropdownData = await getDefaultDropdownList();
     if (activeHeader) {
       setFormData({
-        id: 0,
-        employeeName: "",
-        position: "",
-        lineManager: "",
-        esd: "",
-        appraisalDate: "",
-        nextAppraisalDate: "",
-        appraisalType: "",
-        tca: "",
-        skillsAppraisal: "",
-        jobQuality: 0,
-        leadershipSkills: 0,
-        managementSkills: 0,
-        behavioralSkills: 0,
-        effectivenessOfTrainings: 0,
-        comment: ""
+        swot: "",
+        pestle: "",
+        interestedParty: "",
+        riskOpportunity: "",
+        objective: "",
+        kpi: "",
+        process: "",
+        ecm: "",
+        acm: "",
+        initialRiskSeverity: 0,
+        initialRiskLikelihood: 0,
+        residualRiskSeverity: 0,
+        residualRiskLikelihood: 0,
+        comment: "",
       });
       setShowModal(true);
     } else {
@@ -419,23 +454,20 @@ async function getDefaultDropdownList() {
   const openEditModal = async (row) => {
     if (activeHeader) {
       setFormData({
-        id: 0,
-        employeeName: row.employeeName,
-        position: row.position,
-        lineManager: row.lineManager,
-        esd: row.esd,
-        appraisalDate: row.appraisalDate,
-        nextAppraisalDate: row.nextAppraisalDate,
-        // appraisalType: row.appraisalType,
-        appraisalType: row.appraisalType.id || String(row.appraisalType),
-        tca: row.tca,
-        skillsAppraisal: row.skillsAppraisal,
-        jobQuality: row.jobQuality,
-        leadershipSkills: row.leadershipSkills,
-        managementSkills: row.managementSkills,
-        behavioralSkills: row.behavioralSkills,
-        effectivenessOfTrainings: row.effectivenessOfTrainings,
-        comment: row.comment,
+        swot: row.swot.id || String(row.swot),
+        pestle: row.pestle.id || String(row.pestle),
+        interestedParty: row.interestedParty.id || String(row.interestedParty),
+        process: row.process.id || String(row.process),
+        riskOpportunity: row.riskOpportunity,
+        objective: row.objective,
+        kpi: row.kpi,
+        ecm: row.ecm,
+        acm: row.acm,
+        initialRiskSeverity: row.initialRiskSeverity,
+        initialRiskLikelihood: row.initialRiskLikelihood,
+        residualRiskSeverity: row.residualRiskSeverity,
+        residualRiskLikelihood: row.residualRiskLikelihood,
+        comment: row.comment
       });
     } else {
       setActionData({
@@ -444,7 +476,7 @@ async function getDefaultDropdownList() {
             title: row.title,
             raiseDate: row.raiseDate,
             resources:
-              row.resources?.id || row.resources || "",
+              row.resources?.id || String(row.resources) || "",
             currency: "",
             relativeFunction:
               row.relativeFunction?.id || String(row.relativeFunction) || "",
@@ -520,7 +552,7 @@ async function getDefaultDropdownList() {
     let setter;
     if (showAction) {
       setter = setActionData;
-    } else if (selectedRisk === "ear-reg") {
+    } else if (selectedRisk === "bg-reg") {
       setter = setFormData;
     } else {
       setter = setFormData;
@@ -538,183 +570,187 @@ async function getDefaultDropdownList() {
 
   const closeModal = () => setShowModal(false);
 
-const saveRisk = () => {
-  const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-  if (modalMode === "add") {
-    if (!showAction) {
-      const payload = {
-        employeeName: formData.employeeName,
-        position: formData.position,
-        lineManager: formData.lineManager,
-        esd: formData.esd,
-        appraisalDate: formData.appraisalDate,
-        nextAppraisalDate: formData.nextAppraisalDate,
-        appraisalType: formData.appraisalType,
-        tca: formData.tca,
-        skillsAppraisal: formData.skillsAppraisal,
-        jobQuality: Number(formData.jobQuality),
-        leadershipSkills: Number(formData.leadershipSkills),
-        managementSkills: Number(formData.managementSkills),
-        behavioralSkills: Number(formData.behavioralSkills),
-        effectivenessOfTrainings: Number(formData.effectivenessOfTrainings),
-        comment: formData.comment
-      };
-      console.log("Gönderilen body:", payload);
-      fetch(`/api/register/ea/one?token=${token}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            console.error("Kaydetme başarısız:", response.statusText);
-          } else {
-            console.log("Kayıt başarıyla kaydedildi.");
-          }
+  const saveRisk = () => {
+    if (modalMode === "add") {
+      if (!showAction) {
+        const payload = {
+          swot: formData.swot,
+          pestle: formData.pestle,
+          interestedParty: formData.interestedParty,
+          riskOpportunity: formData.riskOpportunity,
+          objective: formData.objective,
+          kpi: formData.kpi,
+          process: formData.process,
+          ecm: formData.ecm,
+          acm: formData.acm,
+          initialRiskSeverity: formData.initialRiskSeverity,
+          initialRiskLikelihood: formData.initialRiskLikelihood,
+          residualRiskSeverity: formData.residualRiskSeverity,
+          residualRiskLikelihood: formData.residualRiskLikelihood,
+          comment: formData.comment
+        };
+        console.log("Gönderilen body:", payload);
+        const token = getToken();
+        const url = `/api/register/br/one?token=${token}`;
+        fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
         })
-        .catch((error) => console.error("Hata:", error));
-      setRefresh(true);
+          .then((response) => {
+            if (!response.ok) {
+              console.error("Kaydetme başarısız:", response.statusText);
+            } else {
+              console.log("Kayıt başarıyla kaydedildi.");
+            }
+          })
+          .catch((error) => console.error("Hata:", error));
+        setRefresh(true);
+      } else {
+        const payload = {
+          registerId: Array.from(selectedRows)[0],
+          registerType: "br",
+          title: actionData.actionPlan[0]?.title || "",
+          resources: actionData.actionPlan[0]?.resources || "",
+          raiseDate: actionData.actionPlan[0]?.raiseDate || "",
+          currency: actionData.actionPlan[0]?.currency || "",
+          relativeFunction: actionData.actionPlan[0]?.relativeFunction || "",
+          responsible: actionData.actionPlan[0]?.responsible || "",
+          deadline: actionData.actionPlan[0]?.deadline || "",
+          confirmation: actionData.actionPlan[0]?.confirmation || "",
+          status: actionData.actionPlan[0]?.status || "",
+          completionDate: actionData.actionPlan[0]?.completionDate || "",
+          verificationStatus:
+            actionData.actionPlan[0]?.verificationStatus || "",
+          comment: actionData.actionPlan[0]?.comment || "",
+          january: actionData.actionPlan[0]?.january || "",
+          february: actionData.actionPlan[0]?.february || "",
+          march: actionData.actionPlan[0]?.march || "",
+          april: actionData.actionPlan[0]?.april || "",
+          may: actionData.actionPlan[0]?.may || "",
+          june: actionData.actionPlan[0]?.june || "",
+          july: actionData.actionPlan[0]?.july || "",
+          august: actionData.actionPlan[0]?.august || "",
+          september: actionData.actionPlan[0]?.september || "",
+          october: actionData.actionPlan[0]?.october || "",
+          november: actionData.actionPlan[0]?.november || "",
+          december: actionData.actionPlan[0]?.december || "",
+        };
+        console.log("Gönderilen body:", payload);
+        const token = getToken();
+        const url = `/api/register/component/action/one?token=${token}`;
+        fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              console.error("Kaydetme başarısız:", response.statusText);
+            } else {
+              console.log("Kayıt başarıyla kaydedildi.");
+            }
+          })
+          .catch((error) => console.error("Hata:", error));
+        setRefresh(true);
+      }
     } else {
-      const payload = {
-        registerId: Array.from(selectedRows)[0],
-        title: actionData.actionPlan[0]?.title || "",
-        resources: actionData.actionPlan[0]?.resources || "",
-        raiseDate: actionData.actionPlan[0]?.raiseDate || "",
-        currency: actionData.actionPlan[0]?.currency || "",
-        relativeFunction: actionData.actionPlan[0]?.relativeFunction || "",
-        responsible: actionData.actionPlan[0]?.responsible || "",
-        deadline: actionData.actionPlan[0]?.deadline || "",
-        confirmation: actionData.actionPlan[0]?.confirmation || "",
-        status: actionData.actionPlan[0]?.status || "",
-        completionDate: actionData.actionPlan[0]?.completionDate || "",
-        verificationStatus: actionData.actionPlan[0]?.verificationStatus || "",
-        comment: actionData.actionPlan[0]?.comment || "",
-        january: actionData.actionPlan[0]?.january || "",
-        february: actionData.actionPlan[0]?.february || "",
-        march: actionData.actionPlan[0]?.march || "",
-        april: actionData.actionPlan[0]?.april || "",
-        may: actionData.actionPlan[0]?.may || "",
-        june: actionData.actionPlan[0]?.june || "",
-        july: actionData.actionPlan[0]?.july || "",
-        august: actionData.actionPlan[0]?.august || "",
-        september: actionData.actionPlan[0]?.september || "",
-        october: actionData.actionPlan[0]?.october || "",
-        november: actionData.actionPlan[0]?.november || "",
-        december: actionData.actionPlan[0]?.december || "",
-      };
-      console.log("Gönderilen body:", payload);
-      fetch(`/api/register/component/action/one?token=${token}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            console.error("Kaydetme başarısız:", response.statusText);
-          } else {
-            console.log("Kayıt başarıyla kaydedildi.");
-          }
+      if (!showAction) {
+        const payload = {
+          id: selectedTable[0].id,
+          swot: formData.swot,
+          pestle: formData.pestle,
+          interestedParty: formData.interestedParty,
+          riskOpportunity: formData.riskOpportunity,
+          objective: formData.objective,
+          kpi: formData.kpi,
+          process: formData.process,
+          ecm: formData.ecm,
+          acm: formData.acm,
+          initialRiskSeverity: formData.initialRiskSeverity,
+          initialRiskLikelihood: formData.initialRiskLikelihood,
+          residualRiskSeverity: formData.residualRiskSeverity,
+          residualRiskLikelihood: formData.residualRiskLikelihood,
+          comment: formData.comment
+        };
+        console.log("Gönderilen body:", payload);
+        const token = getToken();
+        const url = `/api/register/br/one/${selectedTable[0].id}?token=${token}`;
+        fetch(url, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
         })
-        .catch((error) => console.error("Hata:", error));
-      setRefresh(true);
+          .then((response) => {
+            if (!response.ok) {
+              console.error("Kaydetme başarısız:", response.statusText);
+            } else {
+              setSelectedTable([payload]);
+              setFormData([payload]);
+              console.log("Kayıt başarıyla kaydedildi. Yeni state:", [payload]);
+            }
+          })
+          .catch((error) => console.error("Hata:", error));
+        setRefresh(true);
+      } else {
+        setActionData({
+          actionPlan: [
+            {
+              id: [...selectedRowsForActions][0],
+              title: actionData.actionPlan[0].title,
+              raiseDate: actionData.raiseDate,
+              resources: actionData.actionPlan[0].resources.id || "",
+              currency: "",
+              relativeFunction: actionData.relativeFunction?.id || "",
+              responsible: actionData.responsible?.id || "",
+              deadline: actionData.deadline,
+              confirmation: actionData.actionPlan[0].confirmation?.id || "",
+              status: actionData.actionPlan[0].status?.id,
+              completionDate: actionData.completionDate,
+              verificationStatus: actionData.verificationStatus?.id,
+              comment: actionData.comment?.id || "",
+              january: actionData.january?.id || "",
+              february: actionData.february?.id || "",
+              march: actionData.march?.id || "",
+              april: actionData.april?.id || "",
+              may: actionData.may?.id || "",
+              june: actionData.june?.id || "",
+              july: actionData.july?.id || "",
+              august: actionData.august?.id || "",
+              september: actionData.september?.id || "",
+              october: actionData.october?.id || "",
+              november: actionData.november?.id || "",
+              december: actionData.december?.id || "",
+            },
+          ],
+        });
+        const payload = { ...actionData.actionPlan[0] };
+        console.log("Gönderilen body:", payload);
+        const token = getToken();
+        const url = `/api/register/component/action/one/${[...selectedRowsForActions][0]}?token=${token}`;
+        fetch(url, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              console.error("Kaydetme başarısız:", response.statusText);
+            } else {
+              console.log("SELECTED actionData ", actionData);
+              console.log("SELECTED PAYLOAD ", payload);
+              setActionData([payload]);
+              setSelectedTableForActions([payload]);
+              console.log("SELECTED actionData ", actionData);
+              console.log("Kayıt başarıyla kaydedildi.");
+            }
+          })
+          .catch((error) => console.error("Hata:", error));
+        setRefresh(true);
+      }
     }
-    // Sadece backend beklediği alanları al (diğerlerini sil)
-  } else {
-    if (!showAction) {
-      const payload = {
-        id: selectedTable[0].id,
-        employeeName: formData.employeeName,
-        position: formData.position,
-        lineManager: formData.lineManager,
-        esd: formData.esd,
-        appraisalDate: formData.appraisalDate,
-        appraisalType: formData.appraisalType,
-        nextAppraisalDate: formData.nextAppraisalDate,
-        tca: formData.tca,
-        skillsAppraisal: formData.skillsAppraisal,
-        jobQuality: Number(formData.jobQuality),
-        leadershipSkills: Number(formData.leadershipSkills),
-        managementSkills: Number(formData.managementSkills),
-        behavioralSkills: Number(formData.behavioralSkills),
-        effectivenessOfTrainings: Number(formData.effectivenessOfTrainings),
-        comment: formData.comment
-      };
-      console.log("Gönderilen body:", payload);
-      const url = `/api/register/ea/one/${selectedTable[0].id}?token=${token}`;
-      fetch(url, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            console.error("Kaydetme başarısız:", response.statusText);
-          } else {
-            setSelectedTable([payload]);
-            setFormData([payload]);
-            console.log("Kayıt başarıyla kaydedildi. Yeni state:", [payload]);
-          }
-        })
-        .catch((error) => console.error("Hata:", error));
-      setRefresh(true);
-    } else {
-      setActionData({
-        actionPlan: [
-          {
-            id: [...selectedRowsForActions][0],
-            title: actionData.actionPlan[0].title,
-            raiseDate: actionData.raiseDate,
-            resources: actionData.actionPlan[0].resources.id || "",
-            currency: "",
-            relativeFunction: actionData.relativeFunction?.id || "",
-            responsible: actionData.responsible?.id || "",
-            deadline: actionData.deadline,
-            confirmation: actionData.actionPlan[0].confirmation?.id || "",
-            status: actionData.actionPlan[0].status?.id,
-            completionDate: actionData.completionDate,
-            verificationStatus: actionData.verificationStatus?.id,
-            comment: actionData.comment?.id || "",
-            january: actionData.january?.id || "",
-            february: actionData.february?.id || "",
-            march: actionData.march?.id || "",
-            april: actionData.april?.id || "",
-            may: actionData.may?.id || "",
-            june: actionData.june?.id || "",
-            july: actionData.july?.id || "",
-            august: actionData.august?.id || "",
-            september: actionData.september?.id || "",
-            october: actionData.october?.id || "",
-            november: actionData.november?.id || "",
-            december: actionData.december?.id || "",
-          },
-        ],
-      });
-      const payload = { ...actionData.actionPlan[0] };
-      console.log("Gönderilen body:", payload);
-      const url = `/api/register/component/action/one/${[...selectedRowsForActions][0]}?token=${token}`;
-      fetch(url, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            console.error("Kaydetme başarısız:", response.statusText);
-          } else {
-            console.log("SELECTED actionData ", actionData);
-            console.log("SELECTED PAYLOAD ", payload);
-            setActionData([payload]);
-            setSelectedTableForActions([payload]);
-            console.log("SELECTED actionData ", actionData);
-            console.log("Kayıt başarıyla kaydedildi.");
-          }
-        })
-        .catch((error) => console.error("Hata:", error));
-      setRefresh(true);
-    }
-  }
-  closeModal();
-};
+    closeModal();
+  };
   // Bulk delete için confirm
   const confirmBulkDelete = () => {
     setIsBulkDelete(true);
@@ -743,130 +779,151 @@ const saveRisk = () => {
     setIsBulkDelete(false);
   };
 
-const handleDeleteConfirm = () => {
-  const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-  if (activeHeader) {
-    if (!showDeleted) {
-      fetch(`/api/register/ea/all/delete?token=${token}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ids: [...selectedRows] }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            console.log(" Failed Deleting Registers ");
-          } else {
-            console.log(" Deleting Success");
-            selectedRows.clear();
-            setSelectedTable([]);
-            setShowDeleteModal(false);
-            setRefresh(true);
-          }
+  // Delete modal'da çağırma
+  const handleDeleteConfirm = () => {
+    if (activeHeader) {
+      if (!showDeleted) {
+        const token = getToken();
+        const url = `/api/register/br/all/delete?token=${token}`;
+        fetch(url, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ids: [...selectedRows],
+          }),
         })
-        .catch((error) => console.log(" Error While Deleting: ", error));
+          .then((response) => {
+            if (!response.ok) {
+              console.log(" Failed Deleting Registers ");
+            } else {
+              console.log(" Deleting Success");
+              selectedRows.clear();
+              setSelectedTable([]);
+              setShowDeleteModal(false);
+              setRefresh(true);
+            }
+          })
+          .catch((error) => console.log(" Error While Deleting: ", error));
+      } else {
+        const token = getToken();
+        const url = `/api/register/br/all/undelete?token=${token}`;
+        fetch(url, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ids: [...selectedRows],
+          }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              console.log(" Failed Deleting Registers ");
+            } else {
+              console.log(" Deleting Success");
+              selectedRows.clear();
+              setSelectedTable([]);
+              setShowDeleteModal(false);
+            }
+          })
+          .catch((error) => console.log(" Error While Deleting: ", error));
+        setRefresh(true);
+      }
     } else {
-      fetch(`/api/register/ea/all/undelete?token=${token}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ids: [...selectedRows] }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            console.log(" Failed Deleting Registers ");
-          } else {
-            console.log(" Deleting Success");
-            selectedRows.clear();
-            setSelectedTable([]);
-            setShowDeleteModal(false);
-          }
+      if (!showDeletedAction) {
+        console.log("AAABBB: ", selectedRowsForActions);
+        const token = getToken();
+        const url = `/api/register/component/action/all/delete?token=${token}`;
+        fetch(url, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ids: [...selectedRowsForActions],
+          }),
         })
-        .catch((error) => console.log(" Error While Deleting: ", error));
-      setRefresh(true);
+          .then((response) => {
+            if (!response.ok) {
+              console.log(" Failed Deleting Registers ");
+            } else {
+              console.log(" Deleting Success");
+              setSelectedTableForActions([]);
+              setSelectedRowsForActions(new Set());
+              setShowDeleteModal(false);
+              setRefresh(true);
+            }
+          })
+          .catch((error) => console.log(" Error While Deleting: ", error));
+        setRefresh(true);
+      } else {
+        console.log("CCC: ", selectedRowsForActions);
+        const token = getToken();
+        const url = `/api/register/component/action/all/undelete?token=${token}`;
+        fetch(url, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ids: [...selectedRowsForActions],
+          }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              console.log(" Failed Deleting Registers ");
+            } else {
+              console.log(" UnDeleting Successsss");
+              setSelectedTableForActions([]);
+              setSelectedRowsForActions(new Set());
+              setRefresh(true);
+              setShowDeleteModal(false);
+            }
+          })
+          .catch((error) => console.log(" Error While Deleting: ", error));
+        setRefresh(true);
+      }
     }
-  } else {
-    if (!showDeletedAction) {
-      console.log("AAABBB: ", selectedRowsForActions);
-      fetch(`/api/register/component/action/all/delete?token=${token}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ids: [...selectedRowsForActions] }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            console.log(" Failed Deleting Registers ");
-          } else {
-            console.log(" Deleting Success");
-            setSelectedTableForActions([]);
-            setSelectedRowsForActions(new Set());
-            setShowDeleteModal(false);
-            setRefresh(true);
-          }
-        })
-        .catch((error) => console.log(" Error While Deleting: ", error));
-      setRefresh(true);
-    } else {
-      console.log("CCC: ", selectedRowsForActions);
-      fetch(`/api/register/component/action/all/undelete?token=${token}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ids: [...selectedRowsForActions] }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            console.log(" Failed Deleting Registers ");
-          } else {
-            console.log(" UnDeleting Successsss");
-            setSelectedTableForActions([]);
-            setSelectedRowsForActions(new Set());
-            setRefresh(true);
-            setShowDeleteModal(false);
-          }
-        })
-        .catch((error) => console.log(" Error While Deleting: ", error));
-      setRefresh(true);
-    }
-  }
-};
+  };
 
-const archiveData = (id) => {
-  const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-  if (showArchived) {
-    fetch(`/api/register/ea/all/unarchive?token=${token}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ids: [...selectedRows] }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          console.log(" UnArchiving Failed ");
-        } else {
-          selectedRows.clear();
-          setSelectedTable([]);
-          console.log(" UnArchiving Success ");
-        }
+  const archiveData = (id) => {
+    if (showArchived) {
+      const token = getToken();
+      const url = `/api/register/br/all/unarchive?token=${token}`;
+      fetch(url, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ids: [...selectedRows],
+        }),
       })
-      .catch((error) => console.log(" Error While UnArchiving : ", error));
-    setRefresh(true);
-  } else {
-    fetch(`/api/register/ea/all/archive?token=${token}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ids: [...selectedRows] }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          console.log(selectedRows);
-          console.log(" Archiving Failed ");
-        } else {
-          selectedRows.clear();
-          setSelectedTable([]);
-          console.log(" Archiving Success ");
-        }
+        .then((response) => {
+          if (!response.ok) {
+            console.log(" UnArchiving Failed ");
+          } else {
+            selectedRows.clear();
+            setSelectedTable([]);
+            console.log(" UnArchiving Success ");
+          }
+        })
+        .catch((error) => console.log(" Error While UnArchiving : ", error));
+      setRefresh(true);
+    } else {
+      const token = getToken();
+      const url = `/api/register/br/all/archive?token=${token}`;
+      fetch(url, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: [...selectedRows] }),
       })
-      .catch((error) => console.log(" Error While Archiving : ", error));
-    setRefresh(true);
-  }
-};
+        .then((response) => {
+          if (!response.ok) {
+            console.log(selectedRows);
+            console.log(" Archiving Failed ");
+          } else {
+            selectedRows.clear();
+            setSelectedTable([]);
+            console.log(" Archiving Success ");
+          }
+        })
+        .catch((error) => console.log(" Error While Archiving : ", error));
+      setRefresh(true);
+    }
+  };
 
   // Bulk actions
   const bulkArchive = () => {
@@ -1037,7 +1094,7 @@ const archiveData = (id) => {
   >
     <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-400 rounded-xl" />
     <i className="fas fa-plus text-base transition-transform duration-300 group-hover:rotate-90 group-hover:scale-110" />
-    {!showAction ? "Add Performance Appraisal" : "Add Action"}
+    {!showAction ? "Add Risk" : "Add Action"}
   </button>
 
   {/* Archive Butonu */}
@@ -1205,8 +1262,8 @@ const archiveData = (id) => {
               {/* Tablo */}
               <div className="overflow-x-auto max-h-[75vh] overflow-y-auto">
                 <table>
-                  <EarHeaders activeHeader={activeHeader} />
-                  <EarBody
+                  <OpiHeaders activeHeader={activeHeader} />
+                  <OPI
                     selectedRows={selectedRows}
                     selectedRowsForActions={selectedRowsForActions}
                     showArchived={showArchived}
@@ -1241,12 +1298,13 @@ const archiveData = (id) => {
   (activeHeader ? (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
       <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-gray-100">
+        
         {/* Header */}
         <div className="px-8 py-5 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-slate-50 to-blue-50 rounded-t-2xl">
           <div className="flex items-center gap-3">
             <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-blue-700 rounded-full" />
             <h3 className="text-lg font-semibold text-gray-800">
-              {modalMode === "add" ? "Add New Performance Appraisal" : "Edit Performance Appraisal"}
+              {modalMode === "add" ? "Add New Risk" : "Edit Risk"}
             </h3>
           </div>
           <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 transition-colors">
@@ -1256,263 +1314,133 @@ const archiveData = (id) => {
           </button>
         </div>
 
-        <div className="px-8 py-6 space-y-6">
-          <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Performance Appraisal Details</p>
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Sol sütun */}
-            <div className="space-y-6">
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Employee Name</label>
-                <input
-                  value={formData.employeeName}
-                  onChange={(e) => handleFormChange("employeeName", e.target.value)}
-                  type="text"
-                  placeholder="Enter employee name..."
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                />
-              </div>
+        <div className="px-8 py-6">
+<div className="grid md:grid-cols-2 gap-8">
 
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Position</label>
-                <input
-                  value={formData.position}
-                  onChange={(e) => handleFormChange("position", e.target.value)}
-                  type="text"
-                  placeholder="Enter position..."
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                />
-              </div>
+  <div className="space-y-5">
+    <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Risk Details</p>
 
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Line Manager</label>
-                <input
-                  value={formData.lineManager}
-                  onChange={(e) => handleFormChange("lineManager", e.target.value)}
-                  type="text"
-                  placeholder="Enter line manager name..."
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                />
-              </div>
+    {/* SWOT */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">SWOT</label>
+      <select
+        value={formData.swot || ""}
+        onChange={(e) => handleFormChange("swot", e.target.value)}
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+      >
+        <option value="">Select</option>
+        {dropdownData?.swot?.map((item) => (
+          <option key={item.id} value={item.id}>{item.value}</option>
+        ))}
+      </select>
+    </div>
 
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Employee Start Date</label>
-                <input
-                  value={formData.esd}
-                  onChange={(e) => handleFormChange("esd", e.target.value)}
-                  type="date"
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                />
-              </div>
+    {/* PESTLE */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">PESTLE</label>
+      <select
+        value={formData.pestle || ""}
+        onChange={(e) => handleFormChange("pestle", e.target.value)}
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+      >
+        <option value="">Select</option>
+        {dropdownData?.pestle?.map((item) => (
+          <option key={item.id} value={item.id}>{item.value}</option>
+        ))}
+      </select>
+    </div>
 
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Appraisal Date</label>
-                <input
-                  value={formData.appraisalDate}
-                  onChange={(e) => handleFormChange("appraisalDate", e.target.value)}
-                  type="date"
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                />
-              </div>
+    {/* Interested Party */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Interested Party</label>
+      <select
+        value={formData.interestedParty}
+        onChange={(e) => handleFormChange("interestedParty", e.target.value)}
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+      >
+        <option value="">Select</option>
+        {dropdownData?.interestedParty?.map((item) => (
+          <option key={item.id} value={item.id}>{item.value}</option>
+        ))}
+      </select>
+    </div>
 
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Next Appraisal Date</label>
-                <input
-                  value={formData.nextAppraisalDate}
-                  onChange={(e) => handleFormChange("nextAppraisalDate", e.target.value)}
-                  type="date"
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                />
-              </div>
+    {/* Risk / Opportunity */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Risk / Opportunity</label>
+      <input
+        value={formData.riskOpportunity}
+        onChange={(e) => handleFormChange("riskOpportunity", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter risk or opportunity..."
+      />
+    </div>
 
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Apprisial Type</label>
-                <select
-                  value={formData.appraisalType || ""}
-                  onChange={(e) => {
-                    console.log("Select onChange tetiklendi! Yeni value:", e.target.value);
-                    handleFormChange("appraisalType", e.target.value);
-                  }}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  {dropdownData?.appraisalType?.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.value}
-                    </option>
-                  ))}
-                </select>
-              </div>
-{/* 
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Appraisal Type</label>
-                <select
-                  value={formData.appraisalType || ""}
-                  onChange={(e) => handleFormChange("appraisalType", e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  <option value="Probation">Probation</option>
-                  <option value="Annual">Annual</option>
-                </select>
-              </div> */}
-            </div>
+    {/* Objective */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Objective</label>
+      <input
+        value={formData.objective}
+        onChange={(e) => handleFormChange("objective", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter objective..."
+      />
+    </div>
 
-            {/* Sağ sütun */}
-            <div className="space-y-6">
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Task Completion Appraisal</label>
-                <select
-                  value={formData.tca || ""}
-                  onChange={(e) => handleFormChange("tca", e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </select>
-              </div>
+    {/* KPI */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">KPI</label>
+      <input
+        value={formData.kpi}
+        onChange={(e) => handleFormChange("kpi", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter KPI..."
+      />
+    </div>
 
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Skills Appraisal</label>
-                <select
-                  value={formData.skillsAppraisal || ""}
-                  onChange={(e) => handleFormChange("skillsAppraisal", e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </select>
-              </div>
+    {/* Process */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Process</label>
+      <select
+        value={formData.process}
+        onChange={(e) => handleFormChange("process", e.target.value)}
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+      >
+        <option value="">Select</option>
+        {dropdownData?.process?.map((item) => (
+          <option key={item.id} value={item.id}>{item.value}</option>
+        ))}
+      </select>
+    </div>
 
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Job Quality</label>
-                <select
-                  value={formData.jobQuality || ""}
-                  onChange={(e) => handleFormChange("jobQuality", e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </select>
-              </div>
-              
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Leadership Skills</label>
-                <select
-                  value={formData.leadershipSkills || ""}
-                  onChange={(e) => handleFormChange("leadershipSkills", e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </select>
-              </div>
+    {/* Existing Risk Mitigation */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Existing Risk Mitigation</label>
+      <input
+        value={formData.ecm}
+        onChange={(e) => handleFormChange("ecm", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter mitigation measures..."
+      />
+    </div>
 
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Management Skills</label>
-                <select
-                  value={formData.managementSkills || ""}
-                  onChange={(e) => handleFormChange("managementSkills", e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </select>
-              </div>
+    {/* ACM */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Additional Control Measures</label>
+      <input
+        value={formData.acm}
+        onChange={(e) => handleFormChange("acm", e.target.value)}
+        type="text"
+        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+        placeholder="Enter Additional Control Measures..."
+      />
+    </div>
 
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Behavioral Skills</label>
-                <select
-                  value={formData.behavioralSkills || ""}
-                  onChange={(e) => handleFormChange("behavioralSkills", e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </select>
-              </div>
-
-              <div className="group">
-                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Effectiveness Of Trainings</label>
-                <select
-                  value={formData.effectivenessOfTrainings || ""}
-                  onChange={(e) => handleFormChange("effectivenessOfTrainings", e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                >
-                  <option value="">Select</option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </select>
-              </div>       
-                          <div className="group">
+                    <div className="group">
               <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Comment</label>
               <input
                 value={formData.comment}
@@ -1521,9 +1449,166 @@ const archiveData = (id) => {
                 placeholder="Enter comment..."
                 className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
               />
-            </div>                     
             </div>
+  </div>
+
+  <div className="space-y-6">
+    <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">Risk Assessment</p>
+
+    {/* Initial Risk */}
+<div className="bg-rose-50 border border-rose-100 rounded-2xl p-4 space-y-3">
+  <p className="text-xs font-semibold text-rose-600 uppercase tracking-wider">
+    İnitial Risk
+  </p>
+
+  <div className="grid grid-cols-3 gap-3">
+    {/* Severity */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5">
+        Severity
+      </label>
+      <select
+        value={formData.initialRiskSeverity}
+        onChange={(e) =>
+          handleFormChange(
+            "initialRiskSeverity",
+            parseInt(e.target.value, 10) || 0
+          )
+        }
+        className="w-full px-3 py-2.5 bg-white border border-rose-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all"
+      >
+        <option value="">Select</option>
+        {[1, 2, 3, 4, 5].map((n) => (
+          <option key={n}>{n}</option>
+        ))}
+      </select>
+    </div>
+
+    {/* Likelihood */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5">
+        Likelihood
+      </label>
+      <select
+        value={formData.initialRiskLikelihood}
+        onChange={(e) =>
+          handleFormChange(
+            "initialRiskLikelihood",
+            parseInt(e.target.value, 10) || 0
+          )
+        }
+        className="w-full px-3 py-2.5 bg-white border border-rose-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all"
+      >
+        <option value="">Select</option>
+        {[1, 2, 3, 4, 5].map((n) => (
+          <option key={n}>{n}</option>
+        ))}
+      </select>
+    </div>
+
+    {/* Risk Level Box */}
+    <div className="group flex flex-col justify-end">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5">
+        Risk Level
+      </label>
+
+      {(() => {
+        const risk = getRiskLevel(
+          formData.initialRiskSeverity,
+          formData.initialRiskLikelihood
+        );
+
+        return (
+          <div
+            className={`w-full px-3 py-2.5 rounded-xl text-sm font-medium text-center ${risk.color}`}
+          >
+            {risk.label}
           </div>
+        );
+      })()}
+    </div>
+  </div>
+</div>
+
+    {/* Residual Risk */}
+<div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-4 space-y-3">
+  <p className="text-xs font-semibold text-emerald-600 uppercase tracking-wider">
+    Residual Risk
+  </p>
+
+  <div className="grid grid-cols-3 gap-3">
+    {/* Severity */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5">
+        Severity
+      </label>
+      <select
+        value={formData.residualRiskSeverity}
+        onChange={(e) =>
+          handleFormChange(
+            "residualRiskSeverity",
+            parseInt(e.target.value, 10) || 0
+          )
+        }
+        className="w-full px-3 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
+      >
+        <option value="">Select</option>
+        {[1, 2, 3, 4, 5].map((n) => (
+          <option key={n}>{n}</option>
+        ))}
+      </select>
+    </div>
+
+    {/* Likelihood */}
+    <div className="group">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5">
+        Likelihood
+      </label>
+      <select
+        value={formData.residualRiskLikelihood}
+        onChange={(e) =>
+          handleFormChange(
+            "residualRiskLikelihood",
+            parseInt(e.target.value, 10) || 0
+          )
+        }
+        className="w-full px-3 py-2.5 bg-white border border-emerald-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
+      >
+        <option value="">Select</option>
+        {[1, 2, 3, 4, 5].map((n) => (
+          <option key={n}>{n}</option>
+        ))}
+      </select>
+    </div>
+
+    {/* Risk Level */}
+    <div className="group flex flex-col justify-end">
+      <label className="block text-xs font-medium text-gray-500 mb-1.5">
+        Risk Level
+      </label>
+
+      {(() => {
+        const risk = getRiskLevel(
+          formData.residualRiskSeverity,
+          formData.residualRiskLikelihood
+        );
+
+        return (
+          <div
+            className={`w-full px-3 py-2.5 rounded-xl text-sm font-medium text-center ${risk.color}`}
+          >
+            {risk.label}
+          </div>
+        );
+      })()}
+    </div>
+
+
+  </div>
+</div>
+  </div>
+
+</div>
         </div>
 
         {/* Footer */}
@@ -1538,14 +1623,17 @@ const archiveData = (id) => {
             onClick={saveRisk}
             className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl hover:from-blue-600 hover:to-blue-800 shadow-sm shadow-blue-200 transition-all"
           >
-            {modalMode === "add" ? "Add Performance Appraisal" : "Update Performance Appraisal"}
+            {modalMode === "add" ? "Add Risk" : "Update Risk"}
           </button>
         </div>
       </div>
     </div>
+
   ) : (
+
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
       <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-gray-100">
+
         {/* Header */}
         <div className="px-8 py-5 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-slate-50 to-blue-50 rounded-t-2xl">
           <div className="flex items-center gap-3">
@@ -1562,71 +1650,48 @@ const archiveData = (id) => {
         </div>
 
         <div className="px-8 py-6 space-y-8">
+
           {/* Action Plan Section */}
           <div>
             <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest mb-4">Action Plan</p>
-            <div className="space-y-6">
-              {/* Row 1 */}
+            <div className="space-y-4">
+
               <div className="grid grid-cols-3 gap-4">
-                <div className="group">
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Action</label>
-                  <input
-                    value={actionData?.actionPlan?.[0]?.title || ""}
-                    onChange={(e) => handleFormChange("actionPlan[0].title", e.target.value)}
-                    type="text"
-                    placeholder="Enter action..."
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  />
-                </div>
-                <div className="group">
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Raise Date</label>
-                  <input
-                    value={actionData?.actionPlan?.[0]?.raiseDate || ""}
-                    onChange={(e) => handleFormChange("actionPlan[0].raiseDate", e.target.value)}
-                    type="date"
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  />
-                </div>
-                <div className="group">
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Resources</label>
-                  <input
-                    value={actionData?.actionPlan?.[0]?.resources || ""}
-                    onChange={(e) => handleFormChange("actionPlan[0].resources", e.target.value)}
-                    type="text"
-                    placeholder="Enter resources..."
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  />
-                </div>
+                {[
+                  { label: "Action", field: "title", type: "text", placeholder: "Enter action..." },
+                  { label: "Raise Date", field: "raiseDate", type: "date" },
+                  { label: "Resources", field: "resources", type: "text", placeholder: "Enter resources..." },
+                ].map(({ label, field, type, placeholder }) => (
+                  <div key={field} className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">{label}</label>
+                    <input
+                      value={actionData?.actionPlan?.[0]?.[field] || ""}
+                      onChange={(e) => handleFormChange(`actionPlan[0].${field}`, field === "resources" ? e.target.value : e.target.value)}
+                      type={type}
+                      placeholder={placeholder}
+                      className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                    />
+                  </div>
+                ))}
               </div>
 
-              {/* Row 2 */}
               <div className="grid grid-cols-3 gap-4">
-                <div className="group">
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Relative Function</label>
-                  <select
-                    value={actionData?.actionPlan?.[0]?.relativeFunction || ""}
-                    onChange={(e) => handleFormChange("actionPlan[0].relativeFunction", e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  >
-                    <option value="">Select</option>
-                    {dropdownData?.relativeFunction?.map((item) => (
-                      <option key={item.id} value={item.id}>{item.value}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="group">
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Responsible</label>
-                  <select
-                    value={actionData?.actionPlan?.[0]?.responsible || ""}
-                    onChange={(e) => handleFormChange("actionPlan[0].responsible", e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  >
-                    <option value="">Select</option>
-                    {dropdownData?.affectedPosition?.map((item) => (
-                      <option key={item.id} value={item.id}>{item.value}</option>
-                    ))}
-                  </select>
-                </div>
+                {[
+                  { label: "Relative Function", field: "relativeFunction", options: dropdownData?.relativeFunction },
+                  { label: "Responsible", field: "responsible", options: dropdownData?.affectedPosition },
+                ].map(({ label, field, options }) => (
+                  <div key={field} className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">{label}</label>
+                    <select
+                      value={actionData?.actionPlan?.[0]?.[field] || ""}
+                      onChange={(e) => handleFormChange(`actionPlan[0].${field}`, e.target.value)}
+                      className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                    >
+                      <option value="">Select</option>
+                      {options?.map((item) => <option key={item.id} value={item.id}>{item.value}</option>)}
+                    </select>
+                  </div>
+                ))}
                 <div className="group">
                   <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Deadline</label>
                   <input
@@ -1638,34 +1703,23 @@ const archiveData = (id) => {
                 </div>
               </div>
 
-              {/* Row 3 */}
               <div className="grid grid-cols-3 gap-4">
-                <div className="group">
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Action Confirmation</label>
-                  <select
-                    value={actionData?.actionPlan?.[0]?.confirmation || ""}
-                    onChange={(e) => handleFormChange("actionPlan[0].confirmation", e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  >
-                    <option value="">Select</option>
-                    {dropdownData?.confirmation?.map((item) => (
-                      <option key={item.id} value={item.id}>{item.value}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="group">
-                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Action Status</label>
-                  <select
-                    value={actionData?.actionPlan?.[0]?.status || ""}
-                    onChange={(e) => handleFormChange("actionPlan[0].status", e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                  >
-                    <option value="">Select</option>
-                    {dropdownData?.status?.map((item) => (
-                      <option key={item.id} value={item.id}>{item.value}</option>
-                    ))}
-                  </select>
-                </div>
+                {[
+                  { label: "Action Confirmation", field: "confirmation", options: dropdownData?.confirmation },
+                  { label: "Action Status", field: "status", options: dropdownData?.status },
+                ].map(({ label, field, options }) => (
+                  <div key={field} className="group">
+                    <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">{label}</label>
+                    <select
+                      value={actionData?.actionPlan?.[0]?.[field] || ""}
+                      onChange={(e) => handleFormChange(`actionPlan[0].${field}`, e.target.value)}
+                      className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                    >
+                      <option value="">Select</option>
+                      {options?.map((item) => <option key={item.id} value={item.id}>{item.value}</option>)}
+                    </select>
+                  </div>
+                ))}
                 <div className="group">
                   <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Completion Date</label>
                   <input
@@ -1677,7 +1731,6 @@ const archiveData = (id) => {
                 </div>
               </div>
 
-              {/* Row 4 */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="group">
                   <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Verification Status</label>
@@ -1687,9 +1740,7 @@ const archiveData = (id) => {
                     className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                   >
                     <option value="">Select</option>
-                    {dropdownData?.verificationStatus?.map((item) => (
-                      <option key={item.id} value={item.id}>{item.value}</option>
-                    ))}
+                    {dropdownData?.verificationStatus?.map((item) => <option key={item.id} value={item.id}>{item.value}</option>)}
                   </select>
                 </div>
                 <div className="group">
@@ -1703,15 +1754,20 @@ const archiveData = (id) => {
                   />
                 </div>
               </div>
+
             </div>
           </div>
 
           {/* Monthly Status Section */}
           <div>
             <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest mb-4">Monthly Action Status</p>
-            <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5">
-              <div className="grid grid-cols-4 gap-4">
-                {["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"].map((month) => (
+            <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4">
+              <div className="grid grid-cols-4 gap-3">
+                {[
+                  "january","february","march","april",
+                  "may","june","july","august",
+                  "september","october","november","december"
+                ].map((month) => (
                   <div key={month} className="group">
                     <label className="block text-xs font-medium text-gray-500 mb-1.5 capitalize group-focus-within:text-blue-500 transition-colors">
                       {month.charAt(0).toUpperCase() + month.slice(1)}
@@ -1719,12 +1775,10 @@ const archiveData = (id) => {
                     <select
                       value={actionData?.actionPlan?.[0]?.[month] || ""}
                       onChange={(e) => handleFormChange(`actionPlan[0].${month}`, e.target.value)}
-                      className="w-full px-3.5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                      className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all"
                     >
                       <option value="">Select</option>
-                      {dropdownData?.status?.map((item) => (
-                        <option key={item.id} value={item.id}>{item.value}</option>
-                      ))}
+                      {dropdownData?.status?.map((item) => <option key={item.id} value={item.id}>{item.value}</option>)}
                     </select>
                   </div>
                 ))}
@@ -1732,16 +1786,6 @@ const archiveData = (id) => {
             </div>
           </div>
 
-                      <div className="group">
-              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Comment</label>
-              <input
-                value={formData.comment}
-                onChange={(e) => handleFormChange("comment", e.target.value)}
-                type="text"
-                placeholder="Enter comment..."
-                className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-              />
-            </div>
         </div>
 
         {/* Footer */}
@@ -1761,7 +1805,8 @@ const archiveData = (id) => {
         </div>
       </div>
     </div>
-  ))}
+  )
+)}
 
 {/* Delete Confirmation Modal */}
 {showDeleteModal && (
@@ -1805,4 +1850,4 @@ const archiveData = (id) => {
   );
 };
 
-export default EarProfile;
+export default OPIProfile;

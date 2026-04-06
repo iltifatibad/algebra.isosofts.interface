@@ -241,6 +241,7 @@ const MocProfile = () => {
   const [formData, setFormData] = useState({
     id: 0,
     issuer: "",
+    issueDate: "",
     reasonOfChange: "",
     process: "",
     changeDescription: "",
@@ -403,6 +404,7 @@ async function getDefaultDropdownList() {
       setFormData({
         id: 0,
         issuer: "",
+        issueDate: "",
         reasonOfChange: "",
         process: "",
         changeDescription: "",
@@ -452,6 +454,7 @@ async function getDefaultDropdownList() {
     if (activeHeader) {
       setFormData({
         issuer: row.issuer,
+        issueDate: row.issueDate,
         reasonOfChange: row.reasonOfChange,
         process: row.process.id || String(row.process),
         changeDescription: row.changeDescription,
@@ -574,6 +577,7 @@ const saveRisk = () => {
         if (!showAction) {
             const payload = {
                 issuer: formData.issuer,
+                issueDate: formDate.issueDate,
                 reasonOfChange: formData.reasonOfChange,
                 process: formData.process,
                 changeDescription: formData.changeDescription,
@@ -654,6 +658,7 @@ const saveRisk = () => {
             const payload = {
                 id: selectedTable[0].id,
                 issuer: formData.issuer,
+                issueDate: formData.issueDate,
                 reasonOfChange: formData.reasonOfChange,
                 process: formData.process,
                 changeDescription: formData.changeDescription,
@@ -1308,7 +1313,18 @@ const archiveData = (id) => {
                   value={formData.issuer}
                   onChange={(e) => handleFormChange("issuer", e.target.value)}
                   type="text"
-                  placeholder="Enter issuer..."
+                  placeholder="Enter Issuer..."
+                  className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                />
+              </div>
+              
+              <div className="group">
+                <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Issuer Date</label>
+                <input
+                  value={formData.issueDate}
+                  onChange={(e) => handleFormChange("issueDate", e.target.value)}
+                  type="date"
+                  placeholder="Enter Date..."
                   className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                 />
               </div>

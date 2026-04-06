@@ -18,11 +18,13 @@ import CusProfile from "./customerprofile.jsx";
 import AcProfile from "./actionprofile.jsx";
 import KPIDashboard from "./kpi.jsx";
 import KpiProfile from "./kpiprofile.jsx";
+import OPIProfile from "./opiprofile.jsx";
 
 const RiskRouter = () => {
   const [risks] = useState([
     { id: "dashboard", name: "Dashboard", icon: "📊" },
     { id: "kpi", name: "Key Performance Indicators", icon: "📈" },
+    { id: "opi", name: "Operation Performance Indicator", icon: "📈" },
     { id: "bg-reg", name: "Business Risks", icon: "💼" },
     { id: "hs-reg", name: "Health & Safety Risks", icon: "🛡️" },
     { id: "leg-reg", name: "Legislations", icon: "⚖️" },
@@ -112,6 +114,7 @@ const RiskRouter = () => {
            selectedRisk === "mr-reg" ? <MRMProfile /> : 
            selectedRisk === "ac-reg" ? <AcProfile /> : 
            selectedRisk === "kpi" ? <KpiProfile /> : 
+           selectedRisk === "opi" ? <OPIProfile /> : 
            selectedRisk === "dashboard" ? <KPIDashboard /> : null}
         </main>
       </div>
