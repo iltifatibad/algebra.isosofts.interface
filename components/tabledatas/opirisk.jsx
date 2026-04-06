@@ -329,7 +329,7 @@ if (showDeleted) {
                       <input
                         type="checkbox"
                         checked={selectedRows.has(row.id)}
-                        onChange={() => onCheckboxChange(row.id, tableData)}
+                        onChange={() => onCheckboxChange(row.id, deletedData)}
                         className="h-4 w-4 text-blue-600 rounded"
                       />
                     </div>
@@ -479,7 +479,7 @@ if (showDeleted) {
                       <input
                         type="checkbox"
                         checked={selectedRows.has(row.id)}
-                        onChange={() => onCheckboxChange(row.id, tableData)}
+                        onChange={() => onCheckboxChange(row.id, archivedData)}
                         className="h-4 w-4 text-blue-600 rounded"
                       />
                     </div>

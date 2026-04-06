@@ -897,78 +897,53 @@ const OPIProfile = () => {
     }
   };
 
-  // const archiveData = (id) => {
-  //   if (showArchived) {
-  //     const token = getToken();
-  //     const url = `/api/dashboard/opi/all/unarchive?token=${token}`;
-  //     fetch(url, {
-  //       method: "PUT",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         ids: [...selectedRows],
-  //       }),
-  //     })
-  //       .then((response) => {
-  //         if (!response.ok) {
-  //           console.log(" UnArchiving Failed ");
-  //         } else {
-  //           selectedRows.clear();
-  //           setSelectedTable([]);
-  //           console.log(" UnArchiving Success ");
-  //         }
-  //       })
-  //       .catch((error) => console.log(" Error While UnArchiving : ", error));
-  //     setRefresh(true);
-  //   } else {
-  //     const token = getToken();
-  //     const url = `/api/dashboard/opi/all/archive?token=${token}`;
-  //     fetch(url, {
-  //       method: "PUT",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ ids: [...selectedRows] }),
-  //     })
-  //       .then((response) => {
-  //         if (!response.ok) {
-  //           console.log(selectedRows);
-  //           console.log(" Archiving Failed ");
-  //         } else {
-  //           selectedRows.clear();
-  //           setSelectedTable([]);
-  //           console.log(" Archiving Success ");
-  //         }
-  //       })
-  //       .catch((error) => console.log(" Error While Archiving : ", error));
-  //     setRefresh(true);
-  //   }
-  // };
+  const archiveData = (id) => {
+    if (showArchived) {
+      const token = getToken();
+      const url = `/api/dashboard/opi/all/unarchive?token=${token}`;
+      fetch(url, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ids: [...selectedRows],
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            console.log(" UnArchiving Failed ");
+          } else {
+            selectedRows.clear();
+            setSelectedTable([]);
+            console.log(" UnArchiving Success ");
+          }
+        })
+        .catch((error) => console.log(" Error While UnArchiving : ", error));
+      setRefresh(true);
+    } else {
+      const token = getToken();
+      const url = `/api/dashboard/opi/all/archive?token=${token}`;
+      fetch(url, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: [...selectedRows] }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            console.log(selectedRows);
+            console.log(" Archiving Failed ");
+          } else {
+            selectedRows.clear();
+            setSelectedTable([]);
+            console.log(" Archiving Success ");
+          }
+        })
+        .catch((error) => console.log(" Error While Archiving : ", error));
+      setRefresh(true);
+    }
+  };
 
   // Bulk actions
   
-  const archiveData = () => {
-  const ids = [...selectedRows]; // selectedTable'a gerek yok
-  if (ids.length === 0) return;
-  
-  const token = getToken();
-  const endpoint = showArchived ? "unarchive" : "archive";
-  const url = `/api/dashboard/opi/all/${endpoint}?token=${token}`;
-  
-  fetch(url, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ ids }),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        console.log(`${endpoint} Failed`);
-      } else {
-        setSelectedRows(new Set());
-        setSelectedTable([]);
-        setRefresh(true);
-        console.log(`${endpoint} Success`);
-      }
-    })
-    .catch((error) => console.log(`Error:`, error));
-};
 
 
   const bulkArchive = () => {
