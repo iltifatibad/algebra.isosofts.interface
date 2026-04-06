@@ -802,49 +802,91 @@ const KpiProfile = () => {
                 </button>
               </div>
 
-              <div className="px-8 py-6">
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="space-y-5">
-                    <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">KPI Details</p>
+<div className="px-8 py-6">
+  <div className="grid md:grid-cols-2 gap-8">
 
-                    <div className="group">
-                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Function</label>
-                      <select
-                        value={formData.function || ""}
-                        onChange={(e) => handleFormChange("function", e.target.value)}
-                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                      >
-                        <option value="">Select</option>
-                        {dropdownData?.relativeFunction?.map((item) => (
-                          <option key={item.id} value={item.id}>{item.value}</option>
-                        ))}
-                      </select>
-                    </div>
+    {/* LEFT */}
+    <div className="space-y-5">
+      <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">
+        KPI Details
+      </p>
 
-                    <div className="group">
-                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Last Year KPI</label>
-                      <input
-                        value={formData.lykpi}
-                        onChange={(e) => handleFormChange("lykpi", e.target.value)}
-                        type="text"
-                        placeholder="Enter Last Year KPI..."
-                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                      />
-                    </div>
+      {/* Function */}
+      <div className="group">
+        <label className="block text-xs font-medium text-gray-500 mb-1.5">
+          Function
+        </label>
+        <select
+          value={formData.function || ""}
+          onChange={(e) => handleFormChange("function", e.target.value)}
+          className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-400"
+        >
+          <option value="">Select</option>
+          {dropdownData?.relativeFunction?.map((item) => (
+            <option key={item.id} value={item.id}>{item.value}</option>
+          ))}
+        </select>
+      </div>
 
-                    <div className="group">
-                      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Annual Target</label>
-                      <input
-                        value={formData.annualTarget}
-                        onChange={(e) => handleFormChange("annualTarget", e.target.value)}
-                        type="text"
-                        placeholder="Enter Annual Target..."
-                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
+      {/* KPI Row */}
+      <div className="grid grid-cols-2 gap-4">
+        <div className="group">
+          <label className="block text-xs text-gray-500 mb-1.5">
+            Last Year KPI
+          </label>
+          <input
+            value={formData.lykpi}
+            onChange={(e) => handleFormChange("lykpi", e.target.value)}
+            className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+
+        <div className="group">
+          <label className="block text-xs text-gray-500 mb-1.5">
+            Annual Target
+          </label>
+          <input
+            value={formData.annualTarget}
+            onChange={(e) => handleFormChange("annualTarget", e.target.value)}
+            className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+      </div>
+    </div>
+
+    {/* RIGHT */}
+    <div className="space-y-5">
+      <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">
+        Monthly Values
+      </p>
+
+      <div className="grid grid-cols-2 gap-4">
+        {[
+          "january","february","march","april",
+          "may","june","july","august",
+          "september","october","november","december"
+        ].map((month) => (
+          <div key={month} className="group">
+            <label className="block text-xs text-gray-500 mb-1.5 capitalize">
+              {month}
+            </label>
+            <select
+              value={formData[month] || ""}
+              onChange={(e) => handleFormChange(month, e.target.value)}
+              className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-400"
+            >
+              <option value="">Select</option>
+              {[0,10,20,30,40,50,60,70,80,90,100].map((val) => (
+                <option key={val} value={val}>{val}</option>
+              ))}
+            </select>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</div>
 
               {/* Footer */}
               <div className="px-8 py-5 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50 rounded-b-2xl">
