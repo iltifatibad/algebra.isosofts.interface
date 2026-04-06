@@ -664,7 +664,7 @@ const saveRisk = () => {
             id: [...selectedRowsForActions][0],
             title: actionData.actionPlan[0].title,
             raiseDate: actionData.raiseDate,
-            registerType: "ear",
+            registerType: "ea",
             resources: actionData.actionPlan[0].resources.id || "",
             currency: "",
             relativeFunction: actionData.relativeFunction?.id || "",
