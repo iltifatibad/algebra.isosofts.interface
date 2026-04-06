@@ -600,7 +600,7 @@ const saveRisk = () => {
                 description: formData.description,
                 containmentAction: formData.containmentAction,
                 rootCauses: formData.rootCauses,
-                findingStatus: formData.findingStatus.id,
+                findingStatus: formData.findingStatus,
                 comment: formData.comment
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
@@ -681,7 +681,7 @@ const saveRisk = () => {
                 description: formData.description,
                 containmentAction: formData.containmentAction,
                 rootCauses: formData.rootCauses,
-                findingStatus: formData.findingStatus.id,
+                findingStatus: formData.findingStatus,
                 comment: formData.comment
             };
             console.log("Gönderilen body:", payload); // Debug: Tam beklenen format mı?
