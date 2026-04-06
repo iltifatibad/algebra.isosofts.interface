@@ -624,6 +624,7 @@ const saveRisk = () => {
       const payload = {
         id: selectedTable[0].id,
         employeeName: formData.employeeName,
+        registerType: "ea",
         position: formData.position,
         lineManager: formData.lineManager,
         esd: formData.esd,
@@ -664,7 +665,6 @@ const saveRisk = () => {
             id: [...selectedRowsForActions][0],
             title: actionData.actionPlan[0].title,
             raiseDate: actionData.raiseDate,
-            registerType: "ea",
             resources: actionData.actionPlan[0].resources.id || "",
             currency: "",
             relativeFunction: actionData.relativeFunction?.id || "",

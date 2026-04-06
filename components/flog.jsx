@@ -487,7 +487,6 @@ async function getDefaultDropdownList() {
             raiseDate: row.raiseDate,
             resources:
               row.resources?.id || row.resources || "",
-              regsiterType: "fn",
             currency: "",
             relativeFunction:
               row.relativeFunction?.id || String(row.relativeFunction) || "",
@@ -622,7 +621,7 @@ const saveRisk = () => {
         } else {
             const payload = {
                 registerId: Array.from(selectedRows)[0],
-                regsiterType: "fin",
+                registerType: "fin",
                 title: actionData.actionPlan[0]?.title || "",
                 resources: actionData.actionPlan[0]?.resources || "",
                 raiseDate: actionData.actionPlan[0]?.raiseDate || "",
