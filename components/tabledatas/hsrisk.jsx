@@ -584,7 +584,7 @@ console.log(url);
                     className="border-b border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px"
                     rowSpan={numActions}
                   >
-                    {selectedTable[0].no}
+                    {actionData?.[index]?.no}
                     <input
                       checked={selectedRowsForActions.has(actionData[index].id)}
                       onChange={() =>
@@ -719,7 +719,7 @@ console.log(url);
                     className="border-b border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px"
                     rowSpan={numActions}
                   >
-                    {selectedTable[0].no}
+                    {deletedActionData?.[index]?.no}
                     <input
                       checked={selectedRowsForActions.has(
                         deletedActionData[index].id,
