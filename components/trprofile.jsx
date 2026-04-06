@@ -562,7 +562,7 @@ const saveRisk = () => {
         } else {
             const payload = {
                 registerId: Array.from(selectedRows)[0],
-                registerTtype: "tra",
+                registerType: "tra",
                 title: actionData.actionPlan[0]?.title || "",
                 resources: actionData.actionPlan[0]?.resources || "",
                 raiseDate: actionData.actionPlan[0]?.raiseDate || "",

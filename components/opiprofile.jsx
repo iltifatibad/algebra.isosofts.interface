@@ -623,7 +623,7 @@ const OPIProfile = () => {
       } else {
         const payload = {
           registerId: Array.from(selectedRows)[0],
-          registerType: "br",
+          registerType: "opi",
           title: actionData.actionPlan[0]?.title || "",
           resources: actionData.actionPlan[0]?.resources || "",
           raiseDate: actionData.actionPlan[0]?.raiseDate || "",

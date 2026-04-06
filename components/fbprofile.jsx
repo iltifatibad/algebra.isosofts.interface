@@ -535,6 +535,7 @@ const saveRisk = () => {
             const payload = {
                 registerId: Array.from(selectedRows)[0],
                 scope: actionData.actionPlan[0].scope,
+                registerType: "fb",
                 vendorId: actionData.actionPlan[0].vendorId,
                 typeOfFinding: actionData.actionPlan[0].typeOfFinding,
                 qgs: parseInt(actionData.actionPlan[0].qgs),

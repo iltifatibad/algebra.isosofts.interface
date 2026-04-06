@@ -577,7 +577,7 @@ const saveRisk = () => {
         if (!showAction) {
             const payload = {
                 issuer: formData.issuer,
-                issueDate: formDate.issueDate,
+                issueDate: formData.issueDate,
                 reasonOfChange: formData.reasonOfChange,
                 process: formData.process,
                 changeDescription: formData.changeDescription,

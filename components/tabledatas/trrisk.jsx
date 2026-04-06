@@ -207,7 +207,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
         }
         return response.json();
       })
-      .then((data) => {z
+      .then((data) => {
         // Başarılı veriyi işle, örneğin setActions(data);
         console.log("Fetched data:", data); // Debug için ekle
         setActionData(data);

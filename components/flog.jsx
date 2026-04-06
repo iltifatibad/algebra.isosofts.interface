@@ -487,6 +487,7 @@ async function getDefaultDropdownList() {
             raiseDate: row.raiseDate,
             resources:
               row.resources?.id || row.resources || "",
+              regsiterType: "fn",
             currency: "",
             relativeFunction:
               row.relativeFunction?.id || String(row.relativeFunction) || "",
