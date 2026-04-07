@@ -1302,7 +1302,7 @@ const archiveData = (id) => {
 
             {/* Certificate / Licence Number */}
             <div className="group">
-              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Certificate / Licence Number</label>
+              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Certificate / License Number</label>
               <input
                 value={formData.clnumber}
                 onChange={(e) => handleFormChange("clnumber", e.target.value)}
@@ -1337,7 +1337,7 @@ const archiveData = (id) => {
               />
             </div>
 
-            <div className="group md:col-span-2">
+            {/* <div className="group md:col-span-2">
               <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors"> Validity Status </label>
               <select
                 value={formData.validityStatus}
@@ -1348,7 +1348,7 @@ const archiveData = (id) => {
                 <option value={0}>Valid</option>
                 <option value={1}>Not Valid</option>
               </select>
-            </div>
+            </div> */}
 
             <div className="group">
               <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Comment</label>

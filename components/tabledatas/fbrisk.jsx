@@ -418,7 +418,7 @@ value={
     (Number(row.documentation) || 0) +
     (Number(row.hs) || 0) +
     (Number(row.environment) || 0)
-  ) / 6
+  )
 }
     color="bg-slate-100 text-slate-700 border border-slate-200"
   />
@@ -578,7 +578,7 @@ value={
     (Number(row.documentation) || 0) +
     (Number(row.hs) || 0) +
     (Number(row.environment) || 0)
-  ) / 6
+  )
 }
     color="bg-slate-100 text-slate-700 border border-slate-200"
   />
@@ -1064,7 +1064,7 @@ value={
     (Number(row.documentation) || 0) +
     (Number(row.hs) || 0) +
     (Number(row.environment) || 0)
-  ) / 6
+  )
 }
     color="bg-slate-100 text-slate-700 border border-slate-200"
   />

@@ -1385,7 +1385,7 @@ const archiveData = (id) => {
 {/* Initial Risk */}
 <div className="bg-red-50 border border-red-100 rounded-2xl p-4 space-y-3">
   <p className="text-xs font-semibold text-red-600 uppercase tracking-wider">
-    Initial Risk
+    Initial Significance
   </p>
 
   <div className="grid grid-cols-4 gap-3">
@@ -1483,7 +1483,7 @@ const archiveData = (id) => {
               {/* Residual Risk */}
                 <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-4 space-y-3">
                   <p className="text-xs font-semibold text-emerald-600 uppercase tracking-wider">
-                    Residual Risk
+                    Residual Significance
                   </p>
 
                   <div className="grid grid-cols-4 gap-3">
