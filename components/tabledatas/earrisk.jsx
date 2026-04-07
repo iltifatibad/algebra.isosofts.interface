@@ -331,6 +331,33 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.nextAppraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
+{/* Days Left To Next Appraisal */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  {(() => {
+    if (!row.nextAppraisalDate) return (
+      <SoftBadge value="No" color="bg-orange-100 text-orange-700 border border-orange-200" />
+    );
+
+    const diffInDays = Math.ceil(
+      (new Date(row.nextAppraisalDate) - new Date()) / (1000 * 60 * 60 * 24)
+    );
+
+    const isValid = diffInDays >= 0;
+
+    return (
+      <SoftBadge
+        value={`${diffInDays} days`}
+        color={
+          isValid
+            ? "bg-amber-100 text-amber-700 border border-amber-200"
+            : "bg-orange-100 text-orange-700 border border-orange-200"
+        }
+      />
+    );
+  })()}
+</td>
+
+
 {/* Evaulation Done */}
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   {(() => {
@@ -380,6 +407,25 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
   <SoftBadge value={row.effectivenessOfTrainings} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
+
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge
+    value={
+      [
+        row.tca,
+        row.skillsAppraisal,
+        row.jobQuality,
+        row.leadershipSkills,
+        row.managementSkills,
+        row.behavioralSkills,
+        row.effectivenessOfTrainings
+      ]
+        .map(v => Number(v) || 0)
+        .reduce((a, b) => a + b, 0)
+    }
+    color="bg-green-100 text-green-700 border border-green-200"
+  />
 </td>
 
     <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
@@ -484,6 +530,33 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.nextAppraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
+{/* Days Left To Next Appraisal */}
+<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+  {(() => {
+    if (!row.nextAppraisalDate) return (
+      <SoftBadge value="No" color="bg-orange-100 text-orange-700 border border-orange-200" />
+    );
+
+    const diffInDays = Math.ceil(
+      (new Date(row.nextAppraisalDate) - new Date()) / (1000 * 60 * 60 * 24)
+    );
+
+    const isValid = diffInDays >= 0;
+
+    return (
+      <SoftBadge
+        value={`${diffInDays} days`}
+        color={
+          isValid
+            ? "bg-amber-100 text-amber-700 border border-amber-200"
+            : "bg-orange-100 text-orange-700 border border-orange-200"
+        }
+      />
+    );
+  })()}
+</td>
+
+
 {/* Evaulation Done */}
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   {(() => {
@@ -533,6 +606,25 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
   <SoftBadge value={row.effectivenessOfTrainings} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
+
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge
+    value={
+      [
+        row.tca,
+        row.skillsAppraisal,
+        row.jobQuality,
+        row.leadershipSkills,
+        row.managementSkills,
+        row.behavioralSkills,
+        row.effectivenessOfTrainings
+      ]
+        .map(v => Number(v) || 0)
+        .reduce((a, b) => a + b, 0)
+    }
+    color="bg-green-100 text-green-700 border border-green-200"
+  />
 </td>
 
     <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
@@ -913,6 +1005,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <SoftBadge value={row.nextAppraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
+{/* Days Left To Next Appraisal */}
 <td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
   {(() => {
     if (!row.nextAppraisalDate) return (
@@ -987,6 +1080,25 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
   <SoftBadge value={row.effectivenessOfTrainings} color="bg-pink-100 text-pink-700 border border-pink-200" />
+</td>
+
+<td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
+  <SoftBadge
+    value={
+      [
+        row.tca,
+        row.skillsAppraisal,
+        row.jobQuality,
+        row.leadershipSkills,
+        row.managementSkills,
+        row.behavioralSkills,
+        row.effectivenessOfTrainings
+      ]
+        .map(v => Number(v) || 0)
+        .reduce((a, b) => a + b, 0)
+    }
+    color="bg-green-100 text-green-700 border border-green-200"
+  />
 </td>
 
     <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>

@@ -109,10 +109,16 @@ const EarHeaders = ({ activeHeader }) => {
       Effectiveness Of Trainings
     </th>
     <th
+      className="min-w-max whitespace-nowrap border-r border-white sticky top-0 z-20 bg-blue-100 px-4"
+      rowSpan={2}
+    >
+      Total Score
+    </th>
+    <th
       className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
       rowSpan={2}
     >
-            Comment
+      Comment
     </th>
   </tr>
         

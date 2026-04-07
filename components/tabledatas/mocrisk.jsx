@@ -333,7 +333,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.issueDate} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.issuerDate} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* Reason Of Change */}
@@ -487,7 +487,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.issueDate} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.issuerDate} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* Reason Of Change */}
@@ -923,7 +923,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.issueDate} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.issuerDate} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* Reason Of Change */}
