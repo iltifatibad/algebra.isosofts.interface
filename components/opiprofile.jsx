@@ -1114,7 +1114,7 @@ const OPIProfile = () => {
   >
     <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-400 rounded-xl" />
     <i className="fas fa-plus text-base transition-transform duration-300 group-hover:rotate-90 group-hover:scale-110" />
-    {!showAction ? "Add Risk" : "Add Action"}
+    {!showAction ? "Add OPI" : "Add Action"}
   </button>
 
   {/* Archive Butonu */}
