@@ -274,7 +274,7 @@ console.log("URL:", url);
                 {/* # column - Her action row için ayrı row.no göster */}
               {/* No */}
 <td className="border-b border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px">
-  <SoftBadge value={row.no || ""} color="bg-slate-100 text-slate-700 border border-slate-200" />
+  <SoftBadge value={action.row.no || ""} color="bg-slate-100 text-slate-700 border border-slate-200" />
 </td>
 
 {/* Title */}

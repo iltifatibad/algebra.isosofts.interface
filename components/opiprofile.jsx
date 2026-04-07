@@ -1446,7 +1446,7 @@ const OPIProfile = () => {
             onClick={saveRisk}
             className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl hover:from-blue-600 hover:to-blue-800 shadow-sm shadow-blue-200 transition-all"
           >
-            {modalMode === "add" ? "Add Risk" : "Update Risk"}
+            {modalMode === "add" ? "Add OPI" : "Update OPI"}
           </button>
         </div>
       </div>
