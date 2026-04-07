@@ -59,7 +59,10 @@ const ActionHeaders = ({ activeHeader }) => {
         <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
           Status Of Verification
         </th>
-<th className="min-w-[60px] border-r border-white sticky top-12 z-20 bg-blue-200">
+<th
+  rowSpan={2}
+  className="min-w-[60px] border-r border-white sticky top-12 z-20 bg-blue-200"
+>
   Comment
 </th>
 
