@@ -80,12 +80,12 @@ const BgHeaders = ({ activeHeader }) => {
           >
             Residual Risk / Residual Opportunity Assessment
           </th>
-<th
-  rowSpan={2}
-  className="min-w-[60px] border-r border-white sticky top-12 z-20 bg-blue-200"
->
-  Comment
-</th>
+          <th
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            Comment
+          </th>
         </tr>
         <tr className="h-[48px]">
           <th className="min-w-[70px] border-r border-white sticky top-13 z-20 bg-blue-200">

@@ -72,12 +72,12 @@ const EiHeaders = ({ activeHeader }) => {
           >
             Equipment/Inventory Status
           </th>
-<th
-  rowSpan={2}
-  className="min-w-[60px] border-r border-white sticky top-12 z-20 bg-blue-200"
->
-  Comment
-</th>
+          <th
+            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            Comment
+          </th>
         </tr>
 
         {/* Second header row - fixed height, sticky at top-12 (48px) */}
