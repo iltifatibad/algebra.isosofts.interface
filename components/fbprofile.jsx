@@ -1204,7 +1204,7 @@ const archiveData = (id) => {
         group-hover:scale-110 group-hover:rotate-6
       `}
     />
-    {showAction ? "Hide Feedback Hor Vendor" : "Show Feedback For Vendor"}
+    {showAction ? "Hide Feedback For Vendor" : "Show Feedback For Vendor"}
   </button>
 
   {/* Aksiyon ikon butonları grubu */}

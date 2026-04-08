@@ -737,7 +737,7 @@ value={
                       const values = [row.qgs, row.communication, row.otd, row.documentation, row.hs, row.environment];
                       const valid = values.filter(v => v !== null && v !== undefined && v !== "");
                       if (valid.length === 0) return "";
-                      const avg = (valid.reduce((sum, v) => sum + Number(v), 0) / 6).toFixed(2);
+                      const avg = (valid.reduce((sum, v) => sum + Number(v), 0));
                       return (
                         <SoftBadge
                           value={avg}
@@ -904,7 +904,7 @@ value={
                       const values = [row.qgs, row.communication, row.otd, row.documentation, row.hs, row.environment];
                       const valid = values.filter(v => v !== null && v !== undefined && v !== "");
                       if (valid.length === 0) return "";
-                      const avg = (valid.reduce((sum, v) => sum + Number(v), 0) / 6).toFixed(2);
+                      const avg = (valid.reduce((sum, v) => sum + Number(v), 0));
                       return (
                         <SoftBadge
                           value={avg}
