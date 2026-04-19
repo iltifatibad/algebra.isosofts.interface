@@ -297,22 +297,22 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   </td>
 {/* RISOS */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.risos} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.risos} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Process */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.process?.value} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.process?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Topic */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.topic?.value} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.topic?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Comment */}
 <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-  {row.comment && <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
+  {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
 </td>
 
                 </tr>
@@ -381,22 +381,22 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   </td>
                 {/* RISOS */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.risos} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.risos} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Process */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.process?.value} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.process?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Topic */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.topic?.value} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.topic?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Comment */}
 <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-  {row.comment && <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
+  {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
 </td>
 
                 </tr>
@@ -500,7 +500,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top">
-                    {actionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-sky-100 text-sky-700 rounded-md px-2 py-1 whitespace-normal break-words">{actionData?.[index]?.comment}</p>}
+                    {actionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black rounded-md px-2 py-1 whitespace-normal break-words">{actionData?.[index]?.comment}</p>}
                   </td>
                   {/* MONITORING MONTH COLUMNS */}
                   {[
@@ -647,7 +647,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top">
-                    {deletedActionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-sky-100 text-sky-700 rounded-md px-2 py-1 whitespace-normal break-words">{deletedActionData?.[index]?.comment}</p>}
+                    {deletedActionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black rounded-md px-2 py-1 whitespace-normal break-words">{deletedActionData?.[index]?.comment}</p>}
                   </td>
                   {/* MONITORING MONTH COLUMNS */}
                   {[
@@ -742,22 +742,22 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                  {/* RISOS */}
 
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.risos} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.risos} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Process */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.process?.value} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.process?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Topic */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.topic?.value} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.topic?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Comment */}
 <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-  {row.comment && <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
+  {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
 </td>
                 </tr>
               </React.Fragment>

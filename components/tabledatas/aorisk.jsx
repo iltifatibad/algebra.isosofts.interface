@@ -298,47 +298,47 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   </td>
                  {/* Activity Description */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.activityDescription?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.activityDescription?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Auditor / Inspector */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.auditorInspector} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.auditorInspector} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Auditee / Inspectee */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.auditeeInspectee} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.auditeeInspectee} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Reviewed Premises */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.reviewedPremises?.value} color="bg-amber-100 text-amber-700 border border-amber-200" />
+  <SoftBadge value={row.reviewedPremises?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Reviewed Process */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.reviewedProcess?.value} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+  <SoftBadge value={row.reviewedProcess?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* RTIC */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.rtic} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.rtic} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Inspection Frequency */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.inspectionFrequency?.value} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+  <SoftBadge value={row.inspectionFrequency?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Audit Date */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.aoaDate} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.aoaDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Next Audit Date */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.nextAoaDate} color="bg-orange-100 text-orange-700 border border-orange-200" />
+  <SoftBadge value={row.nextAoaDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Days Difference */}
@@ -349,7 +349,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
       const diffInDays = Math.ceil((new Date(row.nextAoaDate) - new Date(row.aoaDate)) / (1000 * 60 * 60 * 24));
       return `${diffInDays} Days`;
     })()}
-    color="bg-lime-100 text-lime-700 border border-lime-200"
+    color="bg-gray-100 text-black border border-gray-200"
   />
 </td>
 
@@ -357,7 +357,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
   {(() => {
     if (!row.nextAoaDate) return (
-      <SoftBadge value="Overdue" color="bg-red-100 text-red-700 border border-red-200" />
+      <SoftBadge value="Overdue" color="bg-gray-100 text-black border border-gray-200" />
     );
     const diffInDays = Math.ceil((new Date(row.nextAoaDate) - new Date()) / (1000 * 60 * 60 * 24));
     const isValid = diffInDays >= 0;
@@ -366,8 +366,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
         value={isValid ? "On Schedule" : "Overdue"}
         color={
           isValid
-            ? "bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200"
-            : "bg-red-100 text-red-700 border border-red-200"
+            ? "bg-gray-100 text-black border border-gray-200"
+            : "bg-gray-100 text-black border border-gray-200"
         }
       />
     );
@@ -375,7 +375,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
     <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-      {row.comment && <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
+      {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
     </td>
                 </tr>
 
@@ -446,47 +446,47 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   </td>
                   {/* Activity Description */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.activityDescription?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.activityDescription?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Auditor / Inspector */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.auditorInspector} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.auditorInspector} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Auditee / Inspectee */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.auditeeInspectee} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.auditeeInspectee} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Reviewed Premises */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.reviewedPremises?.value} color="bg-amber-100 text-amber-700 border border-amber-200" />
+  <SoftBadge value={row.reviewedPremises?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Reviewed Process */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.reviewedProcess?.value} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+  <SoftBadge value={row.reviewedProcess?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* RTIC */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.rtic} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.rtic} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Inspection Frequency */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.inspectionFrequency?.value} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+  <SoftBadge value={row.inspectionFrequency?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Audit Date */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.aoaDate} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.aoaDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Next Audit Date */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.nextAoaDate} color="bg-orange-100 text-orange-700 border border-orange-200" />
+  <SoftBadge value={row.nextAoaDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Days Difference */}
@@ -497,7 +497,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
       const diffInDays = Math.ceil((new Date(row.nextAoaDate) - new Date(row.aoaDate)) / (1000 * 60 * 60 * 24));
       return `${diffInDays} Days`;
     })()}
-    color="bg-lime-100 text-lime-700 border border-lime-200"
+    color="bg-gray-100 text-black border border-gray-200"
   />
 </td>
 
@@ -505,7 +505,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
   {(() => {
     if (!row.nextAoaDate) return (
-      <SoftBadge value="Overdue" color="bg-red-100 text-red-700 border border-red-200" />
+      <SoftBadge value="Overdue" color="bg-gray-100 text-black border border-gray-200" />
     );
     const diffInDays = Math.ceil((new Date(row.nextAoaDate) - new Date()) / (1000 * 60 * 60 * 24));
     const isValid = diffInDays >= 0;
@@ -514,8 +514,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
         value={isValid ? "On Schedule" : "Overdue"}
         color={
           isValid
-            ? "bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200"
-            : "bg-red-100 text-red-700 border border-red-200"
+            ? "bg-gray-100 text-black border border-gray-200"
+            : "bg-gray-100 text-black border border-gray-200"
         }
       />
     );
@@ -523,7 +523,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
     <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-      {row.comment && <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
+      {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
     </td>
                 </tr>
 
@@ -626,7 +626,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top">
-                    {actionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-sky-100 text-sky-700 rounded-md px-2 py-1 whitespace-normal break-words">{actionData?.[index]?.comment}</p>}
+                    {actionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black rounded-md px-2 py-1 whitespace-normal break-words">{actionData?.[index]?.comment}</p>}
                   </td>
                   {/* MONITORING MONTH COLUMNS */}
                   {[
@@ -773,7 +773,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top">
-                    {deletedActionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-sky-100 text-sky-700 rounded-md px-2 py-1 whitespace-normal break-words">{deletedActionData?.[index]?.comment}</p>}
+                    {deletedActionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black rounded-md px-2 py-1 whitespace-normal break-words">{deletedActionData?.[index]?.comment}</p>}
                   </td>
                   {/* MONITORING MONTH COLUMNS */}
                   {[
@@ -867,47 +867,47 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   </td>
                   {/* Activity Description */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.activityDescription?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.activityDescription?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Auditor / Inspector */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.auditorInspector} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.auditorInspector} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Auditee / Inspectee */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.auditeeInspectee} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.auditeeInspectee} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Reviewed Premises */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.reviewedPremises?.value} color="bg-amber-100 text-amber-700 border border-amber-200" />
+  <SoftBadge value={row.reviewedPremises?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Reviewed Process */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.reviewedProcess?.value} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+  <SoftBadge value={row.reviewedProcess?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* RTIC */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.rtic} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.rtic} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Inspection Frequency */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.inspectionFrequency?.value} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+  <SoftBadge value={row.inspectionFrequency?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Audit Date */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.aoaDate} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.aoaDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Next Audit Date */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.nextAoaDate} color="bg-orange-100 text-orange-700 border border-orange-200" />
+  <SoftBadge value={row.nextAoaDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Days Difference */}
@@ -918,7 +918,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
       const diffInDays = Math.ceil((new Date(row.nextAoaDate) - new Date()) / (1000 * 60 * 60 * 24));
       return `${diffInDays} Days`;
     })()}
-    color="bg-lime-100 text-lime-700 border border-lime-200"
+    color="bg-gray-100 text-black border border-gray-200"
   />
 </td>
 
@@ -926,7 +926,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
   {(() => {
     if (!row.nextAoaDate) return (
-      <SoftBadge value="Overdue" color="bg-red-100 text-red-700 border border-red-200" />
+      <SoftBadge value="Overdue" color="bg-gray-100 text-black border border-gray-200" />
     );
     const diffInDays = Math.ceil((new Date(row.nextAoaDate) - new Date()) / (1000 * 60 * 60 * 24));
     const isValid = diffInDays >= 0;
@@ -935,8 +935,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
         value={isValid ? "On Schedule" : "Overdue"}
         color={
           isValid
-            ? "bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200"
-            : "bg-red-100 text-red-700 border border-red-200"
+            ? "bg-gray-100 text-black border border-gray-200"
+            : "bg-gray-100 text-black border border-gray-200"
         }
       />
     );
@@ -944,7 +944,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
     <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-      {row.comment && <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
+      {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
     </td>
                 </tr>
               </React.Fragment>

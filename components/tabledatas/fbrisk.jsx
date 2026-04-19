@@ -341,7 +341,7 @@ data.map(async (item) => {
                     rowSpan={1}
                   >
                     {row.name && (
-                      <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 border border-rose-200 rounded-full shadow-sm">
+                      <span className="inline-block px-3 py-1 bg-gray-100 text-black border border-gray-200 rounded-full shadow-sm">
                         {row.name}
                       </span>
                     )}
@@ -349,62 +349,62 @@ data.map(async (item) => {
 
                  {/* Job Number */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.jobNumber} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.jobNumber} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Job Start Date */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.jobStartDate} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.jobStartDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Job Completion Date */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.jobCompletionDate} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.jobCompletionDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Scope */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.scope?.value} color="bg-amber-100 text-amber-700 border border-amber-200" />
+  <SoftBadge value={row.scope?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Name Of Customer */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.customerName} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+  <SoftBadge value={row.customerName} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Type Of Finding */}
 <td className="border border-gray-200 px-2 py-1 w-28" rowSpan={1}>
-  <SoftBadge value={row.typeOfFinding?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.typeOfFinding?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Quality Of Services */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.qgs} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+  <SoftBadge value={row.qgs} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Communication */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.communication} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.communication} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* On Time Delivery */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.otd} color="bg-lime-100 text-lime-700 border border-lime-200" />
+  <SoftBadge value={row.otd} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Documentation */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.documentation} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
+  <SoftBadge value={row.documentation} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Health And Safety */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.hs} color="bg-yellow-100 text-yellow-700 border border-yellow-200" />
+  <SoftBadge value={row.hs} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Environment */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.environment} color="bg-green-100 text-green-700 border border-green-200" />
+  <SoftBadge value={row.environment} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Total Score */}
@@ -420,12 +420,12 @@ value={
     (Number(row.environment) || 0)
   )
 }
-    color="bg-slate-100 text-slate-700 border border-slate-200"
+    color="bg-gray-100 text-black border border-gray-200"
   />
 </td>
 {/* Comment */}
 <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-  {row.comment && <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
+  {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
 </td>
                 </tr>
 
@@ -500,7 +500,7 @@ value={
                     rowSpan={1}
                   >
                     {row.name && (
-                      <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 border border-rose-200 rounded-full shadow-sm">
+                      <span className="inline-block px-3 py-1 bg-gray-100 text-black border border-gray-200 rounded-full shadow-sm">
                         {row.name}
                       </span>
                     )}
@@ -509,62 +509,62 @@ value={
                   {/* Job Number */}
                  {/* Job Number */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.jobNumber} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.jobNumber} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Job Start Date */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.jobStartDate} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.jobStartDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Job Completion Date */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.jobCompletionDate} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.jobCompletionDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Scope */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.scope?.value} color="bg-amber-100 text-amber-700 border border-amber-200" />
+  <SoftBadge value={row.scope?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Name Of Customer */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.customerName} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+  <SoftBadge value={row.customerName} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Type Of Finding */}
 <td className="border border-gray-200 px-2 py-1 w-28" rowSpan={1}>
-  <SoftBadge value={row.typeOfFinding?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.typeOfFinding?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Quality Of Services */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.qgs} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+  <SoftBadge value={row.qgs} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Communication */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.communication} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.communication} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* On Time Delivery */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.otd} color="bg-lime-100 text-lime-700 border border-lime-200" />
+  <SoftBadge value={row.otd} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Documentation */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.documentation} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
+  <SoftBadge value={row.documentation} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Health And Safety */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.hs} color="bg-yellow-100 text-yellow-700 border border-yellow-200" />
+  <SoftBadge value={row.hs} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Environment */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.environment} color="bg-green-100 text-green-700 border border-green-200" />
+  <SoftBadge value={row.environment} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Total Score */}
@@ -580,13 +580,13 @@ value={
     (Number(row.environment) || 0)
   )
 }
-    color="bg-slate-100 text-slate-700 border border-slate-200"
+    color="bg-gray-100 text-black border border-gray-200"
   />
 </td>
 
 {/* Comment */}
 <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-  {row.comment && <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
+  {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
 </td>
                 </tr>
 
@@ -654,7 +654,7 @@ value={
                     rowSpan={1}
                   >
                     {row.scope && (
-                      <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 border border-rose-200 rounded-full shadow-sm">
+                      <span className="inline-block px-3 py-1 bg-gray-100 text-black border border-gray-200 rounded-full shadow-sm">
                         {row.scope?.value}
                       </span>
                     )}
@@ -666,7 +666,7 @@ value={
                     rowSpan={1}
                   >
                     {row.vendorName && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
+                      <span className="inline-block px-3 py-1 bg-gray-100 text-black border border-gray-200 rounded-full shadow-sm">
                         {row.vendorName}
                       </span>
                     )}
@@ -678,7 +678,7 @@ value={
                     rowSpan={1}
                   >
                     {row.typeOfFinding && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
+                      <span className="inline-block px-3 py-1 bg-gray-100 text-black border border-gray-200 rounded-full shadow-sm">
                         {row.typeOfFinding?.value}
                       </span>
                     )}
@@ -742,9 +742,9 @@ value={
                         <SoftBadge
                           value={avg}
                           color={
-                            avg >= 4 ? "bg-green-100 text-green-700 border border-green-200" :
-                            avg >= 2.5 ? "bg-amber-100 text-amber-700 border border-amber-200" :
-                                        "bg-red-100 text-red-700 border border-red-200"
+                            avg >= 4 ? "bg-gray-100 text-black border border-gray-200" :
+                            avg >= 2.5 ? "bg-gray-100 text-black border border-gray-200" :
+                                        "bg-gray-100 text-black border border-gray-200"
                           }
                         />
                       );
@@ -821,7 +821,7 @@ value={
                     rowSpan={1}
                   >
                     {row.name && (
-                      <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 border border-rose-200 rounded-full shadow-sm">
+                      <span className="inline-block px-3 py-1 bg-gray-100 text-black border border-gray-200 rounded-full shadow-sm">
                         {row.name}
                       </span>
                     )}
@@ -833,7 +833,7 @@ value={
                     rowSpan={1}
                   >
                     {row.issuer && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
+                      <span className="inline-block px-3 py-1 bg-gray-100 text-black border border-gray-200 rounded-full shadow-sm">
                         {row.issuer}
                       </span>
                     )}
@@ -845,7 +845,7 @@ value={
                     rowSpan={1}
                   >
                     {row.vendorName && (
-                      <span className="inline-block px-3 py-1 bg-green-100 text-green-700 border border-green-200 rounded-full shadow-sm">
+                      <span className="inline-block px-3 py-1 bg-gray-100 text-black border border-gray-200 rounded-full shadow-sm">
                         {row.vendorName}
                       </span>
                     )}
@@ -909,9 +909,9 @@ value={
                         <SoftBadge
                           value={avg}
                           color={
-                            avg >= 4 ? "bg-green-100 text-green-700 border border-green-200" :
-                            avg >= 2.5 ? "bg-amber-100 text-amber-700 border border-amber-200" :
-                                        "bg-red-100 text-red-700 border border-red-200"
+                            avg >= 4 ? "bg-gray-100 text-black border border-gray-200" :
+                            avg >= 2.5 ? "bg-gray-100 text-black border border-gray-200" :
+                                        "bg-gray-100 text-black border border-gray-200"
                           }
                         />
                       );
@@ -987,7 +987,7 @@ value={
                     rowSpan={1}
                   >
                     {row.name && (
-                      <span className="inline-block px-3 py-1 bg-rose-100 text-rose-700 border border-rose-200 rounded-full shadow-sm">
+                      <span className="inline-block px-3 py-1 bg-gray-100 text-black border border-gray-200 rounded-full shadow-sm">
                         {row.name}
                       </span>
                     )}
@@ -995,62 +995,62 @@ value={
 
 {/* Job Number */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.jobNumber} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.jobNumber} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Job Start Date */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.jobStartDate} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.jobStartDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Job Completion Date */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.jobCompletionDate} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.jobCompletionDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Scope */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.scope?.value} color="bg-amber-100 text-amber-700 border border-amber-200" />
+  <SoftBadge value={row.scope?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Name Of Customer */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.customerName} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+  <SoftBadge value={row.customerName} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Type Of Finding */}
 <td className="border border-gray-200 px-2 py-1 w-28" rowSpan={1}>
-  <SoftBadge value={row.typeOfFinding?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.typeOfFinding?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Quality Of Services */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.qgs} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+  <SoftBadge value={row.qgs} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Communication */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.communication} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.communication} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* On Time Delivery */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.otd} color="bg-lime-100 text-lime-700 border border-lime-200" />
+  <SoftBadge value={row.otd} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Documentation */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.documentation} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
+  <SoftBadge value={row.documentation} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Health And Safety */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.hs} color="bg-yellow-100 text-yellow-700 border border-yellow-200" />
+  <SoftBadge value={row.hs} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Environment */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.environment} color="bg-green-100 text-green-700 border border-green-200" />
+  <SoftBadge value={row.environment} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Total Score */}
@@ -1066,13 +1066,13 @@ value={
     (Number(row.environment) || 0)
   )
 }
-    color="bg-slate-100 text-slate-700 border border-slate-200"
+    color="bg-gray-100 text-black border border-gray-200"
   />
 </td>
 
 {/* Comment */}
 <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-  {row.comment && <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
+  {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
 </td>
                 </tr>
               </React.Fragment>

@@ -274,57 +274,57 @@ console.log("URL:", url);
                 {/* # column - Her action row için ayrı row.no göster */}
               {/* No */}
 <td className="border-b border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white -ml-px">
-  <SoftBadge value={action.no || ""} color="bg-slate-100 text-slate-700 border border-slate-200" />
+  <SoftBadge value={action.no || ""} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Title */}
 <td className="border-b border-gray-200 px-2 py-1 w-32">
-  <SoftBadge value={action.title || ""} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={action.title || ""} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Raise Date */}
 <td className="border-b border-gray-200 px-2 py-1 w-32">
-  <SoftBadge value={action.raiseDate || ""} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={action.raiseDate || ""} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Resources */}
 <td className="border-b border-gray-200 px-2 py-1 w-24">
-  <SoftBadge value={action.resources?.toString() || ""} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={action.resources?.toString() || ""} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Relative Function */}
 <td className="border-b border-gray-200 px-2 py-1 w-28">
-  <SoftBadge value={action.relativeFunction?.value || ""} color="bg-amber-100 text-amber-700 border border-amber-200" />
+  <SoftBadge value={action.relativeFunction?.value || ""} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Responsible */}
 <td className="border-b border-gray-200 px-2 py-1 w-28">
-  <SoftBadge value={action.responsible?.value || ""} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+  <SoftBadge value={action.responsible?.value || ""} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Deadline */}
 <td className="border-b border-gray-200 px-2 py-1 w-24">
-  <SoftBadge value={action.deadline || ""} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={action.deadline || ""} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Confirmation */}
 <td className="border-b border-gray-200 px-2 py-1 w-36">
-  <SoftBadge value={action.confirmation?.value || ""} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+  <SoftBadge value={action.confirmation?.value || ""} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Status */}
 <td className="border-b border-gray-200 px-2 py-1 w-24">
-  <SoftBadge value={action.status?.value?.toString() || ""} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={action.status?.value?.toString() || ""} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Completion Date */}
 <td className="border-b border-gray-200 px-2 py-1 w-24">
-  <SoftBadge value={action.completionDate || ""} color="bg-orange-100 text-orange-700 border border-orange-200" />
+  <SoftBadge value={action.completionDate || ""} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Verification Status */}
 <td className="border-b border-gray-200 px-2 py-1 w-32">
-  <SoftBadge value={action.verificationStatus?.value || ""} color="bg-lime-100 text-lime-700 border border-lime-200" />
+  <SoftBadge value={action.verificationStatus?.value || ""} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Comment */}
@@ -344,7 +344,7 @@ console.log("URL:", url);
       key={`${row.id}-${action.id || actionIndex}-${monthKey}`}
       className="border-b border-gray-200 px-2 py-1 w-24"
     >
-      <SoftBadge value={monthValue} color="bg-sky-100 text-sky-700 border border-sky-200" />
+      <SoftBadge value={monthValue} color="bg-gray-100 text-black border border-gray-200" />
     </td>
   );
 })}

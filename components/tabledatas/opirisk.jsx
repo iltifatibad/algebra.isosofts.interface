@@ -242,21 +242,21 @@ const OPI = ({
   if (score >= 1 && score <= 6) {
     return {
       label: "Low",
-      color: "bg-emerald-100 text-emerald-700 border border-emerald-200",
+      color: "bg-gray-100 text-black border border-gray-200",
     };
   }
 
   if (score >= 8 && score <= 10) {
     return {
       label: "Medium",
-      color: "bg-yellow-100 text-yellow-700 border border-yellow-200",
+      color: "bg-gray-100 text-black border border-gray-200",
     };
   }
 
   if (score >= 12 && score <= 25) {
     return {
       label: "High",
-      color: "bg-rose-100 text-rose-700 border border-rose-200",
+      color: "bg-gray-100 text-black border border-gray-200",
     };
   }
 
@@ -337,87 +337,87 @@ if (showDeleted) {
 
                  {/* SWOT */}
                 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-                  <SoftBadge value={row.title} color="bg-rose-100 text-rose-700 border border-rose-200" />
+                  <SoftBadge value={row.title} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* PESTLE */}
                 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-                  <SoftBadge value={row.function?.value} color="bg-blue-100 text-blue-700 border border-blue-200" />
+                  <SoftBadge value={row.function?.value} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Interested Party */}
                 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-                  <SoftBadge value={row.lykpi} color="bg-violet-100 text-violet-700 border border-violet-200" />
+                  <SoftBadge value={row.lykpi} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Risk Opportunity */}
                 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-                  <SoftBadge value={row.actualKPI} color="bg-amber-100 text-amber-700 border border-amber-200" />
+                  <SoftBadge value={row.actualKPI} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Objective */}
                 <td className="border border-gray-200 px-2 py-1 w-28" rowSpan={1}>
-                  <SoftBadge value={row.annualTarget} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+                  <SoftBadge value={row.annualTarget} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* KPI */}
                 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-                  <SoftBadge value={row.january} color="bg-teal-100 text-teal-700 border border-teal-200" />
+                  <SoftBadge value={row.january} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Process */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.february} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+                  <SoftBadge value={row.february} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* ecm */}
                 <td className="border border-gray-200 px-2 py-1 w-48" rowSpan={1}>
-                  <SoftBadge value={row.march} color="bg-pink-100 text-pink-700 border border-pink-200" />
+                  <SoftBadge value={row.march} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Initial Risk Severity */}
                 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-                  <SoftBadge value={row.april} color="bg-orange-100 text-orange-700 border border-orange-200" />
+                  <SoftBadge value={row.april} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Initial Risk Likelihood */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.may} color="bg-lime-100 text-lime-700 border border-lime-200" />
+                  <SoftBadge value={row.may} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Initial Risk Likelihood */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.june} color="bg-lime-100 text-lime-700 border border-lime-200" />
+                  <SoftBadge value={row.june} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* ACM */}
                 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-                  <SoftBadge value={row.july} color="bg-teal-100 text-teal-700 border border-teal-200" />
+                  <SoftBadge value={row.july} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Residual Risk Severity */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.august} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
+                  <SoftBadge value={row.august} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Residual Risk Likelihood */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.september} color="bg-sky-100 text-sky-700 border border-sky-200" />
+                  <SoftBadge value={row.september} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Residual Risk Likelihood */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.october} color="bg-sky-100 text-sky-700 border border-sky-200" />
+                  <SoftBadge value={row.october} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Residual Risk Likelihood */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.november} color="bg-sky-100 text-sky-700 border border-sky-200" />
+                  <SoftBadge value={row.november} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Residual Risk Likelihood */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.december} color="bg-sky-100 text-sky-700 border border-sky-200" />
+                  <SoftBadge value={row.december} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 </tr>
@@ -487,87 +487,87 @@ if (showDeleted) {
 
                  {/* SWOT */}
                 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-                  <SoftBadge value={row.title} color="bg-rose-100 text-rose-700 border border-rose-200" />
+                  <SoftBadge value={row.title} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* PESTLE */}
                 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-                  <SoftBadge value={row.function?.value} color="bg-blue-100 text-blue-700 border border-blue-200" />
+                  <SoftBadge value={row.function?.value} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Interested Party */}
                 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-                  <SoftBadge value={row.lykpi} color="bg-violet-100 text-violet-700 border border-violet-200" />
+                  <SoftBadge value={row.lykpi} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Risk Opportunity */}
                 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-                  <SoftBadge value={row.actualKPI} color="bg-amber-100 text-amber-700 border border-amber-200" />
+                  <SoftBadge value={row.actualKPI} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Objective */}
                 <td className="border border-gray-200 px-2 py-1 w-28" rowSpan={1}>
-                  <SoftBadge value={row.annualTarget} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+                  <SoftBadge value={row.annualTarget} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* KPI */}
                 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-                  <SoftBadge value={row.january} color="bg-teal-100 text-teal-700 border border-teal-200" />
+                  <SoftBadge value={row.january} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Process */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.february} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+                  <SoftBadge value={row.february} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* ecm */}
                 <td className="border border-gray-200 px-2 py-1 w-48" rowSpan={1}>
-                  <SoftBadge value={row.march} color="bg-pink-100 text-pink-700 border border-pink-200" />
+                  <SoftBadge value={row.march} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Initial Risk Severity */}
                 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-                  <SoftBadge value={row.april} color="bg-orange-100 text-orange-700 border border-orange-200" />
+                  <SoftBadge value={row.april} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Initial Risk Likelihood */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.may} color="bg-lime-100 text-lime-700 border border-lime-200" />
+                  <SoftBadge value={row.may} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Initial Risk Likelihood */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.june} color="bg-lime-100 text-lime-700 border border-lime-200" />
+                  <SoftBadge value={row.june} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* ACM */}
                 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-                  <SoftBadge value={row.july} color="bg-teal-100 text-teal-700 border border-teal-200" />
+                  <SoftBadge value={row.july} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Residual Risk Severity */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.august} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
+                  <SoftBadge value={row.august} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Residual Risk Likelihood */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.september} color="bg-sky-100 text-sky-700 border border-sky-200" />
+                  <SoftBadge value={row.september} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Residual Risk Likelihood */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.october} color="bg-sky-100 text-sky-700 border border-sky-200" />
+                  <SoftBadge value={row.october} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Residual Risk Likelihood */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.november} color="bg-sky-100 text-sky-700 border border-sky-200" />
+                  <SoftBadge value={row.november} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Residual Risk Likelihood */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.december} color="bg-sky-100 text-sky-700 border border-sky-200" />
+                  <SoftBadge value={row.december} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 </tr>
@@ -592,7 +592,7 @@ if (showDeleted) {
 
             const SoftBadge = ({ value }) =>
               value ? (
-                <span className="px-1.5 py-0.5 rounded-full bg-sky-100 text-sky-700 text-xs font-medium whitespace-normal break-words">
+                <span className="px-1.5 py-0.5 rounded-full bg-gray-100 text-black text-xs font-medium whitespace-normal break-words">
                   {value}
                 </span>
               ) : null;
@@ -668,7 +668,7 @@ if (showDeleted) {
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top">
-                    {actionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-sky-100 text-sky-700 rounded-md px-2 py-1 whitespace-normal break-words">{actionData?.[index]?.comment}</p>}
+                    {actionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black rounded-md px-2 py-1 whitespace-normal break-words">{actionData?.[index]?.comment}</p>}
                   </td>
                   {/* MONITORING MONTH COLUMNS */}
                   {[
@@ -726,7 +726,7 @@ if (showDeleted) {
 
             const SoftBadge = ({ value }) =>
               value ? (
-                <span className="px-1.5 py-0.5 rounded-full bg-sky-100 text-sky-700 text-xs font-medium whitespace-normal break-words">
+                <span className="px-1.5 py-0.5 rounded-full bg-gray-100 text-black text-xs font-medium whitespace-normal break-words">
                   {value}
                 </span>
               ) : null;
@@ -814,7 +814,7 @@ if (showDeleted) {
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top">
-                    {deletedActionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-sky-100 text-sky-700 rounded-md px-2 py-1 whitespace-normal break-words">{deletedActionData?.[index]?.comment}</p>}
+                    {deletedActionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black rounded-md px-2 py-1 whitespace-normal break-words">{deletedActionData?.[index]?.comment}</p>}
                   </td>
                   {/* MONITORING MONTH COLUMNS */}
                   {[
@@ -919,87 +919,87 @@ if (showDeleted) {
 
                  {/* SWOT */}
                 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-                  <SoftBadge value={row.title} color="bg-rose-100 text-rose-700 border border-rose-200" />
+                  <SoftBadge value={row.title} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* PESTLE */}
                 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-                  <SoftBadge value={row.function?.value} color="bg-blue-100 text-blue-700 border border-blue-200" />
+                  <SoftBadge value={row.function?.value} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Interested Party */}
                 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-                  <SoftBadge value={row.lykpi} color="bg-violet-100 text-violet-700 border border-violet-200" />
+                  <SoftBadge value={row.lykpi} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Risk Opportunity */}
                 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-                  <SoftBadge value={row.actualKPI} color="bg-amber-100 text-amber-700 border border-amber-200" />
+                  <SoftBadge value={row.actualKPI} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Objective */}
                 <td className="border border-gray-200 px-2 py-1 w-28" rowSpan={1}>
-                  <SoftBadge value={row.annualTarget} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+                  <SoftBadge value={row.annualTarget} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* KPI */}
                 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-                  <SoftBadge value={row.january} color="bg-teal-100 text-teal-700 border border-teal-200" />
+                  <SoftBadge value={row.january} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Process */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.february} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+                  <SoftBadge value={row.february} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* ecm */}
                 <td className="border border-gray-200 px-2 py-1 w-48" rowSpan={1}>
-                  <SoftBadge value={row.march} color="bg-pink-100 text-pink-700 border border-pink-200" />
+                  <SoftBadge value={row.march} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Initial Risk Severity */}
                 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-                  <SoftBadge value={row.april} color="bg-orange-100 text-orange-700 border border-orange-200" />
+                  <SoftBadge value={row.april} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Initial Risk Likelihood */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.may} color="bg-lime-100 text-lime-700 border border-lime-200" />
+                  <SoftBadge value={row.may} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Initial Risk Likelihood */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.june} color="bg-lime-100 text-lime-700 border border-lime-200" />
+                  <SoftBadge value={row.june} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* ACM */}
                 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-                  <SoftBadge value={row.july} color="bg-teal-100 text-teal-700 border border-teal-200" />
+                  <SoftBadge value={row.july} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Residual Risk Severity */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.august} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
+                  <SoftBadge value={row.august} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Residual Risk Likelihood */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.september} color="bg-sky-100 text-sky-700 border border-sky-200" />
+                  <SoftBadge value={row.september} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Residual Risk Likelihood */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.october} color="bg-sky-100 text-sky-700 border border-sky-200" />
+                  <SoftBadge value={row.october} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Residual Risk Likelihood */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.november} color="bg-sky-100 text-sky-700 border border-sky-200" />
+                  <SoftBadge value={row.november} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 {/* Residual Risk Likelihood */}
                 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-                  <SoftBadge value={row.december} color="bg-sky-100 text-sky-700 border border-sky-200" />
+                  <SoftBadge value={row.december} color="bg-gray-100 text-black border border-gray-200" />
                 </td>
 
                 </tr>

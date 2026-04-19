@@ -175,21 +175,21 @@ const getAll = async () => {
   if (score >= 1 && score <= 6) {
     return {
       label: "Low",
-      color: "bg-emerald-100 text-emerald-700 border border-emerald-200",
+      color: "bg-gray-100 text-black border border-gray-200",
     };
   }
 
   if (score >= 8 && score <= 10) {
     return {
       label: "Medium",
-      color: "bg-yellow-100 text-yellow-700 border border-yellow-200",
+      color: "bg-gray-100 text-black border border-gray-200",
     };
   }
 
   if (score >= 12 && score <= 25) {
     return {
       label: "High",
-      color: "bg-rose-100 text-rose-700 border border-rose-200",
+      color: "bg-gray-100 text-black border border-gray-200",
     };
   }
 
@@ -329,46 +329,46 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   </td>
                  {/* Issuer */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.issuer} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.issuer} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.issuerDate} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.issuerDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Reason Of Change */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.reasonOfChange} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.reasonOfChange} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Process */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.process?.value} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.process?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Action */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.changeDescription} color="bg-amber-100 text-amber-700 border border-amber-200" />
+  <SoftBadge value={row.changeDescription} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Risks */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.risks} color="bg-orange-100 text-orange-700 border border-orange-200" />
+  <SoftBadge value={row.risks} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Existing Control Measures */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.ecm} color="bg-orange-100 text-orange-700 border border-orange-200" />
+  <SoftBadge value={row.ecm} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Initial Risk Severity */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.initialRiskSeverity} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+  <SoftBadge value={row.initialRiskSeverity} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Initial Risk Likelihood */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.initialRiskLikelihood} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.initialRiskLikelihood} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Initial Risk Level */}
@@ -381,17 +381,17 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* ACM */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.acm} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.acm} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Residual Risk Severity */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.residualRiskSeverity} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+  <SoftBadge value={row.residualRiskSeverity} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Residual Risk Likelihood */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.residualRiskLikelihood} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.residualRiskLikelihood} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Residual Risk Level */}
@@ -406,13 +406,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge
     value={row.approval === 1 ? "Yes" : "No"}
-    color="bg-orange-100 text-orange-700 border border-orange-200"
+    color="bg-gray-100 text-black border border-gray-200"
   />
 </td>
 
 {/* Comment */}
 <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-  {row.comment && <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
+  {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
 </td>
                   {/* İlk Action */}
                 </tr>
@@ -483,46 +483,46 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   {/* Process */}
                   {/* Issuer */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.issuer} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.issuer} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.issuerDate} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.issuerDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Reason Of Change */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.reasonOfChange} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.reasonOfChange} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Process */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.process?.value} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.process?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Action */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.changeDescription} color="bg-amber-100 text-amber-700 border border-amber-200" />
+  <SoftBadge value={row.changeDescription} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Risks */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.risks} color="bg-orange-100 text-orange-700 border border-orange-200" />
+  <SoftBadge value={row.risks} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Existing Control Measures */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.ecm} color="bg-orange-100 text-orange-700 border border-orange-200" />
+  <SoftBadge value={row.ecm} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Initial Risk Severity */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.initialRiskSeverity} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+  <SoftBadge value={row.initialRiskSeverity} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Initial Risk Likelihood */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.initialRiskLikelihood} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.initialRiskLikelihood} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Initial Risk Level */}
@@ -535,17 +535,17 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* ACM */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.acm} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.acm} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Residual Risk Severity */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.residualRiskSeverity} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+  <SoftBadge value={row.residualRiskSeverity} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Residual Risk Likelihood */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.residualRiskLikelihood} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.residualRiskLikelihood} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Residual Risk Level */}
@@ -560,13 +560,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge
     value={row.approval === 1 ? "Yes" : "No"}
-    color="bg-orange-100 text-orange-700 border border-orange-200"
+    color="bg-gray-100 text-black border border-gray-200"
   />
 </td>
 
 {/* Comment */}
 <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-  {row.comment && <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
+  {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
 </td>
                 </tr>
 
@@ -669,7 +669,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top">
-                    {actionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-sky-100 text-sky-700 rounded-md px-2 py-1 whitespace-normal break-words">{actionData?.[index]?.comment}</p>}
+                    {actionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black rounded-md px-2 py-1 whitespace-normal break-words">{actionData?.[index]?.comment}</p>}
                   </td>
                   {/* MONITORING MONTH COLUMNS */}
                   {[
@@ -816,7 +816,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top">
-                    {deletedActionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-sky-100 text-sky-700 rounded-md px-2 py-1 whitespace-normal break-words">{deletedActionData?.[index]?.comment}</p>}
+                    {deletedActionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black rounded-md px-2 py-1 whitespace-normal break-words">{deletedActionData?.[index]?.comment}</p>}
                   </td>
                   {/* MONITORING MONTH COLUMNS */}
                   {[
@@ -919,46 +919,46 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   </td>
                   {/* Issuer */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.issuer} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.issuer} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.issuerDate} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.issuerDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Reason Of Change */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.reasonOfChange} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.reasonOfChange} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Process */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.process?.value} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.process?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Action */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.changeDescription} color="bg-amber-100 text-amber-700 border border-amber-200" />
+  <SoftBadge value={row.changeDescription} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Risks */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.risks} color="bg-orange-100 text-orange-700 border border-orange-200" />
+  <SoftBadge value={row.risks} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Existing Control Measures */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.ecm} color="bg-orange-100 text-orange-700 border border-orange-200" />
+  <SoftBadge value={row.ecm} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Initial Risk Severity */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.initialRiskSeverity} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+  <SoftBadge value={row.initialRiskSeverity} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Initial Risk Likelihood */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.initialRiskLikelihood} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.initialRiskLikelihood} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Initial Risk Level */}
@@ -971,17 +971,17 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* ACM */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.acm} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.acm} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Residual Risk Severity */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.residualRiskSeverity} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+  <SoftBadge value={row.residualRiskSeverity} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Residual Risk Likelihood */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.residualRiskLikelihood} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.residualRiskLikelihood} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Residual Risk Level */}
@@ -996,13 +996,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge
     value={row.approval === 1 ? "Yes" : "No"}
-    color="bg-orange-100 text-orange-700 border border-orange-200"
+    color="bg-gray-100 text-black border border-gray-200"
   />
 </td>
 
 {/* Comment */}
 <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-  {row.comment && <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
+  {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
 </td>
 
                   {/* İlk Action */}

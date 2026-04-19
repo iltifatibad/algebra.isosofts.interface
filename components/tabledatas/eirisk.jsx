@@ -297,43 +297,43 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   </td>
 {/* Name */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.name} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.name} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.type.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.type.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Serial Number */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.serialNumber} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.serialNumber} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Certificate No */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.certificateNo} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.certificateNo} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge
     value={Number(row.calibrationRequired) === 1 ? "Yes" : "No"}
-    color="bg-violet-100 text-violet-700 border border-violet-200"
+    color="bg-gray-100 text-black border border-gray-200"
   />
 </td>
 
 {/* Inspection Frequency */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.inspectionFrequency?.value} color="bg-amber-100 text-amber-700 border border-amber-200" />
+  <SoftBadge value={row.inspectionFrequency?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* ICD */}
 <td className="border border-gray-200 px-2 py-1 w-28" rowSpan={1}>
-  <SoftBadge value={row.icd} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+  <SoftBadge value={row.icd} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* NVCD */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.nvcd} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.nvcd} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Days Difference */}
@@ -344,7 +344,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
       const diffInDays = Math.ceil((new Date(row.nvcd) - new Date()) / (1000 * 60 * 60 * 24));
       return `${diffInDays} Days`;
     })()}
-    color="bg-indigo-100 text-indigo-700 border border-indigo-200"
+    color="bg-gray-100 text-black border border-gray-200"
   />
 </td>
 
@@ -359,15 +359,15 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
         value={isSafe ? "Safe" : "Not Safe"}
         color={
           isSafe
-            ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
-            : "bg-rose-100 text-rose-700 border border-rose-200"
+            ? "bg-gray-100 text-black border border-gray-200"
+            : "bg-gray-100 text-black border border-gray-200"
         }
       />
     );
   })()}
 </td>
     <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-      {row.comment && <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
+      {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
     </td>
                 </tr>
 
@@ -428,43 +428,43 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
                   {/* Name */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.name} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.name} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.type.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.type.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Serial Number */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.serialNumber} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.serialNumber} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Certificate No */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.certificateNo} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.certificateNo} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge
     value={Number(row.calibrationRequired) === 1 ? "Yes" : "No"}
-    color="bg-violet-100 text-violet-700 border border-violet-200"
+    color="bg-gray-100 text-black border border-gray-200"
   />
 </td>
 
 {/* Inspection Frequency */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.inspectionFrequency?.value} color="bg-amber-100 text-amber-700 border border-amber-200" />
+  <SoftBadge value={row.inspectionFrequency?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* ICD */}
 <td className="border border-gray-200 px-2 py-1 w-28" rowSpan={1}>
-  <SoftBadge value={row.icd} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+  <SoftBadge value={row.icd} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* NVCD */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.nvcd} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.nvcd} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Days Difference */}
@@ -475,7 +475,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
       const diffInDays = Math.ceil((new Date(row.nvcd) - new Date()) / (1000 * 60 * 60 * 24));
       return `${diffInDays} Days`;
     })()}
-    color="bg-indigo-100 text-indigo-700 border border-indigo-200"
+    color="bg-gray-100 text-black border border-gray-200"
   />
 </td>
 {/* Equipment/Inventory Status */}
@@ -489,8 +489,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
         value={isSafe ? "Safe" : "Not Safe"}
         color={
           isSafe
-            ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
-            : "bg-rose-100 text-rose-700 border border-rose-200"
+            ? "bg-gray-100 text-black border border-gray-200"
+            : "bg-gray-100 text-black border border-gray-200"
         }
       />
     );
@@ -498,7 +498,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
     <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-      {row.comment && <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
+      {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
     </td>
                 </tr>
 
@@ -601,7 +601,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top">
-                    {actionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-sky-100 text-sky-700 rounded-md px-2 py-1 whitespace-normal break-words">{actionData?.[index]?.comment}</p>}
+                    {actionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black rounded-md px-2 py-1 whitespace-normal break-words">{actionData?.[index]?.comment}</p>}
                   </td>
                   {/* MONITORING MONTH COLUMNS */}
                   {[
@@ -748,7 +748,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top">
-                    {deletedActionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-sky-100 text-sky-700 rounded-md px-2 py-1 whitespace-normal break-words">{deletedActionData?.[index]?.comment}</p>}
+                    {deletedActionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black rounded-md px-2 py-1 whitespace-normal break-words">{deletedActionData?.[index]?.comment}</p>}
                   </td>
                   {/* MONITORING MONTH COLUMNS */}
                   {[
@@ -843,43 +843,43 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
                   {/* Name */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.name} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.name} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.type.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.type.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Serial Number */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.serialNumber} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.serialNumber} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Certificate No */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.certificateNo} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.certificateNo} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge
     value={Number(row.calibrationRequired) === 1 ? "Yes" : "No"}
-    color="bg-violet-100 text-violet-700 border border-violet-200"
+    color="bg-gray-100 text-black border border-gray-200"
   />
 </td>
 
 {/* Inspection Frequency */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.inspectionFrequency?.value} color="bg-amber-100 text-amber-700 border border-amber-200" />
+  <SoftBadge value={row.inspectionFrequency?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* ICD */}
 <td className="border border-gray-200 px-2 py-1 w-28" rowSpan={1}>
-  <SoftBadge value={row.icd} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+  <SoftBadge value={row.icd} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* NVCD */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.nvcd} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.nvcd} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Days Difference */}
@@ -890,7 +890,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
       const diffInDays = Math.ceil((new Date(row.nvcd) - new Date()) / (1000 * 60 * 60 * 24));
       return `${diffInDays} Days`;
     })()}
-    color="bg-indigo-100 text-indigo-700 border border-indigo-200"
+    color="bg-gray-100 text-black border border-gray-200"
   />
 </td>
 
@@ -905,8 +905,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
         value={isSafe ? "Safe" : "Not Safe"}
         color={
           isSafe
-            ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
-            : "bg-rose-100 text-rose-700 border border-rose-200"
+            ? "bg-gray-100 text-black border border-gray-200"
+            : "bg-gray-100 text-black border border-gray-200"
         }
       />
     );
@@ -914,7 +914,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-      {row.comment && <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
+      {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
 </td>
                 </tr>
               </React.Fragment>

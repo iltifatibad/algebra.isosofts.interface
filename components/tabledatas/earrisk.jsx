@@ -298,44 +298,44 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
                                   {/* Employee Name */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.employeeName} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.employeeName} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Position */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.position} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.position} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Line Manager */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.lineManager} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.lineManager} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* ESD */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.esd} color="bg-amber-100 text-amber-700 border border-amber-200" />
+  <SoftBadge value={row.esd} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Appraisal Type */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.appraisalType?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.appraisalType?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Appraisal Date */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.appraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+  <SoftBadge value={row.appraisalDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Next Appraisal Date */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.nextAppraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+  <SoftBadge value={row.nextAppraisalDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Days Left To Next Appraisal */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   {(() => {
     if (!row.nextAppraisalDate) return (
-      <SoftBadge value="No" color="bg-orange-100 text-orange-700 border border-orange-200" />
+      <SoftBadge value="No" color="bg-gray-100 text-black border border-gray-200" />
     );
 
     const diffInDays = Math.ceil(
@@ -349,8 +349,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
         value={`${diffInDays} days`}
         color={
           isValid
-            ? "bg-amber-100 text-amber-700 border border-amber-200"
-            : "bg-orange-100 text-orange-700 border border-orange-200"
+            ? "bg-gray-100 text-black border border-gray-200"
+            : "bg-gray-100 text-black border border-gray-200"
         }
       />
     );
@@ -362,7 +362,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   {(() => {
     if (!row.nextAppraisalDate) return (
-      <SoftBadge value="No" color="bg-orange-100 text-orange-700 border border-orange-200" />
+      <SoftBadge value="No" color="bg-gray-100 text-black border border-gray-200" />
     );
     const diffInDays = Math.ceil((new Date(row.nextAppraisalDate) - new Date()) / (1000 * 60 * 60 * 24));
     const isValid = diffInDays >= 0;
@@ -371,8 +371,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
         value={isValid ? "Valid" : "Not Valid"}
         color={
           isValid
-            ? "bg-amber-100 text-amber-700 border border-amber-200"
-            : "bg-orange-100 text-orange-700 border border-orange-200"
+            ? "bg-gray-100 text-black border border-gray-200"
+            : "bg-gray-100 text-black border border-gray-200"
         }
       />
     );
@@ -381,32 +381,32 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* TCA */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.tca} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+  <SoftBadge value={row.tca} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Skills Appraisal */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.skillsAppraisal} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.skillsAppraisal} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.jobQuality} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.jobQuality} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.leadershipSkills} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.leadershipSkills} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.managementSkills} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.managementSkills} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.behavioralSkills} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.behavioralSkills} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.effectivenessOfTrainings} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.effectivenessOfTrainings} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
@@ -424,12 +424,12 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
         .map(v => Number(v) || 0)
         .reduce((a, b) => a + b, 0)
     }
-    color="bg-green-100 text-green-700 border border-green-200"
+    color="bg-gray-100 text-black border border-gray-200"
   />
 </td>
 
     <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-      {row.comment && <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
+      {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
     </td>
                 </tr>
 
@@ -497,44 +497,44 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   </td>
 {/* Employee Name */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.employeeName} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.employeeName} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Position */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.position} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.position} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Line Manager */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.lineManager} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.lineManager} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* ESD */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.esd} color="bg-amber-100 text-amber-700 border border-amber-200" />
+  <SoftBadge value={row.esd} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Appraisal Type */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.appraisalType?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.appraisalType?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Appraisal Date */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.appraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+  <SoftBadge value={row.appraisalDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Next Appraisal Date */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.nextAppraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+  <SoftBadge value={row.nextAppraisalDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Days Left To Next Appraisal */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   {(() => {
     if (!row.nextAppraisalDate) return (
-      <SoftBadge value="No" color="bg-orange-100 text-orange-700 border border-orange-200" />
+      <SoftBadge value="No" color="bg-gray-100 text-black border border-gray-200" />
     );
 
     const diffInDays = Math.ceil(
@@ -548,8 +548,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
         value={`${diffInDays} days`}
         color={
           isValid
-            ? "bg-amber-100 text-amber-700 border border-amber-200"
-            : "bg-orange-100 text-orange-700 border border-orange-200"
+            ? "bg-gray-100 text-black border border-gray-200"
+            : "bg-gray-100 text-black border border-gray-200"
         }
       />
     );
@@ -561,7 +561,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   {(() => {
     if (!row.nextAppraisalDate) return (
-      <SoftBadge value="No" color="bg-orange-100 text-orange-700 border border-orange-200" />
+      <SoftBadge value="No" color="bg-gray-100 text-black border border-gray-200" />
     );
     const diffInDays = Math.ceil((new Date(row.nextAppraisalDate) - new Date()) / (1000 * 60 * 60 * 24));
     const isValid = diffInDays >= 0;
@@ -570,8 +570,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
         value={isValid ? "Valid" : "Not Valid"}
         color={
           isValid
-            ? "bg-amber-100 text-amber-700 border border-amber-200"
-            : "bg-orange-100 text-orange-700 border border-orange-200"
+            ? "bg-gray-100 text-black border border-gray-200"
+            : "bg-gray-100 text-black border border-gray-200"
         }
       />
     );
@@ -580,32 +580,32 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* TCA */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.tca} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+  <SoftBadge value={row.tca} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Skills Appraisal */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.skillsAppraisal} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.skillsAppraisal} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.jobQuality} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.jobQuality} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.leadershipSkills} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.leadershipSkills} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.managementSkills} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.managementSkills} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.behavioralSkills} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.behavioralSkills} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.effectivenessOfTrainings} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.effectivenessOfTrainings} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
@@ -623,12 +623,12 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
         .map(v => Number(v) || 0)
         .reduce((a, b) => a + b, 0)
     }
-    color="bg-green-100 text-green-700 border border-green-200"
+    color="bg-gray-100 text-black border border-gray-200"
   />
 </td>
 
     <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-      {row.comment && <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
+      {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
     </td>
                 </tr>
 
@@ -731,7 +731,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top">
-                    {actionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-sky-100 text-sky-700 rounded-md px-2 py-1 whitespace-normal break-words">{actionData?.[index]?.comment}</p>}
+                    {actionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black rounded-md px-2 py-1 whitespace-normal break-words">{actionData?.[index]?.comment}</p>}
                   </td>
                   {/* MONITORING MONTH COLUMNS */}
                   {[
@@ -878,7 +878,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top">
-                    {deletedActionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-sky-100 text-sky-700 rounded-md px-2 py-1 whitespace-normal break-words">{deletedActionData?.[index]?.comment}</p>}
+                    {deletedActionData?.[index]?.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black rounded-md px-2 py-1 whitespace-normal break-words">{deletedActionData?.[index]?.comment}</p>}
                   </td>
                   {/* MONITORING MONTH COLUMNS */}
                   {[
@@ -972,44 +972,44 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   </td>
 {/* Employee Name */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.employeeName} color="bg-rose-100 text-rose-700 border border-rose-200" />
+  <SoftBadge value={row.employeeName} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Position */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.position} color="bg-blue-100 text-blue-700 border border-blue-200" />
+  <SoftBadge value={row.position} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Line Manager */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.lineManager} color="bg-violet-100 text-violet-700 border border-violet-200" />
+  <SoftBadge value={row.lineManager} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* ESD */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.esd} color="bg-amber-100 text-amber-700 border border-amber-200" />
+  <SoftBadge value={row.esd} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Appraisal Type */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.appraisalType?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
+  <SoftBadge value={row.appraisalType?.value} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Appraisal Date */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.appraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+  <SoftBadge value={row.appraisalDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Next Appraisal Date */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
-  <SoftBadge value={row.nextAppraisalDate} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
+  <SoftBadge value={row.nextAppraisalDate} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Days Left To Next Appraisal */}
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   {(() => {
     if (!row.nextAppraisalDate) return (
-      <SoftBadge value="No" color="bg-orange-100 text-orange-700 border border-orange-200" />
+      <SoftBadge value="No" color="bg-gray-100 text-black border border-gray-200" />
     );
 
     const diffInDays = Math.ceil(
@@ -1023,8 +1023,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
         value={`${diffInDays} days`}
         color={
           isValid
-            ? "bg-amber-100 text-amber-700 border border-amber-200"
-            : "bg-orange-100 text-orange-700 border border-orange-200"
+            ? "bg-gray-100 text-black border border-gray-200"
+            : "bg-gray-100 text-black border border-gray-200"
         }
       />
     );
@@ -1035,7 +1035,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 <td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   {(() => {
     if (!row.nextAppraisalDate) return (
-      <SoftBadge value="No" color="bg-orange-100 text-orange-700 border border-orange-200" />
+      <SoftBadge value="No" color="bg-gray-100 text-black border border-gray-200" />
     );
     const diffInDays = Math.ceil((new Date(row.nextAppraisalDate) - new Date()) / (1000 * 60 * 60 * 24));
     const isValid = diffInDays >= 0;
@@ -1044,8 +1044,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
         value={isValid ? "Valid" : "Not Valid"}
         color={
           isValid
-            ? "bg-amber-100 text-amber-700 border border-amber-200"
-            : "bg-orange-100 text-orange-700 border border-orange-200"
+            ? "bg-gray-100 text-black border border-gray-200"
+            : "bg-gray-100 text-black border border-gray-200"
         }
       />
     );
@@ -1054,32 +1054,32 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 {/* TCA */}
 <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.tca} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
+  <SoftBadge value={row.tca} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 {/* Skills Appraisal */}
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.skillsAppraisal} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.skillsAppraisal} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.jobQuality} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.jobQuality} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.leadershipSkills} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.leadershipSkills} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.managementSkills} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.managementSkills} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.behavioralSkills} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.behavioralSkills} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
-  <SoftBadge value={row.effectivenessOfTrainings} color="bg-pink-100 text-pink-700 border border-pink-200" />
+  <SoftBadge value={row.effectivenessOfTrainings} color="bg-gray-100 text-black border border-gray-200" />
 </td>
 
 <td className="border border-gray-200 px-2 py-1 w-24" rowSpan={1}>
@@ -1097,12 +1097,12 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
         .map(v => Number(v) || 0)
         .reduce((a, b) => a + b, 0)
     }
-    color="bg-green-100 text-green-700 border border-green-200"
+    color="bg-gray-100 text-black border border-gray-200"
   />
 </td>
 
     <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-      {row.comment && <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
+      {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
     </td>
                 </tr>
               </React.Fragment>
