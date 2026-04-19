@@ -350,7 +350,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
       {/* Comment */}
 
     <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-      <p className="text-xs leading-relaxed text-gray-700 whitespace-normal break-words">{row.comment != null ? String(row.comment) : ""}</p>
+      <p className="text-xs leading-relaxed bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment != null ? String(row.comment) : ""}</p>
     </td>
     </>
   );
