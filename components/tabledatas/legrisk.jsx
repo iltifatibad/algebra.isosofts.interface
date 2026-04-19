@@ -155,9 +155,12 @@ const getDeletedActionData = async () => {
     if (!active.length) return data;
     return data.filter(row =>
       active.every(([key, val]) => {
+        if (!val?.trim()) return true;
         const parts = key.replace(/\?/g, "").split(".");
         let v = row;
         for (const p of parts) v = v?.[p];
+        if (v === 1 || v === 0) return (v === 1 ? "yes" : "no").includes(val.toLowerCase());
+        if (v !== null && typeof v === "object" && "value" in v) return String(v.value ?? "").toLowerCase().includes(val.toLowerCase());
         return String(v ?? "").toLowerCase().includes(val.toLowerCase());
       })
     );
@@ -354,8 +357,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
-                  value={filters["ecm?.value"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "ecm?.value": e.target.value}))}
+                  value={filters["ecm"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "ecm": e.target.value}))}
                   placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
@@ -615,8 +618,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
-                  value={filters["ecm?.value"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "ecm?.value": e.target.value}))}
+                  value={filters["ecm"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "ecm": e.target.value}))}
                   placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
@@ -1159,8 +1162,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
-                  value={filters["ecm?.value"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "ecm?.value": e.target.value}))}
+                  value={filters["ecm"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "ecm": e.target.value}))}
                   placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />

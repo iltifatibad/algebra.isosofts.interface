@@ -172,9 +172,12 @@ const getArchivedActionData = async () => {
       const actions = Array.isArray(row.actions) ? row.actions : [row.actions];
       return actions.some(action =>
         active.every(([key, val]) => {
+          if (!val?.trim()) return true;
           const parts = key.replace(/\?/g, "").split(".");
           let v = action;
           for (const p of parts) v = v?.[p];
+          if (v === 1 || v === 0) return (v === 1 ? "yes" : "no").includes(val.toLowerCase());
+          if (v !== null && typeof v === "object" && "value" in v) return String(v.value ?? "").toLowerCase().includes(val.toLowerCase());
           return String(v ?? "").toLowerCase().includes(val.toLowerCase());
         })
       );
