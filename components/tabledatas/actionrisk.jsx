@@ -189,6 +189,7 @@ const getArchivedActionData = async () => {
   const filteredData         = applyFilters(tableData);
   const filteredArchivedData = applyFilters(archivedData);
   const filteredDeletedData  = applyFilters(deletedData);
+  const filteredActionData   = applyFilters(actionData);
 const getAll = async () => {
   setLoading(true);
   const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
@@ -369,14 +370,14 @@ console.log("URL:", url);
           Arşiv verileri yükleniyor...
         </td>
       </tr>
-    ) : !actionData || actionData.length === 0 ? (
+    ) : !filteredActionData || filteredActionData.length === 0 ? (
       <tr>
         <td colSpan={25} className="text-center py-6 text-gray-500">
           No Data
         </td>
       </tr>
     ) : (
-      actionData.map((row, index) => {
+      filteredActionData.map((row, index) => {
         const numActions = row.actions ? row.actions.length : 1;
         const actions = Array.isArray(row.actions) ? row.actions : [row.actions];
         return (
