@@ -177,13 +177,14 @@ const OPI = ({
     );
   };
 
-  const filteredData         = applyFilters(tableData);
-  const filteredArchivedData = applyFilters(archivedData);
-  const filteredDeletedData  = applyFilters(deletedData);
   // ────────────────────────────────────────────────────────────────────────
 
 
   const [tableData, setTableData] = useState([]);
+
+  const filteredData         = applyFilters(tableData);
+  const filteredArchivedData = applyFilters(archivedData);
+  const filteredDeletedData  = applyFilters(deletedData);
   const getAll = async () => {
     setLoading(true);
     const token = getToken();
