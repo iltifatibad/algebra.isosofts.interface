@@ -41,10 +41,10 @@ const FbHeaders = ({ activeHeader }) => {
             Feedback Of Customer
           </th>
           <th
-            className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-0 z-20 bg-blue-100"
-            rowSpan={2}
+            className="border-r border-white text-xs whitespace-normal leading-tight sticky top-0 z-20 bg-blue-100 text-center"
+            colSpan={10}
           >
-            Comment
+            Customer
           </th>
         </tr>
 
