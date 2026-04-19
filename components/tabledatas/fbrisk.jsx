@@ -425,7 +425,7 @@ value={
 </td>
 {/* Comment */}
 <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-  <p className="text-xs leading-relaxed text-gray-700 whitespace-normal break-words">{row.comment}</p>
+  <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>
 </td>
                 </tr>
 
@@ -586,7 +586,7 @@ value={
 
 {/* Comment */}
 <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-  <p className="text-xs leading-relaxed text-gray-700 whitespace-normal break-words">{row.comment}</p>
+  <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>
 </td>
                 </tr>
 
@@ -1072,7 +1072,7 @@ value={
 
 {/* Comment */}
 <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-  <p className="text-xs leading-relaxed text-gray-700 whitespace-normal break-words">{row.comment}</p>
+  <p className="text-xs leading-relaxed bg-green-100 text-green-700 border border-green-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>
 </td>
                 </tr>
               </React.Fragment>
