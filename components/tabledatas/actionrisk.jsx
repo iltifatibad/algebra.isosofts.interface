@@ -447,7 +447,7 @@ console.log("URL:", url);
 
 {/* Comment */}
 <td className="border-b border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top">
-  <p className="text-xs leading-relaxed text-gray-700 whitespace-normal break-words">{action.comment || ""}</p>
+  {action.comment && <p className="text-xs leading-relaxed bg-sky-100 text-sky-700 rounded-md px-2 py-1 whitespace-normal break-words">{action.comment}</p>}
 </td>
 
 {/* Monitoring Month Columns */}
