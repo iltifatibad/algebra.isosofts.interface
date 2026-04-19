@@ -403,8 +403,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Comment */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
+  <p className="text-xs leading-relaxed text-gray-700 whitespace-normal break-words">{row.comment}</p>
 </td>
                 </tr>
 
@@ -549,8 +549,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Comment */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
+  <p className="text-xs leading-relaxed text-gray-700 whitespace-normal break-words">{row.comment}</p>
 </td>
                 </tr>
 
@@ -652,8 +652,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                       value={actionData?.[index]?.verificationStatus?.value}
                     />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-40">
-                    <SoftBadge value={actionData?.[index]?.comment} />
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top">
+                    <p className="text-xs leading-relaxed text-gray-700 whitespace-normal break-words">{actionData?.[index]?.comment}</p>
                   </td>
                   {/* MONITORING MONTH COLUMNS */}
                   {[
@@ -799,8 +799,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                       }
                     />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 w-40">
-                    <SoftBadge value={deletedActionData?.[index]?.comment} />
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top">
+                    <p className="text-xs leading-relaxed text-gray-700 whitespace-normal break-words">{deletedActionData?.[index]?.comment}</p>
                   </td>
                   {/* MONITORING MONTH COLUMNS */}
                   {[
@@ -979,8 +979,8 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Comment */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
+  <p className="text-xs leading-relaxed text-gray-700 whitespace-normal break-words">{row.comment}</p>
 </td>
                 </tr>
               </React.Fragment>

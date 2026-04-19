@@ -424,8 +424,8 @@ value={
   />
 </td>
 {/* Comment */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
+  <p className="text-xs leading-relaxed text-gray-700 whitespace-normal break-words">{row.comment}</p>
 </td>
                 </tr>
 
@@ -585,8 +585,8 @@ value={
 </td>
 
 {/* Comment */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
+  <p className="text-xs leading-relaxed text-gray-700 whitespace-normal break-words">{row.comment}</p>
 </td>
                 </tr>
 
@@ -1071,8 +1071,8 @@ value={
 </td>
 
 {/* Comment */}
-<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
-  <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
+<td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
+  <p className="text-xs leading-relaxed text-gray-700 whitespace-normal break-words">{row.comment}</p>
 </td>
                 </tr>
               </React.Fragment>

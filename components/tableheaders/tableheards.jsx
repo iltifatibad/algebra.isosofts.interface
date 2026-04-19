@@ -172,7 +172,7 @@ const BgHeaders = ({ activeHeader }) => {
           <th className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-12 z-20 bg-blue-200">
             Status Of Verification
           </th>
-          <th className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-[200px] border-r border-white text-xs whitespace-normal leading-tight sticky top-12 z-20 bg-blue-200">
             Comment
           </th>
 

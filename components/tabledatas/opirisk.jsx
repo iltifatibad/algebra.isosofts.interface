@@ -667,8 +667,8 @@ if (showDeleted) {
                       value={actionData?.[index]?.verificationStatus?.value}
                     />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 min-w-[8rem] max-w-[16rem]">
-                    <SoftBadge value={actionData?.[index]?.comment} />
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top">
+                    <p className="text-xs leading-relaxed text-gray-700 whitespace-normal break-words">{actionData?.[index]?.comment}</p>
                   </td>
                   {/* MONITORING MONTH COLUMNS */}
                   {[
@@ -813,8 +813,8 @@ if (showDeleted) {
                       }
                     />
                   </td>
-                  <td className="border-b border-gray-200 px-2 py-1 min-w-[8rem] max-w-[16rem]">
-                    <SoftBadge value={deletedActionData?.[index]?.comment} />
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top">
+                    <p className="text-xs leading-relaxed text-gray-700 whitespace-normal break-words">{deletedActionData?.[index]?.comment}</p>
                   </td>
                   {/* MONITORING MONTH COLUMNS */}
                   {[

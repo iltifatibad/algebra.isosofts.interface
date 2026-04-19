@@ -328,8 +328,8 @@ console.log("URL:", url);
 </td>
 
 {/* Comment */}
-<td className="border-b border-gray-200 px-2 py-1 w-40">
-  <SoftBadge value={action.comment || ""} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
+<td className="border-b border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top">
+  <p className="text-xs leading-relaxed text-gray-700 whitespace-normal break-words">{action.comment || ""}</p>
 </td>
 
 {/* Monitoring Month Columns */}
