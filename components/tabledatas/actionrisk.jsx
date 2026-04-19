@@ -161,6 +161,31 @@ const getArchivedActionData = async () => {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  // ── Filters ────────────────────────────────────────────────────────────
+  const [filters, setFilters] = useState({});
+
+  const applyFilters = (data) => {
+    if (!data?.length) return data || [];
+    const active = Object.entries(filters).filter(([, v]) => v?.trim());
+    if (!active.length) return data;
+    return data.filter(row => {
+      const actions = Array.isArray(row.actions) ? row.actions : [row.actions];
+      return actions.some(action =>
+        active.every(([key, val]) => {
+          const parts = key.replace(/\?/g, "").split(".");
+          let v = action;
+          for (const p of parts) v = v?.[p];
+          return String(v ?? "").toLowerCase().includes(val.toLowerCase());
+        })
+      );
+    });
+  };
+
+  const filteredData         = applyFilters(tableData);
+  const filteredArchivedData = applyFilters(archivedData);
+  const filteredDeletedData  = applyFilters(deletedData);
+  // ────────────────────────────────────────────────────────────────────────
+
 
   const [tableData, setTableData] = useState([]);
 const getAll = async () => {
@@ -246,6 +271,97 @@ console.log("URL:", url);
     // 🟩 Normal (aktif) tablo
   return (
   <tbody className="text-xs">
+            {/* ── Filter Row ── */}
+            <tr className="bg-gray-50 border-b-2 border-blue-200">
+              <td className="border border-gray-200 px-1 py-1 sticky left-[-1px] z-10 bg-gray-50">
+                <button
+                  onClick={() => setFilters({})}
+                  className="text-[10px] bg-blue-500 text-white rounded px-1.5 py-0.5 hover:bg-blue-600 whitespace-nowrap"
+                  title="Filtreleri Temizle"
+                >✕ Clear</button>
+              </td>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["title"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "title": e.target.value}))}
+                  placeholder="Filtrele..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
+              </td>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["raiseDate"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "raiseDate": e.target.value}))}
+                  placeholder="Filtrele..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
+              </td>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["resources"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "resources": e.target.value}))}
+                  placeholder="Filtrele..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
+              </td>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["relativeFunction?.value"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "relativeFunction?.value": e.target.value}))}
+                  placeholder="Filtrele..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
+              </td>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["responsible?.value"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "responsible?.value": e.target.value}))}
+                  placeholder="Filtrele..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
+              </td>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["deadline"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "deadline": e.target.value}))}
+                  placeholder="Filtrele..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
+              </td>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["confirmation?.value"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "confirmation?.value": e.target.value}))}
+                  placeholder="Filtrele..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
+              </td>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["status?.value"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "status?.value": e.target.value}))}
+                  placeholder="Filtrele..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
+              </td>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["completionDate"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "completionDate": e.target.value}))}
+                  placeholder="Filtrele..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
+              </td>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["verificationStatus?.value"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "verificationStatus?.value": e.target.value}))}
+                  placeholder="Filtrele..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
+              </td>
+            </tr>
+
     {loading ? (
       <tr>
         <td colSpan={25} className="text-center py-6 text-gray-600">
