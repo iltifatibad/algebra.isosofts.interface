@@ -40,6 +40,12 @@ const FbHeaders = ({ activeHeader }) => {
           >
             Feedback Of Customer
           </th>
+          <th
+            className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-0 z-20 bg-blue-100"
+            rowSpan={2}
+          >
+            Comment
+          </th>
         </tr>
 
         {/* ================= 2. SATIR ================= */}
@@ -92,12 +98,6 @@ const FbHeaders = ({ activeHeader }) => {
             rowSpan={2}
           >
             Total Score
-          </th>
-          <th
-            className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-0 z-20 bg-blue-100"
-            rowSpan={2}
-          >
-            Comment
           </th>
         </tr>
 
