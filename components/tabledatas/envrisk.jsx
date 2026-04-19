@@ -394,7 +394,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["process?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "process?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -402,7 +402,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["aspect?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "aspect?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -410,7 +410,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["affectedReceptors?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "affectedReceptors?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -418,7 +418,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["idosProbability"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "idosProbability": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -426,7 +426,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["idosSeverity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "idosSeverity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -434,7 +434,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["idosDuration"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "idosDuration": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -442,7 +442,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["idosScale"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "idosScale": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -450,7 +450,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["rdosProbability"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "rdosProbability": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -458,7 +458,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["rdosSeverity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "rdosSeverity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -466,7 +466,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["rdosDuration"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "rdosDuration": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -474,7 +474,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["rdosScale"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "rdosScale": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -482,7 +482,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["comment"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "comment": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -544,7 +544,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["process?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "process?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -552,7 +552,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["aspect?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "aspect?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -560,7 +560,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["affectedReceptors?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "affectedReceptors?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -568,7 +568,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["idosProbability"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "idosProbability": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -576,7 +576,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["idosSeverity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "idosSeverity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -584,7 +584,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["idosDuration"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "idosDuration": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -592,7 +592,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["idosScale"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "idosScale": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -600,7 +600,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["rdosProbability"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "rdosProbability": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -608,7 +608,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["rdosSeverity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "rdosSeverity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -616,7 +616,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["rdosDuration"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "rdosDuration": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -624,7 +624,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["rdosScale"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "rdosScale": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -632,7 +632,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["comment"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "comment": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -975,7 +975,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["process?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "process?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -983,7 +983,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["aspect?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "aspect?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -991,7 +991,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["affectedReceptors?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "affectedReceptors?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -999,7 +999,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["idosProbability"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "idosProbability": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1007,7 +1007,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["idosSeverity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "idosSeverity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1015,7 +1015,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["idosDuration"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "idosDuration": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1023,7 +1023,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["idosScale"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "idosScale": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1031,7 +1031,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["rdosProbability"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "rdosProbability": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1039,7 +1039,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["rdosSeverity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "rdosSeverity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1047,7 +1047,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["rdosDuration"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "rdosDuration": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1055,7 +1055,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["rdosScale"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "rdosScale": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1063,7 +1063,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["comment"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "comment": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>

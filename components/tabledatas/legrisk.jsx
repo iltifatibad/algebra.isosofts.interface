@@ -308,7 +308,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["process?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "process?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -316,7 +316,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["legislation"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "legislation": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -324,7 +324,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["section"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "section": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -332,7 +332,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["requirement"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "requirement": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -340,7 +340,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["riskOfViolation"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "riskOfViolation": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -348,7 +348,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["affectedPositions?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "affectedPositions?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -356,7 +356,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["ecm?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "ecm?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -364,7 +364,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["initialRiskSeverity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "initialRiskSeverity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -372,7 +372,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["initialRiskLikelihood"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "initialRiskLikelihood": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -380,7 +380,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["acm"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "acm": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -388,7 +388,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["residualRiskSeverity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "residualRiskSeverity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -396,7 +396,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["residualRiskLikelihood"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "residualRiskLikelihood": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -404,7 +404,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["comment"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "comment": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -569,7 +569,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["process?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "process?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -577,7 +577,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["legislation"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "legislation": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -585,7 +585,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["section"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "section": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -593,7 +593,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["requirement"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "requirement": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -601,7 +601,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["riskOfViolation"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "riskOfViolation": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -609,7 +609,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["affectedPositions?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "affectedPositions?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -617,7 +617,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["ecm?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "ecm?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -625,7 +625,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["initialRiskSeverity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "initialRiskSeverity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -633,7 +633,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["initialRiskLikelihood"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "initialRiskLikelihood": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -641,7 +641,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["acm"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "acm": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -649,7 +649,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["residualRiskSeverity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "residualRiskSeverity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -657,7 +657,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["residualRiskLikelihood"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "residualRiskLikelihood": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -665,7 +665,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["comment"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "comment": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1113,7 +1113,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["process?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "process?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1121,7 +1121,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["legislation"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "legislation": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1129,7 +1129,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["section"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "section": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1137,7 +1137,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["requirement"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "requirement": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1145,7 +1145,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["riskOfViolation"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "riskOfViolation": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1153,7 +1153,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["affectedPositions?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "affectedPositions?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1161,7 +1161,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["ecm?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "ecm?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1169,7 +1169,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["initialRiskSeverity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "initialRiskSeverity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1177,7 +1177,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["initialRiskLikelihood"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "initialRiskLikelihood": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1185,7 +1185,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["acm"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "acm": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1193,7 +1193,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["residualRiskSeverity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "residualRiskSeverity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1201,7 +1201,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["residualRiskLikelihood"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "residualRiskLikelihood": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1209,7 +1209,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["comment"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "comment": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>

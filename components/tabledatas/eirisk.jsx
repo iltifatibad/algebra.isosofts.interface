@@ -279,7 +279,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["name"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "name": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -287,7 +287,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["type.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "type.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -295,7 +295,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["serialNumber"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "serialNumber": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -303,7 +303,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["certificateNo"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "certificateNo": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -311,7 +311,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["inspectionFrequency?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "inspectionFrequency?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -319,7 +319,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["icd"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "icd": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -327,7 +327,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["nvcd"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "nvcd": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -335,7 +335,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["comment"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "comment": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -492,7 +492,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["name"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "name": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -500,7 +500,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["type.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "type.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -508,7 +508,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["serialNumber"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "serialNumber": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -516,7 +516,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["certificateNo"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "certificateNo": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -524,7 +524,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["inspectionFrequency?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "inspectionFrequency?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -532,7 +532,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["icd"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "icd": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -540,7 +540,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["nvcd"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "nvcd": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -548,7 +548,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["comment"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "comment": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -981,7 +981,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["name"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "name": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -989,7 +989,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["type.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "type.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -997,7 +997,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["serialNumber"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "serialNumber": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1005,7 +1005,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["certificateNo"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "certificateNo": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1013,7 +1013,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["inspectionFrequency?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "inspectionFrequency?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1021,7 +1021,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["icd"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "icd": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1029,7 +1029,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["nvcd"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "nvcd": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1037,7 +1037,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["comment"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "comment": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>

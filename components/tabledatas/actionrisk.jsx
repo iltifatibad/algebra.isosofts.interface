@@ -285,7 +285,7 @@ console.log("URL:", url);
                 <input
                   value={filters["title"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "title": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -293,7 +293,7 @@ console.log("URL:", url);
                 <input
                   value={filters["raiseDate"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "raiseDate": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -301,7 +301,7 @@ console.log("URL:", url);
                 <input
                   value={filters["resources"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "resources": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -309,7 +309,7 @@ console.log("URL:", url);
                 <input
                   value={filters["relativeFunction?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "relativeFunction?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -317,7 +317,7 @@ console.log("URL:", url);
                 <input
                   value={filters["responsible?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "responsible?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -325,7 +325,7 @@ console.log("URL:", url);
                 <input
                   value={filters["deadline"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "deadline": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -333,7 +333,7 @@ console.log("URL:", url);
                 <input
                   value={filters["confirmation?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "confirmation?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -341,7 +341,7 @@ console.log("URL:", url);
                 <input
                   value={filters["status?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "status?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -349,7 +349,7 @@ console.log("URL:", url);
                 <input
                   value={filters["completionDate"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "completionDate": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -357,7 +357,7 @@ console.log("URL:", url);
                 <input
                   value={filters["verificationStatus?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "verificationStatus?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>

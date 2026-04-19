@@ -151,7 +151,7 @@ const KPIBody = ({
                 <input
                   value={filters["title"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "title": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -159,7 +159,7 @@ const KPIBody = ({
                 <input
                   value={filters["function?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "function?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -167,7 +167,7 @@ const KPIBody = ({
                 <input
                   value={filters["lykpi"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "lykpi": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -175,7 +175,7 @@ const KPIBody = ({
                 <input
                   value={filters["actualKPI"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "actualKPI": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -183,7 +183,7 @@ const KPIBody = ({
                 <input
                   value={filters["annualTarget"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "annualTarget": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -191,7 +191,7 @@ const KPIBody = ({
                 <input
                   value={filters["january"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "january": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -199,7 +199,7 @@ const KPIBody = ({
                 <input
                   value={filters["february"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "february": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -207,7 +207,7 @@ const KPIBody = ({
                 <input
                   value={filters["march"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "march": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -215,7 +215,7 @@ const KPIBody = ({
                 <input
                   value={filters["april"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "april": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -223,7 +223,7 @@ const KPIBody = ({
                 <input
                   value={filters["may"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "may": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -231,7 +231,7 @@ const KPIBody = ({
                 <input
                   value={filters["june"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "june": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -239,7 +239,7 @@ const KPIBody = ({
                 <input
                   value={filters["july"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "july": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -247,7 +247,7 @@ const KPIBody = ({
                 <input
                   value={filters["august"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "august": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -255,7 +255,7 @@ const KPIBody = ({
                 <input
                   value={filters["september"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "september": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -263,7 +263,7 @@ const KPIBody = ({
                 <input
                   value={filters["october"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "october": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -271,7 +271,7 @@ const KPIBody = ({
                 <input
                   value={filters["november"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "november": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -279,7 +279,7 @@ const KPIBody = ({
                 <input
                   value={filters["december"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "december": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -287,7 +287,7 @@ const KPIBody = ({
                 <input
                   value={filters["comment"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "comment": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>

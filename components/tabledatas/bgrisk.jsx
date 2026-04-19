@@ -316,7 +316,7 @@ if (showDeleted) {
                 <input
                   value={filters["swot?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "swot?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -324,7 +324,7 @@ if (showDeleted) {
                 <input
                   value={filters["pestle?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "pestle?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -332,7 +332,7 @@ if (showDeleted) {
                 <input
                   value={filters["interestedParty?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "interestedParty?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -340,7 +340,7 @@ if (showDeleted) {
                 <input
                   value={filters["riskOpportunity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "riskOpportunity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -348,7 +348,7 @@ if (showDeleted) {
                 <input
                   value={filters["objective"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "objective": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -356,7 +356,7 @@ if (showDeleted) {
                 <input
                   value={filters["kpi"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "kpi": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -364,7 +364,7 @@ if (showDeleted) {
                 <input
                   value={filters["process?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "process?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -372,7 +372,7 @@ if (showDeleted) {
                 <input
                   value={filters["ecm?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "ecm?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -380,7 +380,7 @@ if (showDeleted) {
                 <input
                   value={filters["initialRiskSeverity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "initialRiskSeverity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -388,7 +388,7 @@ if (showDeleted) {
                 <input
                   value={filters["initialRiskLikelihood"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "initialRiskLikelihood": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -396,7 +396,7 @@ if (showDeleted) {
                 <input
                   value={filters["acm"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "acm": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -404,7 +404,7 @@ if (showDeleted) {
                 <input
                   value={filters["residualRiskSeverity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "residualRiskSeverity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -412,7 +412,7 @@ if (showDeleted) {
                 <input
                   value={filters["residualRiskLikelihood"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "residualRiskLikelihood": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -420,7 +420,7 @@ if (showDeleted) {
                 <input
                   value={filters["comment"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "comment": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -588,7 +588,7 @@ if (showDeleted) {
                 <input
                   value={filters["swot?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "swot?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -596,7 +596,7 @@ if (showDeleted) {
                 <input
                   value={filters["pestle?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "pestle?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -604,7 +604,7 @@ if (showDeleted) {
                 <input
                   value={filters["interestedParty?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "interestedParty?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -612,7 +612,7 @@ if (showDeleted) {
                 <input
                   value={filters["riskOpportunity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "riskOpportunity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -620,7 +620,7 @@ if (showDeleted) {
                 <input
                   value={filters["objective"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "objective": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -628,7 +628,7 @@ if (showDeleted) {
                 <input
                   value={filters["kpi"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "kpi": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -636,7 +636,7 @@ if (showDeleted) {
                 <input
                   value={filters["process?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "process?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -644,7 +644,7 @@ if (showDeleted) {
                 <input
                   value={filters["ecm?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "ecm?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -652,7 +652,7 @@ if (showDeleted) {
                 <input
                   value={filters["initialRiskSeverity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "initialRiskSeverity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -660,7 +660,7 @@ if (showDeleted) {
                 <input
                   value={filters["initialRiskLikelihood"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "initialRiskLikelihood": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -668,7 +668,7 @@ if (showDeleted) {
                 <input
                   value={filters["acm"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "acm": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -676,7 +676,7 @@ if (showDeleted) {
                 <input
                   value={filters["residualRiskSeverity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "residualRiskSeverity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -684,7 +684,7 @@ if (showDeleted) {
                 <input
                   value={filters["residualRiskLikelihood"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "residualRiskLikelihood": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -692,7 +692,7 @@ if (showDeleted) {
                 <input
                   value={filters["comment"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "comment": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1143,7 +1143,7 @@ if (showDeleted) {
                 <input
                   value={filters["swot?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "swot?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1151,7 +1151,7 @@ if (showDeleted) {
                 <input
                   value={filters["pestle?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "pestle?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1159,7 +1159,7 @@ if (showDeleted) {
                 <input
                   value={filters["interestedParty?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "interestedParty?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1167,7 +1167,7 @@ if (showDeleted) {
                 <input
                   value={filters["riskOpportunity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "riskOpportunity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1175,7 +1175,7 @@ if (showDeleted) {
                 <input
                   value={filters["objective"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "objective": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1183,7 +1183,7 @@ if (showDeleted) {
                 <input
                   value={filters["kpi"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "kpi": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1191,7 +1191,7 @@ if (showDeleted) {
                 <input
                   value={filters["process?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "process?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1199,7 +1199,7 @@ if (showDeleted) {
                 <input
                   value={filters["ecm?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "ecm?.value": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1207,7 +1207,7 @@ if (showDeleted) {
                 <input
                   value={filters["initialRiskSeverity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "initialRiskSeverity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1215,7 +1215,7 @@ if (showDeleted) {
                 <input
                   value={filters["initialRiskLikelihood"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "initialRiskLikelihood": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1223,7 +1223,7 @@ if (showDeleted) {
                 <input
                   value={filters["acm"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "acm": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1231,7 +1231,7 @@ if (showDeleted) {
                 <input
                   value={filters["residualRiskSeverity"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "residualRiskSeverity": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1239,7 +1239,7 @@ if (showDeleted) {
                 <input
                   value={filters["residualRiskLikelihood"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "residualRiskLikelihood": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
@@ -1247,7 +1247,7 @@ if (showDeleted) {
                 <input
                   value={filters["comment"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "comment": e.target.value}))}
-                  placeholder="Filtrele..."
+                  placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
