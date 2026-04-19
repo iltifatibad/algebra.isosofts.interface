@@ -234,7 +234,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   const SoftBadge = ({ value, color }) =>
     value ? (
       <span
-        className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
+        className={`inline-block px-1.5 py-0.5 rounded-full text-xs font-medium shadow-sm ${color}`}
       >
         {value}
       </span>
@@ -242,7 +242,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
   if (showDeleted) {
     return (
-      <tbody className="text-sm">
+      <tbody className="text-xs">
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-4 text-gray-600">
@@ -265,7 +265,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
             const SoftBadge = ({ value, color }) =>
               value ? (
                 <span
-                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
+                  className={`inline-block px-1.5 py-0.5 rounded-full text-xs font-medium shadow-sm ${color}`}
                 >
                   {value}
                 </span>
@@ -332,7 +332,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Days Left To Next Appraisal */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   {(() => {
     if (!row.nextAppraisalDate) return (
       <SoftBadge value="No" color="bg-orange-100 text-orange-700 border border-orange-200" />
@@ -359,7 +359,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 
 {/* Evaulation Done */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   {(() => {
     if (!row.nextAppraisalDate) return (
       <SoftBadge value="No" color="bg-orange-100 text-orange-700 border border-orange-200" />
@@ -428,7 +428,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   />
 </td>
 
-    <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+    <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
       <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
     </td>
                 </tr>
@@ -442,7 +442,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
     );
   } else if (showArchived) {
     return (
-      <tbody className="text-sm">
+      <tbody className="text-xs">
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-4 text-gray-600">
@@ -465,7 +465,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
             const SoftBadge = ({ value, color }) =>
               value ? (
                 <span
-                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
+                  className={`inline-block px-1.5 py-0.5 rounded-full text-xs font-medium shadow-sm ${color}`}
                 >
                   {value}
                 </span>
@@ -531,7 +531,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Days Left To Next Appraisal */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   {(() => {
     if (!row.nextAppraisalDate) return (
       <SoftBadge value="No" color="bg-orange-100 text-orange-700 border border-orange-200" />
@@ -558,7 +558,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 
 
 {/* Evaulation Done */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   {(() => {
     if (!row.nextAppraisalDate) return (
       <SoftBadge value="No" color="bg-orange-100 text-orange-700 border border-orange-200" />
@@ -627,7 +627,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   />
 </td>
 
-    <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+    <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
       <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
     </td>
                 </tr>
@@ -655,7 +655,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
             // Soft badge
             const SoftBadge = ({ value }) =>
               value ? (
-                <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
+                <span className="px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
                   {value}
                 </span>
               ) : null;
@@ -790,7 +790,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
             // Soft badge
             const SoftBadge = ({ value }) =>
               value ? (
-                <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
+                <span className="px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
                   {value}
                 </span>
               ) : null;
@@ -924,7 +924,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   } else {
     // 🟩 Normal (aktif) tablo
     return (
-      <tbody className="text-sm">
+      <tbody className="text-xs">
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-6 text-gray-600">
@@ -955,7 +955,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 >
                   {/* ID + Checkbox */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-16 sticky left-[-1px] top-0 z-10 bg-white"
+                    className="border border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white"
                     rowSpan={1}
                   >
                     <div className="flex items-center gap-2">
@@ -1006,7 +1006,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Days Left To Next Appraisal */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   {(() => {
     if (!row.nextAppraisalDate) return (
       <SoftBadge value="No" color="bg-orange-100 text-orange-700 border border-orange-200" />
@@ -1032,7 +1032,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Evaulation Done */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   {(() => {
     if (!row.nextAppraisalDate) return (
       <SoftBadge value="No" color="bg-orange-100 text-orange-700 border border-orange-200" />
@@ -1101,7 +1101,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   />
 </td>
 
-    <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+    <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
       <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
     </td>
                 </tr>

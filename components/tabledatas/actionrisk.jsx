@@ -236,7 +236,7 @@ console.log("URL:", url);
   const SoftBadge = ({ value, color }) =>
     value ? (
       <span
-        className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
+        className={`inline-block px-1.5 py-0.5 rounded-full text-xs font-medium shadow-sm ${color}`}
       >
         {value}
       </span>
@@ -245,7 +245,7 @@ console.log("URL:", url);
 
     // 🟩 Normal (aktif) tablo
   return (
-  <tbody className="text-sm">
+  <tbody className="text-xs">
     {loading ? (
       <tr>
         <td colSpan={25} className="text-center py-6 text-gray-600">

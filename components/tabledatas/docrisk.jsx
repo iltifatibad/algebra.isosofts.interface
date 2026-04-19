@@ -233,14 +233,14 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
            const SoftBadge = ({ value, color }) =>
               value ? (
                 <span
-                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
+                  className={`inline-block px-1.5 py-0.5 rounded-full text-xs font-medium shadow-sm ${color}`}
                 >
                   {value}
                 </span>
               ) : null;
   if (showDeleted) {
     return (
-      <tbody className="text-sm">
+      <tbody className="text-xs">
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-4 text-gray-600">
@@ -263,7 +263,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
             const SoftBadge = ({ value, color }) =>
               value ? (
                 <span
-                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
+                  className={`inline-block px-1.5 py-0.5 rounded-full text-xs font-medium shadow-sm ${color}`}
                 >
                   {value}
                 </span>
@@ -294,51 +294,51 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                     </div>
                   </td>
                  {/* Name */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.name} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.type?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* Origin */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.origin?.value} color="bg-blue-100 text-blue-700 border border-blue-200" />
 </td>
 
 {/* Number */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.number} color="bg-violet-100 text-violet-700 border border-violet-200" />
 </td>
 
 {/* Rev Number */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.revNumber} color="bg-amber-100 text-amber-700 border border-amber-200" />
 </td>
 
 {/* Issuer */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.issuer} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
 {/* Approver */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.approver} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* Issue Date */}
-<td className="border border-gray-200 px-3 py-2 w-28" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-28" rowSpan={1}>
   <SoftBadge value={row.issueDate} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
 </td>
 
 {/* Next Next Review Date */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.nextReviewDate} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Days Difference */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   {(() => {
     if (!row.nextReviewDate) return "";
     const diffInDays = Math.ceil((new Date(row.nextReviewDate) - new Date()) / (1000 * 60 * 60 * 24));
@@ -349,7 +349,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Valid Status */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   {(() => {
     if (!row.nextReviewDate) return "";
     const diffInDays = Math.ceil((new Date(row.nextReviewDate) - new Date()) / (1000 * 60 * 60 * 24));
@@ -367,7 +367,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   })()}
 </td>
 
-    <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+    <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
       <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
     </td>
                 </tr>
@@ -381,7 +381,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
     );
   } else if (showArchived) {
     return (
-      <tbody className="text-sm">
+      <tbody className="text-xs">
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-4 text-gray-600">
@@ -404,7 +404,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
             const SoftBadge = ({ value, color }) =>
               value ? (
                 <span
-                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
+                  className={`inline-block px-1.5 py-0.5 rounded-full text-xs font-medium shadow-sm ${color}`}
                 >
                   {value}
                 </span>
@@ -435,51 +435,51 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                     </div>
                   </td>
                {/* Name */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.name} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.type?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* Origin */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.origin?.value} color="bg-blue-100 text-blue-700 border border-blue-200" />
 </td>
 
 {/* Number */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.number} color="bg-violet-100 text-violet-700 border border-violet-200" />
 </td>
 
 {/* Rev Number */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.revNumber} color="bg-amber-100 text-amber-700 border border-amber-200" />
 </td>
 
 {/* Issuer */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.issuer} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
 {/* Approver */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.approver} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* Issue Date */}
-<td className="border border-gray-200 px-3 py-2 w-28" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-28" rowSpan={1}>
   <SoftBadge value={row.issueDate} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
 </td>
 
 {/* Next Next Review Date */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.nextReviewDate} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Days Difference */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   {(() => {
     if (!row.nextReviewDate) return "";
     const diffInDays = Math.ceil((new Date(row.nextReviewDate) - new Date()) / (1000 * 60 * 60 * 24));
@@ -490,7 +490,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Valid Status */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   {(() => {
     if (!row.nextReviewDate) return "";
     const diffInDays = Math.ceil((new Date(row.nextReviewDate) - new Date()) / (1000 * 60 * 60 * 24));
@@ -508,7 +508,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   })()}
 </td>
 
-    <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+    <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
       <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
     </td>
                 </tr>
@@ -666,7 +666,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
             // Soft badge
             const SoftBadge = ({ value }) =>
               value ? (
-                <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
+                <span className="px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-700 text-xs font-medium">
                   {value}
                 </span>
               ) : null;
@@ -800,7 +800,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   } else {
     // 🟩 Normal (aktif) tablo
     return (
-      <tbody className="text-sm">
+      <tbody className="text-xs">
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-6 text-gray-600">
@@ -831,7 +831,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 >
                   {/* ID + Checkbox */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-16 sticky left-[-1px] top-0 z-10 bg-white"
+                    className="border border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white"
                     rowSpan={1}
                   >
                     <div className="flex items-center gap-2">
@@ -848,51 +848,51 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   </td>
 
                  {/* Name */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.name} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.type?.value} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* Origin */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.origin?.value} color="bg-blue-100 text-blue-700 border border-blue-200" />
 </td>
 
 {/* Number */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.number} color="bg-violet-100 text-violet-700 border border-violet-200" />
 </td>
 
 {/* Rev Number */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.revNumber} color="bg-amber-100 text-amber-700 border border-amber-200" />
 </td>
 
 {/* Issuer */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.issuer} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
 {/* Approver */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.approver} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* Issue Date */}
-<td className="border border-gray-200 px-3 py-2 w-28" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-28" rowSpan={1}>
   <SoftBadge value={row.issueDate} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
 </td>
 
 {/* Next Next Review Date */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.nextReviewDate} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
 
 {/* Days Difference */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   {(() => {
     if (!row.nextReviewDate) return "";
     const diffInDays = Math.ceil((new Date(row.nextReviewDate) - new Date()) / (1000 * 60 * 60 * 24));
@@ -903,7 +903,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
 </td>
 
 {/* Valid Status */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   {(() => {
     if (!row.nextReviewDate) return "";
     const diffInDays = Math.ceil((new Date(row.nextReviewDate) - new Date()) / (1000 * 60 * 60 * 24));
@@ -921,7 +921,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   })()}
 </td>
 
-    <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+    <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
       <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
     </td>
                 </tr>

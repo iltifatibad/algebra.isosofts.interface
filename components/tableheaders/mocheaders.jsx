@@ -7,102 +7,102 @@ const MocHeaders = ({ activeHeader }) => {
         {/* First header row - fixed height for sticky positioning */}
         <tr className="h-13">
           <th
-            className="min-w-max border-r border-white sticky left-[-1px] top-0 z-21 bg-white -ml-px"
+            className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky left-[-1px] top-0 z-21 bg-white -ml-px"
             rowSpan={2}
           >
             #
           </th>
           <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Issuer
           </th>
           <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             MoC Issue Date
           </th>
           <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Reason Of Change
           </th>
           <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Process
           </th>
           <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Change Description
           </th>
           <th
-            className="min-w-50 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Risks
           </th>
          <th
-            className="min-w-50 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Existing Control Measures
           </th>
           <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-0 z-20 bg-blue-100"
             colSpan={3}
           >
             Initial Risk
           </th>
           <th
-            className="min-w-[120px] md:min-w-[240px] border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Additional Control Measures
           </th>
            <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-0 z-20 bg-blue-100"
             colSpan={3}
           >
             Residual Risk
           </th>
           <th
-            className="min-w-50 border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Approval
           </th>
           <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-0 z-20 bg-blue-100"
             rowSpan={2}
           >
             Comment
           </th>
         </tr>
         <tr className="h-[48px]">
-          <th className="min-w-[70px] border-r border-white sticky top-13 z-20 bg-blue-200">
+          <th className="min-w-[70px] border-r border-white text-xs whitespace-normal leading-tight sticky top-13 z-20 bg-blue-200">
             Severity
           </th>
-          <th className="min-w-[70px] border-r border-white sticky top-13 z-20 bg-blue-200">
+          <th className="min-w-[70px] border-r border-white text-xs whitespace-normal leading-tight sticky top-13 z-20 bg-blue-200">
             Likelihood
           </th>
-          <th className="min-w-[70px] border-r border-white sticky top-13 z-20 bg-blue-200">
+          <th className="min-w-[70px] border-r border-white text-xs whitespace-normal leading-tight sticky top-13 z-20 bg-blue-200">
             Level
           </th>
 
-          <th className="min-w-[70px] border-r border-white sticky top-13 z-20 bg-blue-200">
+          <th className="min-w-[70px] border-r border-white text-xs whitespace-normal leading-tight sticky top-13 z-20 bg-blue-200">
             Severity
           </th>
-          <th className="min-w-[70px] border-r border-white sticky top-13 z-20 bg-blue-200">
+          <th className="min-w-[70px] border-r border-white text-xs whitespace-normal leading-tight sticky top-13 z-20 bg-blue-200">
             Likeyhood
           </th>
-          <th className="min-w-[70px] border-r border-white sticky top-13 z-20 bg-blue-200">
+          <th className="min-w-[70px] border-r border-white text-xs whitespace-normal leading-tight sticky top-13 z-20 bg-blue-200">
             Level
           </th>
         </tr>
@@ -116,21 +116,21 @@ const MocHeaders = ({ activeHeader }) => {
         {/* First header row */}
         <tr className="w-full h-12">
           <th
-            className="min-w-35 border-r border-white sticky left-[-1px] top-0 z-21 bg-white -ml-px"
+            className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky left-[-1px] top-0 z-21 bg-white -ml-px"
             rowSpan={2}
           >
             #
           </th>
 
           <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-0 z-20 bg-blue-100"
             colSpan={11}
           >
             Action Plan
           </th>
 
           <th
-            className="min-w-max border-r border-white sticky top-0 z-20 bg-blue-100"
+            className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-0 z-20 bg-blue-100"
             colSpan={12}
           >
             Monitoring
@@ -139,37 +139,37 @@ const MocHeaders = ({ activeHeader }) => {
 
         {/* Second header row */}
         <tr className="h-12">
-          <th className="min-w-[120px] md:min-w-[240px] border-r border-white sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-12 z-20 bg-blue-200">
             Action
           </th>
-          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-12 z-20 bg-blue-200">
             Action Raise Date
           </th>
-          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-12 z-20 bg-blue-200">
             Resources
           </th>
-          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-12 z-20 bg-blue-200">
             Relative Function
           </th>
-          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-12 z-20 bg-blue-200">
             Responsible
           </th>
-          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-12 z-20 bg-blue-200">
             Deadline
           </th>
-          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-12 z-20 bg-blue-200">
             Action Confirmation
           </th>
-          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-12 z-20 bg-blue-200">
             Action Status
           </th>
-          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-12 z-20 bg-blue-200">
             Completion Date
           </th>
-          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-12 z-20 bg-blue-200">
             Status Of Verification
           </th>
-          <th className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200">
+          <th className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-12 z-20 bg-blue-200">
             Comment
           </th>
 
@@ -190,7 +190,7 @@ const MocHeaders = ({ activeHeader }) => {
           ].map((month) => (
             <th
               key={month}
-              className="min-w-30 border-r border-white sticky top-12 z-20 bg-blue-200"
+              className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-12 z-20 bg-blue-200"
             >
               {month}
             </th>

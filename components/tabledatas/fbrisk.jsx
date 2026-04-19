@@ -278,7 +278,7 @@ data.map(async (item) => {
               const SoftBadge = ({ value, color }) =>
               value ? (
                 <span
-                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
+                  className={`inline-block px-1.5 py-0.5 rounded-full text-xs font-medium shadow-sm ${color}`}
                 >
                   {value}
                 </span>
@@ -286,7 +286,7 @@ data.map(async (item) => {
 
   if (showDeleted) {
     return (
-      <tbody className="text-sm">
+      <tbody className="text-xs">
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-4 text-gray-600">
@@ -320,7 +320,7 @@ data.map(async (item) => {
                 >
                   {/* ID + Checkbox */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-16 sticky left-[-1px] top-0 z-10 bg-white"
+                    className="border border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white"
                     rowSpan={1}
                   >
                     <div className="flex items-center gap-2">
@@ -337,7 +337,7 @@ data.map(async (item) => {
                   </td>
 
                   {/* <td
-                    className="border border-gray-200 px-3 py-2 w-20"
+                    className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
                     {row.name && (
@@ -348,67 +348,67 @@ data.map(async (item) => {
                   </td> */}
 
                  {/* Job Number */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.jobNumber} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* Job Start Date */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.jobStartDate} color="bg-blue-100 text-blue-700 border border-blue-200" />
 </td>
 
 {/* Job Completion Date */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.jobCompletionDate} color="bg-violet-100 text-violet-700 border border-violet-200" />
 </td>
 
 {/* Scope */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.scope?.value} color="bg-amber-100 text-amber-700 border border-amber-200" />
 </td>
 
 {/* Name Of Customer */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.customerName} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
 {/* Type Of Finding */}
-<td className="border border-gray-200 px-3 py-2 w-28" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-28" rowSpan={1}>
   <SoftBadge value={row.typeOfFinding?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* Quality Of Services */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.qgs} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
 </td>
 
 {/* Communication */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.communication} color="bg-pink-100 text-pink-700 border border-pink-200" />
 </td>
 
 {/* On Time Delivery */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.otd} color="bg-lime-100 text-lime-700 border border-lime-200" />
 </td>
 
 {/* Documentation */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.documentation} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
 </td>
 
 {/* Health And Safety */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.hs} color="bg-yellow-100 text-yellow-700 border border-yellow-200" />
 </td>
 
 {/* Environment */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.environment} color="bg-green-100 text-green-700 border border-green-200" />
 </td>
 
 {/* Total Score */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge
 value={
   (
@@ -424,7 +424,7 @@ value={
   />
 </td>
 {/* Comment */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
 </td>
                 </tr>
@@ -438,7 +438,7 @@ value={
     );
   } else if (showArchived) {
     return (
-      <tbody className="text-sm">
+      <tbody className="text-xs">
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-4 text-gray-600">
@@ -461,7 +461,7 @@ value={
             const SoftBadge = ({ value, color }) =>
               value ? (
                 <span
-                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
+                  className={`inline-block px-1.5 py-0.5 rounded-full text-xs font-medium shadow-sm ${color}`}
                 >
                   {value}
                 </span>
@@ -479,7 +479,7 @@ value={
                 >
                   {/* ID + Checkbox */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-16 sticky left-[-1px] top-0 z-10 bg-white"
+                    className="border border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white"
                     rowSpan={1}
                   >
                     <div className="flex items-center gap-2">
@@ -496,7 +496,7 @@ value={
                   </td>
 
                   {/* <td
-                    className="border border-gray-200 px-3 py-2 w-20"
+                    className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
                     {row.name && (
@@ -508,67 +508,67 @@ value={
 
                   {/* Job Number */}
                  {/* Job Number */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.jobNumber} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* Job Start Date */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.jobStartDate} color="bg-blue-100 text-blue-700 border border-blue-200" />
 </td>
 
 {/* Job Completion Date */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.jobCompletionDate} color="bg-violet-100 text-violet-700 border border-violet-200" />
 </td>
 
 {/* Scope */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.scope?.value} color="bg-amber-100 text-amber-700 border border-amber-200" />
 </td>
 
 {/* Name Of Customer */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.customerName} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
 {/* Type Of Finding */}
-<td className="border border-gray-200 px-3 py-2 w-28" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-28" rowSpan={1}>
   <SoftBadge value={row.typeOfFinding?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* Quality Of Services */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.qgs} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
 </td>
 
 {/* Communication */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.communication} color="bg-pink-100 text-pink-700 border border-pink-200" />
 </td>
 
 {/* On Time Delivery */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.otd} color="bg-lime-100 text-lime-700 border border-lime-200" />
 </td>
 
 {/* Documentation */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.documentation} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
 </td>
 
 {/* Health And Safety */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.hs} color="bg-yellow-100 text-yellow-700 border border-yellow-200" />
 </td>
 
 {/* Environment */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.environment} color="bg-green-100 text-green-700 border border-green-200" />
 </td>
 
 {/* Total Score */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge
 value={
   (
@@ -585,7 +585,7 @@ value={
 </td>
 
 {/* Comment */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
 </td>
                 </tr>
@@ -599,7 +599,7 @@ value={
     );
   } else if (!activeHeader && showDeletedAction === false) {
     return (
-      <tbody className="text-sm">
+      <tbody className="text-xs">
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-6 text-gray-600">
@@ -631,7 +631,7 @@ value={
                 >
                   {/* ID + Checkbox */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-16 sticky left-[-1px] top-0 z-10 bg-white"
+                    className="border border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white"
                     rowSpan={1}
                   >
                     <div className="flex items-center gap-2">
@@ -650,7 +650,7 @@ value={
                   </td>
 
                   <td
-                    className="border border-gray-200 px-3 py-2 w-20"
+                    className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
                     {row.scope && (
@@ -662,7 +662,7 @@ value={
 
                   {/* Scope */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-32"
+                    className="border border-gray-200 px-2 py-1 w-32"
                     rowSpan={1}
                   >
                     {row.vendorName && (
@@ -674,7 +674,7 @@ value={
 
                   {/* Name Of Customer */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-32"
+                    className="border border-gray-200 px-2 py-1 w-32"
                     rowSpan={1}
                   >
                     {row.typeOfFinding && (
@@ -686,7 +686,7 @@ value={
 
                   {/* Type Of Finding */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-28"
+                    className="border border-gray-200 px-2 py-1 w-28"
                     rowSpan={1}
                   >
                     {row.qgs}
@@ -694,7 +694,7 @@ value={
 
                   {/* Quality Of Services */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-20"
+                    className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
                     {row.communication}
@@ -702,7 +702,7 @@ value={
 
                   {/* Communication */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-20"
+                    className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
                     {row.otd}
@@ -710,7 +710,7 @@ value={
 
                   {/* On Time Delivery */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-20"
+                    className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
                     {row.documentation}
@@ -718,7 +718,7 @@ value={
 
                   {/* Documentation */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-20"
+                    className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
                     {row.hs}
@@ -726,13 +726,13 @@ value={
 
                   {/* Health And Safety */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-20"
+                    className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
                     {row.environment}
                   </td>
 
-                  <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+                  <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
                     {(() => {
                       const values = [row.qgs, row.communication, row.otd, row.documentation, row.hs, row.environment];
                       const valid = values.filter(v => v !== null && v !== undefined && v !== "");
@@ -753,7 +753,7 @@ value={
 
                   {/* Environment
                   <td
-                    className="border border-gray-200 px-3 py-2 w-20"
+                    className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
                     {row.actual?.value}
@@ -767,7 +767,7 @@ value={
     );
   } else if (!activeHeader && showDeletedAction === true) {
     return (
-      <tbody className="text-sm">
+      <tbody className="text-xs">
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-6 text-gray-600">
@@ -798,7 +798,7 @@ value={
                 >
                   {/* ID + Checkbox */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-16 sticky left-[-1px] top-0 z-10 bg-white"
+                    className="border border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white"
                     rowSpan={1}
                   >
                     <div className="flex items-center gap-2">
@@ -817,7 +817,7 @@ value={
                   </td>
 
                   <td
-                    className="border border-gray-200 px-3 py-2 w-20"
+                    className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
                     {row.name && (
@@ -829,7 +829,7 @@ value={
 
                   {/* Scope */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-32"
+                    className="border border-gray-200 px-2 py-1 w-32"
                     rowSpan={1}
                   >
                     {row.issuer && (
@@ -841,7 +841,7 @@ value={
 
                   {/* Name Of Customer */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-32"
+                    className="border border-gray-200 px-2 py-1 w-32"
                     rowSpan={1}
                   >
                     {row.vendorName && (
@@ -853,7 +853,7 @@ value={
 
                   {/* Type Of Finding */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-28"
+                    className="border border-gray-200 px-2 py-1 w-28"
                     rowSpan={1}
                   >
                     {row.issueDate}
@@ -861,7 +861,7 @@ value={
 
                   {/* Quality Of Services */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-20"
+                    className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
                     {row.nextReviewDate}
@@ -869,7 +869,7 @@ value={
 
                   {/* Communication */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-20"
+                    className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
                     {row.nextReviewDate}
@@ -877,7 +877,7 @@ value={
 
                   {/* On Time Delivery */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-20"
+                    className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
                     {row.actual?.value}
@@ -885,7 +885,7 @@ value={
 
                   {/* Documentation */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-20"
+                    className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
                     {row.actual?.value}
@@ -893,13 +893,13 @@ value={
 
                   {/* Health And Safety */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-20"
+                    className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
                     {row.actual?.value}
                   </td>
 
-                  <td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+                  <td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
                     {(() => {
                       const values = [row.qgs, row.communication, row.otd, row.documentation, row.hs, row.environment];
                       const valid = values.filter(v => v !== null && v !== undefined && v !== "");
@@ -920,7 +920,7 @@ value={
                   
                   {/* Environment
                   <td
-                    className="border border-gray-200 px-3 py-2 w-20"
+                    className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
                     {row.actual?.value}
@@ -935,7 +935,7 @@ value={
   } else {
     // 🟩 Normal (aktif) tablo
     return (
-      <tbody className="text-sm">
+      <tbody className="text-xs">
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-6 text-gray-600">
@@ -966,7 +966,7 @@ value={
                 >
                   {/* ID + Checkbox */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-16 sticky left-[-1px] top-0 z-10 bg-white"
+                    className="border border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white"
                     rowSpan={1}
                   >
                     <div className="flex items-center gap-2">
@@ -983,7 +983,7 @@ value={
                   </td>
 
                   {/* <td
-                    className="border border-gray-200 px-3 py-2 w-20"
+                    className="border border-gray-200 px-2 py-1 w-20"
                     rowSpan={1}
                   >
                     {row.name && (
@@ -994,67 +994,67 @@ value={
                   </td> */}
 
 {/* Job Number */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.jobNumber} color="bg-rose-100 text-rose-700 border border-rose-200" />
 </td>
 
 {/* Job Start Date */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.jobStartDate} color="bg-blue-100 text-blue-700 border border-blue-200" />
 </td>
 
 {/* Job Completion Date */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.jobCompletionDate} color="bg-violet-100 text-violet-700 border border-violet-200" />
 </td>
 
 {/* Scope */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.scope?.value} color="bg-amber-100 text-amber-700 border border-amber-200" />
 </td>
 
 {/* Name Of Customer */}
-<td className="border border-gray-200 px-3 py-2 w-32" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-32" rowSpan={1}>
   <SoftBadge value={row.customerName} color="bg-cyan-100 text-cyan-700 border border-cyan-200" />
 </td>
 
 {/* Type Of Finding */}
-<td className="border border-gray-200 px-3 py-2 w-28" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-28" rowSpan={1}>
   <SoftBadge value={row.typeOfFinding?.value} color="bg-teal-100 text-teal-700 border border-teal-200" />
 </td>
 
 {/* Quality Of Services */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.qgs} color="bg-indigo-100 text-indigo-700 border border-indigo-200" />
 </td>
 
 {/* Communication */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.communication} color="bg-pink-100 text-pink-700 border border-pink-200" />
 </td>
 
 {/* On Time Delivery */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.otd} color="bg-lime-100 text-lime-700 border border-lime-200" />
 </td>
 
 {/* Documentation */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.documentation} color="bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200" />
 </td>
 
 {/* Health And Safety */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.hs} color="bg-yellow-100 text-yellow-700 border border-yellow-200" />
 </td>
 
 {/* Environment */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.environment} color="bg-green-100 text-green-700 border border-green-200" />
 </td>
 
 {/* Total Score */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge
 value={
   (
@@ -1071,7 +1071,7 @@ value={
 </td>
 
 {/* Comment */}
-<td className="border border-gray-200 px-3 py-2 w-20" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 w-20" rowSpan={1}>
   <SoftBadge value={row.comment} color="bg-green-100 text-green-700 border border-green-200" />
 </td>
                 </tr>

@@ -279,7 +279,7 @@ const MyTableBody = ({
 
 if (showDeleted) {
     return (
-      <tbody className="text-sm">
+      <tbody className="text-xs">
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-4 text-gray-600">
@@ -302,7 +302,7 @@ if (showDeleted) {
             const SoftBadge = ({ value, color }) =>
               value ? (
                 <span
-                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm whitespace-normal break-words ${color}`}
+                  className={`inline-block px-1.5 py-0.5 rounded-full text-xs font-medium shadow-sm whitespace-normal break-words ${color}`}
                 >
                   {value}
                 </span>
@@ -414,7 +414,7 @@ if (showDeleted) {
   })()}
 </td>
 
-<td className="border border-gray-200 px-3 py-2 min-w-[5rem] max-w-[14rem]" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[14rem]" rowSpan={1}>
   <SoftBadge value={row.comment} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
                 </tr>
@@ -428,7 +428,7 @@ if (showDeleted) {
     );
   } else if (showArchived) {
     return (
-      <tbody className="text-sm">
+      <tbody className="text-xs">
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-4 text-gray-600">
@@ -451,7 +451,7 @@ if (showDeleted) {
             const SoftBadge = ({ value, color }) =>
               value ? (
                 <span
-                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm whitespace-normal break-words ${color}`}
+                  className={`inline-block px-1.5 py-0.5 rounded-full text-xs font-medium shadow-sm whitespace-normal break-words ${color}`}
                 >
                   {value}
                 </span>
@@ -469,7 +469,7 @@ if (showDeleted) {
                 >
                   {/* ID + Checkbox */}
                   <td
-                    className="border border-gray-200 px-3 py-2 min-w-[4rem] sticky left-[-1px] top-0 z-10 bg-white"
+                    className="border border-gray-200 px-2 py-1 min-w-[4rem] sticky left-[-1px] top-0 z-10 bg-white"
                     rowSpan={1}
                   >
                     <div className="flex items-center gap-2">
@@ -566,7 +566,7 @@ if (showDeleted) {
   })()}
 </td>
 
-<td className="border border-gray-200 px-3 py-2 min-w-[5rem] max-w-[14rem]" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[14rem]" rowSpan={1}>
   <SoftBadge value={row.comment} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
                 </tr>
@@ -593,7 +593,7 @@ if (showDeleted) {
 
             const SoftBadge = ({ value }) =>
               value ? (
-                <span className="px-2 py-1 rounded-full bg-sky-100 text-sky-700 text-xs font-medium whitespace-normal break-words">
+                <span className="px-1.5 py-0.5 rounded-full bg-sky-100 text-sky-700 text-xs font-medium whitespace-normal break-words">
                   {value}
                 </span>
               ) : null;
@@ -727,7 +727,7 @@ if (showDeleted) {
 
             const SoftBadge = ({ value }) =>
               value ? (
-                <span className="px-2 py-1 rounded-full bg-sky-100 text-sky-700 text-xs font-medium whitespace-normal break-words">
+                <span className="px-1.5 py-0.5 rounded-full bg-sky-100 text-sky-700 text-xs font-medium whitespace-normal break-words">
                   {value}
                 </span>
               ) : null;
@@ -860,7 +860,7 @@ if (showDeleted) {
   } else {
     // 🟩 Normal (aktif) tablo
     return (
-      <tbody className="text-sm">
+      <tbody className="text-xs">
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-6 text-gray-600">
@@ -883,7 +883,7 @@ if (showDeleted) {
             const SoftBadge = ({ value, color }) =>
               value ? (
                 <span
-                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm whitespace-normal break-words ${color}`}
+                  className={`inline-block px-1.5 py-0.5 rounded-full text-xs font-medium shadow-sm whitespace-normal break-words ${color}`}
                 >
                   {value}
                 </span>
@@ -900,7 +900,7 @@ if (showDeleted) {
                 >
                   {/* ID + Checkbox */}
                   <td
-                    className="border border-gray-200 px-3 py-2 min-w-[4rem] sticky left-[-1px] top-0 z-10 bg-white"
+                    className="border border-gray-200 px-2 py-1 min-w-[4rem] sticky left-[-1px] top-0 z-10 bg-white"
                     rowSpan={1}
                   >
                     <div className="flex items-center gap-2">
@@ -997,7 +997,7 @@ if (showDeleted) {
   })()}
 </td>
 
-<td className="border border-gray-200 px-3 py-2 min-w-[5rem] max-w-[14rem]" rowSpan={1}>
+<td className="border border-gray-200 px-2 py-1 min-w-[5rem] max-w-[14rem]" rowSpan={1}>
   <SoftBadge value={row.comment} color="bg-sky-100 text-sky-700 border border-sky-200" />
 </td>
                 </tr>

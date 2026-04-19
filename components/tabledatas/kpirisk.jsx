@@ -114,7 +114,7 @@ const KPIBody = ({
   if (error) return;
   // 🟩 Normal (aktif) tablo
   return (
-      <tbody className="text-sm">
+      <tbody className="text-xs">
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-6 text-gray-600">
@@ -137,7 +137,7 @@ const KPIBody = ({
             const SoftBadge = ({ value, color }) =>
               value ? (
                 <span
-                  className={`inline-block px-2 py-1 rounded-full text-sm font-medium shadow-sm ${color}`}
+                  className={`inline-block px-1.5 py-0.5 rounded-full text-xs font-medium shadow-sm ${color}`}
                 >
                   {value}
                 </span>
@@ -156,7 +156,7 @@ const KPIBody = ({
                 >
                   {/* ID + Checkbox */}
                   <td
-                    className="border border-gray-200 px-3 py-2 w-16 sticky left-[-1px] top-0 z-10 bg-white"
+                    className="border border-gray-200 px-2 py-1 w-16 sticky left-[-1px] top-0 z-10 bg-white"
                     rowSpan={1}
                   >
                     <div className="flex items-center gap-2">
