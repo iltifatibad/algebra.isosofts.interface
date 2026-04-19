@@ -270,11 +270,9 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
             {/* ── Filter Row ── */}
             <tr className="bg-gray-50 border-b-2 border-blue-200">
               <td className="border border-gray-200 px-1 py-1 sticky left-[-1px] z-10 bg-gray-50">
-                <button
-                  onClick={() => setFilters({})}
+                <button onClick={() => setFilters({})}
                   className="text-[10px] bg-blue-500 text-white rounded px-1.5 py-0.5 hover:bg-blue-600 whitespace-nowrap"
-                  title="Filtreleri Temizle"
-                >✕ Clear</button>
+                  title="Clear Filters">✕ Clear</button>
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
@@ -347,6 +345,9 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
+              </td>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
+                <span className="text-[10px] text-gray-400 px-1">—</span>
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
@@ -509,11 +510,9 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
             {/* ── Filter Row ── */}
             <tr className="bg-gray-50 border-b-2 border-blue-200">
               <td className="border border-gray-200 px-1 py-1 sticky left-[-1px] z-10 bg-gray-50">
-                <button
-                  onClick={() => setFilters({})}
+                <button onClick={() => setFilters({})}
                   className="text-[10px] bg-blue-500 text-white rounded px-1.5 py-0.5 hover:bg-blue-600 whitespace-nowrap"
-                  title="Filtreleri Temizle"
-                >✕ Clear</button>
+                  title="Clear Filters">✕ Clear</button>
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
@@ -586,6 +585,9 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
+              </td>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
+                <span className="text-[10px] text-gray-400 px-1">—</span>
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
@@ -1031,11 +1033,9 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
             {/* ── Filter Row ── */}
             <tr className="bg-gray-50 border-b-2 border-blue-200">
               <td className="border border-gray-200 px-1 py-1 sticky left-[-1px] z-10 bg-gray-50">
-                <button
-                  onClick={() => setFilters({})}
+                <button onClick={() => setFilters({})}
                   className="text-[10px] bg-blue-500 text-white rounded px-1.5 py-0.5 hover:bg-blue-600 whitespace-nowrap"
-                  title="Filtreleri Temizle"
-                >✕ Clear</button>
+                  title="Clear Filters">✕ Clear</button>
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
@@ -1108,6 +1108,9 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
+              </td>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
+                <span className="text-[10px] text-gray-400 px-1">—</span>
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
