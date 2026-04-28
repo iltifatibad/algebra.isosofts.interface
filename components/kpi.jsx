@@ -254,7 +254,7 @@ export default function KPIDashboard() {
               <optgroup label="── OPI ──">
                 {opiData.map(o => (
                   <option key={`opi__${o.id}`} value={`opi__${o.id}`}>
-                    {o.no} — {o.title}{o.companyId ? ` (${o.companyId})` : ""}
+                    {o.no} — {o.title}
                   </option>
                 ))}
               </optgroup>

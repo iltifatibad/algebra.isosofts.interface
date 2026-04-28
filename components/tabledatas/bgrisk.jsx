@@ -165,7 +165,7 @@ const MyTableBody = ({
 
   const applyFilters = (data) => {
     if (!data?.length) return data || [];
-    const active = Object.entries(filters).filter(([, v]) => v?.trim());
+    const active = Object.entries(filters).filter(([k, v]) => v?.trim() && !k.startsWith("_"));
     if (!active.length) return data;
     return data.filter(row =>
       active.every(([key, val]) => {
