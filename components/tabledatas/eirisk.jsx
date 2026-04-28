@@ -167,14 +167,34 @@ const getDeletedActionData = async () => {
     );
   };
 
+  const applyComputedFilters = (data) => {
+    if (!data?.length) return data || [];
+    let result = data;
+    if (filters["_daysDifference"]?.trim()) {
+      result = result.filter(row => {
+        if (!row.nvcd) return false;
+        const d = Math.ceil((new Date(row.nvcd) - new Date()) / (1000 * 60 * 60 * 24));
+        return `${d} Days`.toLowerCase().includes(filters["_daysDifference"].toLowerCase());
+      });
+    }
+    if (filters["_safeStatus"]?.trim()) {
+      result = result.filter(row => {
+        if (!row.nvcd) return false;
+        const d = Math.ceil((new Date(row.nvcd) - new Date()) / (1000 * 60 * 60 * 24));
+        return (d > 0 ? "Safe" : "Not Safe").toLowerCase().includes(filters["_safeStatus"].toLowerCase());
+      });
+    }
+    return result;
+  };
+
   // ────────────────────────────────────────────────────────────────────────
 
 
   const [tableData, setTableData] = useState([]);
 
-  const filteredData         = applyFilters(tableData);
-  const filteredArchivedData = applyFilters(archivedData);
-  const filteredDeletedData  = applyFilters(deletedData);
+  const filteredData         = applyComputedFilters(applyFilters(tableData));
+  const filteredArchivedData = applyComputedFilters(applyFilters(archivedData));
+  const filteredDeletedData  = applyComputedFilters(applyFilters(deletedData));
  const getAll = async () => {
   setLoading(true);
   const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";

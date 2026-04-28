@@ -171,9 +171,6 @@ const getDeletedActionData = async () => {
 
   const [tableData, setTableData] = useState([]);
 
-  const filteredData         = applyFilters(tableData);
-  const filteredArchivedData = applyFilters(archivedData);
-  const filteredDeletedData  = applyFilters(deletedData);
 const getAll = async () => {
   setLoading(true);
   const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
@@ -277,6 +274,28 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   };
 };
 
+  const applyComputedFilters = (data) => {
+    if (!data?.length) return data || [];
+    let result = data;
+    if (filters["_initialRiskLevel"]?.trim()) {
+      result = result.filter(row =>
+        getRiskLevel(row.initialRiskSeverity, row.initialRiskLikelihood).label
+          .toLowerCase().includes(filters["_initialRiskLevel"].toLowerCase())
+      );
+    }
+    if (filters["_residualRiskLevel"]?.trim()) {
+      result = result.filter(row =>
+        getRiskLevel(row.residualRiskSeverity, row.residualRiskLikelihood).label
+          .toLowerCase().includes(filters["_residualRiskLevel"].toLowerCase())
+      );
+    }
+    return result;
+  };
+
+  const filteredData         = applyComputedFilters(applyFilters(tableData));
+  const filteredArchivedData = applyComputedFilters(applyFilters(archivedData));
+  const filteredDeletedData  = applyComputedFilters(applyFilters(deletedData));
+
   useEffect(() => {
     if (!activeHeader && selectedRows.size > 0) {
       // selectedRows.size ile Set'in boş olup olmadığını kontrol et
@@ -377,8 +396,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["_initialRiskLevel"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "_initialRiskLevel": e.target.value}))}
+                  placeholder="Filter..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
@@ -404,8 +428,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["_residualRiskLevel"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "_residualRiskLevel": e.target.value}))}
+                  placeholder="Filter..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
@@ -642,8 +671,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["_initialRiskLevel"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "_initialRiskLevel": e.target.value}))}
+                  placeholder="Filter..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
@@ -669,8 +703,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["_residualRiskLevel"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "_residualRiskLevel": e.target.value}))}
+                  placeholder="Filter..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
@@ -1190,8 +1229,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["_initialRiskLevel"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "_initialRiskLevel": e.target.value}))}
+                  placeholder="Filter..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
@@ -1217,8 +1261,13 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["_residualRiskLevel"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "_residualRiskLevel": e.target.value}))}
+                  placeholder="Filter..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input

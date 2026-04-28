@@ -167,14 +167,41 @@ const getDeletedActionData = async () => {
     );
   };
 
+  const applyComputedFilters = (data) => {
+    if (!data?.length) return data || [];
+    let result = data;
+    if (filters["_daysLeft"]?.trim()) {
+      result = result.filter(row => {
+        if (!row.nextAppraisalDate) return "no".includes(filters["_daysLeft"].toLowerCase());
+        const d = Math.ceil((new Date(row.nextAppraisalDate) - new Date()) / (1000 * 60 * 60 * 24));
+        return `${d} days`.toLowerCase().includes(filters["_daysLeft"].toLowerCase());
+      });
+    }
+    if (filters["_validStatus"]?.trim()) {
+      result = result.filter(row => {
+        if (!row.nextAppraisalDate) return "no".includes(filters["_validStatus"].toLowerCase());
+        const d = Math.ceil((new Date(row.nextAppraisalDate) - new Date()) / (1000 * 60 * 60 * 24));
+        return (d >= 0 ? "Valid" : "Not Valid").toLowerCase().includes(filters["_validStatus"].toLowerCase());
+      });
+    }
+    if (filters["_totalScore"]?.trim()) {
+      result = result.filter(row => {
+        const total = [row.tca, row.skillsAppraisal, row.jobQuality, row.leadershipSkills, row.managementSkills, row.behavioralSkills, row.effectivenessOfTrainings]
+          .map(v => Number(v) || 0).reduce((a, b) => a + b, 0);
+        return String(total).includes(filters["_totalScore"].trim());
+      });
+    }
+    return result;
+  };
+
   // ────────────────────────────────────────────────────────────────────────
 
 
   const [tableData, setTableData] = useState([]);
 
-  const filteredData         = applyFilters(tableData);
-  const filteredArchivedData = applyFilters(archivedData);
-  const filteredDeletedData  = applyFilters(deletedData);
+  const filteredData         = applyComputedFilters(applyFilters(tableData));
+  const filteredArchivedData = applyComputedFilters(applyFilters(archivedData));
+  const filteredDeletedData  = applyComputedFilters(applyFilters(deletedData));
 const getAll = async () => {
   setLoading(true);
   const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
