@@ -43,28 +43,77 @@ const axes = (unit = "") => (
   </>
 );
 
+const getToken = () =>
+  document.cookie
+    .split("; ")
+    .find((r) => r.startsWith("auth_token="))
+    ?.split("=")
+    .slice(1)
+    .join("=") ?? "";
+
 export default function KPIDashboard() {
-  const [tableData, setTableData]   = useState([]);
+  const [kpiData, setKpiData]       = useState([]);
+  const [opiData, setOpiData]       = useState([]);
   const [loading, setLoading]       = useState(false);
   const [error, setError]           = useState(null);
   const [selectedId, setSelectedId] = useState(null);
+  const [selectedType, setSelectedType] = useState(null); // "kpi" | "opi"
   const [chartType, setChartType]   = useState("line");
 
-  const getToken = () =>
-    document.cookie.split("; ").find(r => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+  // KPI fetch
+  const getKPI = () => {
+    const token = getToken();
+    return fetch(`/api/dashboard/kpi?token=${token}`)
+      .then(r => { if (!r.ok) throw new Error("Failed to load KPI data"); return r.json(); });
+  };
+
+  // OPI fetch
+  const getOPI = () => {
+    const token = getToken();
+    return fetch(`/api/dashboard/opi/all?token=${token}`)
+      .then(r => { if (!r.ok) throw new Error("Failed To Get Datas From Database"); return r.json(); });
+  };
 
   const getAll = () => {
     setLoading(true);
-    const token = getToken();
-    fetch(`/api/dashboard/kpi?token=${token}`)
-      .then(r => { if (!r.ok) throw new Error("Failed to load KPI data"); return r.json(); })
-      .then(data => { setTableData(data); if (data.length > 0) setSelectedId(data[0].id); setLoading(false); })
-      .catch(e => { setError(e.message); setLoading(false); });
+    setError(null);
+
+    Promise.all([getKPI(), getOPI()])
+      .then(([kpi, opi]) => {
+        setKpiData(kpi);
+        setOpiData(opi);
+
+        // İlk seçili item'ı belirle
+        if (kpi.length > 0) {
+          setSelectedId(kpi[0].id);
+          setSelectedType("kpi");
+        } else if (opi.length > 0) {
+          setSelectedId(opi[0].id);
+          setSelectedType("opi");
+        }
+
+        setLoading(false);
+      })
+      .catch(e => {
+        setError(e.message);
+        setLoading(false);
+      });
   };
 
   useEffect(() => { getAll(); }, []);
 
-  const kpi = tableData.find(k => k.id === selectedId) || null;
+  // Dropdown değiştiğinde hem id hem type güncelle
+  const handleSelect = (e) => {
+    const val = e.target.value; // "kpi__<id>" veya "opi__<id>"
+    const [type, ...rest] = val.split("__");
+    setSelectedType(type);
+    setSelectedId(rest.join("__"));
+  };
+
+  // Seçili item
+  const kpi = selectedType === "kpi"
+    ? kpiData.find(k => k.id === selectedId) || null
+    : opiData.find(o => o.id === selectedId) || null;
 
   const chartData = kpi
     ? MONTHS.map((m, i) => ({
@@ -152,10 +201,11 @@ export default function KPIDashboard() {
     }
   };
 
+  // Seçili dropdown value
+  const dropdownValue = selectedId && selectedType ? `${selectedType}__${selectedId}` : "";
+
   return (
     <div style={{
-      // marginLeft ve marginTop tamamen kaldır
-      // height ve width da flex ile otomatik dolacak
       height:      "100%",
       width:       "100%",
       background:  "linear-gradient(135deg, #eff6ff 0%, #ffffff 100%)",
@@ -177,18 +227,38 @@ export default function KPIDashboard() {
 
       {/* Controls */}
       <div style={{ display:"flex", gap:16, marginBottom:28, flexWrap:"wrap" }}>
-        {/* KPI Select */}
+        {/* KPI / OPI Select */}
         <div style={{ flex:"2 1 280px" }}>
           <label style={{ display:"block", fontSize:11, color:"#3b82f6", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:8 }}>
-            Select KPI
+            Select KPI / OPI
           </label>
           <select
-            value={selectedId || ""}
-            onChange={e => setSelectedId(e.target.value)}
+            value={dropdownValue}
+            onChange={handleSelect}
             disabled={loading}
             style={{ width:"100%", background:"#f8fafc", border:"1px solid #bfdbfe", color:"#1e3a5f", padding:"11px 16px", borderRadius:10, fontSize:14, outline:"none", cursor:"pointer" }}
           >
-            {tableData.map(k => <option key={k.id} value={k.id}>{k.no} — {k.title}</option>)}
+            {/* KPI Grubu */}
+            {kpiData.length > 0 && (
+              <optgroup label="── KPI ──">
+                {kpiData.map(k => (
+                  <option key={`kpi__${k.id}`} value={`kpi__${k.id}`}>
+                    {k.no} — {k.title}
+                  </option>
+                ))}
+              </optgroup>
+            )}
+
+            {/* OPI Grubu — companyId gösteriliyor */}
+            {opiData.length > 0 && (
+              <optgroup label="── OPI ──">
+                {opiData.map(o => (
+                  <option key={`opi__${o.id}`} value={`opi__${o.id}`}>
+                    {o.no} — {o.title}{o.companyId ? ` (${o.companyId})` : ""}
+                  </option>
+                ))}
+              </optgroup>
+            )}
           </select>
         </div>
 
@@ -223,7 +293,7 @@ export default function KPIDashboard() {
       {loading && (
         <div style={{ textAlign:"center", padding:"60px 0", color:"#94a3b8" }}>
           <i className="fas fa-circle-notch animate-spin" style={{ fontSize:24, marginBottom:12 }}></i>
-          <p style={{ margin:0, fontSize:14 }}>Loading KPI data...</p>
+          <p style={{ margin:0, fontSize:14 }}>Loading data...</p>
         </div>
       )}
 
@@ -266,20 +336,34 @@ export default function KPIDashboard() {
             </div>
           </div>
 
-          {/* Chart — padding: "24px 0" so ResponsiveContainer gets full width */}
+          {/* Chart */}
           <div style={{ background:"#ffffff", border:"1px solid #dbeafe", borderRadius:16, padding:"24px 0 16px", marginBottom:28 }}>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, paddingInline:20 }}>
               <div>
                 <h2 style={{ margin:0, fontSize:15, fontWeight:600, color:"#1e3a5f" }}>{kpi.title}</h2>
                 <p style={{ margin:"4px 0 0", fontSize:12, color:"#6b7280" }}>
                   Monthly Performance — {CHART_TYPES.find(c => c.value === chartType)?.label}
+                  {selectedType === "opi" && kpi.companyId && (
+                    <span style={{ marginLeft:8, background:"#f0fdf4", color:"#16a34a", fontSize:11, padding:"2px 8px", borderRadius:99 }}>
+                      Company: {kpi.companyId}
+                    </span>
+                  )}
                 </p>
               </div>
-              <span style={{ background:"#dbeafe", color:"#3b82f6", fontSize:12, padding:"4px 12px", borderRadius:99 }}>
-                {new Date().getFullYear()}
-              </span>
+              <div style={{ display:"flex", gap:8, alignItems:"center" }}>
+                {/* KPI / OPI Badge */}
+                <span style={{
+                  background: selectedType === "opi" ? "#f0fdf4" : "#eff6ff",
+                  color:      selectedType === "opi" ? "#16a34a"  : "#3b82f6",
+                  fontSize:12, padding:"4px 12px", borderRadius:99, fontWeight:600
+                }}>
+                  {selectedType?.toUpperCase()}
+                </span>
+                <span style={{ background:"#dbeafe", color:"#3b82f6", fontSize:12, padding:"4px 12px", borderRadius:99 }}>
+                  {new Date().getFullYear()}
+                </span>
+              </div>
             </div>
-            {/* Key fix: no horizontal padding on this wrapper */}
             <ResponsiveContainer width="100%" height={340}>
               {renderChart()}
             </ResponsiveContainer>
@@ -320,16 +404,15 @@ export default function KPIDashboard() {
       )}
 
       {/* Empty */}
-      {!loading && !error && tableData.length === 0 && (
+      {!loading && !error && kpiData.length === 0 && opiData.length === 0 && (
         <div style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:"80px 0", textAlign:"center" }}>
           <div style={{ width:64, height:64, borderRadius:16, background:"#eff6ff", display:"flex", alignItems:"center", justifyContent:"center", marginBottom:16 }}>
             <i className="fas fa-chart-bar" style={{ fontSize:24, color:"#93c5fd" }}></i>
           </div>
-          <p style={{ fontSize:15, fontWeight:600, color:"#64748b", margin:"0 0 4px" }}>No KPI data available</p>
+          <p style={{ fontSize:15, fontWeight:600, color:"#64748b", margin:"0 0 4px" }}>No data available</p>
           <p style={{ fontSize:13, color:"#94a3b8", margin:0 }}>Data will appear here once loaded from the API.</p>
         </div>
       )}
-
     </div>
   );
 }
