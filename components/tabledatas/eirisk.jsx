@@ -368,6 +368,15 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
     className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
   />
 </td>
+
+<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+  <input
+    value={filters["_safeStatus"] || ""}
+    onChange={e => setFilters(prev => ({...prev, "_safeStatus": e.target.value}))}
+    placeholder="Filter..."
+    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+  />
+</td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
                   value={filters["comment"] || ""}
@@ -591,6 +600,15 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <input
     value={filters["_daysDifference"] || ""}
     onChange={e => setFilters(prev => ({...prev, "_daysDifference": e.target.value}))}
+    placeholder="Filter..."
+    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+  />
+</td>
+
+<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+  <input
+    value={filters["_safeStatus"] || ""}
+    onChange={e => setFilters(prev => ({...prev, "_safeStatus": e.target.value}))}
     placeholder="Filter..."
     className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
   />
@@ -1094,6 +1112,15 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
   <input
     value={filters["_daysDifference"] || ""}
     onChange={e => setFilters(prev => ({...prev, "_daysDifference": e.target.value}))}
+    placeholder="Filter..."
+    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+  />
+</td>
+
+<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+  <input
+    value={filters["_safeStatus"] || ""}
+    onChange={e => setFilters(prev => ({...prev, "_safeStatus": e.target.value}))}
     placeholder="Filter..."
     className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
   />
