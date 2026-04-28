@@ -150,22 +150,22 @@ const getDeletedActionData = async () => {
   // ── Filters ────────────────────────────────────────────────────────────
   const [filters, setFilters] = useState({});
 
-  const applyFilters = (data) => {
-    if (!data?.length) return data || [];
-    const active = Object.entries(filters).filter(([, v]) => v?.trim());
-    if (!active.length) return data;
-    return data.filter(row =>
-      active.every(([key, val]) => {
-        if (!val?.trim()) return true;
-        const parts = key.replace(/\?/g, "").split(".");
-        let v = row;
-        for (const p of parts) v = v?.[p];
-        if (v === 1 || v === 0) return (v === 1 ? "yes" : "no").includes(val.toLowerCase());
-        if (v !== null && typeof v === "object" && "value" in v) return String(v.value ?? "").toLowerCase().includes(val.toLowerCase());
-        return String(v ?? "").toLowerCase().includes(val.toLowerCase());
-      })
-    );
-  };
+const applyFilters = (data) => {
+  if (!data?.length) return data || [];
+  const active = Object.entries(filters).filter(([k, v]) => v?.trim() && !k.startsWith("_"));
+  if (!active.length) return data;
+  return data.filter(row =>
+    active.every(([key, val]) => {
+      if (!val?.trim()) return true;
+      const parts = key.replace(/\?/g, "").split(".");
+      let v = row;
+      for (const p of parts) v = v?.[p];
+      if (v === 1 || v === 0) return (v === 1 ? "yes" : "no").includes(val.toLowerCase());
+      if (v !== null && typeof v === "object" && "value" in v) return String(v.value ?? "").toLowerCase().includes(val.toLowerCase());
+      return String(v ?? "").toLowerCase().includes(val.toLowerCase());
+    })
+  );
+};
 
   const applyComputedFilters = (data) => {
     if (!data?.length) return data || [];
@@ -360,9 +360,14 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
-              </td>
+<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+  <input
+    value={filters["_daysDifference"] || ""}
+    onChange={e => setFilters(prev => ({...prev, "_daysDifference": e.target.value}))}
+    placeholder="Filter..."
+    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+  />
+</td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
                   value={filters["comment"] || ""}
@@ -582,9 +587,14 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
-              </td>
+<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+  <input
+    value={filters["_daysDifference"] || ""}
+    onChange={e => setFilters(prev => ({...prev, "_daysDifference": e.target.value}))}
+    placeholder="Filter..."
+    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+  />
+</td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
                   value={filters["comment"] || ""}
@@ -1080,9 +1090,14 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
-              </td>
+<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+  <input
+    value={filters["_daysDifference"] || ""}
+    onChange={e => setFilters(prev => ({...prev, "_daysDifference": e.target.value}))}
+    placeholder="Filter..."
+    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+  />
+</td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
                   value={filters["comment"] || ""}
