@@ -149,31 +149,59 @@ const getDeletedActionData = async () => {
   // ── Filters ────────────────────────────────────────────────────────────
   const [filters, setFilters] = useState({});
 
-  const applyFilters = (data) => {
-    if (!data?.length) return data || [];
-    const active = Object.entries(filters).filter(([, v]) => v?.trim());
-    if (!active.length) return data;
-    return data.filter(row =>
-      active.every(([key, val]) => {
-        if (!val?.trim()) return true;
-        const parts = key.replace(/\?/g, "").split(".");
-        let v = row;
-        for (const p of parts) v = v?.[p];
-        if (v === 1 || v === 0) return (v === 1 ? "yes" : "no").includes(val.toLowerCase());
-        if (v !== null && typeof v === "object" && "value" in v) return String(v.value ?? "").toLowerCase().includes(val.toLowerCase());
-        return String(v ?? "").toLowerCase().includes(val.toLowerCase());
-      })
-    );
-  };
+const applyFilters = (data) => {
+  if (!data?.length) return data || [];
+  const active = Object.entries(filters).filter(([k, v]) => v?.trim() && !k.startsWith("_"));
+  if (!active.length) return data;
+  return data.filter(row =>
+    active.every(([key, val]) => {
+      if (!val?.trim()) return true;
+      const parts = key.replace(/\?/g, "").split(".");
+      let v = row;
+      for (const p of parts) v = v?.[p];
+      if (v === 1 || v === 0) return (v === 1 ? "yes" : "no").includes(val.toLowerCase());
+      if (v !== null && typeof v === "object" && "value" in v) return String(v.value ?? "").toLowerCase().includes(val.toLowerCase());
+      return String(v ?? "").toLowerCase().includes(val.toLowerCase());
+    })
+  );
+};
+
+const applyComputedFilters = (data) => {
+  if (!data?.length) return data || [];
+  let result = data;
+  if (filters["_daysDifference"]?.trim()) {
+    result = result.filter(row => {
+      if (!row.registrationDate || !row.reviewDate) return false;
+      const d = Math.ceil((new Date(row.reviewDate) - new Date()) / (1000 * 60 * 60 * 24));
+      return `${d} Days`.toLowerCase().includes(filters["_daysDifference"].toLowerCase());
+    });
+  }
+  if (filters["_evaluationStatus"]?.trim()) {
+    result = result.filter(row => {
+      if (!row.reviewDate) return "no".includes(filters["_evaluationStatus"].toLowerCase());
+      const d = Math.ceil((new Date(row.reviewDate) - new Date()) / (1000 * 60 * 60 * 24));
+      return (d >= 0 ? "yes" : "no").includes(filters["_evaluationStatus"].toLowerCase());
+    });
+  }
+  if (filters["_totalScore"]?.trim()) {
+    result = result.filter(row => {
+      const total = (Number(row.qgs) || 0) + (Number(row.communication) || 0) +
+        (Number(row.otd) || 0) + (Number(row.documentation) || 0) +
+        (Number(row.hs) || 0) + (Number(row.environment) || 0);
+      return String(total).includes(filters["_totalScore"].trim());
+    });
+  }
+  return result;
+};
 
   // ────────────────────────────────────────────────────────────────────────
 
 
   const [tableData, setTableData] = useState([]);
 
-  const filteredData         = applyFilters(tableData);
-  const filteredArchivedData = applyFilters(archivedData);
-  const filteredDeletedData  = applyFilters(deletedData);
+  const filteredData         = applyComputedFilters(applyFilters(tableData));
+const filteredArchivedData = applyComputedFilters(applyFilters(archivedData));
+const filteredDeletedData  = applyComputedFilters(applyFilters(deletedData));
 const getAll = async () => {
   setLoading(true);
   const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
@@ -331,15 +359,30 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
-              </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
-              </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
-              </td>
+<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+  <input
+    value={filters["_daysDifference"] || ""}
+    onChange={e => setFilters(prev => ({...prev, "_daysDifference": e.target.value}))}
+    placeholder="Filter..."
+    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+  />
+</td>
+<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+  <input
+    value={filters["_evaluationStatus"] || ""}
+    onChange={e => setFilters(prev => ({...prev, "_evaluationStatus": e.target.value}))}
+    placeholder="Filter..."
+    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+  />
+</td>
+<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+  <input
+    value={filters["_totalScore"] || ""}
+    onChange={e => setFilters(prev => ({...prev, "_totalScore": e.target.value}))}
+    placeholder="Filter..."
+    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+  />
+</td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
                   value={filters["qgs"] || ""}
@@ -654,15 +697,30 @@ value={
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
-              </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
-              </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
-              </td>
+<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+  <input
+    value={filters["_daysDifference"] || ""}
+    onChange={e => setFilters(prev => ({...prev, "_daysDifference": e.target.value}))}
+    placeholder="Filter..."
+    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+  />
+</td>
+<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+  <input
+    value={filters["_evaluationStatus"] || ""}
+    onChange={e => setFilters(prev => ({...prev, "_evaluationStatus": e.target.value}))}
+    placeholder="Filter..."
+    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+  />
+</td>
+<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+  <input
+    value={filters["_totalScore"] || ""}
+    onChange={e => setFilters(prev => ({...prev, "_totalScore": e.target.value}))}
+    placeholder="Filter..."
+    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+  />
+</td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
                   value={filters["qgs"] || ""}
@@ -1269,15 +1327,30 @@ value={
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
-              </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
-              </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
-              </td>
+<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+  <input
+    value={filters["_daysDifference"] || ""}
+    onChange={e => setFilters(prev => ({...prev, "_daysDifference": e.target.value}))}
+    placeholder="Filter..."
+    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+  />
+</td>
+<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+  <input
+    value={filters["_evaluationStatus"] || ""}
+    onChange={e => setFilters(prev => ({...prev, "_evaluationStatus": e.target.value}))}
+    placeholder="Filter..."
+    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+  />
+</td>
+<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+  <input
+    value={filters["_totalScore"] || ""}
+    onChange={e => setFilters(prev => ({...prev, "_totalScore": e.target.value}))}
+    placeholder="Filter..."
+    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+  />
+</td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
                   value={filters["qgs"] || ""}
