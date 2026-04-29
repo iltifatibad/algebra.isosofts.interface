@@ -4,3 +4,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Modal animations */
+@keyframes modal-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes modal-overlay-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes modal-box-in {
+  from { opacity: 0; transform: scale(0.94) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes modal-box-out {
+  from { opacity: 1; transform: scale(1) translateY(0); }
+  to   { opacity: 0; transform: scale(0.94) translateY(12px); }
+}
+
+.modal-overlay {
+  animation: modal-overlay-in 0.2s ease-out both;
+}
+
+.modal-box {
+  animation: modal-box-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
