@@ -150,22 +150,22 @@ const getDeletedActionData = async () => {
   // ── Filters ────────────────────────────────────────────────────────────
   const [filters, setFilters] = useState({});
 
-  const applyFilters = (data) => {
-    if (!data?.length) return data || [];
-    const active = Object.entries(filters).filter(([, v]) => v?.trim());
-    if (!active.length) return data;
-    return data.filter(row =>
-      active.every(([key, val]) => {
-        if (!val?.trim()) return true;
-        const parts = key.replace(/\?/g, "").split(".");
-        let v = row;
-        for (const p of parts) v = v?.[p];
-        if (v === 1 || v === 0) return (v === 1 ? "yes" : "no").includes(val.toLowerCase());
-        if (v !== null && typeof v === "object" && "value" in v) return String(v.value ?? "").toLowerCase().includes(val.toLowerCase());
-        return String(v ?? "").toLowerCase().includes(val.toLowerCase());
-      })
-    );
-  };
+const applyFilters = (data) => {
+  if (!data?.length) return data || [];
+  const active = Object.entries(filters).filter(([k, v]) => v?.trim() && !k.startsWith("_"));
+  if (!active.length) return data;
+  return data.filter(row =>
+    active.every(([key, val]) => {
+      if (!val?.trim()) return true;
+      const parts = key.replace(/\?/g, "").split(".");
+      let v = row;
+      for (const p of parts) v = v?.[p];
+      if (v === 1 || v === 0) return (v === 1 ? "yes" : "no").includes(val.toLowerCase());
+      if (v !== null && typeof v === "object" && "value" in v) return String(v.value ?? "").toLowerCase().includes(val.toLowerCase());
+      return String(v ?? "").toLowerCase().includes(val.toLowerCase());
+    })
+  );
+};
 
   // ────────────────────────────────────────────────────────────────────────
 
@@ -240,9 +240,9 @@ const getAll = async () => {
     return result;
   };
 
-  const filteredData         = applyComputedFilters(applyFilters(tableData));
-  const filteredArchivedData = applyComputedFilters(applyFilters(archivedData));
-  const filteredDeletedData  = applyComputedFilters(applyFilters(deletedData));
+const filteredData         = applyComputedFilters(applyFilters(tableData));
+const filteredArchivedData = applyComputedFilters(applyFilters(archivedData));
+const filteredDeletedData  = applyComputedFilters(applyFilters(deletedData));
 
   useEffect(() => {
     if (!showArchived && !showDeleted && activeHeader) {
