@@ -375,14 +375,6 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
     className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
   />
 </td>
-<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
-  <input
-    value={filters["_totalScore"] || ""}
-    onChange={e => setFilters(prev => ({...prev, "_totalScore": e.target.value}))}
-    placeholder="Filter..."
-    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
-  />
-</td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
                   value={filters["qgs"] || ""}
@@ -431,6 +423,14 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
+<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+  <input
+    value={filters["_totalScore"] || ""}
+    onChange={e => setFilters(prev => ({...prev, "_totalScore": e.target.value}))}
+    placeholder="Filter..."
+    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+  />
+</td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
                   value={filters["comment"] || ""}
@@ -713,14 +713,6 @@ value={
     className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
   />
 </td>
-<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
-  <input
-    value={filters["_totalScore"] || ""}
-    onChange={e => setFilters(prev => ({...prev, "_totalScore": e.target.value}))}
-    placeholder="Filter..."
-    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
-  />
-</td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
                   value={filters["qgs"] || ""}
@@ -769,6 +761,14 @@ value={
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
+<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+  <input
+    value={filters["_totalScore"] || ""}
+    onChange={e => setFilters(prev => ({...prev, "_totalScore": e.target.value}))}
+    placeholder="Filter..."
+    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+  />
+</td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
                   value={filters["comment"] || ""}
@@ -1343,14 +1343,6 @@ value={
     className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
   />
 </td>
-<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
-  <input
-    value={filters["_totalScore"] || ""}
-    onChange={e => setFilters(prev => ({...prev, "_totalScore": e.target.value}))}
-    placeholder="Filter..."
-    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
-  />
-</td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
                   value={filters["qgs"] || ""}
@@ -1399,6 +1391,14 @@ value={
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
+<td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+  <input
+    value={filters["_totalScore"] || ""}
+    onChange={e => setFilters(prev => ({...prev, "_totalScore": e.target.value}))}
+    placeholder="Filter..."
+    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+  />
+</td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
                   value={filters["comment"] || ""}

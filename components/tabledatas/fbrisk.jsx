@@ -418,8 +418,8 @@ data.map(async (item) => {
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
-                  value={filters["customer"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "customer": e.target.value}))}
+                  value={filters["comment"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "comment": e.target.value}))}
                   placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
@@ -562,9 +562,9 @@ value={
     color="bg-gray-100 text-black border border-gray-200"
   />
 </td>
-{/* customer */}
+{/* Comment */}
 <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-  {row.customer && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.customer}</p>}
+  {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
 </td>
                 </tr>
 
@@ -683,8 +683,8 @@ value={
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
-                  value={filters["customer"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "customer": e.target.value}))}
+                  value={filters["comment"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "comment": e.target.value}))}
                   placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
@@ -836,9 +836,9 @@ value={
   />
 </td>
 
-{/* customer */}
+{/* Comment */}
 <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-  {row.customer && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.customer}</p>}
+  {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
 </td>
                 </tr>
 
@@ -957,8 +957,8 @@ value={
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
-                  value={filters["customer"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "customer": e.target.value}))}
+                  value={filters["comment"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "comment": e.target.value}))}
                   placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
@@ -1238,8 +1238,8 @@ value={
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
-                  value={filters["customer"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "customer": e.target.value}))}
+                  value={filters["comment"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "comment": e.target.value}))}
                   placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
@@ -1519,8 +1519,8 @@ value={
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
-                  value={filters["customer"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "customer": e.target.value}))}
+                  value={filters["comment"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "comment": e.target.value}))}
                   placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
@@ -1661,9 +1661,9 @@ value={
   />
 </td>
 
-{/* customer */}
+{/* Comment */}
 <td className="border border-gray-200 px-2 py-1 min-w-[200px] max-w-[280px] align-top" rowSpan={1}>
-  {row.customer && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.customer}</p>}
+  {row.comment && <p className="text-xs leading-relaxed bg-gray-100 text-black border border-gray-200 rounded-md px-2 py-1 whitespace-normal break-words">{row.comment}</p>}
 </td>
                 </tr>
               </React.Fragment>
