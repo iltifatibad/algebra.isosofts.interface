@@ -744,15 +744,15 @@ const KpiProfile = () => {
                       <i className="fas fa-edit text-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" />
                     </button>
                   </div>
-                  <div className="ml-auto">
-                    <button
-                      onClick={() => setShowHelp(true)}
-                      className="group p-3 rounded-xl bg-white border border-slate-200 text-indigo-500 hover:bg-indigo-50 hover:border-indigo-200 shadow-sm hover:shadow-md transition-all duration-300 ease-out"
-                      title="Help – Field Descriptions"
-                    >
-                      <i className="fas fa-circle-question text-lg transition-transform duration-300 group-hover:scale-110" />
-                    </button>
-                  </div>
+                </div>
+                <div className="ml-auto">
+                  <button
+                    onClick={() => setShowHelp(true)}
+                    className="group p-3 rounded-xl bg-white border border-slate-200 text-indigo-500 hover:bg-indigo-50 hover:border-indigo-200 shadow-sm hover:shadow-md transition-all duration-300 ease-out"
+                    title="Help – Field Descriptions"
+                  >
+                    <i className="fas fa-circle-question text-lg transition-transform duration-300 group-hover:scale-110" />
+                  </button>
                 </div>
               </div>
 
