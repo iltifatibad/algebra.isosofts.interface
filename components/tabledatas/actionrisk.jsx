@@ -371,6 +371,16 @@ console.log("URL:", url);
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
+              {["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"].map((month) => (
+                <td key={month} className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                  <input
+                    value={filters[`${month}?.value`] || ""}
+                    onChange={e => setFilters(prev => ({...prev, [`${month}?.value`]: e.target.value}))}
+                    placeholder="Filter..."
+                    className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                  />
+                </td>
+              ))}
             </tr>
 
     {loading ? (
