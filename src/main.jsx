@@ -7,10 +7,12 @@ import Mai from "../components/mainpage.jsx";
 import Nav from "../components/navbar.jsx";
 import Profile from "../components/profile.jsx";
 import RiskRouter from "../components/riskrouter.jsx";
+import ToastContainer from "../components/utils/ToastContainer.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <Nav />
+    <ToastContainer />
     <Routes>
       <Route path="/" element={<RiskRouter />} />
       {/* <Route path="/profile" element={<RiskRouter />} /> */}

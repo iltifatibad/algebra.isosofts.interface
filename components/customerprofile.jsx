@@ -1,3 +1,4 @@
+import { toast } from "./utils/toast.js";
 import React, { useState, useEffect, act } from "react";
 import CusBody from "./tabledatas/customerrisk.jsx";
 import CusHeaders from "./tableheaders/customerheaders.jsx";
@@ -542,12 +543,12 @@ const saveRisk = () => {
       })
         .then((response) => {
           if (!response.ok) {
-            console.error("Kaydetme başarısız:", response.statusText);
+            toast.error("Record could not be saved.");
           } else {
-            console.log("Kayıt başarıyla kaydedildi.");
+            toast.success("Record saved successfully.");
           }
         })
-        .catch((error) => console.error("Hata:", error));
+        .catch((error) => toast.error("An error occurred. Please try again."));
       setRefresh(true);
     } else {
       const payload = {
@@ -586,12 +587,12 @@ const saveRisk = () => {
       })
         .then((response) => {
           if (!response.ok) {
-            console.error("Kaydetme başarısız:", response.statusText);
+            toast.error("Record could not be saved.");
           } else {
-            console.log("Kayıt başarıyla kaydedildi.");
+            toast.success("Record saved successfully.");
           }
         })
-        .catch((error) => console.error("Hata:", error));
+        .catch((error) => toast.error("An error occurred. Please try again."));
       setRefresh(true);
     }
     // Sadece backend beklediği alanları al (diğerlerini sil)
@@ -618,14 +619,14 @@ const saveRisk = () => {
       })
         .then((response) => {
           if (!response.ok) {
-            console.error("Kaydetme başarısız:", response.statusText);
+            toast.error("Record could not be saved.");
           } else {
             setSelectedTable([payload]);
             setFormData([payload]);
-            console.log("Kayıt başarıyla kaydedildi. Yeni state:", [payload]);
+            toast.success("Record saved successfully.");
           }
         })
-        .catch((error) => console.error("Hata:", error));
+        .catch((error) => toast.error("An error occurred. Please try again."));
       setRefresh(true);
     } else {
       setActionData({
@@ -669,17 +670,17 @@ const saveRisk = () => {
       })
         .then((response) => {
           if (!response.ok) {
-            console.error("Kaydetme başarısız:", response.statusText);
+            toast.error("Record could not be saved.");
           } else {
             console.log("SELECTED actionData ", actionData);
             console.log("SELECTED PAYLOAD ", payload);
             setActionData([payload]);
             setSelectedTableForActions([payload]);
             console.log("SELECTED actionData ", actionData);
-            console.log("Kayıt başarıyla kaydedildi.");
+            toast.success("Record saved successfully.");
           }
         })
-        .catch((error) => console.error("Hata:", error));
+        .catch((error) => toast.error("An error occurred. Please try again."));
       setRefresh(true);
     }
   }
@@ -724,16 +725,16 @@ const handleDeleteConfirm = () => {
       })
         .then((response) => {
           if (!response.ok) {
-            console.log(" Failed Deleting Registers ");
+            toast.error("Delete failed. Please try again.");
           } else {
-            console.log(" Deleting Success");
+            toast.success("Record deleted successfully.");
             selectedRows.clear();
             setSelectedTable([]);
             setShowDeleteModal(false);
             setRefresh(true);
           }
         })
-        .catch((error) => console.log(" Error While Deleting: ", error));
+        .catch((error) => toast.error("Delete failed. Please try again."));
     } else {
       fetch(`/api/register/cus/all/undelete?token=${token}`, {
         method: "PUT",
@@ -742,15 +743,15 @@ const handleDeleteConfirm = () => {
       })
         .then((response) => {
           if (!response.ok) {
-            console.log(" Failed Deleting Registers ");
+            toast.error("Delete failed. Please try again.");
           } else {
-            console.log(" Deleting Success");
+            toast.success("Record deleted successfully.");
             selectedRows.clear();
             setSelectedTable([]);
             setShowDeleteModal(false);
           }
         })
-        .catch((error) => console.log(" Error While Deleting: ", error));
+        .catch((error) => toast.error("Delete failed. Please try again."));
       setRefresh(true);
     }
   } else {
@@ -763,16 +764,16 @@ const handleDeleteConfirm = () => {
       })
         .then((response) => {
           if (!response.ok) {
-            console.log(" Failed Deleting Registers ");
+            toast.error("Delete failed. Please try again.");
           } else {
-            console.log(" Deleting Success");
+            toast.success("Record deleted successfully.");
             setSelectedTableForActions([]);
             setSelectedRowsForActions(new Set());
             setShowDeleteModal(false);
             setRefresh(true);
           }
         })
-        .catch((error) => console.log(" Error While Deleting: ", error));
+        .catch((error) => toast.error("Delete failed. Please try again."));
       setRefresh(true);
     } else {
       console.log("CCC: ", selectedRowsForActions);
@@ -783,16 +784,16 @@ const handleDeleteConfirm = () => {
       })
         .then((response) => {
           if (!response.ok) {
-            console.log(" Failed Deleting Registers ");
+            toast.error("Delete failed. Please try again.");
           } else {
-            console.log(" UnDeleting Successsss");
+            toast.success("Record restored successfully.");
             setSelectedTableForActions([]);
             setSelectedRowsForActions(new Set());
             setRefresh(true);
             setShowDeleteModal(false);
           }
         })
-        .catch((error) => console.log(" Error While Deleting: ", error));
+        .catch((error) => toast.error("Delete failed. Please try again."));
       setRefresh(true);
     }
   }
@@ -807,14 +808,14 @@ const archiveData = (id) => {
     })
       .then((response) => {
         if (!response.ok) {
-          console.log(" UnArchiving Failed ");
+          toast.error("Restore from archive failed.");
         } else {
           selectedRows.clear();
           setSelectedTable([]);
-          console.log(" UnArchiving Success ");
+          toast.success("Record restored from archive.");
         }
       })
-      .catch((error) => console.log(" Error While UnArchiving : ", error));
+      .catch((error) => toast.error("Restore from archive failed."));
     setRefresh(true);
   } else {
     fetch(`/api/register/cus/all/archive?token=${token}`, {
@@ -825,14 +826,14 @@ const archiveData = (id) => {
       .then((response) => {
         if (!response.ok) {
           console.log(selectedRows);
-          console.log(" Archiving Failed ");
+          toast.error("Archive failed. Please try again.");
         } else {
           selectedRows.clear();
           setSelectedTable([]);
-          console.log(" Archiving Success ");
+          toast.success("Record archived successfully.");
         }
       })
-      .catch((error) => console.log(" Error While Archiving : ", error));
+      .catch((error) => toast.error("Archive failed. Please try again."));
     setRefresh(true);
   }
 };

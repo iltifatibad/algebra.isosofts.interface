@@ -1,3 +1,4 @@
+import { toast } from "./utils/toast.js";
 import React, { useState, useEffect, act } from "react";
 
 import ReactECharts from "echarts-for-react";
@@ -514,12 +515,12 @@ const KpiProfile = () => {
         })
           .then((response) => {
             if (!response.ok) {
-              console.error("Kaydetme başarısız:", response.statusText);
+              toast.error("Record could not be saved.");
             } else {
-              console.log("Kayıt başarıyla kaydedildi.");
+              toast.success("Record saved successfully.");
             }
           })
-          .catch((error) => console.error("Hata:", error));
+          .catch((error) => toast.error("An error occurred. Please try again."));
         setRefresh(true);
       } else {
         const payload = {
@@ -558,12 +559,12 @@ const KpiProfile = () => {
         })
           .then((response) => {
             if (!response.ok) {
-              console.error("Kaydetme başarısız:", response.statusText);
+              toast.error("Record could not be saved.");
             } else {
-              console.log("Kayıt başarıyla kaydedildi.");
+              toast.success("Record saved successfully.");
             }
           })
-          .catch((error) => console.error("Hata:", error));
+          .catch((error) => toast.error("An error occurred. Please try again."));
         setRefresh(true);
       }
     } else {
@@ -582,14 +583,14 @@ const KpiProfile = () => {
         })
           .then((response) => {
             if (!response.ok) {
-              console.error("Kaydetme başarısız:", response.statusText);
+              toast.error("Record could not be saved.");
             } else {
               setSelectedTable([payload]);
               setFormData([payload]);
-              console.log("Kayıt başarıyla kaydedildi. Yeni state:", [payload]);
+              toast.success("Record saved successfully.");
             }
           })
-          .catch((error) => console.error("Hata:", error));
+          .catch((error) => toast.error("An error occurred. Please try again."));
         setRefresh(true);
       }
     }
