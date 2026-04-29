@@ -1,3 +1,4 @@
+import EmptyRow from "../utils/EmptyRow.jsx";
 // MyTableBody.jsx (ayrı bir dosya olarak kaydedin)
 import React from "react";
 import { useState, useEffect } from "react";
@@ -448,11 +449,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
             </td>
           </tr>
         ) : !filteredDeletedData || filteredDeletedData.length === 0 ? (
-          <tr>
-            <td colSpan={25} className="text-center py-4 text-gray-500">
-              No Data
-            </td>
-          </tr>
+          <EmptyRow colSpan={25} />
         ) : (
           filteredDeletedData.map((row, index) => {
             const numActions = row.actionPlan ? row.actionPlan.length : 1;
@@ -786,11 +783,7 @@ value={
             </td>
           </tr>
         ) : !filteredArchivedData || filteredArchivedData.length === 0 ? (
-          <tr>
-            <td colSpan={25} className="text-center py-4 text-gray-500">
-              No Data
-            </td>
-          </tr>
+          <EmptyRow colSpan={25} />
         ) : (
           filteredArchivedData.map((row, index) => {
             const numActions = row.actionPlan ? row.actionPlan.length : 1;
@@ -1105,11 +1098,7 @@ value={
             );
           })
         ) : (
-          <tr>
-            <td colSpan={25} className="text-center py-4">
-              No Data
-            </td>
-          </tr>
+          <EmptyRow colSpan={25} />
         )}
       </tbody>
     );
@@ -1252,11 +1241,7 @@ value={
             );
           })
         ) : (
-          <tr>
-            <td colSpan={25} className="text-center py-4">
-              No Data
-            </td>
-          </tr>
+          <EmptyRow colSpan={25} />
         )}
       </tbody>
     );
@@ -1416,11 +1401,7 @@ value={
             </td>
           </tr>
         ) : !filteredData || filteredData.length === 0 ? (
-          <tr>
-            <td colSpan={25} className="text-center py-6 text-gray-500">
-              No Data
-            </td>
-          </tr>
+          <EmptyRow colSpan={25} />
         ) : (
           filteredData.map((row, index) => {
             const numActions = row.actions ? row.actions.length : 1;
