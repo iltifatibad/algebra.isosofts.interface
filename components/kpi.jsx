@@ -59,6 +59,7 @@ export default function KPIDashboard() {
   const [selectedId, setSelectedId] = useState(null);
   const [selectedType, setSelectedType] = useState(null); // "kpi" | "opi"
   const [chartType, setChartType]   = useState("line");
+  const [kpiOpiSearch, setKpiOpiSearch] = useState("");
 
   // KPI fetch
   const getKPI = () => {
@@ -204,6 +205,11 @@ export default function KPIDashboard() {
   // Seçili dropdown value
   const dropdownValue = selectedId && selectedType ? `${selectedType}__${selectedId}` : "";
 
+  // Search filter
+  const q = kpiOpiSearch.trim().toLowerCase();
+  const filteredKpi = q ? kpiData.filter(k => `${k.no} ${k.title}`.toLowerCase().includes(q)) : kpiData;
+  const filteredOpi = q ? opiData.filter(o => `${o.no} ${o.title}`.toLowerCase().includes(q)) : opiData;
+
   return (
     <div style={{
       height:      "100%",
@@ -232,16 +238,40 @@ export default function KPIDashboard() {
           <label style={{ display:"block", fontSize:11, color:"#3b82f6", letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:8 }}>
             Select KPI / OPI
           </label>
+
+          {/* Search input */}
+          <div style={{ position:"relative", marginBottom:8 }}>
+            <i className="fas fa-magnifying-glass" style={{ position:"absolute", left:12, top:"50%", transform:"translateY(-50%)", color:"#94a3b8", fontSize:13, pointerEvents:"none" }} />
+            <input
+              type="text"
+              placeholder="Search by number or title…"
+              value={kpiOpiSearch}
+              onChange={e => setKpiOpiSearch(e.target.value)}
+              style={{ width:"100%", background:"#f8fafc", border:"1px solid #bfdbfe", color:"#1e3a5f", padding:"9px 12px 9px 34px", borderRadius:10, fontSize:13, outline:"none", boxSizing:"border-box" }}
+            />
+            {kpiOpiSearch && (
+              <button
+                onClick={() => setKpiOpiSearch("")}
+                style={{ position:"absolute", right:10, top:"50%", transform:"translateY(-50%)", background:"none", border:"none", color:"#94a3b8", cursor:"pointer", fontSize:13, lineHeight:1, padding:0 }}
+              >
+                <i className="fas fa-xmark" />
+              </button>
+            )}
+          </div>
+
           <select
             value={dropdownValue}
             onChange={handleSelect}
             disabled={loading}
             style={{ width:"100%", background:"#f8fafc", border:"1px solid #bfdbfe", color:"#1e3a5f", padding:"11px 16px", borderRadius:10, fontSize:14, outline:"none", cursor:"pointer" }}
           >
+            {filteredKpi.length === 0 && filteredOpi.length === 0 && (
+              <option disabled value="">No results found</option>
+            )}
             {/* KPI Grubu */}
-            {kpiData.length > 0 && (
+            {filteredKpi.length > 0 && (
               <optgroup label="── KPI ──">
-                {kpiData.map(k => (
+                {filteredKpi.map(k => (
                   <option key={`kpi__${k.id}`} value={`kpi__${k.id}`}>
                     {k.no} — {k.title}
                   </option>
@@ -249,10 +279,10 @@ export default function KPIDashboard() {
               </optgroup>
             )}
 
-            {/* OPI Grubu — companyId gösteriliyor */}
-            {opiData.length > 0 && (
+            {/* OPI Grubu */}
+            {filteredOpi.length > 0 && (
               <optgroup label="── OPI ──">
-                {opiData.map(o => (
+                {filteredOpi.map(o => (
                   <option key={`opi__${o.id}`} value={`opi__${o.id}`}>
                     {o.no} — {o.title}
                   </option>
