@@ -3,6 +3,8 @@ import BgRiskBody from "./tabledatas/bgrisk.jsx";
 import BgHeaders from "./tableheaders/tableheards.jsx";
 
 import ReactECharts from "echarts-for-react";
+import HelpModal from "./utils/HelpModal.jsx";
+import { bgHelpContent } from "./utils/helpContents.js";
 
 const getToken = () =>
   document.cookie
@@ -321,6 +323,7 @@ const RisksAssessment = () => {
     ],
   });
 
+  const [showHelp, setShowHelp] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isBulkDelete, setIsBulkDelete] = useState(false); // Bulk delete için yeni state
   const [deletingId, setDeletingId] = useState(null);
@@ -1244,19 +1247,15 @@ const RisksAssessment = () => {
   </div>
 </div>
 
-                {/* Sağdaki E-Chart butonu */}
-                {/* <div className="ml-auto">
+                <div className="ml-auto">
                   <button
-                    onClick={() => setSelectedOption("e-chart")}
-                    className={[
-                      "!rounded-button whitespace-nowrap cursor-pointer bg-white text-blue-600 px-4 py-2 hover:bg-gray-50 hover:text-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm",
-                      selectedOption ? "" : "",
-                    ].join(" ")}
+                    onClick={() => setShowHelp(true)}
+                    className="group p-3 rounded-xl bg-white border border-slate-200 text-indigo-500 hover:bg-indigo-50 hover:border-indigo-200 shadow-sm hover:shadow-md transition-all duration-300 ease-out"
+                    title="Help – Field Descriptions"
                   >
-                    <i className="fas fa-archive mr-2 text-blue-600 hover:text-blue-700"></i>
-                    {selectedOption ? "E-Chart" : "Data"}
-                  </button>{" "}
-                </div> */}
+                    <i className="fas fa-circle-question text-lg transition-transform duration-300 group-hover:scale-110" />
+                  </button>
+                </div>
               </div>
 
               {/* Tablo */}
@@ -1846,6 +1845,7 @@ const RisksAssessment = () => {
     </div>
   </div>
 )}
+      <HelpModal isOpen={showHelp} onClose={() => setShowHelp(false)} helpData={bgHelpContent} />
     </div>
   );
 };

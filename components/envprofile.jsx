@@ -3,6 +3,8 @@ import EnvBody from "./tabledatas/envrisk.jsx";
 import EnvHeaders from "./tableheaders/envheaders.jsx";
 
 import ReactECharts from "echarts-for-react";
+import HelpModal from "./utils/HelpModal.jsx";
+import { envHelpContent } from "./utils/helpContents.js";
 
 export const hCheckboxChange =
   (setSelectedRows, setSelectedTable) => (id, table) => {
@@ -287,6 +289,7 @@ const EnvProfile = () => {
     ],
   });
 
+  const [showHelp, setShowHelp] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isBulkDelete, setIsBulkDelete] = useState(false); // Bulk delete için yeni state
   const [deletingId, setDeletingId] = useState(null);
@@ -1208,11 +1211,20 @@ const archiveData = (id) => {
     >
       <i
         className={`
-          fas ${showDeleted || showDeletedAction ? "fa-trash-restore" : "fa-trash-can"} 
-          text-lg transition-transform duration-300 
+          fas ${showDeleted || showDeletedAction ? "fa-trash-restore" : "fa-trash-can"}
+          text-lg transition-transform duration-300
           group-hover:scale-110 group-hover:rotate-6
         `}
       />
+    </button>
+  </div>
+  <div className="ml-auto">
+    <button
+      onClick={() => setShowHelp(true)}
+      className="group p-3 rounded-xl bg-white border border-slate-200 text-indigo-500 hover:bg-indigo-50 hover:border-indigo-200 shadow-sm hover:shadow-md transition-all duration-300 ease-out"
+      title="Help – Field Descriptions"
+    >
+      <i className="fas fa-circle-question text-lg transition-transform duration-300 group-hover:scale-110" />
     </button>
   </div>
 </div>
@@ -1857,6 +1869,7 @@ const archiveData = (id) => {
     </div>
   </div>
 )}
+      <HelpModal isOpen={showHelp} onClose={() => setShowHelp(false)} helpData={envHelpContent} />
     </div>
   );
 };
