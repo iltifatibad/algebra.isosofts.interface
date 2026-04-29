@@ -152,7 +152,7 @@ const getDeletedActionData = async () => {
 
   const applyFilters = (data) => {
     if (!data?.length) return data || [];
-    const active = Object.entries(filters).filter(([, v]) => v?.trim());
+    const active = Object.entries(filters).filter(([k, v]) => v?.trim() && !k.startsWith("_"));
     if (!active.length) return data;
     return data.filter(row =>
       active.every(([key, val]) => {
@@ -359,11 +359,21 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["_daysLeft"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "_daysLeft": e.target.value}))}
+                  placeholder="Filter..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
               </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["_validStatus"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "_validStatus": e.target.value}))}
+                  placeholder="Filter..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
@@ -417,6 +427,14 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["effectivenessOfTrainings"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "effectivenessOfTrainings": e.target.value}))}
+                  placeholder="Filter..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
+              </td>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["_totalScore"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "_totalScore": e.target.value}))}
                   placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
@@ -694,11 +712,21 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["_daysLeft"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "_daysLeft": e.target.value}))}
+                  placeholder="Filter..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
               </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["_validStatus"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "_validStatus": e.target.value}))}
+                  placeholder="Filter..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
@@ -752,6 +780,14 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["effectivenessOfTrainings"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "effectivenessOfTrainings": e.target.value}))}
+                  placeholder="Filter..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
+              </td>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["_totalScore"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "_totalScore": e.target.value}))}
                   placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
@@ -1311,11 +1347,21 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
               </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["_daysLeft"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "_daysLeft": e.target.value}))}
+                  placeholder="Filter..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
               </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-100">
-                <span className="text-[10px] text-gray-400 px-1">—</span>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["_validStatus"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "_validStatus": e.target.value}))}
+                  placeholder="Filter..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
@@ -1369,6 +1415,14 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                 <input
                   value={filters["effectivenessOfTrainings"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "effectivenessOfTrainings": e.target.value}))}
+                  placeholder="Filter..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
+              </td>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
+                  value={filters["_totalScore"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "_totalScore": e.target.value}))}
                   placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
