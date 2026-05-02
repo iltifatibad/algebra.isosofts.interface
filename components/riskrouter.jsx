@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { UserProvider } from "./utils/UserContext.jsx";
 
 import RisksAssessment from "./profile.jsx";
 import HsProfile from "./hsprofile.jsx";
@@ -46,6 +47,7 @@ const RiskRouter = () => {
   const [selectedRisk, setSelectedRisk] = useState("dashboard");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [companyName, setCompanyName] = useState("");
+  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,6 +65,11 @@ const RiskRouter = () => {
           `http://isosofts.com/api/account/self?token=${token}`
         );
         const accData = await accRes.json();
+        setIsSuperAdmin(
+          accData?.role === "superadmin" ||
+          accData?.isSuperAdmin === true ||
+          accData?.type === "superadmin"
+        );
 
         // 2. Company al
         const compRes = await fetch(
@@ -80,6 +87,7 @@ const RiskRouter = () => {
   }, []);
 
   return (
+    <UserProvider value={{ isSuperAdmin }}>
     <div className="pt-20 h-screen w-full bg-gray-50 overflow-hidden flex flex-col font-sans">
       <div className="flex flex-1 h-full w-full overflow-hidden">
         
@@ -154,6 +162,7 @@ const RiskRouter = () => {
         </main>
       </div>
     </div>
+    </UserProvider>
   );
 };
 
