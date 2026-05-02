@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCtSvlcFQAt-rrx1Gvp6bD9aigHAL9i-xk",
-  authDomain: "algebra-help.firebaseapp.com",
-  databaseURL: "https://algebra-help-default-rtdb.firebaseio.com",
-  projectId: "algebra-help",
-  storageBucket: "algebra-help.firebasestorage.app",
-  messagingSenderId: "764430547836",
-  appId: "1:764430547836:web:853ddaaff19d9e3cc242f9",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_FIREBASE_DB_URL,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
