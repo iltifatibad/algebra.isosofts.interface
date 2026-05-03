@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { UserProvider } from "./utils/UserContext.jsx";
 import ExportModal from "./utils/ExportModal.jsx";
 
@@ -185,7 +185,7 @@ const RiskRouter = () => {
            selectedRisk === "ac-reg" ? <AcProfile /> :
            selectedRisk === "kpi" ? <KpiProfile /> :
            selectedRisk === "opi" ? <OPIProfile /> :
-           selectedRisk === "dashboard" ? <KPIDashboard /> : null}
+           selectedRisk === "dashboard" ? <KPIDashboard companyName={companyName} /> : null}
         </main>
       </div>
     </div>

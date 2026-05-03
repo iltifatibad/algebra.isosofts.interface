@@ -51,7 +51,7 @@ const getToken = () =>
     .slice(1)
     .join("=") ?? "";
 
-export default function KPIDashboard() {
+export default function KPIDashboard({ companyName }) {
   const [kpiData, setKpiData]       = useState([]);
   const [opiData, setOpiData]       = useState([]);
   const [loading, setLoading]       = useState(false);
@@ -60,6 +60,8 @@ export default function KPIDashboard() {
   const [selectedType, setSelectedType] = useState(null); // "kpi" | "opi"
   const [chartType, setChartType]   = useState("line");
   const [kpiOpiSearch, setKpiOpiSearch] = useState("");
+  const [actionCount, setActionCount]   = useState(null);
+  const [findingCount, setFindingCount] = useState(null);
 
   // KPI fetch
   const getKPI = () => {
@@ -78,15 +80,20 @@ export default function KPIDashboard() {
   const getAll = () => {
     setLoading(true);
     setError(null);
+    const token = getToken();
 
-    Promise.all([getKPI(), getOPI()])
-      .then(([kpi, opi]) => {
+    const getActions  = () => fetch(`/api/dashboard/actionLog/all?token=${token}`).then(r => r.json()).catch(() => []);
+    const getFindings = () => fetch(`/api/register/fin/all?token=${token}`).then(r => r.json()).catch(() => []);
+
+    Promise.all([getKPI(), getOPI(), getActions(), getFindings()])
+      .then(([kpi, opi, actions, findings]) => {
         const safeKpi = Array.isArray(kpi) ? kpi : [];
         const safeOpi = Array.isArray(opi) ? opi : [];
         setKpiData(safeKpi);
         setOpiData(safeOpi);
+        setActionCount(Array.isArray(actions) ? actions.filter(a => a.status !== "deleted").length : 0);
+        setFindingCount(Array.isArray(findings) ? findings.filter(f => f.status !== "deleted").length : 0);
 
-        // İlk seçili item'ı belirle
         if (safeKpi.length > 0) {
           setSelectedId(safeKpi[0].id);
           setSelectedType("kpi");
@@ -224,6 +231,84 @@ export default function KPIDashboard() {
       fontFamily:  "'Inter', 'Segoe UI', sans-serif",
       color:       "#1e3a5f",
     }}>
+      {/* ── Welcome Hero Card ── */}
+      <div style={{
+        background:    "linear-gradient(135deg, #0f172a 0%, #1e3a5f 55%, #0c2350 100%)",
+        borderRadius:  16,
+        padding:       "28px 32px",
+        marginBottom:  28,
+        position:      "relative",
+        overflow:      "hidden",
+        boxShadow:     "0 4px 32px rgba(59,130,246,0.18)",
+      }}>
+        {/* grid texture */}
+        <div style={{ position:"absolute", inset:0, pointerEvents:"none",
+          backgroundImage:"radial-gradient(circle at 1px 1px, rgba(59,130,246,0.07) 1px, transparent 0)",
+          backgroundSize:"28px 28px" }} />
+        {/* glow orb */}
+        <div style={{ position:"absolute", top:"-60%", right:"5%", width:340, height:340, borderRadius:"50%",
+          background:"radial-gradient(circle, rgba(99,102,241,0.18) 0%, transparent 70%)", pointerEvents:"none" }} />
+
+        <div style={{ position:"relative", display:"flex", justifyContent:"space-between", alignItems:"center", gap:24, flexWrap:"wrap" }}>
+
+          {/* Left — company info */}
+          <div>
+            <p style={{ color:"rgba(147,197,253,0.7)", fontSize:11, letterSpacing:"0.18em", textTransform:"uppercase", margin:"0 0 4px" }}>
+              Welcome back
+            </p>
+            <h1 style={{
+              fontSize:30, fontWeight:800, margin:"0 0 4px", letterSpacing:"-0.5px",
+              background:"linear-gradient(90deg, #ffffff 30%, #93c5fd 100%)",
+              WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent",
+            }}>
+              {companyName || "Your Company"}
+            </h1>
+            <p style={{ color:"rgba(148,163,184,0.75)", fontSize:13, margin:"0 0 18px" }}>
+              {new Date().toLocaleDateString("en-GB", { weekday:"long", year:"numeric", month:"long", day:"numeric" })}
+            </p>
+            <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
+              {["ISO 9001", "ISO 14001", "ISO 45001"].map(b => (
+                <span key={b} style={{
+                  padding:"3px 10px", borderRadius:99,
+                  border:"1px solid rgba(59,130,246,0.4)",
+                  color:"#93c5fd", fontSize:11, fontWeight:600,
+                  background:"rgba(59,130,246,0.1)",
+                }}>{b}</span>
+              ))}
+            </div>
+          </div>
+
+          {/* Right — stat cards */}
+          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, flexShrink:0 }}>
+            {[
+              { label:"KPIs",     value: kpiData.length,  icon:"fa-chart-line",        color:"#60a5fa" },
+              { label:"OPIs",     value: opiData.length,  icon:"fa-chart-bar",         color:"#a78bfa" },
+              { label:"Actions",  value: actionCount,     icon:"fa-bolt",              color:"#34d399" },
+              { label:"Findings", value: findingCount,    icon:"fa-magnifying-glass",  color:"#fb923c" },
+            ].map(s => (
+              <div key={s.label} style={{
+                background:"rgba(255,255,255,0.07)",
+                border:"1px solid rgba(255,255,255,0.1)",
+                borderRadius:10, padding:"12px 16px",
+                display:"flex", alignItems:"center", gap:10, minWidth:120,
+              }}>
+                <div style={{ width:34, height:34, borderRadius:8, display:"flex", alignItems:"center", justifyContent:"center",
+                  background:`${s.color}22` }}>
+                  <i className={`fas ${s.icon}`} style={{ fontSize:14, color:s.color }} />
+                </div>
+                <div>
+                  <p style={{ fontSize:22, fontWeight:700, color:"#fff", margin:0, lineHeight:1 }}>
+                    {s.value ?? <span style={{ fontSize:14, color:"rgba(255,255,255,0.3)" }}>—</span>}
+                  </p>
+                  <p style={{ fontSize:11, color:"rgba(148,163,184,0.8)", margin:"3px 0 0" }}>{s.label}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </div>
+
       {/* Header */}
       <div style={{ marginBottom: 28 }}>
         <p style={{ color:"#3b82f6", fontSize:11, letterSpacing:"0.2em", textTransform:"uppercase", margin:"0 0 4px" }}>
