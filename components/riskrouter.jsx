@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { UserProvider } from "./utils/UserContext.jsx";
+import ExportModal from "./utils/ExportModal.jsx";
+import { MODULE_CONFIGS } from "./utils/exportUtils.js";
 
 import RisksAssessment from "./profile.jsx";
 import HsProfile from "./hsprofile.jsx";
@@ -48,6 +50,8 @@ const RiskRouter = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [companyName, setCompanyName] = useState("");
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
+  const [exportModuleKey, setExportModuleKey] = useState(null);
+  const [showExport, setShowExport] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -122,8 +126,8 @@ const RiskRouter = () => {
                     onClick={() => setSelectedRisk(risk.id)}
                     title={!isSidebarOpen ? risk.name : ""}
                     className={`w-full flex items-center p-3 rounded-xl transition-all duration-200
-                      ${selectedRisk === risk.id 
-                        ? "bg-blue-600 text-white shadow-lg shadow-blue-200" 
+                      ${selectedRisk === risk.id
+                        ? "bg-blue-600 text-white shadow-lg shadow-blue-200"
                         : "text-gray-600 hover:bg-blue-50 hover:text-blue-700"}`}
                   >
                     <span className="text-xl min-w-[24px] flex justify-center shrink-0">{risk.icon}</span>
@@ -136,32 +140,64 @@ const RiskRouter = () => {
               ))}
             </ul>
           </nav>
+
+          {/* Export All button */}
+          <div className="p-2 border-t border-blue-50">
+            <button
+              onClick={() => { setExportModuleKey(null); setShowExport(true); }}
+              title={!isSidebarOpen ? "Export All" : ""}
+              className="w-full flex items-center p-3 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition-all duration-200"
+            >
+              <i className="fas fa-file-excel text-lg min-w-[24px] flex justify-center" />
+              <span className={`ml-4 text-sm font-semibold transition-all duration-300 whitespace-nowrap
+                ${isSidebarOpen ? "opacity-100 visible w-auto" : "opacity-0 invisible w-0 hidden"}`}>
+                Export All
+              </span>
+            </button>
+          </div>
         </aside>
 
         {/* ANA İÇERİK ALANI */}
         <main className="flex-1 min-w-0 h-full overflow-hidden bg-gray-50 relative">
-          {selectedRisk === "bg-reg" ? <RisksAssessment /> : 
-           selectedRisk === "hs-reg" ? <HsProfile /> : 
-           selectedRisk === "leg-reg" ? <LegProfile /> : 
-           selectedRisk === "env-reg" ? <EnvProfile /> : 
-           selectedRisk === "eq-reg" ? <EiProfile /> : 
-           selectedRisk === "tr-reg" ? <TrProfile /> : 
-           selectedRisk === "doc-reg" ? <DocProfile /> : 
-           selectedRisk === "ven-reg" ? <VenProfile /> : 
-           selectedRisk === "cus-reg" ? <CusProfile /> : 
-           selectedRisk === "fb-reg" ? <FbProfile /> : 
-           selectedRisk === "ear-reg" ? <EarProfile /> : 
-           selectedRisk === "moc-reg" ? <MocProfile /> : 
-           selectedRisk === "fl-reg" ? <FProfile /> : 
-           selectedRisk === "ao-reg" ? <AoProfile /> : 
-           selectedRisk === "mr-reg" ? <MRMProfile /> : 
-           selectedRisk === "ac-reg" ? <AcProfile /> : 
-           selectedRisk === "kpi" ? <KpiProfile /> : 
-           selectedRisk === "opi" ? <OPIProfile /> : 
+          {/* Per-module Export button */}
+          {MODULE_CONFIGS[selectedRisk] && (
+            <button
+              onClick={() => { setExportModuleKey(selectedRisk); setShowExport(true); }}
+              className="absolute top-4 right-4 z-20 flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-2 rounded-xl shadow-md transition-all"
+            >
+              <i className="fas fa-file-excel" />
+              Export Excel
+            </button>
+          )}
+
+          {selectedRisk === "bg-reg" ? <RisksAssessment /> :
+           selectedRisk === "hs-reg" ? <HsProfile /> :
+           selectedRisk === "leg-reg" ? <LegProfile /> :
+           selectedRisk === "env-reg" ? <EnvProfile /> :
+           selectedRisk === "eq-reg" ? <EiProfile /> :
+           selectedRisk === "tr-reg" ? <TrProfile /> :
+           selectedRisk === "doc-reg" ? <DocProfile /> :
+           selectedRisk === "ven-reg" ? <VenProfile /> :
+           selectedRisk === "cus-reg" ? <CusProfile /> :
+           selectedRisk === "fb-reg" ? <FbProfile /> :
+           selectedRisk === "ear-reg" ? <EarProfile /> :
+           selectedRisk === "moc-reg" ? <MocProfile /> :
+           selectedRisk === "fl-reg" ? <FProfile /> :
+           selectedRisk === "ao-reg" ? <AoProfile /> :
+           selectedRisk === "mr-reg" ? <MRMProfile /> :
+           selectedRisk === "ac-reg" ? <AcProfile /> :
+           selectedRisk === "kpi" ? <KpiProfile /> :
+           selectedRisk === "opi" ? <OPIProfile /> :
            selectedRisk === "dashboard" ? <KPIDashboard /> : null}
         </main>
       </div>
     </div>
+
+    <ExportModal
+      isOpen={showExport}
+      onClose={() => setShowExport(false)}
+      moduleKey={exportModuleKey}
+    />
     </UserProvider>
   );
 };
