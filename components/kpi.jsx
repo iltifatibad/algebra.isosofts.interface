@@ -81,15 +81,17 @@ export default function KPIDashboard() {
 
     Promise.all([getKPI(), getOPI()])
       .then(([kpi, opi]) => {
-        setKpiData(kpi);
-        setOpiData(opi);
+        const safeKpi = Array.isArray(kpi) ? kpi : [];
+        const safeOpi = Array.isArray(opi) ? opi : [];
+        setKpiData(safeKpi);
+        setOpiData(safeOpi);
 
         // İlk seçili item'ı belirle
-        if (kpi.length > 0) {
-          setSelectedId(kpi[0].id);
+        if (safeKpi.length > 0) {
+          setSelectedId(safeKpi[0].id);
           setSelectedType("kpi");
-        } else if (opi.length > 0) {
-          setSelectedId(opi[0].id);
+        } else if (safeOpi.length > 0) {
+          setSelectedId(safeOpi[0].id);
           setSelectedType("opi");
         }
 
