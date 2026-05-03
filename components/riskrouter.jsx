@@ -48,6 +48,7 @@ const RiskRouter = () => {
   const [selectedRisk, setSelectedRisk] = useState("dashboard");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [companyName, setCompanyName] = useState("");
+  const [userName, setUserName] = useState("");
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const [exportModuleKey, setExportModuleKey] = useState(null);
   const [showExport, setShowExport] = useState(false);
@@ -76,6 +77,12 @@ const RiskRouter = () => {
           accData?.isSuperAdmin === true ||
           accData?.type === "superadmin"
         );
+        const name =
+          accData?.fullName ||
+          accData?.name ||
+          (accData?.firstName ? `${accData.firstName} ${accData.lastName ?? ""}`.trim() : "") ||
+          accData?.username || "";
+        setUserName(name);
 
         const compRes = await fetch(
           `https://isosofts.com/api/company/self?token=${token}`,
@@ -185,7 +192,7 @@ const RiskRouter = () => {
            selectedRisk === "ac-reg" ? <AcProfile /> :
            selectedRisk === "kpi" ? <KpiProfile /> :
            selectedRisk === "opi" ? <OPIProfile /> :
-           selectedRisk === "dashboard" ? <KPIDashboard companyName={companyName} /> : null}
+           selectedRisk === "dashboard" ? <KPIDashboard companyName={companyName} userName={userName} /> : null}
         </main>
       </div>
     </div>

@@ -51,7 +51,7 @@ const getToken = () =>
     .slice(1)
     .join("=") ?? "";
 
-export default function KPIDashboard({ companyName }) {
+export default function KPIDashboard({ companyName, userName }) {
   const [kpiData, setKpiData]       = useState([]);
   const [opiData, setOpiData]       = useState([]);
   const [loading, setLoading]       = useState(false);
@@ -257,12 +257,17 @@ export default function KPIDashboard({ companyName }) {
               Welcome back
             </p>
             <h1 style={{
-              fontSize:30, fontWeight:800, margin:"0 0 4px", letterSpacing:"-0.5px",
+              fontSize:30, fontWeight:800, margin:"0 0 2px", letterSpacing:"-0.5px",
               background:"linear-gradient(90deg, #ffffff 30%, #93c5fd 100%)",
               WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent",
             }}>
-              {companyName || "Your Company"}
+              {userName || companyName || "Welcome"}
             </h1>
+            {companyName && (
+              <p style={{ color:"rgba(147,197,253,0.6)", fontSize:12, margin:"0 0 4px", fontWeight:500 }}>
+                {companyName}
+              </p>
+            )}
             <p style={{ color:"rgba(148,163,184,0.75)", fontSize:13, margin:"0 0 18px" }}>
               {new Date().toLocaleDateString("en-GB", { weekday:"long", year:"numeric", month:"long", day:"numeric" })}
             </p>
