@@ -594,9 +594,9 @@ const globalStyles = `
 }
 `;
 
-// Inject global styles if needed (in a real app, use styled-components or CSS file)
-if (typeof document !== "undefined") {
+if (typeof document !== "undefined" && !document.getElementById("isosofts-global-styles")) {
   const styleSheet = document.createElement("style");
+  styleSheet.id = "isosofts-global-styles";
   styleSheet.textContent = globalStyles;
   document.head.appendChild(styleSheet);
 }

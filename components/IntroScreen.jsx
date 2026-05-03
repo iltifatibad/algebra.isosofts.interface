@@ -21,24 +21,20 @@ export default function IntroScreen({ onDone }) {
   const [modulesVisible, setModulesVisible] = useState(false);
 
   useEffect(() => {
-    // Stagger badge reveal
+    const ids = [];
+
     ISO_BADGES.forEach((_, i) => {
-      setTimeout(() => {
+      ids.push(setTimeout(() => {
         setBadgeVisible(prev => { const n = [...prev]; n[i] = true; return n; });
-      }, 400 + i * 180);
+      }, 400 + i * 180));
     });
 
-    // Modules row
-    setTimeout(() => setModulesVisible(true), 900);
+    ids.push(setTimeout(() => setModulesVisible(true), 900));
+    ids.push(setTimeout(() => setBarWidth(100), 200));
+    ids.push(setTimeout(() => setPhase("exit"), 2600));
+    ids.push(setTimeout(() => onDone(), 3100));
 
-    // Progress bar
-    setTimeout(() => setBarWidth(100), 200);
-
-    // Transition to exit
-    setTimeout(() => setPhase("exit"), 2600);
-
-    // Unmount
-    setTimeout(() => onDone(), 3100);
+    return () => ids.forEach(clearTimeout);
   }, [onDone]);
 
   return (

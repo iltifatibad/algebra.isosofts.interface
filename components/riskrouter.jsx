@@ -53,6 +53,9 @@ const RiskRouter = () => {
   const [showExport, setShowExport] = useState(false);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const { signal } = controller;
+
     const fetchData = async () => {
       try {
         const token =
@@ -63,9 +66,9 @@ const RiskRouter = () => {
             .slice(1)
             .join("=") ?? "";
 
-        // 1. Account al
         const accRes = await fetch(
-          `https://isosofts.com/api/account/self?token=${token}`
+          `https://isosofts.com/api/account/self?token=${token}`,
+          { signal }
         );
         const accData = await accRes.json();
         setIsSuperAdmin(
@@ -74,19 +77,20 @@ const RiskRouter = () => {
           accData?.type === "superadmin"
         );
 
-        // 2. Company al
         const compRes = await fetch(
-          `https://isosofts.com/api/company/self?token=${token}`
+          `https://isosofts.com/api/company/self?token=${token}`,
+          { signal }
         );
         const compData = await compRes.json();
 
         setCompanyName(compData.name || "");
       } catch (err) {
-        console.error("Error fetching company info:", err);
+        if (err.name !== "AbortError") console.error("Error fetching company info:", err);
       }
     };
 
     fetchData();
+    return () => controller.abort();
   }, []);
 
   const openExport = (key) => {
