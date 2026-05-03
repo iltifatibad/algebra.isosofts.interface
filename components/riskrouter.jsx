@@ -65,7 +65,7 @@ const RiskRouter = () => {
 
         // 1. Account al
         const accRes = await fetch(
-          `http://isosofts.com/api/account/self?token=${token}`
+          `https://isosofts.com/api/account/self?token=${token}`
         );
         const accData = await accRes.json();
         setIsSuperAdmin(
@@ -76,7 +76,7 @@ const RiskRouter = () => {
 
         // 2. Company al
         const compRes = await fetch(
-          `http://isosofts.com/api/company/self?token=${token}`
+          `https://isosofts.com/api/company/self?token=${token}`
         );
         const compData = await compRes.json();
 

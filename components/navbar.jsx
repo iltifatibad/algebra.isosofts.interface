@@ -16,25 +16,25 @@ const NavigationBar = ({ showProfile, setShowProfile }) => {
             </div>
               <div className="hidden md:flex space-x-6">
                 <span
-                  onClick={() => { window.location.href = "http://www.isosofts.com"; }}
+                  onClick={() => { window.location.href = "https://www.isosofts.com"; }}
                   className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
                 >
                   Home
                 </span>
                 <span
-                  onClick={() => { window.location.href = "http://www.isosofts.com"; }}
+                  onClick={() => { window.location.href = "https://www.isosofts.com"; }}
                   className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
                 >
                   Services
                 </span>
                 <span
-                  onClick={() => { window.location.href = "http://www.isosofts.com"; }}
+                  onClick={() => { window.location.href = "https://www.isosofts.com"; }}
                   className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
                 >
                   About
                 </span>
                 <span
-                  onClick={() => { window.location.href = "http://www.isosofts.com"; }}
+                  onClick={() => { window.location.href = "https://www.isosofts.com"; }}
                   className="nav-link text-gray-700 hover:text-blue-600 transition-all duration-300 transform hover:scale-105 cursor-pointer"
                 >
                   Contact
@@ -42,7 +42,7 @@ const NavigationBar = ({ showProfile, setShowProfile }) => {
               </div>
           </div>
           <button
-            onClick={() => { window.location.href = "http://www.isosofts.com/profile"; }}
+            onClick={() => { window.location.href = "https://www.isosofts.com/profile"; }}
             className="rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 hover:from-blue-600 hover:to-blue-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
           >
             <i className="fas fa-user mr-2"></i> Account
