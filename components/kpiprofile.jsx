@@ -5,6 +5,7 @@ import ReactECharts from "echarts-for-react";
 import KpiHeaders from "./tableheaders/kpiheaders.jsx";
 import KPIBody from "./tabledatas/kpirisk.jsx";
 import HelpModal from "./utils/HelpModal.jsx";
+import ExportButton from "./utils/ExportButton.jsx";
 import { kpiHelpContent } from "./utils/helpContents.js";
 
 export const hCheckboxChange =
@@ -746,7 +747,8 @@ const KpiProfile = () => {
                     </button>
                   </div>
                 </div>
-                <div className="ml-auto">
+                <div className="ml-auto flex items-center gap-2">
+                  <ExportButton moduleKey="kpi" />
                   <button
                     onClick={() => setShowHelp(true)}
                     className="group p-3 rounded-xl bg-white border border-slate-200 text-indigo-500 hover:bg-indigo-50 hover:border-indigo-200 shadow-sm hover:shadow-md transition-all duration-300 ease-out"

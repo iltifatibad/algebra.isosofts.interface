@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { UserProvider } from "./utils/UserContext.jsx";
 import ExportModal from "./utils/ExportModal.jsx";
-import { MODULE_CONFIGS } from "./utils/exportUtils.js";
 
 import RisksAssessment from "./profile.jsx";
 import HsProfile from "./hsprofile.jsx";
@@ -90,8 +89,13 @@ const RiskRouter = () => {
     fetchData();
   }, []);
 
+  const openExport = (key) => {
+    setExportModuleKey(key ?? null);
+    setShowExport(true);
+  };
+
   return (
-    <UserProvider value={{ isSuperAdmin }}>
+    <UserProvider value={{ isSuperAdmin, openExport }}>
     <div className="pt-20 h-screen w-full bg-gray-50 overflow-hidden flex flex-col font-sans">
       <div className="flex flex-1 h-full w-full overflow-hidden">
         
@@ -159,17 +163,6 @@ const RiskRouter = () => {
 
         {/* ANA İÇERİK ALANI */}
         <main className="flex-1 min-w-0 h-full overflow-hidden bg-gray-50 relative">
-          {/* Per-module Export button */}
-          {MODULE_CONFIGS[selectedRisk] && (
-            <button
-              onClick={() => { setExportModuleKey(selectedRisk); setShowExport(true); }}
-              className="absolute top-4 right-4 z-20 flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-2 rounded-xl shadow-md transition-all"
-            >
-              <i className="fas fa-file-excel" />
-              Export Excel
-            </button>
-          )}
-
           {selectedRisk === "bg-reg" ? <RisksAssessment /> :
            selectedRisk === "hs-reg" ? <HsProfile /> :
            selectedRisk === "leg-reg" ? <LegProfile /> :

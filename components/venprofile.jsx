@@ -5,6 +5,7 @@ import VenHeaders from "./tableheaders/venheaders.jsx";
 
 import ReactECharts from "echarts-for-react";
 import HelpModal from "./utils/HelpModal.jsx";
+import ExportButton from "./utils/ExportButton.jsx";
 import { venHelpContent } from "./utils/helpContents.js";
 
 export const hCheckboxChange =
@@ -1177,7 +1178,8 @@ const archiveData = (id) => {
   </div>
 </div>
 
-                <div className="ml-auto">
+                <div className="ml-auto flex items-center gap-2">
+                  <ExportButton moduleKey="ven-reg" />
                   <button
                     onClick={() => setShowHelp(true)}
                     className="group p-3 rounded-xl bg-white border border-slate-200 text-indigo-500 hover:bg-indigo-50 hover:border-indigo-200 shadow-sm hover:shadow-md transition-all duration-300 ease-out"
