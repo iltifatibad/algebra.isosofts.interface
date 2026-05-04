@@ -52,7 +52,6 @@ const RiskRouter = () => {
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const [exportModuleKey, setExportModuleKey] = useState(null);
   const [showExport, setShowExport] = useState(false);
-  const [counts, setCounts] = useState({});
 
   useEffect(() => {
     const controller = new AbortController();
@@ -101,41 +100,6 @@ const RiskRouter = () => {
     return () => controller.abort();
   }, []);
 
-  useEffect(() => {
-    const token = document.cookie.split("; ").find(r => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-    const endpoints = {
-      "bg-reg":  "/api/register/br/all",
-      "hs-reg":  "/api/register/hsr/all",
-      "leg-reg": "/api/register/leg/all",
-      "env-reg": "/api/register/eai/all",
-      "eq-reg":  "/api/register/ei/all",
-      "tr-reg":  "/api/register/tra/all",
-      "doc-reg": "/api/register/doc/all",
-      "ven-reg": "/api/register/ven/all",
-      "cus-reg": "/api/register/cus/all",
-      "fb-reg":  "/api/register/fb/all",
-      "ear-reg": "/api/register/ea/all",
-      "fl-reg":  "/api/register/fin/all",
-      "ao-reg":  "/api/register/aop/all",
-      "mr-reg":  "/api/register/mrm/all",
-      "moc-reg": "/api/register/moc/all",
-      "ac-reg":  "/api/dashboard/actionLog/all",
-      "kpi":     "/api/dashboard/kpi",
-      "opi":     "/api/dashboard/opi/all",
-    };
-    Promise.allSettled(
-      Object.entries(endpoints).map(([id, url]) =>
-        fetch(`${url}?token=${token}`)
-          .then(r => r.ok ? r.json() : [])
-          .then(data => [id, Array.isArray(data) ? data.length : 0])
-          .catch(() => [id, null])
-      )
-    ).then(results => {
-      const c = {};
-      results.forEach(r => { if (r.status === "fulfilled") c[r.value[0]] = r.value[1]; });
-      setCounts(c);
-    });
-  }, []);
 
   const openExport = (key) => {
     setExportModuleKey(key ?? null);
@@ -183,18 +147,10 @@ const RiskRouter = () => {
                         : "text-gray-600 hover:bg-blue-50 hover:text-blue-700"}`}
                   >
                     <span className="text-xl min-w-[24px] flex justify-center shrink-0">{risk.icon}</span>
-                    <span className={`ml-4 text-sm font-semibold transition-all duration-300 whitespace-nowrap flex-1
+                    <span className={`ml-4 text-sm font-semibold transition-all duration-300 whitespace-nowrap
                       ${isSidebarOpen ? "opacity-100 visible w-auto" : "opacity-0 invisible w-0 hidden"}`}>
                       {risk.name}
                     </span>
-                    {isSidebarOpen && counts[risk.id] > 0 && (
-                      <span className={`ml-2 text-[11px] font-bold px-2 py-0.5 rounded-full shrink-0
-                        ${selectedRisk === risk.id
-                          ? "bg-white/25 text-white"
-                          : "bg-blue-100 text-blue-700"}`}>
-                        {counts[risk.id]}
-                      </span>
-                    )}
                   </button>
                 </li>
               ))}
@@ -215,10 +171,32 @@ const RiskRouter = () => {
               </span>
             </button>
           </div>
+
+          {/* User card */}
+          {(userName || companyName) && (
+            <div className={`p-2 border-t border-blue-50`}>
+              <div className={`flex items-center gap-3 px-3 py-2.5 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100
+                ${!isSidebarOpen ? "justify-center px-0" : ""}`}>
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shrink-0 shadow-sm">
+                  <span className="text-white text-[11px] font-bold">
+                    {(userName || companyName).split(" ").slice(0, 2).map(w => w[0]).join("").toUpperCase()}
+                  </span>
+                </div>
+                {isSidebarOpen && (
+                  <div className="min-w-0">
+                    {userName && <p className="text-xs font-semibold text-blue-800 truncate leading-none">{userName}</p>}
+                    {companyName && <p className="text-[10px] text-blue-500 truncate leading-none mt-0.5">{companyName}</p>}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </aside>
 
         {/* ANA İÇERİK ALANI */}
         <main className="flex-1 min-w-0 h-full overflow-hidden bg-gray-50 relative">
+          <style>{`@keyframes sectionFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.section-enter{animation:sectionFadeIn 0.22s cubic-bezier(0.16,1,0.3,1) both}`}</style>
+          <div key={selectedRisk} className="section-enter h-full">
           {selectedRisk === "bg-reg" ? <RisksAssessment /> :
            selectedRisk === "hs-reg" ? <HsProfile /> :
            selectedRisk === "leg-reg" ? <LegProfile /> :
@@ -238,6 +216,7 @@ const RiskRouter = () => {
            selectedRisk === "kpi" ? <KpiProfile /> :
            selectedRisk === "opi" ? <OPIProfile /> :
            selectedRisk === "dashboard" ? <KPIDashboard companyName={companyName} userName={userName} /> : null}
+          </div>
         </main>
       </div>
     </div>
