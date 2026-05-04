@@ -53,6 +53,11 @@ const RiskRouter = () => {
   const [exportModuleKey, setExportModuleKey] = useState(null);
   const [showExport, setShowExport] = useState(false);
 
+  // On mobile default sidebar closed
+  useEffect(() => {
+    if (window.innerWidth < 1024) setIsSidebarOpen(false);
+  }, []);
+
   useEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
@@ -100,24 +105,44 @@ const RiskRouter = () => {
     return () => controller.abort();
   }, []);
 
-
   const openExport = (key) => {
     setExportModuleKey(key ?? null);
     setShowExport(true);
   };
 
+  const handleNavSelect = (id) => {
+    setSelectedRisk(id);
+    // Close sidebar on mobile after selection
+    if (window.innerWidth < 1024) setIsSidebarOpen(false);
+  };
+
   return (
     <UserProvider value={{ isSuperAdmin, openExport }}>
     <div className="pt-20 h-screen w-full bg-gray-50 overflow-hidden flex flex-col font-sans">
-      <div className="flex flex-1 h-full w-full overflow-hidden">
-        
+      <div className="flex flex-1 h-full w-full overflow-hidden relative">
+
+        {/* Mobile backdrop */}
+        {isSidebarOpen && (
+          <div
+            className="fixed inset-0 bg-black/40 z-20 lg:hidden"
+            style={{ top: "80px" }}
+            onClick={() => setIsSidebarOpen(false)}
+          />
+        )}
+
         {/* SIDEBAR */}
-        <aside 
-          className={`bg-white shadow-2xl border-r border-blue-100 transition-all duration-300 ease-in-out flex flex-col flex-shrink-0 z-30
-            ${isSidebarOpen ? "w-72" : "w-20"}`}
+        <aside
+          className={`
+            bg-white shadow-2xl border-r border-blue-100
+            transition-all duration-300 ease-in-out flex flex-col flex-shrink-0
+            fixed lg:relative top-20 bottom-0 left-0 z-30
+            ${isSidebarOpen
+              ? "w-72 translate-x-0"
+              : "w-72 -translate-x-full lg:translate-x-0 lg:w-20"}
+          `}
         >
           {/* Burger Header */}
-          <div 
+          <div
             className="h-16 flex items-center justify-between px-5 border-b border-blue-50 cursor-pointer hover:bg-gray-50 transition-colors"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           >
@@ -126,20 +151,20 @@ const RiskRouter = () => {
                 {companyName ? `${companyName} Databases` : "Databases"}
               </span>
             )}
-            <div className={`flex items-center justify-center ${!isSidebarOpen ? 'w-full' : ''}`}>
+            <div className={`flex items-center justify-center ${!isSidebarOpen ? "w-full" : ""}`}>
                <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                </svg>
             </div>
           </div>
 
-          {/* Menü Listesi */}
+          {/* Menu List */}
           <nav className="flex-1 overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-blue-200">
             <ul className="space-y-1">
               {risks.map((risk) => (
                 <li key={risk.id}>
                   <button
-                    onClick={() => setSelectedRisk(risk.id)}
+                    onClick={() => handleNavSelect(risk.id)}
                     title={!isSidebarOpen ? risk.name : ""}
                     className={`w-full flex items-center p-3 rounded-xl transition-all duration-200
                       ${selectedRisk === risk.id
@@ -174,7 +199,7 @@ const RiskRouter = () => {
 
           {/* User card */}
           {(userName || companyName) && (
-            <div className={`p-2 border-t border-blue-50`}>
+            <div className="p-2 border-t border-blue-50">
               <div className={`flex items-center gap-3 px-3 py-2.5 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100
                 ${!isSidebarOpen ? "justify-center px-0" : ""}`}>
                 <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shrink-0 shadow-sm">
@@ -193,9 +218,21 @@ const RiskRouter = () => {
           )}
         </aside>
 
-        {/* ANA İÇERİK ALANI */}
+        {/* MAIN CONTENT */}
         <main className="flex-1 min-w-0 h-full overflow-hidden bg-gray-50 relative">
           <style>{`@keyframes sectionFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.section-enter{animation:sectionFadeIn 0.22s cubic-bezier(0.16,1,0.3,1) both}`}</style>
+
+          {/* Mobile hamburger — shown when sidebar is closed */}
+          <button
+            className="lg:hidden absolute top-4 left-4 z-10 w-10 h-10 rounded-xl bg-white border border-blue-100 shadow-md flex items-center justify-center text-blue-600 hover:bg-blue-50 transition-colors"
+            onClick={() => setIsSidebarOpen(true)}
+            aria-label="Open menu"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+
           <div key={selectedRisk} className="section-enter h-full">
           {selectedRisk === "bg-reg" ? <RisksAssessment /> :
            selectedRisk === "hs-reg" ? <HsProfile /> :
