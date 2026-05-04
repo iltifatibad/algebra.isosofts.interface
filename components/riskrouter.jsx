@@ -52,6 +52,7 @@ const RiskRouter = () => {
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const [exportModuleKey, setExportModuleKey] = useState(null);
   const [showExport, setShowExport] = useState(false);
+  const [counts, setCounts] = useState({});
 
   useEffect(() => {
     const controller = new AbortController();
@@ -100,6 +101,42 @@ const RiskRouter = () => {
     return () => controller.abort();
   }, []);
 
+  useEffect(() => {
+    const token = document.cookie.split("; ").find(r => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+    const endpoints = {
+      "bg-reg":  "/api/register/br/all",
+      "hs-reg":  "/api/register/hsr/all",
+      "leg-reg": "/api/register/leg/all",
+      "env-reg": "/api/register/eai/all",
+      "eq-reg":  "/api/register/ei/all",
+      "tr-reg":  "/api/register/tra/all",
+      "doc-reg": "/api/register/doc/all",
+      "ven-reg": "/api/register/ven/all",
+      "cus-reg": "/api/register/cus/all",
+      "fb-reg":  "/api/register/fb/all",
+      "ear-reg": "/api/register/ea/all",
+      "fl-reg":  "/api/register/fin/all",
+      "ao-reg":  "/api/register/aop/all",
+      "mr-reg":  "/api/register/mrm/all",
+      "moc-reg": "/api/register/moc/all",
+      "ac-reg":  "/api/dashboard/actionLog/all",
+      "kpi":     "/api/dashboard/kpi",
+      "opi":     "/api/dashboard/opi/all",
+    };
+    Promise.allSettled(
+      Object.entries(endpoints).map(([id, url]) =>
+        fetch(`${url}?token=${token}`)
+          .then(r => r.ok ? r.json() : [])
+          .then(data => [id, Array.isArray(data) ? data.length : 0])
+          .catch(() => [id, null])
+      )
+    ).then(results => {
+      const c = {};
+      results.forEach(r => { if (r.status === "fulfilled") c[r.value[0]] = r.value[1]; });
+      setCounts(c);
+    });
+  }, []);
+
   const openExport = (key) => {
     setExportModuleKey(key ?? null);
     setShowExport(true);
@@ -146,10 +183,18 @@ const RiskRouter = () => {
                         : "text-gray-600 hover:bg-blue-50 hover:text-blue-700"}`}
                   >
                     <span className="text-xl min-w-[24px] flex justify-center shrink-0">{risk.icon}</span>
-                    <span className={`ml-4 text-sm font-semibold transition-all duration-300 whitespace-nowrap
+                    <span className={`ml-4 text-sm font-semibold transition-all duration-300 whitespace-nowrap flex-1
                       ${isSidebarOpen ? "opacity-100 visible w-auto" : "opacity-0 invisible w-0 hidden"}`}>
                       {risk.name}
                     </span>
+                    {isSidebarOpen && counts[risk.id] > 0 && (
+                      <span className={`ml-2 text-[11px] font-bold px-2 py-0.5 rounded-full shrink-0
+                        ${selectedRisk === risk.id
+                          ? "bg-white/25 text-white"
+                          : "bg-blue-100 text-blue-700"}`}>
+                        {counts[risk.id]}
+                      </span>
+                    )}
                   </button>
                 </li>
               ))}
