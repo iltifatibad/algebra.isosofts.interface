@@ -67,11 +67,8 @@ const getArchivedData = async () => {
 
         return () => clearTimeout(timer); // cleanup
       } else if (!activeHeader) {
-        const timer = setTimeout(() => {
-          getAllActions(selectedRows);
-          setRefresh(false);
-        }, 500);
-        return () => clearTimeout(timer); // cleanup
+        getAllActions(selectedRows);
+        setRefresh(false);
       } else if ((activeHeader == false) & (showDeletedAction == true)) {
         const timer = setTimeout(() => {
           getDeletedActionData();

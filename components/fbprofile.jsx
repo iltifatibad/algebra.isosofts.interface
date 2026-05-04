@@ -891,7 +891,6 @@ const handleDeleteConfirm = () => {
           }
         })
         .catch((error) => toast.error("Delete failed. Please try again."));
-      setRefresh(true);
     } else {
       console.log("CCC: ", selectedRowsForActions);
       fetch(
