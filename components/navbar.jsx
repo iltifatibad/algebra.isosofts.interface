@@ -45,14 +45,19 @@ const NavigationBar = () => {
             </div>
 
             <div className="hidden md:flex space-x-6">
-              {["Home", "Services", "About", "Contact"].map(link => (
-                <span
-                  key={link}
-                  onClick={() => { window.location.href = "https://www.isosofts.com"; }}
-                  className="text-sm text-gray-600 hover:text-blue-600 transition-colors cursor-pointer font-medium"
+              {[
+                { label: "Home",     href: "https://www.isosofts.com/#home" },
+                { label: "Services", href: "https://www.isosofts.com/#services" },
+                { label: "About",    href: "https://www.isosofts.com/#about" },
+                { label: "Contact",  href: "https://www.isosofts.com/#contact" },
+              ].map(({ label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="text-sm text-gray-600 hover:text-blue-600 transition-colors font-medium"
                 >
-                  {link}
-                </span>
+                  {label}
+                </a>
               ))}
             </div>
           </div>
