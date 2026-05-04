@@ -89,7 +89,7 @@ const EnvHeaders = ({ activeHeader }) => {
             Scale
           </th>
           <th className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-[52px] z-20 bg-blue-200">
-            Risk
+            Score
           </th>
 
           {/* Residual */}
@@ -106,7 +106,7 @@ const EnvHeaders = ({ activeHeader }) => {
             Scale
           </th>
           <th className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-[52px] z-20 bg-blue-200">
-            Risk
+            Score
           </th>
         </tr>
       </thead>

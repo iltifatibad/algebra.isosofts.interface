@@ -1342,17 +1342,17 @@ const OPIProfile = () => {
     {/* LEFT */}
     <div className="space-y-6">
       <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest">
-        Title
+        OPI Details
       </p>
 
-      {/* Title */}
+      {/* OPI Details */}
       <div className="group">
-        <label className="block text-xs text-gray-500 mb-1.5">Title</label>
+        <label className="block text-xs text-gray-500 mb-1.5">OPI Details</label>
         <input
           value={formData.title}
           onChange={(e) => handleFormChange("title", e.target.value)}
           className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-400"
-          placeholder="Enter Title..."
+          placeholder="Enter OPI Details..."
         />
       </div>
 

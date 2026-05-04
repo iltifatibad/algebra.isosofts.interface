@@ -100,7 +100,7 @@ const MocHeaders = ({ activeHeader }) => {
             Severity
           </th>
           <th className="min-w-[70px] border-r border-white text-xs whitespace-normal leading-tight sticky top-13 z-20 bg-blue-200">
-            Likeyhood
+            Likelihood
           </th>
           <th className="min-w-[70px] border-r border-white text-xs whitespace-normal leading-tight sticky top-13 z-20 bg-blue-200">
             Level

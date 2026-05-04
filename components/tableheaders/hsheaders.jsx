@@ -88,7 +88,7 @@ const HsHeaders = ({ activeHeader }) => {
             Severity
           </th>
           <th className="min-w-[70px] border-r border-white text-xs whitespace-normal leading-tight sticky top-13 z-20 bg-blue-200">
-            Likeyhood
+            Likelihood
           </th>
           <th className="min-w-[70px] border-r border-white text-xs whitespace-normal leading-tight sticky top-13 z-20 bg-blue-200">
             Level
@@ -136,7 +136,7 @@ const HsHeaders = ({ activeHeader }) => {
             Resources
           </th>
           <th className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-12 z-20 bg-blue-200">
-            Relative Action
+            Relative Function
           </th>
           <th className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-12 z-20 bg-blue-200">
             Responsible

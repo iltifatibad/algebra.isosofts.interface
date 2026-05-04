@@ -1293,7 +1293,7 @@ const archiveData = (id) => {
 
             {/* Training Certificate / Licence Issue Date */}
             <div className="group">
-              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Issue Date</label>
+              <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Certificate / License Issue Date</label>
               <input
                 value={formData.nvcd}
                 onChange={(e) => handleFormChange("nvcd", e.target.value)}

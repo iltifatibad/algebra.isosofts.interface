@@ -1418,9 +1418,9 @@ const RisksAssessment = () => {
       </select>
     </div>
 
-    {/* Existing Risk Mitigation */}
+    {/* Existing Control Measures */}
     <div className="group">
-      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Existing Risk Mitigation</label>
+      <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Existing Control Measures</label>
       <input
         value={formData.ecm}
         onChange={(e) => handleFormChange("ecm", e.target.value)}

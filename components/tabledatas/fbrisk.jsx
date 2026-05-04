@@ -337,30 +337,6 @@ data.map(async (item) => {
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
-                  value={filters["jobNumber"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "jobNumber": e.target.value}))}
-                  placeholder="Filter..."
-                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
-                />
-              </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
-                <input
-                  value={filters["jobStartDate"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "jobStartDate": e.target.value}))}
-                  placeholder="Filter..."
-                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
-                />
-              </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
-                <input
-                  value={filters["jobCompletionDate"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "jobCompletionDate": e.target.value}))}
-                  placeholder="Filter..."
-                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
-                />
-              </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
-                <input
                   value={filters["scope?.value"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "scope?.value": e.target.value}))}
                   placeholder="Filter..."
@@ -369,8 +345,8 @@ data.map(async (item) => {
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
-                  value={filters["customerName"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "customerName": e.target.value}))}
+                  value={filters["vendorName"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "vendorName": e.target.value}))}
                   placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
@@ -875,7 +851,7 @@ value={
   } else if (!activeHeader && showDeletedAction === false) {
     return (
       <tbody className="text-xs">
-            {/* ── Filter Row ── */}
+            {/* ── Filter Row (Vendor) ── */}
             <tr className="bg-gray-50 border-b-2 border-blue-200">
               <td className="border border-gray-200 px-1 py-1 sticky left-[-1px] z-10 bg-gray-50">
                 <button onClick={() => setFilters({})}
@@ -883,119 +859,36 @@ value={
                   title="Clear Filters">✕ Clear</button>
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
-                <input
-                  value={filters["jobNumber"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "jobNumber": e.target.value}))}
-                  placeholder="Filter..."
-                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
-                />
+                <input value={filters["scope?.value"] || ""} onChange={e => setFilters(prev => ({...prev, "scope?.value": e.target.value}))} placeholder="Filter..." className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400" />
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
-                <input
-                  value={filters["jobStartDate"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "jobStartDate": e.target.value}))}
-                  placeholder="Filter..."
-                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
-                />
+                <input value={filters["vendorName"] || ""} onChange={e => setFilters(prev => ({...prev, "vendorName": e.target.value}))} placeholder="Filter..." className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400" />
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
-                <input
-                  value={filters["jobCompletionDate"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "jobCompletionDate": e.target.value}))}
-                  placeholder="Filter..."
-                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
-                />
+                <input value={filters["typeOfFinding?.value"] || ""} onChange={e => setFilters(prev => ({...prev, "typeOfFinding?.value": e.target.value}))} placeholder="Filter..." className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400" />
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
-                <input
-                  value={filters["scope?.value"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "scope?.value": e.target.value}))}
-                  placeholder="Filter..."
-                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
-                />
+                <input value={filters["qgs"] || ""} onChange={e => setFilters(prev => ({...prev, "qgs": e.target.value}))} placeholder="Filter..." className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400" />
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
-                <input
-                  value={filters["customerName"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "customerName": e.target.value}))}
-                  placeholder="Filter..."
-                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
-                />
+                <input value={filters["communication"] || ""} onChange={e => setFilters(prev => ({...prev, "communication": e.target.value}))} placeholder="Filter..." className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400" />
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
-                <input
-                  value={filters["typeOfFinding?.value"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "typeOfFinding?.value": e.target.value}))}
-                  placeholder="Filter..."
-                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
-                />
+                <input value={filters["otd"] || ""} onChange={e => setFilters(prev => ({...prev, "otd": e.target.value}))} placeholder="Filter..." className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400" />
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
-                <input
-                  value={filters["qgs"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "qgs": e.target.value}))}
-                  placeholder="Filter..."
-                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
-                />
+                <input value={filters["documentation"] || ""} onChange={e => setFilters(prev => ({...prev, "documentation": e.target.value}))} placeholder="Filter..." className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400" />
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
-                <input
-                  value={filters["communication"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "communication": e.target.value}))}
-                  placeholder="Filter..."
-                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
-                />
+                <input value={filters["hs"] || ""} onChange={e => setFilters(prev => ({...prev, "hs": e.target.value}))} placeholder="Filter..." className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400" />
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
-                <input
-                  value={filters["otd"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "otd": e.target.value}))}
-                  placeholder="Filter..."
-                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
-                />
+                <input value={filters["environment"] || ""} onChange={e => setFilters(prev => ({...prev, "environment": e.target.value}))} placeholder="Filter..." className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400" />
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
-                <input
-                  value={filters["documentation"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "documentation": e.target.value}))}
-                  placeholder="Filter..."
-                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
-                />
-              </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
-                <input
-                  value={filters["hs"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "hs": e.target.value}))}
-                  placeholder="Filter..."
-                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
-                />
-              </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
-                <input
-                  value={filters["environment"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "environment": e.target.value}))}
-                  placeholder="Filter..."
-                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
-                />
-              </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
-                <input
-                  value={filters["_totalScore"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "_totalScore": e.target.value}))}
-                  placeholder="Filter..."
-                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
-                />
-              </td>
-              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
-                <input
-                  value={filters["comment"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "comment": e.target.value}))}
-                  placeholder="Filter..."
-                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
-                />
+                <input value={filters["_totalScore"] || ""} onChange={e => setFilters(prev => ({...prev, "_totalScore": e.target.value}))} placeholder="Filter..." className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400" />
               </td>
             </tr>
-
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-6 text-gray-600">

@@ -1638,7 +1638,7 @@ const archiveData = (id) => {
 
         <div className="px-8 py-6 space-y-8">
           <div>
-            <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest mb-4">Action Plan</p>
+            <p className="text-xs font-semibold text-blue-500 uppercase tracking-widest mb-4">Feedback Details</p>
             <div className="space-y-6">
               <div className="grid grid-cols-3 gap-4">
                 <div className="group">
