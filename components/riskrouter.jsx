@@ -68,6 +68,7 @@ const RiskRouter = () => {
       attached.add(box);
 
       let dragging = false;
+      let lifted  = false;
       let startX, startY, origX, origY;
       let activeOv = null;
 
@@ -80,20 +81,29 @@ const RiskRouter = () => {
         const t = (raw && raw !== "none") ? new DOMMatrix(raw) : new DOMMatrix();
         origX  = t.m41; origY  = t.m42;
         startX = e.clientX; startY = e.clientY;
-        // Move overlay to body to escape all stacking contexts
-        ov._origParent = ov.parentNode;
-        ov._origNext   = ov.nextSibling;
-        ov.style.zIndex = "999999";
-        document.body.appendChild(ov);
         activeOv = ov;
         dragging = true;
+        lifted   = false;
         box.style.userSelect = "none";
-        box.style.cursor     = "grabbing";
       };
 
       const onMove = (e) => {
         if (!dragging || !activeOv) return;
-        activeOv.style.transform = `translate(${origX + e.clientX - startX}px, ${origY + e.clientY - startY}px)`;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+
+        if (!lifted) {
+          // Only move to body once the mouse has moved ≥5px (real drag, not a click)
+          if (Math.hypot(dx, dy) < 5) return;
+          lifted = true;
+          activeOv._origParent = activeOv.parentNode;
+          activeOv._origNext   = activeOv.nextSibling;
+          activeOv.style.zIndex = "999999";
+          document.body.appendChild(activeOv);
+          box.style.cursor = "grabbing";
+        }
+
+        activeOv.style.transform = `translate(${origX + dx}px, ${origY + dy}px)`;
       };
 
       const onUp = () => {
@@ -101,12 +111,12 @@ const RiskRouter = () => {
         dragging = false;
         box.style.userSelect = "";
         box.style.cursor     = "";
-        // Restore overlay to original React parent so React can unmount it
-        if (activeOv?._origParent) {
+        if (lifted && activeOv?._origParent) {
           activeOv._origParent.insertBefore(activeOv, activeOv._origNext || null);
           delete activeOv._origParent;
           delete activeOv._origNext;
         }
+        lifted   = false;
         activeOv = null;
       };
 
