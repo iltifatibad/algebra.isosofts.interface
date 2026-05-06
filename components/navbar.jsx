@@ -15,7 +15,8 @@ const NavigationBar = () => {
     ]).then(([accResult, compResult]) => {
       if (accResult.status === "fulfilled") {
         const d = accResult.value;
-        setUserName(d.fullName || d.name || (d.firstName ? `${d.firstName} ${d.lastName ?? ""}`.trim() : "") || d.username || "");
+        const combinedName = (d.firstName && d.lastName) ? `${d.firstName} ${d.lastName}`.trim() : "";
+        setUserName(combinedName || d.fullName || d.name || d.firstName || d.username || "");
       }
       if (compResult.status === "fulfilled") {
         setCompanyName(compResult.value?.name || "");
@@ -69,9 +70,6 @@ const NavigationBar = () => {
           <div className="flex items-center gap-3">
             {(companyName || userName) && (
               <div className="hidden md:flex items-center gap-2.5 bg-blue-50 border border-blue-100 rounded-xl px-3 py-1.5">
-                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-sm shrink-0">
-                  <span className="text-white text-[10px] font-bold">{initials}</span>
-                </div>
                 <div className="leading-tight">
                   {companyName && (
                     <p className="text-[12px] font-semibold text-blue-800 leading-none">{companyName}</p>
@@ -126,9 +124,6 @@ const NavigationBar = () => {
             <div className="pt-2 border-t border-gray-100">
               {(companyName || userName) && (
                 <div className="flex items-center gap-2.5 px-3 py-2 mb-1">
-                  <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-sm shrink-0">
-                    <span className="text-white text-[10px] font-bold">{initials}</span>
-                  </div>
                   <div className="leading-tight min-w-0">
                     {userName && <p className="text-xs font-semibold text-blue-800 truncate leading-none">{userName}</p>}
                     {companyName && <p className="text-[10px] text-blue-500 truncate leading-none mt-0.5">{companyName}</p>}

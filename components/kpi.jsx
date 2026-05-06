@@ -60,8 +60,6 @@ export default function KPIDashboard({ companyName, userName }) {
   const [selectedType, setSelectedType] = useState(null); // "kpi" | "opi"
   const [chartType, setChartType]   = useState("line");
   const [kpiOpiSearch, setKpiOpiSearch] = useState("");
-  const [actionCount, setActionCount]   = useState(null);
-  const [findingCount, setFindingCount] = useState(null);
 
   // KPI fetch
   const getKPI = () => {
@@ -80,19 +78,13 @@ export default function KPIDashboard({ companyName, userName }) {
   const getAll = () => {
     setLoading(true);
     setError(null);
-    const token = getToken();
 
-    const getActions  = () => fetch(`/api/dashboard/actionLog/all?token=${token}`).then(r => r.json()).catch(() => []);
-    const getFindings = () => fetch(`/api/register/fin/all?token=${token}`).then(r => r.json()).catch(() => []);
-
-    Promise.all([getKPI(), getOPI(), getActions(), getFindings()])
-      .then(([kpi, opi, actions, findings]) => {
+    Promise.all([getKPI(), getOPI()])
+      .then(([kpi, opi]) => {
         const safeKpi = Array.isArray(kpi) ? kpi : [];
         const safeOpi = Array.isArray(opi) ? opi : [];
         setKpiData(safeKpi);
         setOpiData(safeOpi);
-        setActionCount(Array.isArray(actions) ? actions.filter(a => a.status !== "deleted").length : 0);
-        setFindingCount(Array.isArray(findings) ? findings.filter(f => f.status !== "deleted").length : 0);
 
         if (safeKpi.length > 0) {
           setSelectedId(safeKpi[0].id);
@@ -140,6 +132,18 @@ export default function KPIDashboard({ companyName, userName }) {
     : 0;
 
   const nonZero = chartData.filter(d => d.Actual > 0);
+
+  const currentMonthKey = MONTH_KEYS[new Date().getMonth()];
+  const TARGET_NOS = ["001","002","003","004","005","006","007","008","009","020"];
+  const HERO_ICONS  = ["fa-chart-line","fa-box","fa-shield-halved","fa-leaf","fa-gear","fa-graduation-cap","fa-file-alt","fa-handshake","fa-users","fa-star"];
+  const HERO_COLORS = ["#60a5fa","#a78bfa","#34d399","#fb923c","#f472b6","#38bdf8","#4ade80","#facc15","#c084fc","#fb7185"];
+  const heroKpis = TARGET_NOS.map((no, i) => {
+    const found = kpiData.find(k => {
+      const n = k.no?.toString() ?? "";
+      return n === no || n.endsWith(`/${no}`);
+    });
+    return { no, title: found?.title ?? `KPI ${no}`, value: found ? (found[currentMonthKey] ?? 0) : null, icon: HERO_ICONS[i], color: HERO_COLORS[i] };
+  });
 
   const renderChart = () => {
     if (!kpi) return <div />;
@@ -283,30 +287,27 @@ export default function KPIDashboard({ companyName, userName }) {
             </div>
           </div>
 
-          {/* Right — stat cards */}
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, flexShrink:0 }}>
-            {[
-              { label:"KPIs",     value: kpiData.length,  icon:"fa-chart-line",        color:"#60a5fa" },
-              { label:"OPIs",     value: opiData.length,  icon:"fa-chart-bar",         color:"#a78bfa" },
-              { label:"Actions",  value: actionCount,     icon:"fa-bolt",              color:"#34d399" },
-              { label:"Findings", value: findingCount,    icon:"fa-magnifying-glass",  color:"#fb923c" },
-            ].map(s => (
-              <div key={s.label} style={{
+          {/* Right — KPI hero cards 001-009 & 020 */}
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(5, 1fr)", gap:8, flexShrink:0 }}>
+            {heroKpis.map(s => (
+              <div key={s.no} style={{
                 background:"rgba(255,255,255,0.07)",
                 border:"1px solid rgba(255,255,255,0.1)",
-                borderRadius:10, padding:"12px 16px",
-                display:"flex", alignItems:"center", gap:10, minWidth:120,
-              }}>
-                <div style={{ width:34, height:34, borderRadius:8, display:"flex", alignItems:"center", justifyContent:"center",
+                borderRadius:10, padding:"10px 12px",
+                display:"flex", flexDirection:"column", alignItems:"center", gap:6, minWidth:90,
+              }}
+                title={s.title}
+              >
+                <div style={{ width:30, height:30, borderRadius:8, display:"flex", alignItems:"center", justifyContent:"center",
                   background:`${s.color}22` }}>
-                  <i className={`fas ${s.icon}`} style={{ fontSize:14, color:s.color }} />
+                  <i className={`fas ${s.icon}`} style={{ fontSize:13, color:s.color }} />
                 </div>
-                <div>
-                  <p style={{ fontSize:22, fontWeight:700, color:"#fff", margin:0, lineHeight:1 }}>
-                    {s.value ?? <span style={{ fontSize:14, color:"rgba(255,255,255,0.3)" }}>—</span>}
-                  </p>
-                  <p style={{ fontSize:11, color:"rgba(148,163,184,0.8)", margin:"3px 0 0" }}>{s.label}</p>
-                </div>
+                <p style={{ fontSize:20, fontWeight:700, color:"#fff", margin:0, lineHeight:1 }}>
+                  {s.value !== null ? s.value : <span style={{ fontSize:13, color:"rgba(255,255,255,0.3)" }}>—</span>}
+                </p>
+                <p style={{ fontSize:10, color:"rgba(148,163,184,0.8)", margin:0, textAlign:"center", lineHeight:1.2 }}>
+                  KPI/{s.no}
+                </p>
               </div>
             ))}
           </div>
