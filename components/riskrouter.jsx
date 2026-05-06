@@ -58,7 +58,7 @@ const RiskRouter = () => {
     if (window.innerWidth < 1024) setIsSidebarOpen(false);
   }, []);
 
-  // Global draggable modals — attach handlers directly to each .modal-box via MutationObserver
+  // Global draggable modals — position:fixed + top/left approach (transform fails inside flex)
   useEffect(() => {
     const attached = new WeakSet();
     const cleanups = [];
@@ -68,30 +68,38 @@ const RiskRouter = () => {
       attached.add(box);
 
       let dragging = false;
-      let startX, startY, origX, origY;
+      let startX, startY, origLeft, origTop;
 
       const onDown = (e) => {
         if (e.target.closest("button, input, select, textarea, a, label")) return;
         e.preventDefault();
-        const raw = getComputedStyle(box).transform;
-        const t = (raw && raw !== "none") ? new DOMMatrix(raw) : new DOMMatrix();
-        origX = t.m41; origY = t.m42;
-        startX = e.clientX; startY = e.clientY;
+        const rect = box.getBoundingClientRect();
+        // Pin the box at its current screen position using fixed positioning
+        box.style.position = "fixed";
+        box.style.margin   = "0";
+        box.style.width    = rect.width + "px";
+        box.style.left     = rect.left + "px";
+        box.style.top      = rect.top  + "px";
+        origLeft = rect.left;
+        origTop  = rect.top;
+        startX   = e.clientX;
+        startY   = e.clientY;
         dragging = true;
         box.style.userSelect = "none";
-        box.style.cursor = "grabbing";
+        box.style.cursor     = "grabbing";
       };
 
       const onMove = (e) => {
         if (!dragging) return;
-        box.style.transform = `translate(${origX + e.clientX - startX}px, ${origY + e.clientY - startY}px)`;
+        box.style.left = (origLeft + e.clientX - startX) + "px";
+        box.style.top  = (origTop  + e.clientY - startY) + "px";
       };
 
       const onUp = () => {
         if (!dragging) return;
         dragging = false;
         box.style.userSelect = "";
-        box.style.cursor = "";
+        box.style.cursor     = "";
       };
 
       box.addEventListener("mousedown", onDown);
@@ -111,8 +119,7 @@ const RiskRouter = () => {
     };
 
     const observer = new MutationObserver((mutations) => {
-      for (const m of mutations)
-        m.addedNodes.forEach(scan);
+      for (const m of mutations) m.addedNodes.forEach(scan);
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
@@ -267,7 +274,7 @@ const RiskRouter = () => {
 
         {/* MAIN CONTENT */}
         <main className="flex-1 min-w-0 h-full overflow-hidden bg-gray-50 relative">
-          <style>{`@keyframes sectionFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.section-enter{animation:sectionFadeIn 0.22s cubic-bezier(0.16,1,0.3,1) both}.modal-overlay{pointer-events:none}.modal-box{pointer-events:auto;cursor:grab;border:1.5px solid #93c5fd !important;box-shadow:0 8px 40px rgba(59,130,246,0.18),0 2px 8px rgba(0,0,0,0.10) !important}.modal-box *{cursor:inherit}.modal-box button,.modal-box input,.modal-box select,.modal-box textarea,.modal-box a,.modal-box label{cursor:auto}.modal-box:active{cursor:grabbing}`}</style>
+          <style>{`@keyframes sectionFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.section-enter{animation:sectionFadeIn 0.22s cubic-bezier(0.16,1,0.3,1) both}.modal-overlay{pointer-events:none}.modal-box{pointer-events:auto;cursor:grab;border:1.5px solid #93c5fd !important;box-shadow:0 8px 40px rgba(59,130,246,0.18),0 2px 8px rgba(0,0,0,0.10) !important;z-index:60}.modal-box button,.modal-box input,.modal-box select,.modal-box textarea,.modal-box a,.modal-box label{cursor:auto}.modal-box:active{cursor:grabbing}`}</style>
 
           {/* Mobile hamburger — shown when sidebar is closed */}
           <button
