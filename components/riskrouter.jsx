@@ -60,32 +60,36 @@ const RiskRouter = () => {
 
   // Global draggable modals
   useEffect(() => {
-    let dragging = null;
+    let box = null;
     let startX, startY, origX, origY;
 
     const onMouseDown = (e) => {
-      if (e.target.closest("button, input, select, textarea, a")) return;
-      const box = e.target.closest(".modal-box");
-      if (!box) return;
-      const header = box.firstElementChild;
-      if (!header || !header.contains(e.target)) return;
-      dragging = box;
-      const t = new DOMMatrix(getComputedStyle(box).transform);
-      origX = isNaN(t.m41) ? 0 : t.m41;
-      origY = isNaN(t.m42) ? 0 : t.m42;
+      if (e.target.closest("button, input, select, textarea, a, label")) return;
+      const found = e.target.closest(".modal-box");
+      if (!found) return;
+      e.preventDefault();
+      box = found;
+      const raw = getComputedStyle(box).transform;
+      const t = raw && raw !== "none" ? new DOMMatrix(raw) : new DOMMatrix();
+      origX = t.m41;
+      origY = t.m42;
       startX = e.clientX;
       startY = e.clientY;
       box.style.userSelect = "none";
-      e.preventDefault();
+      box.style.cursor = "grabbing";
     };
 
     const onMouseMove = (e) => {
-      if (!dragging) return;
-      dragging.style.transform = `translate(${origX + e.clientX - startX}px, ${origY + e.clientY - startY}px)`;
+      if (!box) return;
+      box.style.transform = `translate(${origX + e.clientX - startX}px, ${origY + e.clientY - startY}px)`;
     };
 
     const onMouseUp = () => {
-      if (dragging) { dragging.style.userSelect = ""; dragging = null; }
+      if (box) {
+        box.style.userSelect = "";
+        box.style.cursor = "";
+        box = null;
+      }
     };
 
     document.addEventListener("mousedown", onMouseDown);
@@ -241,7 +245,7 @@ const RiskRouter = () => {
 
         {/* MAIN CONTENT */}
         <main className="flex-1 min-w-0 h-full overflow-hidden bg-gray-50 relative">
-          <style>{`@keyframes sectionFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.section-enter{animation:sectionFadeIn 0.22s cubic-bezier(0.16,1,0.3,1) both}.modal-box>*:first-child{cursor:grab}.modal-box>*:first-child:active{cursor:grabbing}`}</style>
+          <style>{`@keyframes sectionFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.section-enter{animation:sectionFadeIn 0.22s cubic-bezier(0.16,1,0.3,1) both}.modal-overlay{pointer-events:none}.modal-box{pointer-events:auto;cursor:grab;border:1.5px solid #93c5fd !important;box-shadow:0 8px 40px rgba(59,130,246,0.18),0 2px 8px rgba(0,0,0,0.10) !important}.modal-box *{cursor:inherit}.modal-box button,.modal-box input,.modal-box select,.modal-box textarea,.modal-box a,.modal-box label{cursor:auto}.modal-box:active{cursor:grabbing}`}</style>
 
           {/* Mobile hamburger — shown when sidebar is closed */}
           <button
