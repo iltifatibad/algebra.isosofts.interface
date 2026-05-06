@@ -27,6 +27,36 @@ const months = ["january","february","march","april","may","june","july","august
 const monthLabels = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
 export const MODULE_CONFIGS = {
+  "kpi": {
+    name: "KPI",
+    endpoint: "/api/dashboard/kpi",
+    statuses: ["active"],
+    isKpiOpi: true,
+    columns: [
+      { key:"no", label:"No" },
+      { key:"title", label:"KPI" },
+      { key:"function", label:"Function" },
+      { key:"lykpi", label:"Last Year KPI" },
+      { key:"actualKPI", label:"Actual KPI" },
+      { key:"annualTarget", label:"Annual Target" },
+      ...months.map((m, i) => ({ key: m, label: monthLabels[i] })),
+    ],
+  },
+  "opi": {
+    name: "OPI",
+    endpoint: "/api/dashboard/opi/all",
+    statuses: ["active","archived","deleted"],
+    isKpiOpi: true,
+    columns: [
+      { key:"no", label:"No" },
+      { key:"title", label:"Title" },
+      { key:"function", label:"Function" },
+      { key:"lykpi", label:"Last Year Value" },
+      { key:"actualKPI", label:"Actual KPI" },
+      { key:"annualTarget", label:"Annual Target" },
+      ...months.map((m, i) => ({ key: m, label: monthLabels[i] })),
+    ],
+  },
   "bg-reg": {
     name: "Business Risk Register",
     endpoint: "/api/register/br/all",
@@ -324,7 +354,7 @@ export const MODULE_CONFIGS = {
   },
   "ac-reg": {
     name: "Action Log",
-    endpoint: "/api/dashboard/actionLog/all",
+    endpoint: "/api/dashboard/actionLog/all?status=active",
     statuses: ["active"],
     columns: [
       { key:"no", label:"No" },
@@ -339,36 +369,6 @@ export const MODULE_CONFIGS = {
       { key:"completionDate", label:"Completion Date" },
       { key:"verificationStatus", label:"Verification Status" },
       { key:"comment", label:"Comment" },
-    ],
-  },
-  "kpi": {
-    name: "KPI",
-    endpoint: "/api/dashboard/kpi",
-    statuses: ["active"],
-    isKpiOpi: true,
-    columns: [
-      { key:"no", label:"No" },
-      { key:"title", label:"KPI" },
-      { key:"function", label:"Function" },
-      { key:"lykpi", label:"Last Year KPI" },
-      { key:"actualKPI", label:"Actual KPI" },
-      { key:"annualTarget", label:"Annual Target" },
-      ...months.map((m, i) => ({ key: m, label: monthLabels[i] })),
-    ],
-  },
-  "opi": {
-    name: "OPI",
-    endpoint: "/api/dashboard/opi/all",
-    statuses: ["active","archived","deleted"],
-    isKpiOpi: true,
-    columns: [
-      { key:"no", label:"No" },
-      { key:"title", label:"Title" },
-      { key:"function", label:"Function" },
-      { key:"lykpi", label:"Last Year Value" },
-      { key:"actualKPI", label:"Actual KPI" },
-      { key:"annualTarget", label:"Annual Target" },
-      ...months.map((m, i) => ({ key: m, label: monthLabels[i] })),
     ],
   },
 };
