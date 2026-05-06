@@ -69,34 +69,33 @@ const RiskRouter = () => {
 
       let dragging = false;
       let startX, startY, origX, origY;
+      let activeOv = null;
 
       const onDown = (e) => {
         if (e.target.closest("button, input, select, textarea, a, label")) return;
         const ov = box.closest(".modal-overlay");
         if (!ov) return;
         e.preventDefault();
-        // Read existing translate offset (in case modal was already moved)
         const raw = getComputedStyle(ov).transform;
         const t = (raw && raw !== "none") ? new DOMMatrix(raw) : new DOMMatrix();
         origX  = t.m41; origY  = t.m42;
         startX = e.clientX; startY = e.clientY;
-        // Raise overlay above navbar (z-50) and sidebar (z-30)
         ov.style.zIndex = "9999";
+        activeOv = ov;
         dragging = true;
         box.style.userSelect = "none";
         box.style.cursor     = "grabbing";
       };
 
       const onMove = (e) => {
-        if (!dragging) return;
-        const ov = box.closest(".modal-overlay");
-        if (!ov) return;
-        ov.style.transform = `translate(${origX + e.clientX - startX}px, ${origY + e.clientY - startY}px)`;
+        if (!dragging || !activeOv) return;
+        activeOv.style.transform = `translate(${origX + e.clientX - startX}px, ${origY + e.clientY - startY}px)`;
       };
 
       const onUp = () => {
         if (!dragging) return;
-        dragging = false;
+        dragging  = false;
+        activeOv  = null;
         box.style.userSelect = "";
         box.style.cursor     = "";
       };
@@ -273,7 +272,7 @@ const RiskRouter = () => {
 
         {/* MAIN CONTENT */}
         <main className="flex-1 min-w-0 h-full overflow-hidden bg-gray-50 relative">
-          <style>{`@keyframes sectionFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.section-enter{animation:sectionFadeIn 0.22s cubic-bezier(0.16,1,0.3,1) both}.modal-overlay{pointer-events:none}.modal-box{pointer-events:auto;cursor:grab;border:1.5px solid #93c5fd !important;box-shadow:0 8px 40px rgba(59,130,246,0.18),0 2px 8px rgba(0,0,0,0.10) !important;z-index:60}.modal-box button,.modal-box input,.modal-box select,.modal-box textarea,.modal-box a,.modal-box label{cursor:auto}.modal-box:active{cursor:grabbing}`}</style>
+          <style>{`@keyframes sectionFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.section-enter{animation:sectionFadeIn 0.22s cubic-bezier(0.16,1,0.3,1) both}.modal-overlay{pointer-events:none;z-index:200!important}.modal-overlay[style]{z-index:9999!important}.modal-box{pointer-events:auto;cursor:grab;border:1.5px solid #93c5fd !important;box-shadow:0 8px 40px rgba(59,130,246,0.18),0 2px 8px rgba(0,0,0,0.10) !important}.modal-box button,.modal-box input,.modal-box select,.modal-box textarea,.modal-box a,.modal-box label{cursor:auto}.modal-box:active{cursor:grabbing}`}</style>
 
           {/* Mobile hamburger — shown when sidebar is closed */}
           <button
