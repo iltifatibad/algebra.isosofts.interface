@@ -36,7 +36,7 @@ const ExportModal = ({ isOpen, onClose, moduleKey }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-center justify-center">
+    <div className="fixed inset-0 z-[600] flex items-center justify-center">
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={!loading ? onClose : undefined} />
       <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden">
         {/* Header */}
