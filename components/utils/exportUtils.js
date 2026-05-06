@@ -356,18 +356,22 @@ export const MODULE_CONFIGS = {
     name: "Action Log",
     endpoint: "/api/dashboard/actionLog/all?status=active",
     statuses: ["active"],
+    transform: (data) =>
+      data.flatMap((row) =>
+        Array.isArray(row.actions) ? row.actions : row.actions ? [row.actions] : []
+      ),
     columns: [
       { key:"no", label:"No" },
       { key:"title", label:"Action" },
       { key:"raiseDate", label:"Raise Date" },
       { key:"resources", label:"Resources" },
-      { key:"relativeFunction", label:"Relative Function" },
-      { key:"responsible", label:"Responsible" },
+      { key:"relativeFunction", label:"Relative Function", getValue: (r) => r.relativeFunction?.value ?? flat(r.relativeFunction) },
+      { key:"responsible", label:"Responsible", getValue: (r) => r.responsible?.value ?? flat(r.responsible) },
       { key:"deadline", label:"Deadline" },
-      { key:"confirmation", label:"Confirmation" },
-      { key:"status", label:"Status" },
+      { key:"confirmation", label:"Confirmation", getValue: (r) => r.confirmation?.value ?? flat(r.confirmation) },
+      { key:"status", label:"Status", getValue: (r) => r.status?.value ?? flat(r.status) },
       { key:"completionDate", label:"Completion Date" },
-      { key:"verificationStatus", label:"Verification Status" },
+      { key:"verificationStatus", label:"Verification Status", getValue: (r) => r.verificationStatus?.value ?? flat(r.verificationStatus) },
       { key:"comment", label:"Comment" },
     ],
   },
@@ -471,7 +475,8 @@ export const exportModule = async (moduleKey, statuses, visual = false) => {
   const allowedStatuses = statuses.filter((s) => config.statuses.includes(s));
 
   for (const status of allowedStatuses) {
-    const data = await fetchData(config.endpoint, status);
+    const raw = await fetchData(config.endpoint, status);
+    const data = config.transform ? config.transform(raw) : raw;
     if (!data.length) continue;
 
     const rows =
@@ -503,7 +508,8 @@ export const exportAll = async (statuses, visual = false, onProgress) => {
   for (const [key, config] of entries) {
     const allowedStatuses = statuses.filter((s) => config.statuses.includes(s));
     for (const status of allowedStatuses) {
-      const data = await fetchData(config.endpoint, status);
+      const raw = await fetchData(config.endpoint, status);
+      const data = config.transform ? config.transform(raw) : raw;
       if (data.length) {
         const rows =
           visual && config.isKpiOpi
