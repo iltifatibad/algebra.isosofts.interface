@@ -80,7 +80,11 @@ const RiskRouter = () => {
         const t = (raw && raw !== "none") ? new DOMMatrix(raw) : new DOMMatrix();
         origX  = t.m41; origY  = t.m42;
         startX = e.clientX; startY = e.clientY;
-        ov.style.zIndex = "9999";
+        // Move overlay to body to escape all stacking contexts
+        ov._origParent = ov.parentNode;
+        ov._origNext   = ov.nextSibling;
+        ov.style.zIndex = "999999";
+        document.body.appendChild(ov);
         activeOv = ov;
         dragging = true;
         box.style.userSelect = "none";
@@ -94,10 +98,16 @@ const RiskRouter = () => {
 
       const onUp = () => {
         if (!dragging) return;
-        dragging  = false;
-        activeOv  = null;
+        dragging = false;
         box.style.userSelect = "";
         box.style.cursor     = "";
+        // Restore overlay to original React parent so React can unmount it
+        if (activeOv?._origParent) {
+          activeOv._origParent.insertBefore(activeOv, activeOv._origNext || null);
+          delete activeOv._origParent;
+          delete activeOv._origNext;
+        }
+        activeOv = null;
       };
 
       box.addEventListener("mousedown", onDown);

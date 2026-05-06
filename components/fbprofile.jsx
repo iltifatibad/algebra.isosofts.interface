@@ -1452,9 +1452,9 @@ const archiveData = (id) => {
                 >
                   <option value="">Select value...</option>
 
-                  {[...Array(20).keys()].map((num) => (
-                    <option key={num} value={num}>
-                      {num}
+                  {[...Array(10).keys()].map((i) => (
+                    <option key={i + 1} value={i + 1}>
+                      {i + 1}
                     </option>
                   ))}
                 </select>
