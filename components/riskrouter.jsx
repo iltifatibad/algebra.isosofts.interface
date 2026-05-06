@@ -58,6 +58,46 @@ const RiskRouter = () => {
     if (window.innerWidth < 1024) setIsSidebarOpen(false);
   }, []);
 
+  // Global draggable modals
+  useEffect(() => {
+    let dragging = null;
+    let startX, startY, origX, origY;
+
+    const onMouseDown = (e) => {
+      if (e.target.closest("button, input, select, textarea, a")) return;
+      const box = e.target.closest(".modal-box");
+      if (!box) return;
+      const header = box.firstElementChild;
+      if (!header || !header.contains(e.target)) return;
+      dragging = box;
+      const t = new DOMMatrix(getComputedStyle(box).transform);
+      origX = isNaN(t.m41) ? 0 : t.m41;
+      origY = isNaN(t.m42) ? 0 : t.m42;
+      startX = e.clientX;
+      startY = e.clientY;
+      box.style.userSelect = "none";
+      e.preventDefault();
+    };
+
+    const onMouseMove = (e) => {
+      if (!dragging) return;
+      dragging.style.transform = `translate(${origX + e.clientX - startX}px, ${origY + e.clientY - startY}px)`;
+    };
+
+    const onMouseUp = () => {
+      if (dragging) { dragging.style.userSelect = ""; dragging = null; }
+    };
+
+    document.addEventListener("mousedown", onMouseDown);
+    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseup", onMouseUp);
+    return () => {
+      document.removeEventListener("mousedown", onMouseDown);
+      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseup", onMouseUp);
+    };
+  }, []);
+
   useEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
@@ -201,7 +241,7 @@ const RiskRouter = () => {
 
         {/* MAIN CONTENT */}
         <main className="flex-1 min-w-0 h-full overflow-hidden bg-gray-50 relative">
-          <style>{`@keyframes sectionFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.section-enter{animation:sectionFadeIn 0.22s cubic-bezier(0.16,1,0.3,1) both}`}</style>
+          <style>{`@keyframes sectionFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.section-enter{animation:sectionFadeIn 0.22s cubic-bezier(0.16,1,0.3,1) both}.modal-box>*:first-child{cursor:grab}.modal-box>*:first-child:active{cursor:grabbing}`}</style>
 
           {/* Mobile hamburger — shown when sidebar is closed */}
           <button

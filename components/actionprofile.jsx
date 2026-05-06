@@ -1150,7 +1150,7 @@ const archiveData = (id) => {
       {/* Add/Edit Modal */}
       {showModal &&
         (activeHeader ? (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 modal-overlay">
+          <div className="fixed inset-0 z-50 flex items-center justify-center modal-overlay">
             <div className="bg-white !rounded-button shadow-xl max-w-4xl w-full mx-4 max-h-screen overflow-y-auto modal-box">
               <div className="p-6 border-b border-blue-100">
                 <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
@@ -1364,7 +1364,7 @@ const archiveData = (id) => {
             </div>
           </div>
         ) : (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 modal-overlay">
+          <div className="fixed inset-0 z-50 flex items-center justify-center modal-overlay">
             <div className="bg-white !rounded-button shadow-xl max-w-4xl w-full mx-4 max-h-screen overflow-y-auto modal-box">
               <div className="p-6 border-b border-blue-100">
                 <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
@@ -2014,7 +2014,7 @@ const archiveData = (id) => {
         ))}
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 modal-overlay">
+        <div className="fixed inset-0 z-50 flex items-center justify-center modal-overlay">
           <div className="bg-white !rounded-button shadow-xl max-w-md w-full mx-4 modal-box">
             <div className="p-6">
               <h3 className="text-lg font-semibold text-gray-800 mb-4">

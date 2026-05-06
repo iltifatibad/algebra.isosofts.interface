@@ -1239,7 +1239,7 @@ const archiveData = (id) => {
       </div>
 {showModal &&
   (activeHeader ? (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm modal-overlay">
+    <div className="fixed inset-0 z-50 flex items-center justify-center modal-overlay">
       <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-gray-100 modal-box">
 
         {/* Header */}
@@ -1417,7 +1417,7 @@ const archiveData = (id) => {
 
   ) : (
 
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm modal-overlay">
+    <div className="fixed inset-0 z-50 flex items-center justify-center modal-overlay">
       <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-gray-100 modal-box">
 
         {/* Header */}
@@ -1603,7 +1603,7 @@ const archiveData = (id) => {
 
 {/* Delete Confirmation Modal */}
 {showDeleteModal && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm modal-overlay">
+  <div className="fixed inset-0 z-50 flex items-center justify-center modal-overlay">
     <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 border border-gray-100 modal-box">
       <div className="p-6">
         <div className="flex items-start gap-4">
