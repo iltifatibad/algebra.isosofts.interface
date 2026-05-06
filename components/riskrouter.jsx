@@ -272,7 +272,7 @@ const RiskRouter = () => {
 
         {/* MAIN CONTENT */}
         <main className="flex-1 min-w-0 h-full overflow-hidden bg-gray-50 relative">
-          <style>{`@keyframes sectionFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.section-enter{animation:sectionFadeIn 0.22s cubic-bezier(0.16,1,0.3,1) both}.modal-overlay{pointer-events:none;z-index:200!important}.modal-overlay[style]{z-index:9999!important}.modal-box{pointer-events:auto;cursor:grab;border:1.5px solid #93c5fd !important;box-shadow:0 8px 40px rgba(59,130,246,0.18),0 2px 8px rgba(0,0,0,0.10) !important}.modal-box button,.modal-box input,.modal-box select,.modal-box textarea,.modal-box a,.modal-box label{cursor:auto}.modal-box:active{cursor:grabbing}`}</style>
+          <style>{`@keyframes sectionFadeIn{from{opacity:0}to{opacity:1}}.section-enter{animation:sectionFadeIn 0.22s cubic-bezier(0.16,1,0.3,1) both}.modal-overlay{pointer-events:none;z-index:9999!important}.modal-box{pointer-events:auto;cursor:grab;border:1.5px solid #93c5fd !important;box-shadow:0 8px 40px rgba(59,130,246,0.18),0 2px 8px rgba(0,0,0,0.10) !important}.modal-box button,.modal-box input,.modal-box select,.modal-box textarea,.modal-box a,.modal-box label{cursor:auto}.modal-box:active{cursor:grabbing}`}</style>
 
           {/* Mobile hamburger — shown when sidebar is closed */}
           <button
