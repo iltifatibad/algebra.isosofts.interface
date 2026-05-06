@@ -68,23 +68,20 @@ const RiskRouter = () => {
       attached.add(box);
 
       let dragging = false;
-      let startX, startY, origLeft, origTop;
+      let startX, startY, origX, origY;
 
       const onDown = (e) => {
         if (e.target.closest("button, input, select, textarea, a, label")) return;
+        const ov = box.closest(".modal-overlay");
+        if (!ov) return;
         e.preventDefault();
-        const rect = box.getBoundingClientRect();
-        // Pin the box at its current screen position using fixed positioning
-        box.style.position = "fixed";
-        box.style.margin   = "0";
-        box.style.width    = rect.width + "px";
-        box.style.left     = rect.left + "px";
-        box.style.top      = rect.top  + "px";
-        box.style.zIndex   = "9999";
-        origLeft = rect.left;
-        origTop  = rect.top;
-        startX   = e.clientX;
-        startY   = e.clientY;
+        // Read existing translate offset (in case modal was already moved)
+        const raw = getComputedStyle(ov).transform;
+        const t = (raw && raw !== "none") ? new DOMMatrix(raw) : new DOMMatrix();
+        origX  = t.m41; origY  = t.m42;
+        startX = e.clientX; startY = e.clientY;
+        // Raise overlay above navbar (z-50) and sidebar (z-30)
+        ov.style.zIndex = "9999";
         dragging = true;
         box.style.userSelect = "none";
         box.style.cursor     = "grabbing";
@@ -92,8 +89,9 @@ const RiskRouter = () => {
 
       const onMove = (e) => {
         if (!dragging) return;
-        box.style.left = (origLeft + e.clientX - startX) + "px";
-        box.style.top  = (origTop  + e.clientY - startY) + "px";
+        const ov = box.closest(".modal-overlay");
+        if (!ov) return;
+        ov.style.transform = `translate(${origX + e.clientX - startX}px, ${origY + e.clientY - startY}px)`;
       };
 
       const onUp = () => {
