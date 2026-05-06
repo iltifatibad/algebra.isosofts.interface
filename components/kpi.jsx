@@ -142,7 +142,12 @@ export default function KPIDashboard({ companyName, userName }) {
       const n = k.no?.toString() ?? "";
       return n === no || n.endsWith(`/${no}`);
     });
-    return { no, title: found?.title ?? `KPI ${no}`, value: found ? (found[currentMonthKey] ?? 0) : null, icon: HERO_ICONS[i], color: HERO_COLORS[i] };
+    const rawTitle = found?.title ?? `KPI ${no}`;
+    const idx = parseInt(no, 10);
+    let displayTitle = rawTitle;
+    if (idx >= 1 && idx <= 9) displayTitle = displayTitle.replace(/^number\s+/i, "").trim();
+    if (no === "020") displayTitle = displayTitle.replace(/\bcustomer\s*/i, "").trim();
+    return { no, title: displayTitle, value: found ? (found[currentMonthKey] ?? 0) : null, icon: HERO_ICONS[i], color: HERO_COLORS[i] };
   });
 
   const renderChart = () => {
@@ -305,8 +310,8 @@ export default function KPIDashboard({ companyName, userName }) {
                 <p style={{ fontSize:20, fontWeight:700, color:"#fff", margin:0, lineHeight:1 }}>
                   {s.value !== null ? s.value : <span style={{ fontSize:13, color:"rgba(255,255,255,0.3)" }}>—</span>}
                 </p>
-                <p style={{ fontSize:10, color:"rgba(148,163,184,0.8)", margin:0, textAlign:"center", lineHeight:1.2 }}>
-                  KPI/{s.no}
+                <p style={{ fontSize:9, color:"rgba(148,163,184,0.8)", margin:0, textAlign:"center", lineHeight:1.2 }}>
+                  {s.title}
                 </p>
               </div>
             ))}
