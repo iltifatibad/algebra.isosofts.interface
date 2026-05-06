@@ -145,7 +145,7 @@ export default function KPIDashboard({ companyName, userName }) {
     const rawTitle = found?.title ?? `KPI ${no}`;
     const idx = parseInt(no, 10);
     let displayTitle = rawTitle;
-    if (idx >= 1 && idx <= 9) displayTitle = displayTitle.replace(/^number\s+/i, "").trim();
+    if (idx >= 1 && idx <= 9) displayTitle = displayTitle.replace(/^number\s+/i, "").replace(/^of\s+/i, "").trim();
     if (no === "020") displayTitle = displayTitle.replace(/\bcustomer\s*/i, "").trim();
     return { no, title: displayTitle, value: found ? (found[currentMonthKey] ?? 0) : null, icon: HERO_ICONS[i], color: HERO_COLORS[i] };
   });
