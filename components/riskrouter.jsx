@@ -58,47 +58,69 @@ const RiskRouter = () => {
     if (window.innerWidth < 1024) setIsSidebarOpen(false);
   }, []);
 
-  // Global draggable modals
+  // Global draggable modals — attach handlers directly to each .modal-box via MutationObserver
   useEffect(() => {
-    let box = null;
-    let startX, startY, origX, origY;
+    const attached = new WeakSet();
+    const cleanups = [];
 
-    const onMouseDown = (e) => {
-      if (e.target.closest("button, input, select, textarea, a, label")) return;
-      const found = e.target.closest(".modal-box");
-      if (!found) return;
-      e.preventDefault();
-      box = found;
-      const raw = getComputedStyle(box).transform;
-      const t = raw && raw !== "none" ? new DOMMatrix(raw) : new DOMMatrix();
-      origX = t.m41;
-      origY = t.m42;
-      startX = e.clientX;
-      startY = e.clientY;
-      box.style.userSelect = "none";
-      box.style.cursor = "grabbing";
-    };
+    const makeDraggable = (box) => {
+      if (attached.has(box)) return;
+      attached.add(box);
 
-    const onMouseMove = (e) => {
-      if (!box) return;
-      box.style.transform = `translate(${origX + e.clientX - startX}px, ${origY + e.clientY - startY}px)`;
-    };
+      let dragging = false;
+      let startX, startY, origX, origY;
 
-    const onMouseUp = () => {
-      if (box) {
+      const onDown = (e) => {
+        if (e.target.closest("button, input, select, textarea, a, label")) return;
+        e.preventDefault();
+        const raw = getComputedStyle(box).transform;
+        const t = (raw && raw !== "none") ? new DOMMatrix(raw) : new DOMMatrix();
+        origX = t.m41; origY = t.m42;
+        startX = e.clientX; startY = e.clientY;
+        dragging = true;
+        box.style.userSelect = "none";
+        box.style.cursor = "grabbing";
+      };
+
+      const onMove = (e) => {
+        if (!dragging) return;
+        box.style.transform = `translate(${origX + e.clientX - startX}px, ${origY + e.clientY - startY}px)`;
+      };
+
+      const onUp = () => {
+        if (!dragging) return;
+        dragging = false;
         box.style.userSelect = "";
         box.style.cursor = "";
-        box = null;
-      }
+      };
+
+      box.addEventListener("mousedown", onDown);
+      document.addEventListener("mousemove", onMove);
+      document.addEventListener("mouseup", onUp);
+      cleanups.push(() => {
+        box.removeEventListener("mousedown", onDown);
+        document.removeEventListener("mousemove", onMove);
+        document.removeEventListener("mouseup", onUp);
+      });
     };
 
-    document.addEventListener("mousedown", onMouseDown);
-    document.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseup", onMouseUp);
+    const scan = (root) => {
+      if (root.nodeType !== 1) return;
+      if (root.classList?.contains("modal-box")) makeDraggable(root);
+      root.querySelectorAll?.(".modal-box").forEach(makeDraggable);
+    };
+
+    const observer = new MutationObserver((mutations) => {
+      for (const m of mutations)
+        m.addedNodes.forEach(scan);
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+    document.querySelectorAll(".modal-box").forEach(makeDraggable);
+
     return () => {
-      document.removeEventListener("mousedown", onMouseDown);
-      document.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("mouseup", onMouseUp);
+      observer.disconnect();
+      cleanups.forEach((fn) => fn());
     };
   }, []);
 
