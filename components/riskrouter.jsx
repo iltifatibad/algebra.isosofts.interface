@@ -80,6 +80,7 @@ const RiskRouter = () => {
         box.style.width    = rect.width + "px";
         box.style.left     = rect.left + "px";
         box.style.top      = rect.top  + "px";
+        box.style.zIndex   = "9999";
         origLeft = rect.left;
         origTop  = rect.top;
         startX   = e.clientX;
