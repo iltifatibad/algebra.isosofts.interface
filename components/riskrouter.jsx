@@ -190,12 +190,12 @@ const RiskRouter = () => {
   return (
     <UserProvider value={{ isSuperAdmin, openExport }}>
     <div className="pt-20 h-screen w-full bg-gray-50 overflow-hidden flex flex-col font-sans">
-      <div className="flex flex-1 h-full w-full overflow-hidden relative">
+      <div className="flex flex-1 h-full w-full overflow-hidden relative" style={{ zIndex: 200 }}>
 
         {/* Mobile backdrop */}
         {isSidebarOpen && (
           <div
-            className="fixed inset-0 bg-black/40 z-20 lg:hidden"
+            className="fixed inset-0 bg-black/40 z-[400] lg:hidden"
             style={{ top: "80px" }}
             onClick={() => setIsSidebarOpen(false)}
           />
@@ -206,7 +206,7 @@ const RiskRouter = () => {
           className={`
             bg-white shadow-2xl border-r border-blue-100
             transition-all duration-300 ease-in-out flex flex-col flex-shrink-0
-            fixed top-20 bottom-0 left-0 lg:relative lg:top-auto lg:bottom-auto lg:left-auto z-30
+            fixed top-20 bottom-0 left-0 lg:relative lg:top-auto lg:bottom-auto lg:left-auto z-[500]
             ${isSidebarOpen
               ? "w-72 translate-x-0"
               : "w-72 -translate-x-full lg:translate-x-0 lg:w-20"}
