@@ -51,9 +51,23 @@ const getToken = () =>
     .slice(1)
     .join("=") ?? "";
 
+const STAT_MODULES = [
+  { label: "Business Risks",      icon: "fa-briefcase",      color: "#60a5fa", endpoint: "/api/register/br/all"  },
+  { label: "H&S Risks",           icon: "fa-shield-halved",  color: "#f472b6", endpoint: "/api/register/hsr/all" },
+  { label: "Legislations",        icon: "fa-scale-balanced", color: "#a78bfa", endpoint: "/api/register/leg/all" },
+  { label: "Env. Aspects",        icon: "fa-leaf",           color: "#34d399", endpoint: "/api/register/eai/all" },
+  { label: "Equipment",           icon: "fa-gear",           color: "#fb923c", endpoint: "/api/register/ei/all"  },
+  { label: "Trainings",           icon: "fa-graduation-cap", color: "#38bdf8", endpoint: "/api/register/tra/all" },
+  { label: "Documents",           icon: "fa-file-alt",       color: "#4ade80", endpoint: "/api/register/doc/all" },
+  { label: "Vendors",             icon: "fa-handshake",      color: "#facc15", endpoint: "/api/register/ven/all" },
+  { label: "Customers",           icon: "fa-users",          color: "#c084fc", endpoint: "/api/register/cus/all" },
+  { label: "Action Log",          icon: "fa-list-check",     color: "#fb7185", endpoint: "/api/dashboard/actionLog/all" },
+];
+
 export default function KPIDashboard({ companyName, userName }) {
   const [kpiData, setKpiData]       = useState([]);
   const [opiData, setOpiData]       = useState([]);
+  const [statCounts, setStatCounts] = useState(STAT_MODULES.map(() => null));
   const [loading, setLoading]       = useState(false);
   const [error, setError]           = useState(null);
   const [selectedId, setSelectedId] = useState(null);
@@ -79,12 +93,30 @@ export default function KPIDashboard({ companyName, userName }) {
     setLoading(true);
     setError(null);
 
-    Promise.all([getKPI(), getOPI()])
-      .then(([kpi, opi]) => {
+    const token = getToken();
+
+    // Fetch KPI + OPI + all module counts in parallel
+    Promise.all([
+      getKPI(),
+      getOPI(),
+      ...STAT_MODULES.map(m =>
+        fetch(`${m.endpoint}?token=${token}`)
+          .then(r => r.ok ? r.json() : [])
+          .then(d => {
+            if (Array.isArray(d)) return d.length;
+            // action log returns nested: each row has .actions array
+            if (Array.isArray(d)) return d.reduce((s, r) => s + (Array.isArray(r.actions) ? r.actions.length : 1), 0);
+            return 0;
+          })
+          .catch(() => 0)
+      ),
+    ])
+      .then(([kpi, opi, ...counts]) => {
         const safeKpi = Array.isArray(kpi) ? kpi : [];
         const safeOpi = Array.isArray(opi) ? opi : [];
         setKpiData(safeKpi);
         setOpiData(safeOpi);
+        setStatCounts(counts);
 
         if (safeKpi.length > 0) {
           setSelectedId(safeKpi[0].id);
@@ -133,22 +165,7 @@ export default function KPIDashboard({ companyName, userName }) {
 
   const nonZero = chartData.filter(d => d.Actual > 0);
 
-  const currentMonthKey = MONTH_KEYS[new Date().getMonth()];
-  const TARGET_NOS = ["001","002","003","004","005","006","007","008","009","020"];
-  const HERO_ICONS  = ["fa-chart-line","fa-box","fa-shield-halved","fa-leaf","fa-gear","fa-graduation-cap","fa-file-alt","fa-handshake","fa-users","fa-star"];
-  const HERO_COLORS = ["#60a5fa","#a78bfa","#34d399","#fb923c","#f472b6","#38bdf8","#4ade80","#facc15","#c084fc","#fb7185"];
-  const heroKpis = TARGET_NOS.map((no, i) => {
-    const found = kpiData.find(k => {
-      const n = k.no?.toString() ?? "";
-      return n === no || n.endsWith(`/${no}`);
-    });
-    const rawTitle = found?.title ?? `KPI ${no}`;
-    const idx = parseInt(no, 10);
-    let displayTitle = rawTitle;
-    if (idx >= 1 && idx <= 9) displayTitle = displayTitle.replace(/^number\s+/i, "").replace(/^of\s+/i, "").trim();
-    if (no === "020") displayTitle = displayTitle.replace(/\bcustomer\s*/i, "").trim();
-    return { no, title: displayTitle, value: found ? (found[currentMonthKey] ?? 0) : null, icon: HERO_ICONS[i], color: HERO_COLORS[i] };
-  });
+  const heroStats = STAT_MODULES.map((m, i) => ({ ...m, value: statCounts[i] }));
 
   const renderChart = () => {
     if (!kpi) return <div />;
@@ -292,16 +309,16 @@ export default function KPIDashboard({ companyName, userName }) {
             </div>
           </div>
 
-          {/* Right — KPI hero cards 001-009 & 020 */}
+          {/* Right — module record counts */}
           <div style={{ display:"grid", gridTemplateColumns:"repeat(5, 1fr)", gap:8, flexShrink:0 }}>
-            {heroKpis.map(s => (
-              <div key={s.no} style={{
+            {heroStats.map((s, i) => (
+              <div key={i} style={{
                 background:"rgba(255,255,255,0.07)",
                 border:"1px solid rgba(255,255,255,0.1)",
                 borderRadius:10, padding:"10px 12px",
                 display:"flex", flexDirection:"column", alignItems:"center", gap:6, minWidth:90,
               }}
-                title={s.title}
+                title={s.label}
               >
                 <div style={{ width:30, height:30, borderRadius:8, display:"flex", alignItems:"center", justifyContent:"center",
                   background:`${s.color}22` }}>
@@ -311,7 +328,7 @@ export default function KPIDashboard({ companyName, userName }) {
                   {s.value !== null ? s.value : <span style={{ fontSize:13, color:"rgba(255,255,255,0.3)" }}>—</span>}
                 </p>
                 <p style={{ fontSize:9, color:"rgba(148,163,184,0.8)", margin:0, textAlign:"center", lineHeight:1.2 }}>
-                  {s.title}
+                  {s.label}
                 </p>
               </div>
             ))}
