@@ -95,44 +95,33 @@ export default function KPIDashboard({ companyName, userName }) {
 
     const token = getToken();
 
-    // Fetch KPI + OPI + all module counts in parallel
-    Promise.all([
-      getKPI(),
-      getOPI(),
-      ...STAT_MODULES.map((m, i) =>
+    // KPI + OPI fetch (chart data)
+    Promise.all([getKPI(), getOPI()])
+      .then(([kpi, opi]) => {
+        const safeKpi = Array.isArray(kpi) ? kpi : [];
+        const safeOpi = Array.isArray(opi) ? opi : [];
+        setKpiData(safeKpi);
+        setOpiData(safeOpi);
+        if (safeKpi.length > 0) { setSelectedId(safeKpi[0].id); setSelectedType("kpi"); }
+        else if (safeOpi.length > 0) { setSelectedId(safeOpi[0].id); setSelectedType("opi"); }
+        setLoading(false);
+      })
+      .catch(e => { setError(e.message); setLoading(false); });
+
+    // Module record counts — independent, never blocks KPI load
+    Promise.all(
+      STAT_MODULES.map((m, i) =>
         fetch(`${m.endpoint}?token=${token}`)
           .then(r => r.ok ? r.json() : [])
           .then(d => {
             if (!Array.isArray(d)) return 0;
-            // action log: nested structure — each row has .actions[]
             if (i === STAT_MODULES.length - 1)
               return d.reduce((s, r) => s + (Array.isArray(r.actions) ? r.actions.length : 1), 0);
             return d.length;
           })
           .catch(() => 0)
-      ),
-    ])
-      .then(([kpi, opi, ...counts]) => {
-        const safeKpi = Array.isArray(kpi) ? kpi : [];
-        const safeOpi = Array.isArray(opi) ? opi : [];
-        setKpiData(safeKpi);
-        setOpiData(safeOpi);
-        setStatCounts(counts);
-
-        if (safeKpi.length > 0) {
-          setSelectedId(safeKpi[0].id);
-          setSelectedType("kpi");
-        } else if (safeOpi.length > 0) {
-          setSelectedId(safeOpi[0].id);
-          setSelectedType("opi");
-        }
-
-        setLoading(false);
-      })
-      .catch(e => {
-        setError(e.message);
-        setLoading(false);
-      });
+      )
+    ).then(counts => setStatCounts(counts));
   };
 
   useEffect(() => { getAll(); }, []);
@@ -169,12 +158,16 @@ export default function KPIDashboard({ companyName, userName }) {
   const TARGET_NOS = ["001","002","003","004","005","006","007","008","009","020"];
   const heroStats = STAT_MODULES.map((m, i) => {
     const no = TARGET_NOS[i];
-    const found = kpiData.find(k => { const n = k.no?.toString() ?? ""; return n === no || n.endsWith(`/${no}`); });
-    const rawTitle = found?.title ?? m.label;
-    const idx = parseInt(no, 10);
-    let title = rawTitle;
-    if (idx >= 1 && idx <= 9) title = title.replace(/^number\s+/i, "").replace(/^of\s+/i, "").trim();
-    if (no === "020") title = title.replace(/\bcustomer\s*/i, "").trim();
+    const num = parseInt(no, 10);
+    const found = kpiData.find(k => {
+      const n = k.no?.toString() ?? "";
+      return n === no || n.endsWith(`/${no}`) || parseInt(n, 10) === num;
+    });
+    let title = found?.title ?? m.label;
+    if (found) {
+      if (num >= 1 && num <= 9) title = title.replace(/^number\s+/i, "").replace(/^of\s+/i, "").trim();
+      if (no === "020") title = title.replace(/\bcustomer\s*/i, "").trim();
+    }
     return { ...m, title, value: statCounts[i] };
   });
 
