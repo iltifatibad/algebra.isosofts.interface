@@ -99,14 +99,15 @@ export default function KPIDashboard({ companyName, userName }) {
     Promise.all([
       getKPI(),
       getOPI(),
-      ...STAT_MODULES.map(m =>
+      ...STAT_MODULES.map((m, i) =>
         fetch(`${m.endpoint}?token=${token}`)
           .then(r => r.ok ? r.json() : [])
           .then(d => {
-            if (Array.isArray(d)) return d.length;
-            // action log returns nested: each row has .actions array
-            if (Array.isArray(d)) return d.reduce((s, r) => s + (Array.isArray(r.actions) ? r.actions.length : 1), 0);
-            return 0;
+            if (!Array.isArray(d)) return 0;
+            // action log: nested structure — each row has .actions[]
+            if (i === STAT_MODULES.length - 1)
+              return d.reduce((s, r) => s + (Array.isArray(r.actions) ? r.actions.length : 1), 0);
+            return d.length;
           })
           .catch(() => 0)
       ),
@@ -165,7 +166,17 @@ export default function KPIDashboard({ companyName, userName }) {
 
   const nonZero = chartData.filter(d => d.Actual > 0);
 
-  const heroStats = STAT_MODULES.map((m, i) => ({ ...m, value: statCounts[i] }));
+  const TARGET_NOS = ["001","002","003","004","005","006","007","008","009","020"];
+  const heroStats = STAT_MODULES.map((m, i) => {
+    const no = TARGET_NOS[i];
+    const found = kpiData.find(k => { const n = k.no?.toString() ?? ""; return n === no || n.endsWith(`/${no}`); });
+    const rawTitle = found?.title ?? m.label;
+    const idx = parseInt(no, 10);
+    let title = rawTitle;
+    if (idx >= 1 && idx <= 9) title = title.replace(/^number\s+/i, "").replace(/^of\s+/i, "").trim();
+    if (no === "020") title = title.replace(/\bcustomer\s*/i, "").trim();
+    return { ...m, title, value: statCounts[i] };
+  });
 
   const renderChart = () => {
     if (!kpi) return <div />;
@@ -318,7 +329,7 @@ export default function KPIDashboard({ companyName, userName }) {
                 borderRadius:10, padding:"10px 12px",
                 display:"flex", flexDirection:"column", alignItems:"center", gap:6, minWidth:90,
               }}
-                title={s.label}
+                title={s.title}
               >
                 <div style={{ width:30, height:30, borderRadius:8, display:"flex", alignItems:"center", justifyContent:"center",
                   background:`${s.color}22` }}>
@@ -328,7 +339,7 @@ export default function KPIDashboard({ companyName, userName }) {
                   {s.value !== null ? s.value : <span style={{ fontSize:13, color:"rgba(255,255,255,0.3)" }}>—</span>}
                 </p>
                 <p style={{ fontSize:9, color:"rgba(148,163,184,0.8)", margin:0, textAlign:"center", lineHeight:1.2 }}>
-                  {s.label}
+                  {s.title}
                 </p>
               </div>
             ))}
