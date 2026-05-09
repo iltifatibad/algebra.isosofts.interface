@@ -52,22 +52,21 @@ const getToken = () =>
     .join("=") ?? "";
 
 const STAT_MODULES = [
-  { label: "Business Risks",      icon: "fa-briefcase",      color: "#60a5fa", endpoint: "/api/register/br/all"  },
-  { label: "H&S Risks",           icon: "fa-shield-halved",  color: "#f472b6", endpoint: "/api/register/hsr/all" },
-  { label: "Legislations",        icon: "fa-scale-balanced", color: "#a78bfa", endpoint: "/api/register/leg/all" },
-  { label: "Env. Aspects",        icon: "fa-leaf",           color: "#34d399", endpoint: "/api/register/eai/all" },
-  { label: "Equipment",           icon: "fa-gear",           color: "#fb923c", endpoint: "/api/register/ei/all"  },
-  { label: "Trainings",           icon: "fa-graduation-cap", color: "#38bdf8", endpoint: "/api/register/tra/all" },
-  { label: "Documents",           icon: "fa-file-alt",       color: "#4ade80", endpoint: "/api/register/doc/all" },
-  { label: "Vendors",             icon: "fa-handshake",      color: "#facc15", endpoint: "/api/register/ven/all" },
-  { label: "Customers",           icon: "fa-users",          color: "#c084fc", endpoint: "/api/register/cus/all" },
-  { label: "Action Log",          icon: "fa-list-check",     color: "#fb7185", endpoint: "/api/dashboard/actionLog/all" },
+  { icon: "fa-chart-line",      color: "#60a5fa" },
+  { icon: "fa-box",             color: "#a78bfa" },
+  { icon: "fa-shield-halved",   color: "#34d399" },
+  { icon: "fa-leaf",            color: "#fb923c" },
+  { icon: "fa-gear",            color: "#f472b6" },
+  { icon: "fa-graduation-cap",  color: "#38bdf8" },
+  { icon: "fa-file-alt",        color: "#4ade80" },
+  { icon: "fa-handshake",       color: "#facc15" },
+  { icon: "fa-users",           color: "#c084fc" },
+  { icon: "fa-star",            color: "#fb7185" },
 ];
 
 export default function KPIDashboard({ companyName, userName }) {
   const [kpiData, setKpiData]       = useState([]);
   const [opiData, setOpiData]       = useState([]);
-  const [statCounts, setStatCounts] = useState(STAT_MODULES.map(() => null));
   const [loading, setLoading]       = useState(false);
   const [error, setError]           = useState(null);
   const [selectedId, setSelectedId] = useState(null);
@@ -93,8 +92,6 @@ export default function KPIDashboard({ companyName, userName }) {
     setLoading(true);
     setError(null);
 
-    const token = getToken();
-
     // KPI + OPI fetch (chart data)
     Promise.all([getKPI(), getOPI()])
       .then(([kpi, opi]) => {
@@ -108,20 +105,6 @@ export default function KPIDashboard({ companyName, userName }) {
       })
       .catch(e => { setError(e.message); setLoading(false); });
 
-    // Module record counts — independent, never blocks KPI load
-    Promise.all(
-      STAT_MODULES.map((m, i) =>
-        fetch(`${m.endpoint}?token=${token}`)
-          .then(r => r.ok ? r.json() : [])
-          .then(d => {
-            if (!Array.isArray(d)) return 0;
-            if (i === STAT_MODULES.length - 1)
-              return d.reduce((s, r) => s + (Array.isArray(r.actions) ? r.actions.length : 1), 0);
-            return d.length;
-          })
-          .catch(() => 0)
-      )
-    ).then(counts => setStatCounts(counts));
   };
 
   useEffect(() => { getAll(); }, []);
@@ -168,7 +151,7 @@ export default function KPIDashboard({ companyName, userName }) {
       if (num >= 1 && num <= 9) title = title.replace(/^number\s+/i, "").replace(/^of\s+/i, "").trim();
       if (no === "020") title = title.replace(/\bcustomer\s*/i, "").trim();
     }
-    return { ...m, title, value: statCounts[i] };
+    return { ...m, title, value: found?.actualKPI ?? null };
   });
 
   const renderChart = () => {
