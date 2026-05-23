@@ -470,7 +470,7 @@ async function getDefaultDropdownList() {
       setFormData({
         issuer: row.issuer,
         findingDate: row.findingDate,
-        jobNumber: row.jobNumber,
+        jobNumber: row.jobNumber || String(row.jobNumber),
         process: row.process.id || String(row.process),
         categoryOfFinding:
           row.categoryOfFinding.id || String(row.categoryOfFinding),
@@ -481,7 +481,7 @@ async function getDefaultDropdownList() {
         description: row.description,
         containmentAction: row.containmentAction,
         rootCauses: row.rootCauses,
-        findingStatus: row.findingStatus,
+        findingStatus: row.findingStatus || String(row.findingStatus),
         comment: row.comment
       });
     } else {
