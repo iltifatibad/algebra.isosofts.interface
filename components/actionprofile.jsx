@@ -654,6 +654,7 @@ if (modalMode === "add") {
           relativeFunction: actionData.actionPlan?.[0]?.relativeFunction || "",
           responsibleId: actionData.actionPlan?.[0]?.responsible || "",
           approverId: actionData.actionPlan?.[0]?.approverId || "",
+          sendNotification: actionData.actionPlan?.[0]?.sendNotification ?? 0,
           deadline: actionData.actionPlan?.[0]?.deadline || "",
           confirmation: actionData.actionPlan?.[0]?.confirmation || "",
           status: actionData.actionPlan?.[0]?.status || "",
