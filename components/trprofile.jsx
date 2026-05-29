@@ -88,10 +88,10 @@ function TrainingMatrix({ show, data, loading }) {
                 }
                 const ncdDate = new Date(rec.ncd);
                 ncdDate.setHours(0, 0, 0, 0);
-                const isPast = ncdDate <= today;
+                const isValid = ncdDate > today;
                 const label = ncdDate.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "2-digit" });
                 return (
-                  <td key={t} className="border border-gray-200 text-center font-medium text-[9px] text-white" style={{ background: isPast ? "#16a34a" : "#ef4444", width: 60, padding: "4px 2px" }}>
+                  <td key={t} className="border border-gray-200 text-center font-medium text-[9px] text-white" style={{ background: isValid ? "#16a34a" : "#ef4444", width: 60, padding: "4px 2px" }}>
                     {label}
                   </td>
                 );
