@@ -191,42 +191,36 @@ const getDeletedActionData = async () => {
   
 const getAll = async () => {
   setLoading(true);
+  setError(null);
   const token = document.cookie.split("; ").find((r) => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-  fetch(`/api/register/fb/all?token=${token}`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Failed To Get Datas From Database");
-      }
-      return response.json();
-    })
-    .then(async (fetchedData) => {
-      console.log("FETCHEDDDDD", fetchedData);
-      const updatedData = await Promise.all(
-        fetchedData.map(async (item) => {
-          if (item.customerId) {
-            try {
-              const res = await fetch(`/api/register/cus/one/${item.customerId}?token=${token}`);
-              if (!res.ok) throw new Error("Customer fetch failed");
-              const customer = await res.json();
-              return {
-                ...item,
-                customerName: customer.Name || customer.name || item.customerId,
-              };
-            } catch (err) {
-              console.error(err);
-              return { ...item, customerName: item.customerId };
-            }
-          }
-          return { ...item, customerName: "" };
-        }),
-      );
-      setTableData(updatedData);
-      setLoading(false);
-    })
-    .catch((err) => {
-      setError(err.message);
-      setLoading(false);
-    });
+  try {
+    const response = await fetch(`/api/register/fb/all?token=${token}`);
+    if (!response.ok) throw new Error("Failed To Get Datas From Database");
+    const fetchedData = await response.json();
+
+    // Show data immediately
+    setTableData(fetchedData);
+    setLoading(false);
+
+    // Enrich with customer names in background
+    const updatedData = await Promise.all(
+      fetchedData.map(async (item) => {
+        if (!item.customerId) return { ...item, customerName: "" };
+        try {
+          const res = await fetch(`/api/register/cus/one/${item.customerId}?token=${token}`);
+          if (!res.ok) return { ...item, customerName: item.customerId };
+          const customer = await res.json();
+          return { ...item, customerName: customer.Name || customer.name || item.customerId };
+        } catch {
+          return { ...item, customerName: item.customerId };
+        }
+      })
+    );
+    setTableData(updatedData);
+  } catch (err) {
+    setError(err.message);
+    setLoading(false);
+  }
 };
 
   useEffect(() => {
