@@ -1,4 +1,5 @@
 import { toast } from "./utils/toast.js";
+import { fetchStaffList } from "./utils/staffListCache.js";
 import React, { useState, useEffect, act } from "react";
 import OPI from "./tabledatas/opirisk.jsx";
 import OpiHeaders from "./tableheaders/opiheaders.jsx";
@@ -246,6 +247,8 @@ const OPIProfile = () => {
   const [showDeletedAction, setShowDeletedAction] = useState(false);
   const [showAction, setShowAction] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [staffList, setStaffList] = useState([]);
+  useEffect(() => { fetchStaffList().then(setStaffList); }, []);
   const [modalMode, setModalMode] = useState("add");
   const [editingRow, setEditingRow] = useState(null);
   const [formData, setFormData] = useState({
@@ -1503,7 +1506,7 @@ const OPIProfile = () => {
               <div className="grid grid-cols-3 gap-4">
                 {[
                   { label: "Relative Function", field: "relativeFunction", options: dropdownData?.relativeFunction },
-                  { label: "Responsible", field: "responsible", options: dropdownData?.affectedPosition },
+                  { label: "Responsible", field: "responsible", options: staffList },
                 ].map(({ label, field, options }) => (
                   <div key={field} className="group">
                     <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">{label}</label>

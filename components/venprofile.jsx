@@ -1,4 +1,5 @@
 import { toast } from "./utils/toast.js";
+import { fetchStaffList } from "./utils/staffListCache.js";
 import React, { useState, useEffect, act } from "react";
 import VenBody from "./tabledatas/venrisk.jsx";
 import VenHeaders from "./tableheaders/venheaders.jsx";
@@ -208,6 +209,8 @@ const VenProfile = () => {
   const [showDeletedAction, setShowDeletedAction] = useState(false);
   const [showAction, setShowAction] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [staffList, setStaffList] = useState([]);
+  useEffect(() => { fetchStaffList().then(setStaffList); }, []);
   const [modalMode, setModalMode] = useState("add");
   const [editingRow, setEditingRow] = useState(null);
   const [formData, setFormData] = useState({
@@ -1443,7 +1446,7 @@ const archiveData = (id) => {
               <div className="grid grid-cols-3 gap-4">
                 {[
                   { label: "Relative Function", field: "relativeFunction", options: dropdownData?.relativeFunction },
-                  { label: "Responsible", field: "responsible", options: dropdownData?.affectedPosition },
+                  { label: "Responsible", field: "responsible", options: staffList },
                   { label: "Deadline", field: "deadline", type: "date" },
                 ].map(({ label, field, options, type = "select" }) => (
                   <div key={field} className="group">

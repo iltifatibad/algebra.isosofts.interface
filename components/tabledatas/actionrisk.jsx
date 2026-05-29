@@ -1,4 +1,5 @@
 import EmptyRow from "../utils/EmptyRow.jsx";
+import StaffName from "../utils/StaffName.jsx";
 // MyTableBody.jsx (ayrı bir dosya olarak kaydedin)
 import React from "react";
 import { useState, useEffect } from "react";
@@ -318,8 +319,8 @@ console.log("URL:", url);
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
-                  value={filters["responsible?.value"] || ""}
-                  onChange={e => setFilters(prev => ({...prev, "responsible?.value": e.target.value}))}
+                  value={filters["responsibleId"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "responsibleId": e.target.value}))}
                   placeholder="Filter..."
                   className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
                 />
@@ -433,7 +434,7 @@ console.log("URL:", url);
 
 {/* Responsible */}
 <td className="border-b border-gray-200 px-2 py-1 w-28">
-  <SoftBadge value={action.responsible?.value || ""} color="bg-gray-100 text-black border border-gray-200" />
+  <StaffName id={action.responsibleId} />
 </td>
 
 {/* Deadline */}

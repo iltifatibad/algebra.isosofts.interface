@@ -1,4 +1,5 @@
 import EmptyRow from "../utils/EmptyRow.jsx";
+import StaffName from "../utils/StaffName.jsx";
 // MyTableBody.jsx (ayrı bir dosya olarak kaydedin)
 import React from "react";
 import { useState, useEffect } from "react";
@@ -575,9 +576,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-28">
-                    <SoftBadge
-                      value={actionData?.[index]?.responsible?.value}
-                    />
+                    <StaffName id={actionData?.[index]?.responsibleId} />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-24">
                     <SoftBadge value={actionData?.[index]?.deadline} />
@@ -712,9 +711,7 @@ console.log("URL:", url); // Debug: URL'yi konsola yazdır, registerId'yi kontro
                     />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-28">
-                    <SoftBadge
-                      value={deletedActionData?.[index]?.responsible?.value}
-                    />
+                    <StaffName id={deletedActionData?.[index]?.responsibleId} />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-24">
                     <SoftBadge value={deletedActionData?.[index]?.deadline} />

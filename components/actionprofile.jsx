@@ -1,4 +1,5 @@
 import { toast } from "./utils/toast.js";
+import { fetchStaffList } from "./utils/staffListCache.js";
 import React, { useState, useEffect, act } from "react";
 import ActionBody from "./tabledatas/actionrisk.jsx";
 import ActionHeaders from "./tableheaders/actionheaders.jsx";
@@ -208,6 +209,8 @@ const AcProfile = () => {
   const [showDeletedAction, setShowDeletedAction] = useState(false);
   const [showAction, setShowAction] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [staffList, setStaffList] = useState([]);
+  useEffect(() => { fetchStaffList().then(setStaffList); }, []);
   const [modalMode, setModalMode] = useState("add");
   const [editingRow, setEditingRow] = useState(null);
   //////////////////////////////////////
@@ -1497,7 +1500,7 @@ const archiveData = (id) => {
                                   className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
                                 >
                                   <option value="">Select</option>
-                                  {dropdownData?.affectedPosition?.map(
+                                  {staffList.map(
                                     (item) => (
                                       <option key={item.id} value={item.id}>
                                         {item.value}

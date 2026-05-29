@@ -1,4 +1,5 @@
 import { toast } from "./utils/toast.js";
+import { fetchStaffList } from "./utils/staffListCache.js";
 import React, { useState, useEffect, act } from "react";
 import FBody from "./tabledatas/frisk.jsx";
 import FHeaders from "./tableheaders/fheaders.jsx";
@@ -208,6 +209,8 @@ const FProfile = () => {
   const [showDeletedAction, setShowDeletedAction] = useState(false);
   const [showAction, setShowAction] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [staffList, setStaffList] = useState([]);
+  useEffect(() => { fetchStaffList().then(setStaffList); }, []);
   const [modalMode, setModalMode] = useState("add");
   const [editingRow, setEditingRow] = useState(null);
   const [customers, setCustomers] = useState({});
@@ -1092,171 +1095,171 @@ const archiveData = (id) => {
               {/* Header */}
               <div className="p-6 border-b border-blue-100 flex items-center">
                 {/* Başlık ve sol butonlar */}
-<div className="flex items-center gap-4 flex-wrap">
-  {/* Ana Ekleme Butonu – en dikkat çekici */}
-  <button
-    onClick={openAddModal}
-    className={`
-      group relative overflow-hidden px-6 py-2.5 rounded-xl font-medium text-sm tracking-wide
-      bg-gradient-to-r from-indigo-600 to-blue-600 text-white
-      shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40
-      hover:from-indigo-700 hover:to-blue-700
-      active:scale-[0.97]
-      transition-all duration-300 ease-out
-      flex items-center gap-2.5
-    `}
-  >
-    <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-400 rounded-xl" />
-    <i className="fas fa-plus text-base transition-transform duration-300 group-hover:rotate-90 group-hover:scale-110" />
-    {!showAction ? "Add Finding" : "Add Action"}
-  </button>
+                <div className="flex items-center gap-4 flex-wrap">
+                  {/* Ana Ekleme Butonu – en dikkat çekici */}
+                  <button
+                    onClick={openAddModal}
+                    className={`
+                      group relative overflow-hidden px-6 py-2.5 rounded-xl font-medium text-sm tracking-wide
+                      bg-gradient-to-r from-indigo-600 to-blue-600 text-white
+                      shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40
+                      hover:from-indigo-700 hover:to-blue-700
+                      active:scale-[0.97]
+                      transition-all duration-300 ease-out
+                      flex items-center gap-2.5
+                    `}
+                  >
+                    <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-400 rounded-xl" />
+                    <i className="fas fa-plus text-base transition-transform duration-300 group-hover:rotate-90 group-hover:scale-110" />
+                    {!showAction ? "Add Finding" : "Add Action"}
+                  </button>
 
-  {/* Archive Butonu */}
-  <button
-    onClick={toggleArchiveView}
-    className={`
-      group px-5 py-2.5 rounded-xl font-medium text-sm
-      bg-white border border-slate-200 text-slate-700
-      hover:border-slate-300 hover:text-slate-900 hover:bg-slate-50/80
-      shadow-sm hover:shadow-md
-      transition-all duration-300 ease-out
-      flex items-center gap-2.5
-      ${showArchived ? "border-amber-300 text-amber-700 bg-amber-50/80 hover:bg-amber-100/70" : ""}
-    `}
-  >
-    <i
-      className={`
-        fas ${showArchived ? "fa-undo" : "fa-archive"} 
-        text-base transition-transform duration-300 
-        group-hover:scale-110 group-hover:rotate-12
-      `}
-    />
-    {showArchived ? "Hide Archived" : "Show Archived"}
-  </button>
+                  {/* Archive Butonu */}
+                  <button
+                    onClick={toggleArchiveView}
+                    className={`
+                      group px-5 py-2.5 rounded-xl font-medium text-sm
+                      bg-white border border-slate-200 text-slate-700
+                      hover:border-slate-300 hover:text-slate-900 hover:bg-slate-50/80
+                      shadow-sm hover:shadow-md
+                      transition-all duration-300 ease-out
+                      flex items-center gap-2.5
+                      ${showArchived ? "border-amber-300 text-amber-700 bg-amber-50/80 hover:bg-amber-100/70" : ""}
+                    `}
+                  >
+                    <i
+                      className={`
+                        fas ${showArchived ? "fa-undo" : "fa-archive"} 
+                        text-base transition-transform duration-300 
+                        group-hover:scale-110 group-hover:rotate-12
+                      `}
+                    />
+                    {showArchived ? "Hide Archived" : "Show Archived"}
+                  </button>
 
-  {/* Show/Hide Deleted Butonu */}
-  <button
-    onClick={toggleDeleteView}
-    className={`
-      group px-5 py-2.5 rounded-xl font-medium text-sm
-      bg-white border border-slate-200
-      ${showDeleted || showDeletedAction
-        ? "border-red-300 text-red-700 bg-red-50/80 hover:bg-red-100/70 hover:border-red-400"
-        : "hover:border-slate-300 hover:text-slate-900 hover:bg-slate-50/80"}
-      shadow-sm hover:shadow-md
-      transition-all duration-300 ease-out
-      flex items-center gap-2.5
-    `}
-  >
-    <i
-      className={`
-        fas ${showDeleted || showDeletedAction ? "fa-trash-restore" : "fa-trash-can"} 
-        text-base transition-transform duration-300 
-        group-hover:scale-110 group-hover:rotate-6
-      `}
-    />
-    {activeHeader
-      ? showDeleted
-        ? "Hide Deleted"
-        : "Show Deleted"
-      : showDeletedAction
-        ? "Hide Deleted Action"
-        : "Show Deleted Action"}
-  </button>
+                  {/* Show/Hide Deleted Butonu */}
+                  <button
+                    onClick={toggleDeleteView}
+                    className={`
+                      group px-5 py-2.5 rounded-xl font-medium text-sm
+                      bg-white border border-slate-200
+                      ${showDeleted || showDeletedAction
+                        ? "border-red-300 text-red-700 bg-red-50/80 hover:bg-red-100/70 hover:border-red-400"
+                        : "hover:border-slate-300 hover:text-slate-900 hover:bg-slate-50/80"}
+                      shadow-sm hover:shadow-md
+                      transition-all duration-300 ease-out
+                      flex items-center gap-2.5
+                    `}
+                  >
+                    <i
+                      className={`
+                        fas ${showDeleted || showDeletedAction ? "fa-trash-restore" : "fa-trash-can"} 
+                        text-base transition-transform duration-300 
+                        group-hover:scale-110 group-hover:rotate-6
+                      `}
+                    />
+                    {activeHeader
+                      ? showDeleted
+                        ? "Hide Deleted"
+                        : "Show Deleted"
+                      : showDeletedAction
+                        ? "Hide Deleted Action"
+                        : "Show Deleted Action"}
+                  </button>
 
-  {/* Show/Hide Action Butonu */}
-  <button
-    onClick={toggleActionView}
-    disabled={selectedCount !== 1}
-    className={`
-      group px-5 py-2.5 rounded-xl font-medium text-sm
-      bg-white border border-slate-200 text-slate-700
-      disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
-      hover:border-slate-300 hover:text-slate-900 hover:bg-slate-50/80
-      shadow-sm hover:shadow-md
-      transition-all duration-300 ease-out
-      flex items-center gap-2.5
-      ${showAction ? "border-purple-300 text-purple-700 bg-purple-50/70 hover:bg-purple-100/60" : ""}
-    `}
-  >
-    <i 
-      className={`
-        fas fa-list-check text-base transition-transform duration-300 
-        group-hover:scale-110 group-hover:rotate-6
-      `}
-    />
-    {showAction ? "Hide Action" : "Show Action"}
-  </button>
+                  {/* Show/Hide Action Butonu */}
+                  <button
+                    onClick={toggleActionView}
+                    disabled={selectedCount !== 1}
+                    className={`
+                      group px-5 py-2.5 rounded-xl font-medium text-sm
+                      bg-white border border-slate-200 text-slate-700
+                      disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
+                      hover:border-slate-300 hover:text-slate-900 hover:bg-slate-50/80
+                      shadow-sm hover:shadow-md
+                      transition-all duration-300 ease-out
+                      flex items-center gap-2.5
+                      ${showAction ? "border-purple-300 text-purple-700 bg-purple-50/70 hover:bg-purple-100/60" : ""}
+                    `}
+                  >
+                    <i 
+                      className={`
+                        fas fa-list-check text-base transition-transform duration-300 
+                        group-hover:scale-110 group-hover:rotate-6
+                      `}
+                    />
+                    {showAction ? "Hide Action" : "Show Action"}
+                  </button>
 
-  {/* Aksiyon ikon butonları grubu */}
-  <div className="flex items-center gap-2.5">
-    {/* Edit */}
-    <button
-      onClick={editSingle}
-      disabled={!(selectedCount === 1 || selectedCountForActions === 1)}
-      className={`
-        group p-3 rounded-xl
-        bg-white border border-slate-200 text-blue-600
-        disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
-        hover:bg-blue-50 hover:border-blue-200 hover:text-blue-700 hover:shadow-md
-        shadow-sm transition-all duration-300 ease-out
-      `}
-      title="Edit (Single Selection Only)"
-    >
-      <i className="fas fa-edit text-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" />
-    </button>
+                  {/* Aksiyon ikon butonları grubu */}
+                  <div className="flex items-center gap-2.5">
+                    {/* Edit */}
+                    <button
+                      onClick={editSingle}
+                      disabled={!(selectedCount === 1 || selectedCountForActions === 1)}
+                      className={`
+                        group p-3 rounded-xl
+                        bg-white border border-slate-200 text-blue-600
+                        disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
+                        hover:bg-blue-50 hover:border-blue-200 hover:text-blue-700 hover:shadow-md
+                        shadow-sm transition-all duration-300 ease-out
+                      `}
+                      title="Edit (Single Selection Only)"
+                    >
+                      <i className="fas fa-edit text-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" />
+                    </button>
 
-    {/* Archive / Restore */}
-    <button
-      onClick={archive}
-      disabled={!(selectedCount >= 1 && !showDeleted) || !activeHeader}
-      className={`
-        group p-3 rounded-xl
-        bg-white border border-slate-200 text-slate-600
-        disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
-        ${showArchived
-          ? "text-amber-600 border-amber-200 bg-amber-50/70 hover:bg-amber-100/70 hover:border-amber-300"
-          : "hover:bg-amber-50 hover:border-amber-200 hover:text-amber-700"}
-        shadow-sm hover:shadow-md
-        transition-all duration-300 ease-out
-      `}
-      title="Archive / Restore Selected"
-    >
-      <i
-        className={`
-          fas ${showArchived ? "fa-undo" : "fa-archive"} 
-          text-lg transition-transform duration-300 
-          group-hover:scale-110 group-hover:rotate-12
-        `}
-      />
-    </button>
+                    {/* Archive / Restore */}
+                    <button
+                      onClick={archive}
+                      disabled={!(selectedCount >= 1 && !showDeleted) || !activeHeader}
+                      className={`
+                        group p-3 rounded-xl
+                        bg-white border border-slate-200 text-slate-600
+                        disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
+                        ${showArchived
+                          ? "text-amber-600 border-amber-200 bg-amber-50/70 hover:bg-amber-100/70 hover:border-amber-300"
+                          : "hover:bg-amber-50 hover:border-amber-200 hover:text-amber-700"}
+                        shadow-sm hover:shadow-md
+                        transition-all duration-300 ease-out
+                      `}
+                      title="Archive / Restore Selected"
+                    >
+                      <i
+                        className={`
+                          fas ${showArchived ? "fa-undo" : "fa-archive"} 
+                          text-lg transition-transform duration-300 
+                          group-hover:scale-110 group-hover:rotate-12
+                        `}
+                      />
+                    </button>
 
-    {/* Delete / Restore */}
-    <button
-      onClick={selectedCount > 0 ? confirmBulkDelete : () => {}}
-      disabled={selectedCount === 0}
-      className={`
-        group p-3 rounded-xl
-        bg-white border border-slate-200
-        ${showDeleted || showDeletedAction
-          ? "text-emerald-600 border-emerald-200 bg-emerald-50/70 hover:bg-emerald-100/70 hover:border-emerald-300"
-          : "text-red-600 hover:bg-red-50 hover:border-red-200 hover:text-red-700"}
-        disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
-        shadow-sm hover:shadow-md
-        transition-all duration-300 ease-out
-      `}
-      title="Delete / Restore Selected"
-    >
-      <i
-        className={`
-          fas ${showDeleted || showDeletedAction ? "fa-trash-restore" : "fa-trash-can"} 
-          text-lg transition-transform duration-300 
-          group-hover:scale-110 group-hover:rotate-6
-        `}
-      />
-    </button>
-  </div>
-</div>
+                    {/* Delete / Restore */}
+                    <button
+                      onClick={selectedCount > 0 ? confirmBulkDelete : () => {}}
+                      disabled={selectedCount === 0}
+                      className={`
+                        group p-3 rounded-xl
+                        bg-white border border-slate-200
+                        ${showDeleted || showDeletedAction
+                          ? "text-emerald-600 border-emerald-200 bg-emerald-50/70 hover:bg-emerald-100/70 hover:border-emerald-300"
+                          : "text-red-600 hover:bg-red-50 hover:border-red-200 hover:text-red-700"}
+                        disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
+                        shadow-sm hover:shadow-md
+                        transition-all duration-300 ease-out
+                      `}
+                      title="Delete / Restore Selected"
+                    >
+                      <i
+                        className={`
+                          fas ${showDeleted || showDeletedAction ? "fa-trash-restore" : "fa-trash-can"} 
+                          text-lg transition-transform duration-300 
+                          group-hover:scale-110 group-hover:rotate-6
+                        `}
+                      />
+                    </button>
+                  </div>
+                </div>
                 <div className="ml-auto flex items-center gap-2">
                   <ExportButton moduleKey="fl-reg" />
                   <button
@@ -1638,7 +1641,7 @@ const archiveData = (id) => {
                     className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                   >
                     <option value="">Select</option>
-                    {dropdownData?.affectedPosition?.map((item) => (
+                    {staffList.map((item) => (
                       <option key={item.id} value={item.id}>{item.value}</option>
                     ))}
                   </select>
