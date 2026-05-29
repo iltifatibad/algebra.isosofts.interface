@@ -38,18 +38,22 @@ function TrainingMatrix({ show, data, loading }) {
   data.forEach(r => { if (r.tcln) trainingSet.add(r.tcln); });
   const trainings = [...trainingSet];
 
-  // Unique employees (rows) — preserve insertion order
+  // Unique employees — group by name only, take first non-empty position
   const empMap = new Map();
   data.forEach(r => {
-    const key = `${r.employeeName}|||${r.position}`;
-    if (!empMap.has(key)) empMap.set(key, { name: r.employeeName, position: r.position });
+    if (!r.employeeName) return;
+    if (!empMap.has(r.employeeName)) {
+      empMap.set(r.employeeName, { name: r.employeeName, position: r.position || "" });
+    } else if (!empMap.get(r.employeeName).position && r.position) {
+      empMap.get(r.employeeName).position = r.position;
+    }
   });
   const employees = [...empMap.values()];
 
-  // Lookup: "employeeName|||position|||tcln" → record
+  // Lookup: "employeeName|||tcln" → record (position removed from key)
   const lookup = new Map();
   data.forEach(r => {
-    if (r.tcln) lookup.set(`${r.employeeName}|||${r.position}|||${r.tcln}`, r);
+    if (r.tcln && r.employeeName) lookup.set(`${r.employeeName}|||${r.tcln}`, r);
   });
 
   return (
@@ -57,12 +61,12 @@ function TrainingMatrix({ show, data, loading }) {
       <table className="border-collapse text-xs" style={{ minWidth: "100%" }}>
         <thead>
           <tr>
-            <th className="border border-gray-300 bg-blue-50 px-3 py-2 text-left font-semibold text-gray-700 min-w-[40px] sticky left-0 z-10">№</th>
-            <th className="border border-gray-300 bg-blue-50 px-3 py-2 text-left font-semibold text-gray-700 min-w-[150px]">Name</th>
-            <th className="border border-gray-300 bg-blue-50 px-3 py-2 text-left font-semibold text-gray-700 min-w-[130px]">Position</th>
+            <th className="border border-gray-300 bg-blue-50 px-2 py-1.5 text-left font-semibold text-gray-700 w-[36px] sticky left-0 z-10">№</th>
+            <th className="border border-gray-300 bg-blue-50 px-2 py-1.5 text-left font-semibold text-gray-700 min-w-[140px]">Name</th>
+            <th className="border border-gray-300 bg-blue-50 px-2 py-1.5 text-left font-semibold text-gray-700 min-w-[120px]">Position</th>
             {trainings.map(t => (
-              <th key={t} className="border border-gray-300 bg-blue-50 px-1 py-2 font-semibold text-gray-700" style={{ minWidth: 70, maxWidth: 90 }}>
-                <div style={{ writingMode: "vertical-rl", transform: "rotate(180deg)", whiteSpace: "normal", maxHeight: 130, fontSize: 10, lineHeight: 1.3 }}>
+              <th key={t} className="border border-gray-300 bg-blue-50 font-semibold text-gray-700" style={{ width: 60, minWidth: 60 }}>
+                <div style={{ writingMode: "vertical-rl", transform: "rotate(180deg)", whiteSpace: "normal", height: 90, fontSize: 9, lineHeight: 1.2, padding: "4px 6px", overflow: "hidden" }}>
                   {t}
                 </div>
               </th>
@@ -72,14 +76,14 @@ function TrainingMatrix({ show, data, loading }) {
         <tbody>
           {employees.map((emp, idx) => (
             <tr key={`${emp.name}-${emp.position}-${idx}`} style={{ background: idx % 2 === 0 ? "#fff" : "#f9fafb" }}>
-              <td className="border border-gray-200 px-2 py-1.5 text-center font-semibold text-gray-500">{idx + 1}</td>
-              <td className="border border-gray-200 px-2 py-1.5 font-medium text-gray-800 whitespace-nowrap">{emp.name}</td>
-              <td className="border border-gray-200 px-2 py-1.5 text-gray-600 whitespace-nowrap">{emp.position}</td>
+              <td className="border border-gray-200 px-1 py-1 text-center font-semibold text-gray-500 text-[10px]">{idx + 1}</td>
+              <td className="border border-gray-200 px-2 py-1 font-medium text-gray-800 whitespace-nowrap text-[11px]">{emp.name}</td>
+              <td className="border border-gray-200 px-2 py-1 text-gray-600 whitespace-nowrap text-[11px]">{emp.position}</td>
               {trainings.map(t => {
-                const rec = lookup.get(`${emp.name}|||${emp.position}|||${t}`);
+                const rec = lookup.get(`${emp.name}|||${t}`);
                 if (!rec || !rec.ncd) {
                   return (
-                    <td key={t} className="border border-gray-200 px-1 py-1.5 text-center text-white font-medium text-[10px]" style={{ background: "#ef4444" }}>—</td>
+                    <td key={t} className="border border-gray-200 text-center text-white font-medium text-[9px]" style={{ background: "#ef4444", width: 60, padding: "4px 2px" }}>—</td>
                   );
                 }
                 const ncdDate = new Date(rec.ncd);
@@ -87,7 +91,7 @@ function TrainingMatrix({ show, data, loading }) {
                 const isPast = ncdDate <= today;
                 const label = ncdDate.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "2-digit" });
                 return (
-                  <td key={t} className="border border-gray-200 px-1 py-1.5 text-center font-medium text-[10px] text-white" style={{ background: isPast ? "#16a34a" : "#ef4444" }}>
+                  <td key={t} className="border border-gray-200 text-center font-medium text-[9px] text-white" style={{ background: isPast ? "#16a34a" : "#ef4444", width: 60, padding: "4px 2px" }}>
                     {label}
                   </td>
                 );
@@ -477,17 +481,19 @@ async function getDefaultDropdownList() {
     }
   };
 
+  const fetchMatrixData = () => {
+    setMatrixLoading(true);
+    const token = document.cookie.split("; ").find(r => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+    fetch(`/api/register/tra/all?token=${token}`)
+      .then(r => r.ok ? r.json() : [])
+      .then(data => { setMatrixData(Array.isArray(data) ? data : []); setMatrixLoading(false); })
+      .catch(() => setMatrixLoading(false));
+  };
+
   const toggleMatrix = () => {
     const next = !showMatrix;
     setShowMatrix(next);
-    if (next && matrixData.length === 0) {
-      setMatrixLoading(true);
-      const token = document.cookie.split("; ").find(r => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
-      fetch(`/api/register/tra/all?token=${token}`)
-        .then(r => r.ok ? r.json() : [])
-        .then(data => { setMatrixData(Array.isArray(data) ? data : []); setMatrixLoading(false); })
-        .catch(() => setMatrixLoading(false));
-    }
+    if (next) fetchMatrixData();
   };
 
   const openAddModal = async () => {
@@ -1403,13 +1409,16 @@ const archiveData = (id) => {
             {/* Employee Name */}
             <div className="group">
               <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Employee Name</label>
-              <input
+              <select
                 value={formData.employeeName}
                 onChange={(e) => handleFormChange("employeeName", e.target.value)}
-                type="text"
-                placeholder="Enter employee name..."
                 className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
-              />
+              >
+                <option value="">Select</option>
+                {staffList.map(s => (
+                  <option key={s.id} value={s.value}>{s.value}</option>
+                ))}
+              </select>
             </div>
 
             <div className="group">

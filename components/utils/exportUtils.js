@@ -498,6 +498,48 @@ export const exportModule = async (moduleKey, statuses, visual = false) => {
   XLSX.writeFile(wb, `${config.name}.xlsx`);
 };
 
+// ── Training Matrix Sheet Builder ────────────────────────────
+
+const buildTrainingMatrix = (data) => {
+  if (!data || !data.length) return null;
+
+  // Unique training names
+  const trainingSet = new Set();
+  data.forEach(r => { if (r.tcln) trainingSet.add(r.tcln); });
+  const trainings = [...trainingSet];
+
+  // Unique employees (by name, first non-empty position)
+  const empMap = new Map();
+  data.forEach(r => {
+    if (!r.employeeName) return;
+    if (!empMap.has(r.employeeName)) {
+      empMap.set(r.employeeName, { name: r.employeeName, position: r.position || "" });
+    } else if (!empMap.get(r.employeeName).position && r.position) {
+      empMap.get(r.employeeName).position = r.position;
+    }
+  });
+  const employees = [...empMap.values()];
+
+  // Lookup
+  const lookup = new Map();
+  data.forEach(r => { if (r.tcln && r.employeeName) lookup.set(`${r.employeeName}|||${r.tcln}`, r); });
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const header = ["№", "Name", "Position", ...trainings];
+  const rows = employees.map((emp, idx) => {
+    const cells = [idx + 1, emp.name, emp.position];
+    trainings.forEach(t => {
+      const rec = lookup.get(`${emp.name}|||${t}`);
+      cells.push(rec?.ncd || "—");
+    });
+    return cells;
+  });
+
+  return [header, ...rows];
+};
+
 // ── All Modules Export ────────────────────────────────────────
 
 export const exportAll = async (statuses, visual = false, onProgress) => {
@@ -528,6 +570,21 @@ export const exportAll = async (statuses, visual = false, onProgress) => {
     done++;
     if (onProgress) onProgress(Math.round((done / entries.length) * 100));
   }
+
+  // Training Matrix sheet
+  try {
+    const token = document.cookie.split("; ").find(r => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+    const trainingRaw = await fetch(`/api/register/tra/all?token=${token}`).then(r => r.ok ? r.json() : []);
+    const matrixRows = buildTrainingMatrix(Array.isArray(trainingRaw) ? trainingRaw : []);
+    if (matrixRows && matrixRows.length > 1) {
+      const ws = XLSX.utils.aoa_to_sheet(matrixRows);
+      setColWidths(ws, matrixRows);
+      applyHeaderStyle(ws, matrixRows[0].length);
+      XLSX.utils.book_append_sheet(wb, ws, "Training Matrix");
+    }
+  } catch { /* skip if training fetch fails */ }
+
+  if (onProgress) onProgress(100);
 
   if (!wb.SheetNames.length) {
     alert("No data found for the selected filters.");
