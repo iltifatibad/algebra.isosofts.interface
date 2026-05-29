@@ -8,7 +8,7 @@ export async function fetchStaffName(id) {
   if (cache[id] !== undefined) return cache[id];
   try {
     const token = getToken();
-    const res = await fetch(`/api/account/staff/${id}?token=${token}`);
+    const res = await fetch(`https://isosofts.com/api/account/staff/${id}?token=${token}`);
     if (!res.ok) { cache[id] = ""; return ""; }
     const data = await res.json();
     const name = `${data.name ?? ""} ${data.surname ?? ""}`.trim();

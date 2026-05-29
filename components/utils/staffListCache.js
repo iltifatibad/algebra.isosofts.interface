@@ -7,7 +7,7 @@ const getToken = () =>
 export function fetchStaffList() {
   if (cache) return Promise.resolve(cache);
   if (pending) return pending;
-  pending = fetch(`/api/account/staff?isActive=1&token=${getToken()}`)
+  pending = fetch(`https://isosofts.com/api/account/staff?isActive=1&token=${getToken()}`)
     .then(r => (r.ok ? r.json() : []))
     .then(data => {
       cache = Array.isArray(data)
