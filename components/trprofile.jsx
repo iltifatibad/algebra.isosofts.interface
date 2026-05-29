@@ -249,6 +249,7 @@ const TrProfile = () => {
         function: "",
         responsible: "",
         approverId: "",
+        sendNotification: 0,
         deadline: "",
         actionConfirmation: "",
         actionStatus: "",
@@ -271,6 +272,7 @@ const TrProfile = () => {
         relativeFunction: "",
         responsible: "",
         approverId: "",
+        sendNotification: 0,
         deadline: "",
         confirmation: "",
         status: "",
@@ -416,6 +418,7 @@ async function getDefaultDropdownList() {
         relativeFunction: "",
         responsible: "",
         approverId: "",
+        sendNotification: 0,
         deadline: "",
         confirmation: "",
         status: "",
@@ -595,6 +598,7 @@ const saveRisk = () => {
                 relativeFunction: actionData.actionPlan?.[0]?.relativeFunction || "",
                 responsibleId: actionData.actionPlan?.[0]?.responsible || "",
         approverId: actionData.actionPlan?.[0]?.approverId || "",
+sendNotification: actionData.actionPlan?.[0]?.sendNotification ?? 0,
                 deadline: actionData.actionPlan?.[0]?.deadline || "",
                 confirmation: actionData.actionPlan?.[0]?.confirmation || "",
                 status: actionData.actionPlan?.[0]?.status || "",
@@ -1688,19 +1692,34 @@ const archiveData = (id) => {
         </div>
 
         {/* Footer */}
-        <div className="px-8 py-5 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50 rounded-b-2xl">
-          <button
-            onClick={closeModal}
-            className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={saveRisk}
-            className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl hover:from-blue-600 hover:to-blue-800 shadow-sm shadow-blue-200 transition-all"
-          >
-            {modalMode === "add" ? "Add Action" : "Update Action"}
-          </button>
+        <div className="px-8 py-5 border-t border-gray-100 flex items-center justify-between gap-3 bg-gray-50/50 rounded-b-2xl">
+          {modalMode === "edit" && (
+            <label className="flex items-center gap-2 cursor-pointer select-none group">
+              <input
+                type="checkbox"
+                checked={actionData?.actionPlan?.[0]?.sendNotification === 1}
+                onChange={e => handleFormChange("actionPlan[0].sendNotification", e.target.checked ? 1 : 0)}
+                className="w-3.5 h-3.5 accent-blue-500 cursor-pointer rounded"
+              />
+              <span className="text-[11px] font-medium text-gray-400 group-hover:text-gray-600 transition-colors">
+                Send Notification About New Update
+              </span>
+            </label>
+          )}
+          <div className="flex gap-3 ml-auto">
+            <button
+              onClick={closeModal}
+              className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={saveRisk}
+              className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl hover:from-blue-600 hover:to-blue-800 shadow-sm shadow-blue-200 transition-all"
+            >
+              {modalMode === "add" ? "Add Action" : "Update Action"}
+            </button>
+          </div>
         </div>
       </div>
     </div>

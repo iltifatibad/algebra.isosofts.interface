@@ -245,6 +245,7 @@ const AcProfile = () => {
         function: "",
         responsible: "",
         approverId: "",
+        sendNotification: 0,
         deadline: "",
         actionConfirmation: "",
         actionStatus: "",
@@ -267,6 +268,7 @@ const AcProfile = () => {
         relativeFunction: "",
         responsible: "",
         approverId: "",
+        sendNotification: 0,
         deadline: "",
         confirmation: "",
         status: "",
@@ -395,6 +397,7 @@ async function getDefaultDropdownList() {
         relativeFunction: "",
         responsible: "",
         approverId: "",
+        sendNotification: 0,
         deadline: "",
         confirmation: "",
         status: "",
@@ -573,6 +576,7 @@ if (modalMode === "add") {
       relativeFunction: actionData.actionPlan?.[0]?.relativeFunction || "",
       responsibleId: actionData.actionPlan?.[0]?.responsible || "",
         approverId: actionData.actionPlan?.[0]?.approverId || "",
+sendNotification: actionData.actionPlan?.[0]?.sendNotification ?? 0,
       deadline: actionData.actionPlan?.[0]?.deadline || "",
       confirmation: actionData.actionPlan?.[0]?.confirmation || "",
       status: actionData.actionPlan?.[0]?.status || "",
@@ -2016,19 +2020,34 @@ const archiveData = (id) => {
                   </div>
                 </div>
               </div>
-              <div className="p-6 border-t border-blue-100 flex justify-end space-x-4">
-                <button
-                  onClick={closeModal}
-                  className="!rounded-button whitespace-nowrap cursor-pointer border-2 border-gray-300 text-gray-600 px-6 py-2 hover:bg-gray-50 transition-all duration-300"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={saveRisk}
-                  className="!rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 hover:from-blue-600 hover:to-blue-800 transition-all duration-300"
-                >
-                  {modalMode === "add" ? "Add Action" : "Update Action"}
-                </button>
+              <div className="p-6 border-t border-blue-100 flex items-center justify-between">
+                {modalMode === "edit" && (
+                  <label className="flex items-center gap-2 cursor-pointer select-none group">
+                    <input
+                      type="checkbox"
+                      checked={actionData?.actionPlan?.[0]?.sendNotification === 1}
+                      onChange={e => handleFormChange("actionPlan[0].sendNotification", e.target.checked ? 1 : 0)}
+                      className="w-3.5 h-3.5 accent-blue-500 cursor-pointer rounded"
+                    />
+                    <span className="text-[11px] font-medium text-gray-400 group-hover:text-gray-600 transition-colors">
+                      Send Notification About New Update
+                    </span>
+                  </label>
+                )}
+                <div className="flex space-x-4 ml-auto">
+                  <button
+                    onClick={closeModal}
+                    className="!rounded-button whitespace-nowrap cursor-pointer border-2 border-gray-300 text-gray-600 px-6 py-2 hover:bg-gray-50 transition-all duration-300"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={saveRisk}
+                    className="!rounded-button whitespace-nowrap cursor-pointer bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-2 hover:from-blue-600 hover:to-blue-800 transition-all duration-300"
+                  >
+                    {modalMode === "add" ? "Add Action" : "Update Action"}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
