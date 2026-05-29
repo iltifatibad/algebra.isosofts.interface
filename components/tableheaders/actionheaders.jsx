@@ -14,7 +14,7 @@ const ActionHeaders = ({ activeHeader }) => {
 
         <th
           className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-0 z-20 bg-blue-100"
-          colSpan={11}
+          colSpan={12}
         >
           Action Plan
         </th>
