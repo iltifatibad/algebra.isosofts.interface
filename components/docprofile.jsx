@@ -450,16 +450,14 @@ async function getDefaultDropdownList() {
             currency: "",
             relativeFunction:
               row.relativeFunction?.id ?? "",
-            responsible: row.responsible?.id ?? "",
+            responsible: row.responsibleId ?? row.responsible?.id ?? "",
+            approverId: row.approverId ?? "",
             deadline: row.deadline,
             confirmation:
               row.confirmation?.id ?? "",
-            status: row.status?.id ?? "",
+            status: row.status?.id ?? row.status ?? "",
             completionDate: row.completionDate || "",
-            verificationStatus:
-              row.verificationStatus?.id ||
-              String(row.verificationStatus) ||
-              "",
+            verificationStatus: row.verificationStatus?.id ?? "",
             comment: row.comment || "",
             january: row.january?.id ?? "",
             february: row.february?.id ?? "",
