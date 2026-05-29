@@ -1,21 +1,15 @@
-const cache = {};
-
 const getToken = () =>
   document.cookie.split("; ").find(r => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
 
 export async function fetchStaffName(id) {
   if (!id) return "";
-  if (cache[id] !== undefined) return cache[id];
   try {
     const token = getToken();
     const res = await fetch(`https://isosofts.com/api/account/staff/${id}?token=${token}`);
-    if (!res.ok) { cache[id] = ""; return ""; }
+    if (!res.ok) return "";
     const data = await res.json();
-    const name = `${data.name ?? ""} ${data.surname ?? ""}`.trim();
-    cache[id] = name;
-    return name;
+    return `${data.name ?? ""} ${data.surname ?? ""}`.trim();
   } catch {
-    cache[id] = "";
     return "";
   }
 }
