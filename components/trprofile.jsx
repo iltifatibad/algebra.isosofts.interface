@@ -9,6 +9,108 @@ import HelpModal from "./utils/HelpModal.jsx";
 import ExportButton from "./utils/ExportButton.jsx";
 import { trHelpContent } from "./utils/helpContents.js";
 
+// ── Training Matrix Component ─────────────────────────────────────────────────
+function TrainingMatrix({ show, data, loading }) {
+  if (!show) return null;
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-16 text-gray-400">
+        <i className="fas fa-circle-notch animate-spin text-2xl mr-3" />
+        Loading matrix...
+      </div>
+    );
+  }
+
+  if (!data || data.length === 0) {
+    return (
+      <div className="flex items-center justify-center py-16 text-gray-400 text-sm">
+        No training data available.
+      </div>
+    );
+  }
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // Unique training names (columns) — from tcln field
+  const trainingSet = new Set();
+  data.forEach(r => { if (r.tcln) trainingSet.add(r.tcln); });
+  const trainings = [...trainingSet];
+
+  // Unique employees (rows) — preserve insertion order
+  const empMap = new Map();
+  data.forEach(r => {
+    const key = `${r.employeeName}|||${r.position}`;
+    if (!empMap.has(key)) empMap.set(key, { name: r.employeeName, position: r.position });
+  });
+  const employees = [...empMap.values()];
+
+  // Lookup: "employeeName|||position|||tcln" → record
+  const lookup = new Map();
+  data.forEach(r => {
+    if (r.tcln) lookup.set(`${r.employeeName}|||${r.position}|||${r.tcln}`, r);
+  });
+
+  return (
+    <div className="overflow-x-auto max-h-[75vh] overflow-y-auto">
+      <table className="border-collapse text-xs" style={{ minWidth: "100%" }}>
+        <thead>
+          <tr>
+            <th className="border border-gray-300 bg-blue-50 px-3 py-2 text-left font-semibold text-gray-700 min-w-[40px] sticky left-0 z-10">№</th>
+            <th className="border border-gray-300 bg-blue-50 px-3 py-2 text-left font-semibold text-gray-700 min-w-[150px]">Name</th>
+            <th className="border border-gray-300 bg-blue-50 px-3 py-2 text-left font-semibold text-gray-700 min-w-[130px]">Position</th>
+            {trainings.map(t => (
+              <th key={t} className="border border-gray-300 bg-blue-50 px-1 py-2 font-semibold text-gray-700" style={{ minWidth: 70, maxWidth: 90 }}>
+                <div style={{ writingMode: "vertical-rl", transform: "rotate(180deg)", whiteSpace: "normal", maxHeight: 130, fontSize: 10, lineHeight: 1.3 }}>
+                  {t}
+                </div>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {employees.map((emp, idx) => (
+            <tr key={`${emp.name}-${emp.position}-${idx}`} style={{ background: idx % 2 === 0 ? "#fff" : "#f9fafb" }}>
+              <td className="border border-gray-200 px-2 py-1.5 text-center font-semibold text-gray-500">{idx + 1}</td>
+              <td className="border border-gray-200 px-2 py-1.5 font-medium text-gray-800 whitespace-nowrap">{emp.name}</td>
+              <td className="border border-gray-200 px-2 py-1.5 text-gray-600 whitespace-nowrap">{emp.position}</td>
+              {trainings.map(t => {
+                const rec = lookup.get(`${emp.name}|||${emp.position}|||${t}`);
+                if (!rec || !rec.ncd) {
+                  return (
+                    <td key={t} className="border border-gray-200 px-1 py-1.5 text-center text-white font-medium text-[10px]" style={{ background: "#ef4444" }}>—</td>
+                  );
+                }
+                const ncdDate = new Date(rec.ncd);
+                ncdDate.setHours(0, 0, 0, 0);
+                const isPast = ncdDate <= today;
+                const label = ncdDate.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "2-digit" });
+                return (
+                  <td key={t} className="border border-gray-200 px-1 py-1.5 text-center font-medium text-[10px] text-white" style={{ background: isPast ? "#16a34a" : "#ef4444" }}>
+                    {label}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan={3 + trainings.length} className="px-3 pt-3 pb-1">
+              <div className="flex items-center gap-4 text-[11px]">
+                <span className="flex items-center gap-1.5"><span className="inline-block w-4 h-4 rounded" style={{ background: "#ef4444" }} /> Not completed</span>
+                <span className="flex items-center gap-1.5"><span className="inline-block w-4 h-4 rounded" style={{ background: "#16a34a" }} /> Completed</span>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  );
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 export const hCheckboxChange =
   (setSelectedRows, setSelectedTable) => (id, table) => {
     // id'ye uygun objeyi bul
@@ -1237,97 +1339,7 @@ const archiveData = (id) => {
               </div>
 
               {/* Training Matrix */}
-              {showMatrix && (
-                <div className="overflow-x-auto max-h-[75vh] overflow-y-auto">
-                  {matrixLoading ? (
-                    <div className="flex items-center justify-center py-16 text-gray-400">
-                      <i className="fas fa-circle-notch animate-spin text-2xl mr-3" />
-                      Loading matrix...
-                    </div>
-                  ) : matrixData.length === 0 ? (
-                    <div className="flex items-center justify-center py-16 text-gray-400 text-sm">
-                      No training data available.
-                    </div>
-                  ) : (() => {
-                    const today = new Date();
-                    today.setHours(0, 0, 0, 0);
-
-                    // Unique training names (columns)
-                    const trainings = [...new Map(matrixData.map(r => [r.tcln, r.tcln])).keys()].filter(Boolean);
-
-                    // Unique employees (rows) — preserve insertion order
-                    const empMap = new Map();
-                    matrixData.forEach(r => {
-                      const key = `${r.employeeName}|||${r.position}`;
-                      if (!empMap.has(key)) empMap.set(key, { name: r.employeeName, position: r.position });
-                    });
-                    const employees = [...empMap.values()];
-
-                    // Lookup: employeeKey + tcln → record
-                    const lookup = new Map();
-                    matrixData.forEach(r => {
-                      lookup.set(`${r.employeeName}|||${r.position}|||${r.tcln}`, r);
-                    });
-
-                    return (
-                      <table className="border-collapse text-xs w-full">
-                        <thead>
-                          <tr>
-                            <th className="border border-gray-300 bg-blue-50 px-3 py-2 text-left font-semibold text-gray-700 min-w-[140px] sticky left-0 z-10">№</th>
-                            <th className="border border-gray-300 bg-blue-50 px-3 py-2 text-left font-semibold text-gray-700 min-w-[160px] sticky left-0 z-10">Name</th>
-                            <th className="border border-gray-300 bg-blue-50 px-3 py-2 text-left font-semibold text-gray-700 min-w-[140px]">Position</th>
-                            {trainings.map(t => (
-                              <th key={t} className="border border-gray-300 bg-blue-50 px-1 py-2 font-semibold text-gray-700 min-w-[70px] max-w-[90px]">
-                                <div style={{ writingMode: "vertical-rl", transform: "rotate(180deg)", whiteSpace: "normal", maxHeight: 140, fontSize: 10, lineHeight: 1.3, padding: "2px 0" }}>
-                                  {t}
-                                </div>
-                              </th>
-                            ))}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {employees.map((emp, idx) => (
-                            <tr key={`${emp.name}-${emp.position}`} className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                              <td className="border border-gray-200 px-2 py-1.5 text-center font-semibold text-gray-600 sticky left-0 bg-inherit z-10">{idx + 1}</td>
-                              <td className="border border-gray-200 px-2 py-1.5 font-medium text-gray-800 sticky left-0 bg-inherit z-10 whitespace-nowrap">{emp.name}</td>
-                              <td className="border border-gray-200 px-2 py-1.5 text-gray-600 whitespace-nowrap">{emp.position}</td>
-                              {trainings.map(t => {
-                                const rec = lookup.get(`${emp.name}|||${emp.position}|||${t}`);
-                                if (!rec?.ncd) {
-                                  return (
-                                    <td key={t} className="border border-gray-200 px-1 py-1.5 text-center bg-red-500 text-white font-medium text-[10px]">
-                                      —
-                                    </td>
-                                  );
-                                }
-                                const ncdDate = new Date(rec.ncd);
-                                ncdDate.setHours(0, 0, 0, 0);
-                                const isPast = ncdDate <= today;
-                                const label = new Date(rec.ncd).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "2-digit" });
-                                return (
-                                  <td key={t} className={`border border-gray-200 px-1 py-1.5 text-center font-medium text-[10px] text-white ${isPast ? "bg-green-600" : "bg-red-500"}`}>
-                                    {label}
-                                  </td>
-                                );
-                              })}
-                            </tr>
-                          ))}
-                        </tbody>
-                        <tfoot>
-                          <tr>
-                            <td colSpan={3 + trainings.length} className="px-3 pt-3 pb-1">
-                              <div className="flex items-center gap-4 text-[11px]">
-                                <span className="flex items-center gap-1.5"><span className="inline-block w-4 h-4 rounded bg-red-500" /> Not completed</span>
-                                <span className="flex items-center gap-1.5"><span className="inline-block w-4 h-4 rounded bg-green-600" /> Completed</span>
-                              </div>
-                            </td>
-                          </tr>
-                        </tfoot>
-                      </table>
-                    );
-                  })()}
-                </div>
-              )}
+              <TrainingMatrix show={showMatrix} data={matrixData} loading={matrixLoading} />
 
               {/* Tablo */}
               {!showMatrix && (
