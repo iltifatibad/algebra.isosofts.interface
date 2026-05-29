@@ -208,6 +208,9 @@ const TrProfile = () => {
   const [showDeleted, setShowDeleted] = useState(false);
   const [showDeletedAction, setShowDeletedAction] = useState(false);
   const [showAction, setShowAction] = useState(false);
+  const [showMatrix, setShowMatrix] = useState(false);
+  const [matrixData, setMatrixData] = useState([]);
+  const [matrixLoading, setMatrixLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [staffList, setStaffList] = useState([]);
   useEffect(() => { fetchStaffList().then(setStaffList); }, []);
@@ -367,6 +370,19 @@ async function getDefaultDropdownList() {
     if (showArchived || showDeleted) {
       setShowArchived(false);
       setShowDeleted(false);
+    }
+  };
+
+  const toggleMatrix = () => {
+    const next = !showMatrix;
+    setShowMatrix(next);
+    if (next && matrixData.length === 0) {
+      setMatrixLoading(true);
+      const token = document.cookie.split("; ").find(r => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
+      fetch(`/api/register/tra/all?token=${token}`)
+        .then(r => r.ok ? r.json() : [])
+        .then(data => { setMatrixData(Array.isArray(data) ? data : []); setMatrixLoading(false); })
+        .catch(() => setMatrixLoading(false));
     }
   };
 
@@ -1117,6 +1133,23 @@ const archiveData = (id) => {
     {showAction ? "Hide Action" : "Show Action"}
   </button>
 
+  {/* Training Matrix Butonu */}
+  <button
+    onClick={toggleMatrix}
+    className={`
+      group px-5 py-2.5 rounded-xl font-medium text-sm
+      bg-white border border-slate-200 text-slate-700
+      hover:border-slate-300 hover:text-slate-900 hover:bg-slate-50/80
+      shadow-sm hover:shadow-md
+      transition-all duration-300 ease-out
+      flex items-center gap-2.5
+      ${showMatrix ? "border-teal-300 text-teal-700 bg-teal-50/70 hover:bg-teal-100/60" : ""}
+    `}
+  >
+    <i className="fas fa-table-cells text-base transition-transform duration-300 group-hover:scale-110" />
+    {showMatrix ? "Hide Matrix" : "Training Matrix"}
+  </button>
+
   {/* Aksiyon ikon butonları grubu */}
   <div className="flex items-center gap-2.5">
     {/* Edit */}
@@ -1199,7 +1232,101 @@ const archiveData = (id) => {
                 </div>
               </div>
 
+              {/* Training Matrix */}
+              {showMatrix && (
+                <div className="overflow-x-auto max-h-[75vh] overflow-y-auto">
+                  {matrixLoading ? (
+                    <div className="flex items-center justify-center py-16 text-gray-400">
+                      <i className="fas fa-circle-notch animate-spin text-2xl mr-3" />
+                      Loading matrix...
+                    </div>
+                  ) : matrixData.length === 0 ? (
+                    <div className="flex items-center justify-center py-16 text-gray-400 text-sm">
+                      No training data available.
+                    </div>
+                  ) : (() => {
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+
+                    // Unique training names (columns)
+                    const trainings = [...new Map(matrixData.map(r => [r.tcln, r.tcln])).keys()].filter(Boolean);
+
+                    // Unique employees (rows) — preserve insertion order
+                    const empMap = new Map();
+                    matrixData.forEach(r => {
+                      const key = `${r.employeeName}|||${r.position}`;
+                      if (!empMap.has(key)) empMap.set(key, { name: r.employeeName, position: r.position });
+                    });
+                    const employees = [...empMap.values()];
+
+                    // Lookup: employeeKey + tcln → record
+                    const lookup = new Map();
+                    matrixData.forEach(r => {
+                      lookup.set(`${r.employeeName}|||${r.position}|||${r.tcln}`, r);
+                    });
+
+                    return (
+                      <table className="border-collapse text-xs w-full">
+                        <thead>
+                          <tr>
+                            <th className="border border-gray-300 bg-blue-50 px-3 py-2 text-left font-semibold text-gray-700 min-w-[140px] sticky left-0 z-10">№</th>
+                            <th className="border border-gray-300 bg-blue-50 px-3 py-2 text-left font-semibold text-gray-700 min-w-[160px] sticky left-0 z-10">Name</th>
+                            <th className="border border-gray-300 bg-blue-50 px-3 py-2 text-left font-semibold text-gray-700 min-w-[140px]">Position</th>
+                            {trainings.map(t => (
+                              <th key={t} className="border border-gray-300 bg-blue-50 px-1 py-2 font-semibold text-gray-700 min-w-[70px] max-w-[90px]">
+                                <div style={{ writingMode: "vertical-rl", transform: "rotate(180deg)", whiteSpace: "normal", maxHeight: 140, fontSize: 10, lineHeight: 1.3, padding: "2px 0" }}>
+                                  {t}
+                                </div>
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {employees.map((emp, idx) => (
+                            <tr key={`${emp.name}-${emp.position}`} className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                              <td className="border border-gray-200 px-2 py-1.5 text-center font-semibold text-gray-600 sticky left-0 bg-inherit z-10">{idx + 1}</td>
+                              <td className="border border-gray-200 px-2 py-1.5 font-medium text-gray-800 sticky left-0 bg-inherit z-10 whitespace-nowrap">{emp.name}</td>
+                              <td className="border border-gray-200 px-2 py-1.5 text-gray-600 whitespace-nowrap">{emp.position}</td>
+                              {trainings.map(t => {
+                                const rec = lookup.get(`${emp.name}|||${emp.position}|||${t}`);
+                                if (!rec?.ncd) {
+                                  return (
+                                    <td key={t} className="border border-gray-200 px-1 py-1.5 text-center bg-red-500 text-white font-medium text-[10px]">
+                                      —
+                                    </td>
+                                  );
+                                }
+                                const ncdDate = new Date(rec.ncd);
+                                ncdDate.setHours(0, 0, 0, 0);
+                                const isPast = ncdDate <= today;
+                                const label = new Date(rec.ncd).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "2-digit" });
+                                return (
+                                  <td key={t} className={`border border-gray-200 px-1 py-1.5 text-center font-medium text-[10px] text-white ${isPast ? "bg-green-600" : "bg-red-500"}`}>
+                                    {label}
+                                  </td>
+                                );
+                              })}
+                            </tr>
+                          ))}
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td colSpan={3 + trainings.length} className="px-3 pt-3 pb-1">
+                              <div className="flex items-center gap-4 text-[11px]">
+                                <span className="flex items-center gap-1.5"><span className="inline-block w-4 h-4 rounded bg-red-500" /> Not completed</span>
+                                <span className="flex items-center gap-1.5"><span className="inline-block w-4 h-4 rounded bg-green-600" /> Completed</span>
+                              </div>
+                            </td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    );
+                  })()}
+                </div>
+              )}
+
               {/* Tablo */}
+              {!showMatrix && (
               <div className="overflow-x-auto max-h-[75vh] overflow-y-auto">
                 <table>
                   <TrHeaders activeHeader={activeHeader} />
@@ -1218,6 +1345,7 @@ const archiveData = (id) => {
                   />
                 </table>
               </div>
+              )}
             </div>
           ) : (
             <div className="bg-white !rounded-button shadow-lg p-8 text-center">
