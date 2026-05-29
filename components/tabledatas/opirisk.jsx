@@ -954,6 +954,9 @@ if (showDeleted) {
                   <td className="border-b border-gray-200 px-2 py-1 min-w-[7rem] max-w-[14rem]">
                     <StaffName id={actionData?.[index]?.responsibleId} />
                   </td>
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[7rem] max-w-[14rem]">
+                    <StaffName id={actionData?.[index]?.approverId} />
+                  </td>
                   <td className="border-b border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]">
                     <SoftBadge value={actionData?.[index]?.deadline} />
                   </td>
@@ -1087,6 +1090,9 @@ if (showDeleted) {
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 min-w-[7rem] max-w-[14rem]">
                     <StaffName id={deletedActionData?.[index]?.responsibleId} />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 min-w-[7rem] max-w-[14rem]">
+                    <StaffName id={deletedActionData?.[index]?.approverId} />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 min-w-[6rem] max-w-[12rem]">
                     <SoftBadge value={deletedActionData?.[index]?.deadline} />

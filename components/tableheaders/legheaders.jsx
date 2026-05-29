@@ -155,6 +155,9 @@ const LegHeaders = ({ activeHeader }) => {
             Responsible
           </th>
           <th className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-12 z-20 bg-blue-200">
+            Approver
+          </th>
+          <th className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-12 z-20 bg-blue-200">
             Deadline
           </th>
           <th className="min-w-[80px] border-r border-white text-xs whitespace-normal leading-tight sticky top-12 z-20 bg-blue-200">

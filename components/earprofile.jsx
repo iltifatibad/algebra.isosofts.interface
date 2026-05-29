@@ -249,6 +249,7 @@ const EarProfile = () => {
         resources: "",
         function: "",
         responsible: "",
+        approverId: "",
         deadline: "",
         actionConfirmation: "",
         actionStatus: "",
@@ -270,6 +271,7 @@ const EarProfile = () => {
         currency: "",
         relativeFunction: "",
         responsible: "",
+        approverId: "",
         deadline: "",
         confirmation: "",
         status: "",
@@ -401,6 +403,7 @@ async function getDefaultDropdownList() {
         currency: "",
         relativeFunction: "",
         responsible: "",
+        approverId: "",
         deadline: "",
         confirmation: "",
         status: "",
@@ -457,6 +460,7 @@ async function getDefaultDropdownList() {
             relativeFunction:
               row.relativeFunction?.id || String(row.relativeFunction) || "",
             responsible: row.responsible?.id || String(row.responsible) || "",
+            approverId: row.approverId || "",
             deadline: row.deadline,
             confirmation:
               row.confirmation?.id || String(row.confirmation) || "",
@@ -591,7 +595,8 @@ const saveRisk = () => {
         raiseDate: actionData.actionPlan[0]?.raiseDate || "",
         currency: actionData.actionPlan[0]?.currency || "",
         relativeFunction: actionData.actionPlan[0]?.relativeFunction || "",
-        responsible: actionData.actionPlan[0]?.responsible || "",
+        responsibleId: actionData.actionPlan[0]?.responsible || "",
+        approverId: actionData.actionPlan[0]?.approverId || "",
         deadline: actionData.actionPlan[0]?.deadline || "",
         confirmation: actionData.actionPlan[0]?.confirmation || "",
         status: actionData.actionPlan[0]?.status || "",
@@ -676,7 +681,8 @@ const saveRisk = () => {
             resources: actionData.actionPlan[0].resources.id || "",
             currency: "",
             relativeFunction: actionData.relativeFunction?.id || "",
-            responsible: actionData.responsible?.id || "",
+            responsibleId: actionData.responsible?.id || "",
+                approverId: actionData.actionPlan[0]?.approverId || "",
             deadline: actionData.deadline,
             confirmation: actionData.actionPlan[0].confirmation?.id || "",
             status: actionData.actionPlan[0].status?.id,
@@ -1618,6 +1624,19 @@ const archiveData = (id) => {
                   <select
                     value={actionData?.actionPlan?.[0]?.responsible || ""}
                     onChange={(e) => handleFormChange("actionPlan[0].responsible", e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
+                  >
+                    <option value="">Select</option>
+                    {staffList.map((item) => (
+                      <option key={item.id} value={item.id}>{item.value}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="group">
+                  <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">Approver</label>
+                  <select
+                    value={actionData?.actionPlan?.[0]?.approverId || ""}
+                    onChange={(e) => handleFormChange("actionPlan[0].approverId", e.target.value)}
                     className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                   >
                     <option value="">Select</option>

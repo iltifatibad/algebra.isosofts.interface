@@ -244,6 +244,7 @@ const AcProfile = () => {
         resources: "",
         function: "",
         responsible: "",
+        approverId: "",
         deadline: "",
         actionConfirmation: "",
         actionStatus: "",
@@ -265,6 +266,7 @@ const AcProfile = () => {
         currency: "",
         relativeFunction: "",
         responsible: "",
+        approverId: "",
         deadline: "",
         confirmation: "",
         status: "",
@@ -392,6 +394,7 @@ async function getDefaultDropdownList() {
         currency: "",
         relativeFunction: "",
         responsible: "",
+        approverId: "",
         deadline: "",
         confirmation: "",
         status: "",
@@ -570,7 +573,8 @@ if (modalMode === "add") {
       raiseDate: actionData.actionPlan[0]?.raiseDate || "",
       currency: actionData.actionPlan[0]?.currency || "",
       relativeFunction: actionData.actionPlan[0]?.relativeFunction || "",
-      responsible: actionData.actionPlan[0]?.responsible || "",
+      responsibleId: actionData.actionPlan[0]?.responsible || "",
+        approverId: actionData.actionPlan[0]?.approverId || "",
       deadline: actionData.actionPlan[0]?.deadline || "",
       confirmation: actionData.actionPlan[0]?.confirmation || "",
       status: actionData.actionPlan[0]?.status || "",
@@ -653,7 +657,8 @@ if (modalMode === "add") {
           resources: actionData.actionPlan[0].resources.id || "",
           currency: "",
           relativeFunction: actionData.relativeFunction?.id || "",
-          responsible: actionData.responsible?.id || "",
+          responsibleId: actionData.responsible?.id || "",
+                approverId: actionData.actionPlan[0]?.approverId || "",
           deadline: actionData.deadline,
           confirmation: actionData.actionPlan[0].confirmation?.id || "",
           status: String(actionData.actionPlan[0].status?.id) || "",
@@ -1507,6 +1512,27 @@ const archiveData = (id) => {
                                       </option>
                                     ),
                                   )}
+                                </select>
+                              </div>
+
+                              {/* Approver */}
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  Approver
+                                </label>
+                                <select
+                                  value={actionData.actionPlan?.[0]?.approverId || ""}
+                                  onChange={(e) =>
+                                    handleFormChange("actionPlan[0].approverId", e.target.value)
+                                  }
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                                >
+                                  <option value="">Select</option>
+                                  {staffList.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                      {item.value}
+                                    </option>
+                                  ))}
                                 </select>
                               </div>
 

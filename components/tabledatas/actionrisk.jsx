@@ -327,6 +327,14 @@ console.log("URL:", url);
               </td>
               <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
                 <input
+                  value={filters["approverId"] || ""}
+                  onChange={e => setFilters(prev => ({...prev, "approverId": e.target.value}))}
+                  placeholder="Filter..."
+                  className="w-full text-[10px] border border-gray-300 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400"
+                />
+              </td>
+              <td className="border border-gray-200 px-1 py-1 bg-gray-50 min-w-[60px]">
+                <input
                   value={filters["deadline"] || ""}
                   onChange={e => setFilters(prev => ({...prev, "deadline": e.target.value}))}
                   placeholder="Filter..."
@@ -435,6 +443,11 @@ console.log("URL:", url);
 {/* Responsible */}
 <td className="border-b border-gray-200 px-2 py-1 w-28">
   <StaffName id={action.responsibleId} />
+</td>
+
+{/* Approver */}
+<td className="border-b border-gray-200 px-2 py-1 w-28">
+  <StaffName id={action.approverId} />
 </td>
 
 {/* Deadline */}

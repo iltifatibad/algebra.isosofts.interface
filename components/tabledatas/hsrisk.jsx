@@ -882,6 +882,9 @@ console.log(url);
                   <td className="border-b border-gray-200 px-2 py-1 w-28">
                     <StaffName id={actionData?.[index]?.responsibleId} />
                   </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-28">
+                    <StaffName id={actionData?.[index]?.approverId} />
+                  </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-24">
                     <SoftBadge value={actionData?.[index]?.deadline} />
                   </td>
@@ -1016,6 +1019,9 @@ console.log(url);
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-28">
                     <StaffName id={deletedActionData?.[index]?.responsibleId} />
+                  </td>
+                  <td className="border-b border-gray-200 px-2 py-1 w-28">
+                    <StaffName id={deletedActionData?.[index]?.approverId} />
                   </td>
                   <td className="border-b border-gray-200 px-2 py-1 w-24">
                     <SoftBadge value={deletedActionData?.[index]?.deadline} />

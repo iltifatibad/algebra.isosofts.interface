@@ -246,6 +246,7 @@ const AoProfile = () => {
         resources: "",
         function: "",
         responsible: "",
+        approverId: "",
         deadline: "",
         actionConfirmation: "",
         actionStatus: "",
@@ -267,6 +268,7 @@ const AoProfile = () => {
         currency: "",
         relativeFunction: "",
         responsible: "",
+        approverId: "",
         deadline: "",
         confirmation: "",
         status: "",
@@ -396,6 +398,7 @@ async function getDefaultDropdownList() {
         currency: "",
         relativeFunction: "",
         responsible: "",
+        approverId: "",
         deadline: "",
         confirmation: "",
         status: "",
@@ -583,7 +586,8 @@ const saveRisk = () => {
         raiseDate: actionData.actionPlan[0]?.raiseDate || "",
         currency: actionData.actionPlan[0]?.currency || "",
         relativeFunction: actionData.actionPlan[0]?.relativeFunction || "",
-        responsible: actionData.actionPlan[0]?.responsible || "",
+        responsibleId: actionData.actionPlan[0]?.responsible || "",
+        approverId: actionData.actionPlan[0]?.approverId || "",
         deadline: actionData.actionPlan[0]?.deadline || "",
         confirmation: actionData.actionPlan[0]?.confirmation || "",
         status: actionData.actionPlan[0]?.status || "",
@@ -665,7 +669,8 @@ const saveRisk = () => {
             resources: actionData.actionPlan[0].resources.id || "",
             currency: "",
             relativeFunction: actionData.relativeFunction?.id || "",
-            responsible: actionData.responsible?.id || "",
+            responsibleId: actionData.responsible?.id || "",
+                approverId: actionData.actionPlan[0]?.approverId || "",
             deadline: actionData.deadline,
             confirmation: actionData.actionPlan[0].confirmation?.id || "",
             status: actionData.actionPlan[0].status?.id,
@@ -1461,6 +1466,7 @@ const archiveData = (id) => {
                 {[
                   { label: "Relative Function", field: "relativeFunction", options: dropdownData?.relativeFunction },
                   { label: "Responsible", field: "responsible", options: staffList },
+                  { label: "Approver", field: "approverId", options: staffList },
                 ].map(({ label, field, options }) => (
                   <div key={field} className="group">
                     <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">{label}</label>
