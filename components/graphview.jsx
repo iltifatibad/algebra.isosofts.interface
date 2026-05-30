@@ -186,6 +186,48 @@ export default function GraphView({ onClose }) {
 
   useEffect(() => { fetchAll(); }, [fetchAll]);
 
+  const handlePrint = useCallback(() => {
+    const style = document.createElement("style");
+    style.id = "__graphview_print__";
+    style.innerHTML = `
+      @media print {
+        @page { margin: 10mm; size: A4 landscape; }
+        nav, aside, .no-print { display: none !important; }
+        body { background: white !important; }
+        body > div { padding-top: 0 !important; }
+        main {
+          width: 100% !important;
+          height: auto !important;
+          overflow: visible !important;
+          position: static !important;
+        }
+        main > div {
+          height: auto !important;
+          overflow: visible !important;
+        }
+        /* Make all scrollable sections fully visible */
+        .overflow-y-auto, .overflow-hidden {
+          overflow: visible !important;
+          max-height: none !important;
+          height: auto !important;
+        }
+        /* Hide action buttons */
+        button { display: none !important; }
+        /* Keep charts visible */
+        .recharts-wrapper, .recharts-surface { overflow: visible !important; }
+      }
+    `;
+    document.head.appendChild(style);
+
+    const cleanup = () => {
+      const el = document.getElementById("__graphview_print__");
+      if (el) el.remove();
+      window.removeEventListener("afterprint", cleanup);
+    };
+    window.addEventListener("afterprint", cleanup);
+    window.print();
+  }, []);
+
   if (loading) return <LoadingScreen msg={loadMsg} />;
 
   const { moduleStats, totalRecords, totalActions, totalComplete, totalOverdue, overallRate, globalResp, globalAppr } = data;
@@ -231,7 +273,7 @@ export default function GraphView({ onClose }) {
               <i className="fas fa-arrows-rotate text-xs" /> Refresh
             </button>
             <button
-              onClick={() => window.print()}
+              onClick={handlePrint}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 text-xs font-medium transition-colors"
             >
               <i className="fas fa-print text-xs" /> Print
