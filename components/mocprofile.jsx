@@ -1440,7 +1440,7 @@ const archiveData = (id) => {
               <div className="group">
 <div className="group bg-rose-50 border border-rose-100 rounded-2xl p-4">
   <label className="block text-xs font-medium text-rose-600 mb-1.5 group-focus-within:text-rose-500 transition-colors">
-    İnitial Risk
+    Initial Risk
   </label>
 
   <div className="grid grid-cols-3 gap-4">

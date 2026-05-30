@@ -396,7 +396,7 @@ console.log("URL:", url);
     {loading ? (
       <tr>
         <td colSpan={25} className="text-center py-6 text-gray-600">
-          Arşiv verileri yükleniyor...
+          Loading archive data...
         </td>
       </tr>
     ) : !filteredActionData || filteredActionData.length === 0 ? (

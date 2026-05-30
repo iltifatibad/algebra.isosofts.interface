@@ -677,7 +677,7 @@ function PeopleTab({ globalResp, globalAppr, moduleStats }) {
           <div className="flex items-center gap-2 mb-4">
             <i className="fas fa-user-tie text-blue-600 text-sm" />
             <h3 className="text-sm font-bold text-slate-700">Responsible Persons</h3>
-            <InfoTip text="Tüm registerlardaki action'larda 'Responsible' olarak atanmış benzersiz kişi sayısı. Her kişinin yanındaki sayı, o kişiye atanmış toplam action sayısını gösterir." />
+            <InfoTip text="Number of unique staff members assigned as Responsible across all actions in all registers. The number next to each person shows their total assigned action count." />
             <span className="ml-auto text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-semibold">
               {globalResp.length} people
             </span>
@@ -690,8 +690,8 @@ function PeopleTab({ globalResp, globalAppr, moduleStats }) {
                   max={globalResp[0][1]}
                   color="#3b82f6"
                   modules={personModules[name] || []}
-                  moduleTooltip="Bu kişinin en az bir action'ında Responsible olarak atandığı register listesi"
-                  countTooltip="Bu kişiye Responsible olarak atanmış toplam action sayısı"
+                  moduleTooltip="Registers where this person is assigned as Responsible on at least one action"
+                  countTooltip="Total number of actions this person is assigned as Responsible for"
                 />
               ))}
             </div>
@@ -705,7 +705,7 @@ function PeopleTab({ globalResp, globalAppr, moduleStats }) {
           <div className="flex items-center gap-2 mb-4">
             <i className="fas fa-user-check text-indigo-600 text-sm" />
             <h3 className="text-sm font-bold text-slate-700">Approvers</h3>
-            <InfoTip text="Tüm registerlardaki action'larda 'Approver' olarak atanmış benzersiz kişi sayısı. Her kişinin yanındaki sayı, o kişinin onaylamakla sorumlu tutulduğu toplam action sayısını gösterir." />
+            <InfoTip text="Number of unique staff members assigned as Approver across all actions in all registers. The number next to each person shows the total actions they are responsible for approving." />
             <span className="ml-auto text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full font-semibold">
               {globalAppr.length} people
             </span>
@@ -718,7 +718,7 @@ function PeopleTab({ globalResp, globalAppr, moduleStats }) {
                   max={globalAppr[0][1]}
                   color="#6366f1"
                   modules={[]}
-                  countTooltip="Bu kişinin Approver olarak atandığı toplam action sayısı"
+                  countTooltip="Total number of actions this person is assigned as Approver for"
                 />
               ))}
             </div>
@@ -733,7 +733,7 @@ function PeopleTab({ globalResp, globalAppr, moduleStats }) {
         <div className="bg-white rounded-2xl border border-blue-50 shadow-sm p-5">
           <div className="flex items-center gap-2 mb-4">
             <h3 className="text-sm font-bold text-slate-700">Action Workload Distribution</h3>
-            <InfoTip text="Her kişiye Responsible olarak atanmış action sayısını gösteren yatay bar chart. En fazla action'a sahip kişi en üstte sıralanır. Maksimum 15 kişi gösterilir." />
+            <InfoTip text="Horizontal bar chart showing the number of actions assigned to each person as Responsible. The person with the most actions appears at the top. Shows up to 15 people." />
           </div>
           <ResponsiveContainer width="100%" height={Math.min(300, globalResp.slice(0, 15).length * 32 + 40)}>
             <BarChart

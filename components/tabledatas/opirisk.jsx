@@ -456,7 +456,7 @@ if (showDeleted) {
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-4 text-gray-600">
-              Deleted verileri yükleniyor...
+              Loading deleted data...
             </td>
           </tr>
         ) : !filteredDeletedData || filteredDeletedData.length === 0 ? (
@@ -747,7 +747,7 @@ if (showDeleted) {
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-4 text-gray-600">
-              Arşiv verileri yükleniyor...
+              Loading archive data...
             </td>
           </tr>
         ) : !filteredArchivedData || filteredArchivedData.length === 0 ? (
@@ -893,7 +893,7 @@ if (showDeleted) {
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-4">
-              Deleted verileri yükleniyor...
+              Loading deleted data...
             </td>
           </tr>
         ) : selectedTable && Array.isArray(actionData) && actionData.length > 0 && selectedTable.length > 0 ? (
@@ -1023,7 +1023,7 @@ if (showDeleted) {
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-4">
-              Deleted verileri yükleniyor...
+              Loading deleted data...
             </td>
           </tr>
         ) : selectedTable && Array.isArray(deletedActionData) && deletedActionData.length > 0 && selectedTable.length > 0 ? (
@@ -1312,7 +1312,7 @@ if (showDeleted) {
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-6 text-gray-600">
-              Arşiv verileri yükleniyor...
+              Loading archive data...
             </td>
           </tr>
         ) : !filteredData || filteredData.length === 0 ? (

@@ -1362,7 +1362,7 @@ const archiveData = (id) => {
               {/* Initial Risk */}
 <div className="bg-rose-50 border border-rose-100 rounded-2xl p-4 space-y-3">
   <p className="text-xs font-semibold text-rose-600 uppercase tracking-wider">
-    İnitial Risk
+    Initial Risk
   </p>
 
   <div className="grid grid-cols-3 gap-3">

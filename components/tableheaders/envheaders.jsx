@@ -48,7 +48,7 @@ const EnvHeaders = ({ activeHeader }) => {
             className="border-r border-white text-xs whitespace-normal leading-tight sticky top-0 z-20 bg-blue-100"
             style={{ minWidth: 600 }}
           >
-            İnitial Significance
+            Initial Significance
           </th>
 
           <th

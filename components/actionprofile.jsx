@@ -1263,7 +1263,7 @@ const archiveData = (id) => {
                   <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        İnitial Risk
+                        Initial Risk
                       </label>
                       <div className="grid grid-cols-3 gap-2">
                         <select

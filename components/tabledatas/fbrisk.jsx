@@ -420,7 +420,7 @@ data.map(async (item) => {
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-4 text-gray-600">
-              Deleted verileri yükleniyor...
+              Loading deleted data...
             </td>
           </tr>
         ) : !filteredDeletedData || filteredDeletedData.length === 0 ? (
@@ -689,7 +689,7 @@ value={
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-4 text-gray-600">
-              Arşiv verileri yükleniyor...
+              Loading archive data...
             </td>
           </tr>
         ) : !filteredArchivedData || filteredArchivedData.length === 0 ? (
@@ -884,7 +884,7 @@ value={
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-6 text-gray-600">
-              Arşiv verileri yükleniyor...
+              Loading archive data...
             </td>
           </tr>
         ) : !actionData || actionData.length === 0 ? (
@@ -1169,7 +1169,7 @@ value={
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-6 text-gray-600">
-              Arşiv verileri yükleniyor...
+              Loading archive data...
             </td>
           </tr>
         ) : !actionData || actionData.length === 0 ? (
@@ -1454,7 +1454,7 @@ value={
         {loading ? (
           <tr>
             <td colSpan={25} className="text-center py-6 text-gray-600">
-              Arşiv verileri yükleniyor...
+              Loading archive data...
             </td>
           </tr>
         ) : !filteredData || filteredData.length === 0 ? (
