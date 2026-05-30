@@ -26,16 +26,21 @@ const MODULES = [
   { id: "ac-reg",  name: "Action Log",            endpoint: "/api/dashboard/actionLog/all?status=active", color: "#22c55e", icon: "fas fa-circle-check" },
 ];
 
-const isComplete = (status) => {
-  if (!status) return false;
-  const s = String(status?.value || status).toLowerCase();
+// An action is complete if it has a completionDate set, OR the status text implies completion.
+const isComplete = (action) => {
+  if (!action) return false;
+  // Primary signal: completionDate is filled in
+  if (action.completionDate) return true;
+  // Secondary: status value text includes a completion keyword
+  const s = String(action.status?.value || action.status || "").toLowerCase();
   return s.includes("complet") || s.includes("done") || s.includes("closed") || s.includes("finish");
 };
 
 const isOverdue = (action) => {
-  if (isComplete(action.status)) return false;
+  if (isComplete(action)) return false;
   if (!action.deadline) return false;
-  return new Date(action.deadline) < new Date();
+  const d = new Date(action.deadline);
+  return !isNaN(d) && d < new Date();
 };
 
 const getPersonName = (val) => {
@@ -115,7 +120,7 @@ export default function GraphView({ onClose }) {
       const actions = records.flatMap(rec =>
         actionsByRecord[String(rec.id || "")] || (Array.isArray(rec.actions) ? rec.actions : [])
       );
-      const complete   = actions.filter(a => isComplete(a.status)).length;
+      const complete   = actions.filter(a => isComplete(a)).length;
       const incomplete = actions.length - complete;
       const overdue    = actions.filter(a => isOverdue(a)).length;
       const rate       = actions.length ? Math.round((complete / actions.length) * 100) : null;
@@ -158,7 +163,7 @@ export default function GraphView({ onClose }) {
 
     const totalRecords  = moduleStats.reduce((s, m) => s + m.records, 0);
     const totalActions  = allActions.length;
-    const totalComplete = allActions.filter(a => isComplete(a.status)).length;
+    const totalComplete = allActions.filter(a => isComplete(a)).length;
     const totalOverdue  = allActions.filter(a => isOverdue(a)).length;
     const overallRate   = totalActions ? Math.round((totalComplete / totalActions) * 100) : 0;
 
