@@ -645,7 +645,7 @@ const OPIProfile = () => {
         approverId: actionData.actionPlan?.[0]?.approverId || "",
           deadline: actionData.actionPlan?.[0]?.deadline || "",
           confirmation: actionData.actionPlan?.[0]?.confirmation || "",
-          status: actionData.actionPlan?.[0]?.status || "",
+          status: actionData.actionPlan?.[0]?.status || 0,
           completionDate: actionData.actionPlan?.[0]?.completionDate || "",
           verificationStatus:
             actionData.actionPlan?.[0]?.verificationStatus || "",
@@ -734,7 +734,7 @@ const OPIProfile = () => {
           sendNotification: actionData.actionPlan?.[0]?.sendNotification ?? 0,
           deadline: actionData.actionPlan?.[0]?.deadline || "",
           confirmation: actionData.actionPlan?.[0]?.confirmation || "",
-          status: actionData.actionPlan?.[0]?.status || "",
+          status: actionData.actionPlan?.[0]?.status || 0,
           completionDate: actionData.actionPlan?.[0]?.completionDate || "",
           verificationStatus: actionData.actionPlan?.[0]?.verificationStatus || "",
           comment: actionData.actionPlan?.[0]?.comment || "",

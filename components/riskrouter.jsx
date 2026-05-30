@@ -228,7 +228,7 @@ const RiskRouter = () => {
           className={`
             bg-white shadow-2xl border-r border-blue-100
             transition-all duration-300 ease-in-out flex flex-col flex-shrink-0
-            fixed top-20 bottom-0 left-0 lg:relative lg:top-auto lg:bottom-auto lg:left-auto z-[500]
+            fixed top-20 bottom-0 left-0 lg:relative lg:top-auto lg:bottom-auto lg:left-auto z-[950]
             ${isSidebarOpen
               ? "w-72 translate-x-0"
               : "w-72 -translate-x-full lg:translate-x-0 lg:w-20"}

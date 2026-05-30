@@ -534,6 +534,32 @@ function PersonTag({ name, count, color }) {
   );
 }
 
+// ─── INFO TOOLTIP ─────────────────────────────────────────────────
+function InfoTip({ text }) {
+  const [show, setShow] = React.useState(false);
+  return (
+    <span className="relative inline-flex items-center">
+      <button
+        type="button"
+        onMouseEnter={() => setShow(true)}
+        onMouseLeave={() => setShow(false)}
+        onFocus={() => setShow(true)}
+        onBlur={() => setShow(false)}
+        className="w-4 h-4 rounded-full bg-slate-200 hover:bg-blue-100 text-slate-500 hover:text-blue-600 flex items-center justify-center text-[9px] font-bold transition-colors cursor-default select-none"
+        aria-label="Info"
+      >
+        ?
+      </button>
+      {show && (
+        <span className="absolute left-5 top-1/2 -translate-y-1/2 z-[9999] w-56 bg-slate-800 text-white text-[11px] leading-relaxed rounded-xl px-3 py-2 shadow-2xl pointer-events-none whitespace-normal">
+          {text}
+          <span className="absolute -left-1.5 top-1/2 -translate-y-1/2 w-0 h-0 border-t-4 border-b-4 border-r-4 border-transparent border-r-slate-800" />
+        </span>
+      )}
+    </span>
+  );
+}
+
 // ─── PEOPLE TAB ───────────────────────────────────────────────────
 function PeopleTab({ globalResp, globalAppr, moduleStats }) {
   const hasResp = globalResp.length > 0;
@@ -557,6 +583,7 @@ function PeopleTab({ globalResp, globalAppr, moduleStats }) {
           <div className="flex items-center gap-2 mb-4">
             <i className="fas fa-user-tie text-blue-600 text-sm" />
             <h3 className="text-sm font-bold text-slate-700">Responsible Persons</h3>
+            <InfoTip text="Tüm registerlardaki action'larda 'Responsible' olarak atanmış benzersiz kişi sayısı. Her kişinin yanındaki sayı, o kişiye atanmış toplam action sayısını gösterir." />
             <span className="ml-auto text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-semibold">
               {globalResp.length} people
             </span>
@@ -569,6 +596,8 @@ function PeopleTab({ globalResp, globalAppr, moduleStats }) {
                   max={globalResp[0][1]}
                   color="#3b82f6"
                   modules={personModules[name] || []}
+                  moduleTooltip="Bu kişinin en az bir action'ında Responsible olarak atandığı register listesi"
+                  countTooltip="Bu kişiye Responsible olarak atanmış toplam action sayısı"
                 />
               ))}
             </div>
@@ -582,6 +611,7 @@ function PeopleTab({ globalResp, globalAppr, moduleStats }) {
           <div className="flex items-center gap-2 mb-4">
             <i className="fas fa-user-check text-indigo-600 text-sm" />
             <h3 className="text-sm font-bold text-slate-700">Approvers</h3>
+            <InfoTip text="Tüm registerlardaki action'larda 'Approver' olarak atanmış benzersiz kişi sayısı. Her kişinin yanındaki sayı, o kişinin onaylamakla sorumlu tutulduğu toplam action sayısını gösterir." />
             <span className="ml-auto text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full font-semibold">
               {globalAppr.length} people
             </span>
@@ -594,6 +624,7 @@ function PeopleTab({ globalResp, globalAppr, moduleStats }) {
                   max={globalAppr[0][1]}
                   color="#6366f1"
                   modules={[]}
+                  countTooltip="Bu kişinin Approver olarak atandığı toplam action sayısı"
                 />
               ))}
             </div>
@@ -606,7 +637,10 @@ function PeopleTab({ globalResp, globalAppr, moduleStats }) {
       {/* Workload bar chart */}
       {hasResp && globalResp.length > 1 && (
         <div className="bg-white rounded-2xl border border-blue-50 shadow-sm p-5">
-          <h3 className="text-sm font-bold text-slate-700 mb-4">Action Workload Distribution</h3>
+          <div className="flex items-center gap-2 mb-4">
+            <h3 className="text-sm font-bold text-slate-700">Action Workload Distribution</h3>
+            <InfoTip text="Her kişiye Responsible olarak atanmış action sayısını gösteren yatay bar chart. En fazla action'a sahip kişi en üstte sıralanır. Maksimum 15 kişi gösterilir." />
+          </div>
           <ResponsiveContainer width="100%" height={Math.min(300, globalResp.slice(0, 15).length * 32 + 40)}>
             <BarChart
               data={globalResp.slice(0, 15).map(([n, c]) => ({ name: n, actions: c }))}
@@ -630,7 +664,7 @@ function PeopleTab({ globalResp, globalAppr, moduleStats }) {
   );
 }
 
-function PersonRow({ rank, name, count, max, color, modules }) {
+function PersonRow({ rank, name, count, max, color, modules, countTooltip, moduleTooltip }) {
   const pct = Math.round((count / max) * 100);
   return (
     <div className="flex items-center gap-3">
@@ -638,15 +672,21 @@ function PersonRow({ rank, name, count, max, color, modules }) {
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between mb-0.5">
           <span className="text-xs font-semibold text-slate-700 truncate">{name}</span>
-          <span className="text-xs font-bold ml-2 shrink-0" style={{ color }}>{count}</span>
+          <div className="flex items-center gap-1 ml-2 shrink-0">
+            {countTooltip && <InfoTip text={countTooltip} />}
+            <span className="text-xs font-bold" style={{ color }}>{count}</span>
+          </div>
         </div>
         <div className="w-full bg-slate-100 rounded-full h-1.5">
           <div className="h-1.5 rounded-full" style={{ width: `${pct}%`, background: color }} />
         </div>
         {modules.length > 0 && (
-          <p className="text-[9px] text-slate-400 mt-0.5 truncate">
-            {modules.slice(0, 3).join(", ")}{modules.length > 3 ? ` +${modules.length - 3}` : ""}
-          </p>
+          <div className="flex items-center gap-1 mt-0.5">
+            {moduleTooltip && <InfoTip text={moduleTooltip} />}
+            <p className="text-[9px] text-slate-400 truncate">
+              {modules.slice(0, 3).join(", ")}{modules.length > 3 ? ` +${modules.length - 3}` : ""}
+            </p>
+          </div>
         )}
       </div>
     </div>
