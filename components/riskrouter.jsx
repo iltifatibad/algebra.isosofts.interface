@@ -341,6 +341,8 @@ const RiskRouter = () => {
            selectedRisk === "dashboard" ? <KPIDashboard companyName={companyName} userName={userName} /> : null}
           </div>
         </main>
+
+        {showGraph && <GraphView onClose={() => setShowGraph(false)} />}
       </div>
     </div>
 
@@ -349,8 +351,6 @@ const RiskRouter = () => {
       onClose={() => setShowExport(false)}
       moduleKey={exportModuleKey}
     />
-
-    {showGraph && <GraphView onClose={() => setShowGraph(false)} />}
     </UserProvider>
   );
 };

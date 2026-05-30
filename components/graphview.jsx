@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import { createPortal } from "react-dom";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell,
   PieChart, Pie, Legend,
@@ -536,25 +537,56 @@ function PersonTag({ name, count, color }) {
 
 // ─── INFO TOOLTIP ─────────────────────────────────────────────────
 function InfoTip({ text }) {
-  const [show, setShow] = React.useState(false);
+  const [pos, setPos] = useState(null);
+  const btnRef = useRef(null);
+
+  const handleEnter = () => {
+    if (!btnRef.current) return;
+    const r = btnRef.current.getBoundingClientRect();
+    setPos({ top: r.top + r.height / 2, left: r.right + 10 });
+  };
+
   return (
-    <span className="relative inline-flex items-center">
+    <span className="inline-flex items-center shrink-0">
       <button
+        ref={btnRef}
         type="button"
-        onMouseEnter={() => setShow(true)}
-        onMouseLeave={() => setShow(false)}
-        onFocus={() => setShow(true)}
-        onBlur={() => setShow(false)}
+        onMouseEnter={handleEnter}
+        onMouseLeave={() => setPos(null)}
+        onFocus={handleEnter}
+        onBlur={() => setPos(null)}
         className="w-4 h-4 rounded-full bg-slate-200 hover:bg-blue-100 text-slate-500 hover:text-blue-600 flex items-center justify-center text-[9px] font-bold transition-colors cursor-default select-none"
-        aria-label="Info"
       >
         ?
       </button>
-      {show && (
-        <span className="absolute left-5 top-1/2 -translate-y-1/2 z-[9999] w-56 bg-slate-800 text-white text-[11px] leading-relaxed rounded-xl px-3 py-2 shadow-2xl pointer-events-none whitespace-normal">
+      {pos && createPortal(
+        <div
+          style={{
+            position: "fixed",
+            top: pos.top,
+            left: pos.left,
+            transform: "translateY(-50%)",
+            zIndex: 99999,
+            maxWidth: 240,
+            pointerEvents: "none",
+          }}
+          className="bg-slate-800 text-white text-[11px] leading-relaxed rounded-xl px-3 py-2 shadow-2xl whitespace-normal"
+        >
           {text}
-          <span className="absolute -left-1.5 top-1/2 -translate-y-1/2 w-0 h-0 border-t-4 border-b-4 border-r-4 border-transparent border-r-slate-800" />
-        </span>
+          <span
+            style={{
+              position: "absolute",
+              left: -6,
+              top: "50%",
+              transform: "translateY(-50%)",
+              width: 0, height: 0,
+              borderTop: "5px solid transparent",
+              borderBottom: "5px solid transparent",
+              borderRight: "6px solid #1e293b",
+            }}
+          />
+        </div>,
+        document.body
       )}
     </span>
   );
