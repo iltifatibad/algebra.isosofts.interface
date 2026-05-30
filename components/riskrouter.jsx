@@ -235,7 +235,7 @@ const RiskRouter = () => {
           className={`
             bg-white shadow-2xl border-r border-blue-100
             transition-all duration-300 ease-in-out flex flex-col flex-shrink-0
-            fixed top-20 bottom-0 left-0 lg:relative lg:top-auto lg:bottom-auto lg:left-auto z-[950]
+            fixed top-20 bottom-0 left-0 lg:relative lg:top-auto lg:bottom-auto lg:left-auto z-[500]
             ${isSidebarOpen
               ? "w-72 translate-x-0"
               : "w-72 -translate-x-full lg:translate-x-0 lg:w-20"}
@@ -316,40 +316,44 @@ const RiskRouter = () => {
           <style>{`@keyframes sectionFadeIn{from{opacity:0}to{opacity:1}}.section-enter{animation:sectionFadeIn 0.22s cubic-bezier(0.16,1,0.3,1) both}.modal-overlay{pointer-events:none;z-index:9999!important}.modal-box{pointer-events:auto;cursor:grab;border:1.5px solid #93c5fd !important;box-shadow:0 8px 40px rgba(59,130,246,0.18),0 2px 8px rgba(0,0,0,0.10) !important}.modal-box button,.modal-box input,.modal-box select,.modal-box textarea,.modal-box a,.modal-box label{cursor:auto}.modal-box:active{cursor:grabbing}`}</style>
 
           {/* Mobile hamburger — shown when sidebar is closed */}
-          <button
-            className="lg:hidden absolute top-4 left-4 z-10 w-10 h-10 rounded-xl bg-white border border-blue-100 shadow-md flex items-center justify-center text-blue-600 hover:bg-blue-50 transition-colors"
-            onClick={() => setIsSidebarOpen(true)}
-            aria-label="Open menu"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
+          {!showGraph && (
+            <button
+              className="lg:hidden absolute top-4 left-4 z-10 w-10 h-10 rounded-xl bg-white border border-blue-100 shadow-md flex items-center justify-center text-blue-600 hover:bg-blue-50 transition-colors"
+              onClick={() => setIsSidebarOpen(true)}
+              aria-label="Open menu"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          )}
 
-          <div key={selectedRisk} className="section-enter h-full">
-          {selectedRisk === "bg-reg" ? <RisksAssessment /> :
-           selectedRisk === "hs-reg" ? <HsProfile /> :
-           selectedRisk === "leg-reg" ? <LegProfile /> :
-           selectedRisk === "env-reg" ? <EnvProfile /> :
-           selectedRisk === "eq-reg" ? <EiProfile /> :
-           selectedRisk === "tr-reg" ? <TrProfile /> :
-           selectedRisk === "doc-reg" ? <DocProfile /> :
-           selectedRisk === "ven-reg" ? <VenProfile /> :
-           selectedRisk === "cus-reg" ? <CusProfile /> :
-           selectedRisk === "fb-reg" ? <FbProfile /> :
-           selectedRisk === "ear-reg" ? <EarProfile /> :
-           selectedRisk === "moc-reg" ? <MocProfile /> :
-           selectedRisk === "fl-reg" ? <FProfile /> :
-           selectedRisk === "ao-reg" ? <AoProfile /> :
-           selectedRisk === "mr-reg" ? <MRMProfile /> :
-           selectedRisk === "ac-reg" ? <AcProfile /> :
-           selectedRisk === "kpi" ? <KpiProfile /> :
-           selectedRisk === "opi" ? <OPIProfile /> :
-           selectedRisk === "dashboard" ? <KPIDashboard companyName={companyName} userName={userName} /> : null}
-          </div>
+          {showGraph ? (
+            <GraphView onClose={() => setShowGraph(false)} />
+          ) : (
+            <div key={selectedRisk} className="section-enter h-full">
+            {selectedRisk === "bg-reg" ? <RisksAssessment /> :
+             selectedRisk === "hs-reg" ? <HsProfile /> :
+             selectedRisk === "leg-reg" ? <LegProfile /> :
+             selectedRisk === "env-reg" ? <EnvProfile /> :
+             selectedRisk === "eq-reg" ? <EiProfile /> :
+             selectedRisk === "tr-reg" ? <TrProfile /> :
+             selectedRisk === "doc-reg" ? <DocProfile /> :
+             selectedRisk === "ven-reg" ? <VenProfile /> :
+             selectedRisk === "cus-reg" ? <CusProfile /> :
+             selectedRisk === "fb-reg" ? <FbProfile /> :
+             selectedRisk === "ear-reg" ? <EarProfile /> :
+             selectedRisk === "moc-reg" ? <MocProfile /> :
+             selectedRisk === "fl-reg" ? <FProfile /> :
+             selectedRisk === "ao-reg" ? <AoProfile /> :
+             selectedRisk === "mr-reg" ? <MRMProfile /> :
+             selectedRisk === "ac-reg" ? <AcProfile /> :
+             selectedRisk === "kpi" ? <KpiProfile /> :
+             selectedRisk === "opi" ? <OPIProfile /> :
+             selectedRisk === "dashboard" ? <KPIDashboard companyName={companyName} userName={userName} /> : null}
+            </div>
+          )}
         </main>
-
-        {showGraph && <GraphView onClose={() => setShowGraph(false)} />}
       </div>
     </div>
 

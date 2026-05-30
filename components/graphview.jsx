@@ -207,7 +207,7 @@ export default function GraphView({ onClose }) {
   ];
 
   return (
-    <div className="fixed inset-0 z-[900] bg-gray-50 flex flex-col overflow-hidden">
+    <div className="h-full w-full bg-gray-50 flex flex-col overflow-hidden">
 
       {/* ── TOP HEADER ────────────────────────────────────── */}
       <div className="bg-white border-b border-blue-100 shadow-sm shrink-0">
@@ -293,7 +293,7 @@ export default function GraphView({ onClose }) {
 // ─── LOADING ──────────────────────────────────────────────────────
 function LoadingScreen({ msg }) {
   return (
-    <div className="fixed inset-0 z-[900] bg-gray-50 flex flex-col items-center justify-center gap-5">
+    <div className="h-full w-full bg-gray-50 flex flex-col items-center justify-center gap-5">
       <div className="relative w-14 h-14">
         <div className="absolute inset-0 border-4 border-blue-100 rounded-full" />
         <div className="absolute inset-0 border-4 border-transparent border-t-blue-600 rounded-full animate-spin" />
