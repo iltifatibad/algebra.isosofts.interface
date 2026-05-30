@@ -186,46 +186,66 @@ export default function GraphView({ onClose }) {
 
   useEffect(() => { fetchAll(); }, [fetchAll]);
 
+  const printRef = useRef(null);
+
   const handlePrint = useCallback(() => {
+    if (!printRef.current) { window.print(); return; }
+
+    // Clone the currently rendered content (captures Recharts SVGs as-is)
+    const clone = printRef.current.cloneNode(true);
+
+    // Remove buttons from clone
+    clone.querySelectorAll("button").forEach(b => b.remove());
+
+    // Unlock all height/overflow constraints inside the clone
+    clone.style.cssText = "height:auto;overflow:visible;width:100%;";
+    clone.querySelectorAll("*").forEach(el => {
+      el.style.overflow = "visible";
+      el.style.maxHeight = "none";
+      if (el.style.height && el.style.height !== "auto") el.style.height = "auto";
+    });
+
+    // Build a full-screen overlay that covers everything for printing
+    const overlay = document.createElement("div");
+    overlay.id = "__graphview_print_overlay__";
+    overlay.style.cssText = [
+      "position:fixed", "inset:0", "z-index:999999",
+      "background:white", "overflow:auto",
+      "padding:16px", "box-sizing:border-box",
+    ].join(";");
+    overlay.appendChild(clone);
+    document.body.appendChild(overlay);
+
+    // @media print: hide everything except overlay
     const style = document.createElement("style");
-    style.id = "__graphview_print__";
+    style.id = "__graphview_print_style__";
     style.innerHTML = `
       @media print {
-        @page { margin: 10mm; size: A4 landscape; }
-        nav, aside, .no-print { display: none !important; }
-        body { background: white !important; }
-        body > div { padding-top: 0 !important; }
-        main {
-          width: 100% !important;
-          height: auto !important;
-          overflow: visible !important;
+        @page { margin: 8mm; size: A4 landscape; }
+        body > *:not(#__graphview_print_overlay__) { display: none !important; }
+        #__graphview_print_overlay__ {
           position: static !important;
-        }
-        main > div {
-          height: auto !important;
           overflow: visible !important;
+          height: auto !important;
+          padding: 0 !important;
         }
-        /* Make all scrollable sections fully visible */
-        .overflow-y-auto, .overflow-hidden {
+        #__graphview_print_overlay__ * {
           overflow: visible !important;
           max-height: none !important;
-          height: auto !important;
         }
-        /* Hide action buttons */
-        button { display: none !important; }
-        /* Keep charts visible */
-        .recharts-wrapper, .recharts-surface { overflow: visible !important; }
       }
     `;
     document.head.appendChild(style);
 
     const cleanup = () => {
-      const el = document.getElementById("__graphview_print__");
-      if (el) el.remove();
+      overlay.remove();
+      style.remove();
       window.removeEventListener("afterprint", cleanup);
     };
     window.addEventListener("afterprint", cleanup);
-    window.print();
+
+    // Small delay so clone finishes rendering before print dialog
+    setTimeout(() => window.print(), 120);
   }, []);
 
   if (loading) return <LoadingScreen msg={loadMsg} />;
@@ -249,7 +269,7 @@ export default function GraphView({ onClose }) {
   ];
 
   return (
-    <div className="h-full w-full bg-gray-50 flex flex-col overflow-hidden">
+    <div ref={printRef} className="h-full w-full bg-gray-50 flex flex-col overflow-hidden">
 
       {/* ── TOP HEADER ────────────────────────────────────── */}
       <div className="bg-white border-b border-blue-100 shadow-sm shrink-0">
