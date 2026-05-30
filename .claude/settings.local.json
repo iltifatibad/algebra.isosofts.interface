@@ -8,7 +8,9 @@
       "Bash(node_modules/.bin/vite build *)",
       "Bash(node -e ' *)",
       "Bash(python3 -c ' *)",
-      "Bash(python3)"
+      "Bash(python3)",
+      "Bash(find /home/w2w/Desktop/isosofts.interface -type f | grep -v node_modules | sort | head -80)",
+      "Read(//home/w2w/Desktop/isosofts.interface/**)"
     ]
   }
 }

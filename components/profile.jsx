@@ -499,7 +499,7 @@ const RisksAssessment = () => {
             deadline: row.deadline,
             confirmation:
               row.confirmation?.id ?? "",
-            status: row.status?.id ?? row.status ?? "",
+            status: String(row.status?.id ?? row.status ?? ""),
             completionDate: row.completionDate || "",
             verificationStatus: row.verificationStatus?.id ?? "",
             comment: row.comment || "",
@@ -631,7 +631,7 @@ const RisksAssessment = () => {
         approverId: actionData.actionPlan?.[0]?.approverId || "",
           deadline: actionData.actionPlan?.[0]?.deadline || "",
           confirmation: actionData.actionPlan?.[0]?.confirmation || "",
-          status: actionData.actionPlan?.[0]?.status || 0,
+          status: String(actionData.actionPlan?.[0]?.status ?? ""),
           completionDate: actionData.actionPlan?.[0]?.completionDate || "",
           verificationStatus:
             actionData.actionPlan?.[0]?.verificationStatus || "",
@@ -717,7 +717,7 @@ const RisksAssessment = () => {
           sendNotification: actionData.actionPlan?.[0]?.sendNotification ?? 0,
           deadline: actionData.actionPlan?.[0]?.deadline || "",
           confirmation: actionData.actionPlan?.[0]?.confirmation || "",
-          status: actionData.actionPlan?.[0]?.status || 0,
+          status: String(actionData.actionPlan?.[0]?.status ?? ""),
           completionDate: actionData.actionPlan?.[0]?.completionDate || "",
           verificationStatus: actionData.actionPlan?.[0]?.verificationStatus || "",
           comment: actionData.actionPlan?.[0]?.comment || "",
