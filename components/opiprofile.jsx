@@ -765,8 +765,8 @@ const OPIProfile = () => {
             } else {
               console.log("SELECTED actionData ", actionData);
               console.log("SELECTED PAYLOAD ", payload);
-              setActionData([payload]);
-              setSelectedTableForActions([payload]);
+              setSelectedTableForActions([]);
+              setSelectedRowsForActions(new Set());
               console.log("SELECTED actionData ", actionData);
               toast.success("Record saved successfully.");
             }

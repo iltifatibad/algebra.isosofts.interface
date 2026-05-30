@@ -783,8 +783,8 @@ async function getDefaultVendors() {
                         toast.error("Record could not be saved.");
                     } else {
                         toast.success("Record saved successfully.");
-                        setActionData([payload]);
-                        setSelectedTableForActions([payload]);
+                        setSelectedTableForActions([]);
+                        setSelectedRowsForActions(new Set());
                         setRefresh(true);
                         closeModal();
                     }
