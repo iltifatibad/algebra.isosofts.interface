@@ -1455,14 +1455,14 @@ const archiveData = (id) => {
                     <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">{label}</label>
                     {type === "date" ? (
                       <input
-                        value={actionData?.actionPlan?.[0]?.[field] || ""}
+                        value={actionData?.actionPlan?.[0]?.[field] ?? ""}
                         onChange={(e) => handleFormChange(`actionPlan[0].${field}`, e.target.value)}
                         type="date"
                         className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                       />
                     ) : (
                       <select
-                        value={actionData?.actionPlan?.[0]?.[field] || ""}
+                        value={actionData?.actionPlan?.[0]?.[field] ?? ""}
                         onChange={(e) => handleFormChange(`actionPlan[0].${field}`, e.target.value)}
                         className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                       >
@@ -1486,14 +1486,14 @@ const archiveData = (id) => {
                     <label className="block text-xs font-medium text-gray-500 mb-1.5 group-focus-within:text-blue-500 transition-colors">{label}</label>
                     {type === "date" ? (
                       <input
-                        value={actionData?.actionPlan?.[0]?.[field] || ""}
+                        value={actionData?.actionPlan?.[0]?.[field] ?? ""}
                         onChange={(e) => handleFormChange(`actionPlan[0].${field}`, e.target.value)}
                         type="date"
                         className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                       />
                     ) : (
                       <select
-                        value={actionData?.actionPlan?.[0]?.[field] || ""}
+                        value={actionData?.actionPlan?.[0]?.[field] ?? ""}
                         onChange={(e) => handleFormChange(`actionPlan[0].${field}`, e.target.value)}
                         className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent focus:bg-white transition-all"
                       >
