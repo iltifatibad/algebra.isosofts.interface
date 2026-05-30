@@ -205,9 +205,16 @@ const RiskRouter = () => {
 
   const handleNavSelect = (id) => {
     setSelectedRisk(id);
-    // Close sidebar on mobile after selection
+    setShowGraph(false);
     if (window.innerWidth < 1024) setIsSidebarOpen(false);
   };
+
+  // Listen for navbar System Map button
+  useEffect(() => {
+    const handler = () => setShowGraph(true);
+    window.addEventListener("algebra:openSystemMap", handler);
+    return () => window.removeEventListener("algebra:openSystemMap", handler);
+  }, []);
 
   return (
     <UserProvider value={{ isSuperAdmin, openExport }}>

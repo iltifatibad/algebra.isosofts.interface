@@ -68,6 +68,16 @@ const NavigationBar = () => {
 
           {/* Right — company badge + account button */}
           <div className="flex items-center gap-3">
+
+            {/* System Map button */}
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent("algebra:openSystemMap"))}
+              className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 text-xs font-semibold transition-colors"
+            >
+              <i className="fas fa-diagram-project text-xs" />
+              System Map
+            </button>
+
             {(companyName || userName) && (
               <div className="hidden md:flex items-center gap-2.5 bg-blue-50 border border-blue-100 rounded-xl px-3 py-1.5">
                 <div className="leading-tight">
@@ -121,6 +131,14 @@ const NavigationBar = () => {
                 {label}
               </a>
             ))}
+            <button
+              onClick={() => { window.dispatchEvent(new CustomEvent("algebra:openSystemMap")); setMenuOpen(false); }}
+              className="w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm text-indigo-700 bg-indigo-50 border border-indigo-100 font-semibold mb-1"
+            >
+              <i className="fas fa-diagram-project text-xs" />
+              System Map
+            </button>
+
             <div className="pt-2 border-t border-gray-100">
               {(companyName || userName) && (
                 <div className="flex items-center gap-2.5 px-3 py-2 mb-1">
