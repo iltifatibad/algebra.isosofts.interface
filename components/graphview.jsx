@@ -3,6 +3,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell,
   PieChart, Pie, Legend,
 } from "recharts";
+import { fetchStaffName } from "./utils/staffCache.js";
 
 const getToken = () =>
   document.cookie.split("; ").find(r => r.startsWith("auth_token="))?.split("=").slice(1).join("=") ?? "";
@@ -41,13 +42,6 @@ const isOverdue = (action) => {
   if (!action.deadline) return false;
   const d = new Date(action.deadline);
   return !isNaN(d) && d < new Date();
-};
-
-const getPersonName = (val) => {
-  if (!val) return null;
-  if (typeof val === "string") return val.trim() || null;
-  if (typeof val === "object") return (val.name || val.value || val.label || String(val.id || "")).trim() || null;
-  return null;
 };
 
 const TODAY = new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
@@ -106,7 +100,7 @@ export default function GraphView({ onClose }) {
       }
     } catch { /* skip */ }
 
-    // Build per-module stats
+    // Build per-module actions lookup
     const actionsByRecord = {};
     allActions.forEach(act => {
       const rid = String(act.registerId || act.register_id || act.componentId || "");
@@ -114,6 +108,21 @@ export default function GraphView({ onClose }) {
       if (!actionsByRecord[rid]) actionsByRecord[rid] = [];
       actionsByRecord[rid].push(act);
     });
+
+    // Resolve all staff IDs → names in one parallel batch
+    setLoadMsg("Resolving staff names…");
+    const staffIds = new Set();
+    allActions.forEach(a => {
+      if (a.responsibleId) staffIds.add(String(a.responsibleId));
+      if (a.approverId)    staffIds.add(String(a.approverId));
+    });
+    const staffMap = {};
+    await Promise.all([...staffIds].map(async id => {
+      const name = await fetchStaffName(id);
+      if (name) staffMap[id] = name;
+    }));
+
+    const resolvedName = (id) => (id ? staffMap[String(id)] || null : null);
 
     const moduleStats = MODULES.map(mod => {
       const records = moduleRecords[mod.id] || [];
@@ -125,16 +134,14 @@ export default function GraphView({ onClose }) {
       const overdue    = actions.filter(a => isOverdue(a)).length;
       const rate       = actions.length ? Math.round((complete / actions.length) * 100) : null;
 
-      // Unique responsible persons
       const responsibleMap = {};
       actions.forEach(a => {
-        const n = getPersonName(a.responsible || a.responsibleName);
+        const n = resolvedName(a.responsibleId);
         if (n) responsibleMap[n] = (responsibleMap[n] || 0) + 1;
       });
-      // Approvers
       const approverMap = {};
       actions.forEach(a => {
-        const n = getPersonName(a.approver || a.approverName);
+        const n = resolvedName(a.approverId);
         if (n) approverMap[n] = (approverMap[n] || 0) + 1;
       });
 
@@ -155,9 +162,9 @@ export default function GraphView({ onClose }) {
     const globalResp = {};
     const globalAppr = {};
     allActions.forEach(a => {
-      const n = getPersonName(a.responsible || a.responsibleName);
+      const n = resolvedName(a.responsibleId);
       if (n) globalResp[n] = (globalResp[n] || 0) + 1;
-      const ap = getPersonName(a.approver || a.approverName);
+      const ap = resolvedName(a.approverId);
       if (ap) globalAppr[ap] = (globalAppr[ap] || 0) + 1;
     });
 
