@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { UserProvider } from "./utils/UserContext.jsx";
 import ExportModal from "./utils/ExportModal.jsx";
+import GraphView from "./graphview.jsx";
 
 import RisksAssessment from "./profile.jsx";
 import HsProfile from "./hsprofile.jsx";
@@ -52,6 +53,7 @@ const RiskRouter = () => {
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const [exportModuleKey, setExportModuleKey] = useState(null);
   const [showExport, setShowExport] = useState(false);
+  const [showGraph, setShowGraph] = useState(false);
 
   // On mobile default sidebar closed
   useEffect(() => {
@@ -274,7 +276,7 @@ const RiskRouter = () => {
           </nav>
 
           {/* Export All button */}
-          <div className="p-2 border-t border-blue-50">
+          <div className="p-2 border-t border-blue-50 flex flex-col gap-1.5">
             <button
               onClick={() => { setExportModuleKey(null); setShowExport(true); }}
               title={!isSidebarOpen ? "Export All" : ""}
@@ -284,6 +286,18 @@ const RiskRouter = () => {
               <span className={`ml-4 text-sm font-semibold transition-all duration-300 whitespace-nowrap
                 ${isSidebarOpen ? "opacity-100 visible w-auto" : "opacity-0 invisible w-0 hidden"}`}>
                 Export All
+              </span>
+            </button>
+
+            <button
+              onClick={() => setShowGraph(true)}
+              title={!isSidebarOpen ? "System Map" : ""}
+              className="w-full flex items-center p-3 rounded-xl bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition-all duration-200"
+            >
+              <i className="fas fa-diagram-project text-lg min-w-[24px] flex justify-center" />
+              <span className={`ml-4 text-sm font-semibold transition-all duration-300 whitespace-nowrap
+                ${isSidebarOpen ? "opacity-100 visible w-auto" : "opacity-0 invisible w-0 hidden"}`}>
+                System Map
               </span>
             </button>
           </div>
@@ -335,6 +349,8 @@ const RiskRouter = () => {
       onClose={() => setShowExport(false)}
       moduleKey={exportModuleKey}
     />
+
+    {showGraph && <GraphView onClose={() => setShowGraph(false)} />}
     </UserProvider>
   );
 };
