@@ -45,11 +45,11 @@ const getActionColor = (status) => {
 
 const getLabel = (mod, rec) => {
   if (!rec) return "—";
-  return (
-    rec.title || rec.name || rec.employeeName || rec.legislation ||
-    rec.activityDescription || rec.riskOpportunity || rec.hazard ||
-    rec.aspect || rec.topic || String(rec.no || rec.id || "").slice(0, 20) || "—"
-  );
+  const val =
+    rec.title ?? rec.name ?? rec.employeeName ?? rec.legislation ??
+    rec.activityDescription ?? rec.riskOpportunity ?? rec.hazard ??
+    rec.aspect ?? rec.topic ?? rec.no ?? rec.id ?? "—";
+  return String(val || "—");
 };
 
 const FILTERS = [
@@ -144,7 +144,8 @@ export default function GraphView({ onClose }) {
 
     MODULES.forEach((mod, mi) => {
       if (!filters.modules) return;
-      const records = moduleRecords[mod.id] || [];
+      const rawRecords = moduleRecords[mod.id];
+      const records = Array.isArray(rawRecords) ? rawRecords : [];
       const count = records.length;
 
       nodes.push({
@@ -172,7 +173,8 @@ export default function GraphView({ onClose }) {
       records.slice(0, 10).forEach((rec, ri) => {
         const recId = `${mod.id}__rec__${rec.id || ri}`;
         const recLabel = getLabel(mod, rec).slice(0, 24);
-        const recActions = actionsByRecord[rec.id] || (Array.isArray(rec.actions) ? rec.actions : []);
+        const recActionsRaw = actionsByRecord[rec.id] ?? (Array.isArray(rec.actions) ? rec.actions : []);
+        const recActions = Array.isArray(recActionsRaw) ? recActionsRaw : [];
 
         nodes.push({
           id: recId,
